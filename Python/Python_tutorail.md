@@ -1,5 +1,7 @@
 # **Python教程**   
 
+[TOC]
+
 ## 廖雪峰老师的Python[教程](https://www.liaoxuefeng.com/wiki/1016959663602400)   
 
 > 1.优点:  
@@ -18,7 +20,7 @@
 
 ## 白月黑羽Python[教程](http://www.python3.vip/doc/tutorial/python/0001/)   
 
-## 嵩天老师Python[^MOOC][教程](https://www.icourse163.org/course/BIT-268001)   
-[^MOOC]:   B站有全套视频   
+## 嵩天老师Python[教程](https://www.icourse163.org/course/BIT-268001)[^B站]   
+[^B站]:   B站有全套视频   
 
 
