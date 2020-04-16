@@ -1,16 +1,20 @@
-记录一下学习过程
+**记录一下学习过程**
 ==============
 
 
-Python
+**Python**
 -----------
-JavaScript
+  学习比较久的一个语言，虽然都说简单但是想要应用还是有一定难度的。
+  这是觉得比较好的[Python教程](/Python_course.md)。
+  这是写的一些[小工具/脚本](Python_output.md)
+
+**JavaScript**
 -------
 
-Markdown
+**Markdown**
 ----------
 
-HTML
+**HTML**
 -------------
 
 
