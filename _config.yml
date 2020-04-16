@@ -1,1 +1,9 @@
+title: phdsx's blog #站点名，站点左上角
+subtitle: 学习记录 #副标题，站点左上角
+description: phdsx学习记录 #给搜索引擎看的，对站点的描述，可以自定义
+author: phdsx #在站点左下角可以看到
+email: #你的联系邮箱
+language: zh-CN #中国人嘛，用中文
+
+
 theme: jekyll-theme-cayman
