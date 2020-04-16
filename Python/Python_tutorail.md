@@ -10,7 +10,7 @@
 > + 分类清晰
 
 > 2.不足：
-> + 老师使用的是Mac系统，部分内容在win上很难复现
+> + 老师使用的是Mac系统，部分内容在win上很难复现[^1]
 > + 中间部分难度上升较快，有时新手遇到问题不知道如何解决让人非常头疼   
 
 ## 小甲鱼带你学Python  
@@ -20,7 +20,7 @@
 
 ## 白月黑羽Python[教程](http://www.python3.vip/doc/tutorial/python/0001/)   
 
-## 嵩天老师Python[教程](https://www.icourse163.org/course/BIT-268001)[^B站]   
-[^B站]:   B站有全套视频   
+## 嵩天老师Python[教程](https://www.icourse163.org/course/BIT-268001)   
+[^1]:B站有全套视频   
 
 
