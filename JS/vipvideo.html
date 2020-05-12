@@ -7,25 +7,29 @@
   </head>
   <body>
     <h1>VIP视频解析</h1>
-    <img src="images/firefox-icon.png" alt="Firefox 标志：一只盘旋在地球上的火狐">
-	    <script>
-      function getUrl(){
-      let tar_url=document.getElementById('url').value;
-	  tar_url='https://jx.idc126.net/jx/?url='+tar_url;
-	  return tar_url;
-	  }
-	  
-    </script>
-    <p>请输入视频地址</p>
-    <input id="url" type="text"><button type="button" onclick="getUrl">解析</button>
+    <img src="images/11.jpg" height="200" width="200">
+	<script>
+	
+	function geturl(){
+	var preurl="http://jx.598110.com/?url=";
+	var x=document.getElementById("input").value;
+	url=preurl+x;
+	window.open(url);
+	}
+	//window.open("http://www.baidu.com")
+	</script>
+    <p>请输入视频完整地址:</p>
+    <input id="input" type="text" style="width:500px"><button type="button" onclick="geturl()">解析</button>
 
+	<h2>支持的网站：</h2>
     <ul>
       <li>腾讯</li>
       <li>爱奇艺</li>
       <li>优酷</li>
     </ul>
-
-    
-	<video width="658" height="444" src='https://jx.idc126.net/jx/?url=https://v.qq.com/x/page/d30031hm2g5_0.html' poster="/images/firefox-icon.png" autoplay="autoplay"></video>
+	<div class="contain">
+		<center><p style="font-size:30px;color:red">本页面仅供学习测试</br>请勿滥用</p></center>
+	</div>
+	
   </body>
 </html>
