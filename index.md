@@ -22,7 +22,7 @@
 新发现的富文本文档，简单易上手，目前主要在[菜鸟教程](https://www.runoob.com/markdown/md-tutorial.html)
 学习。本页面即为学习成果。
 
-<script type="text/javascript" src="https://tajs.qq.com/stats?sId=66545548" charset="UTF-8"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66545548" charset="UTF-8"></script>
 
 
 
