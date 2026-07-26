@@ -1,6 +1,16 @@
 function normalizeText(value) {
   return (value || '').toString().trim().toLowerCase();
 }
+function initSiteNavigation() {
+  const current = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.site-nav .nav-link').forEach((link) => {
+    const target = new URL(link.href, location.href).pathname.split('/').pop() || 'index.html';
+    const active = target === current || (current === 'blog-post.html' && target === 'blog.html');
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+}
 function initCardSearch(inputSelector, cardSelector) {
   const input = document.querySelector(inputSelector);
   if (!input) return;
@@ -47,5 +57,6 @@ function initBlogFilters() {
   if (sort) sort.addEventListener('change', apply);
   apply();
 }
+initSiteNavigation();
 initCardSearch('[data-tool-search]', '[data-keywords]');
 initBlogFilters();

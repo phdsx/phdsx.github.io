@@ -1831,7 +1831,10 @@ define("scripts/lib/buzz.js", function(exports){
 	              return this;
 	            }
 	
-	            this.sound.play();
+	            var playRequest = this.sound.play();
+	            if ( playRequest && playRequest.catch ) {
+	                playRequest.catch(function(){});
+	            }
 	            return this;
 	        };
 	
@@ -1841,7 +1844,10 @@ define("scripts/lib/buzz.js", function(exports){
 	            }
 	
 	            if ( this.sound.paused ) {
-	                this.sound.play();
+	                var playRequest = this.sound.play();
+	                if ( playRequest && playRequest.catch ) {
+	                    playRequest.catch(function(){});
+	                }
 	            } else {
 	                this.sound.pause();
 	            }
