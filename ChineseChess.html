@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中国象棋 - PHDSX</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark">P</span><span>PHDSX</span></a>
+    <nav class="site-nav" aria-label="主导航"><a class="nav-link" href="index.html">首页</a><a class="nav-link" href="tools.html">工具</a><a class="nav-link active" href="games.html">游戏</a><a class="nav-link" href="blog.html">博客</a><a class="nav-link" href="directory.html">黄页</a></nav>
+  </header>
+  <main>
+    <section class="section">
+      <div class="section-head"><div><h2>中国象棋</h2><p class="section-lede">本地双人对弈。点击棋子后选择高亮位置移动，吃掉对方将帅即可结束。</p></div></div>
+      <div class="board-wrap">
+        <div class="chess-board" id="board" aria-label="中国象棋棋盘"></div>
+        <aside class="chess-panel">
+          <h3 id="status">红方行棋</h3>
+          <p class="section-lede">支持车、马、相/象、仕/士、帅/将、炮、兵/卒的基础走法，含蹩马腿、塞象眼、炮架和将帅照面判断。</p>
+          <div class="hero-actions"><button class="button primary" type="button" id="restart">重新开局</button><a class="button" href="games.html">返回游戏</a></div>
+          <ol class="move-list" id="moves"></ol>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>PHDSX 个人主页</span><span>Games</span></footer>
+<script>
+(function(){
+  const boardEl = document.getElementById('board');
+  const statusEl = document.getElementById('status');
+  const movesEl = document.getElementById('moves');
+  const labels = { r:{K:'帅',A:'仕',B:'相',N:'马',R:'车',C:'炮',P:'兵'}, b:{K:'将',A:'士',B:'象',N:'马',R:'车',C:'炮',P:'卒'} };
+  let board, turn, selected, legal, over;
+  function makePiece(side,type){ return {side:side,type:type}; }
+  function reset(){
+    board = Array.from({length:10}, () => Array(9).fill(null));
+    const back = ['R','N','B','A','K','A','B','N','R'];
+    back.forEach((t,x) => { board[0][x]=makePiece('b',t); board[9][x]=makePiece('r',t); });
+    board[2][1]=makePiece('b','C'); board[2][7]=makePiece('b','C'); board[7][1]=makePiece('r','C'); board[7][7]=makePiece('r','C');
+    [0,2,4,6,8].forEach(x => { board[3][x]=makePiece('b','P'); board[6][x]=makePiece('r','P'); });
+    turn='r'; selected=null; legal=[]; over=false; movesEl.innerHTML=''; render();
+  }
+  function inBoard(x,y){ return x>=0 && x<9 && y>=0 && y<10; }
+  function palace(side,x,y){ return x>=3 && x<=5 && (side==='r' ? y>=7 && y<=9 : y>=0 && y<=2); }
+  function same(a,b){ return a && b && a.side===b.side; }
+  function countBetween(x1,y1,x2,y2){
+    let count=0;
+    if(x1===x2){ const a=Math.min(y1,y2)+1,b=Math.max(y1,y2); for(let y=a;y<b;y++) if(board[y][x1]) count++; }
+    if(y1===y2){ const a=Math.min(x1,x2)+1,b=Math.max(x1,x2); for(let x=a;x<b;x++) if(board[y1][x]) count++; }
+    return count;
+  }
+  function kingsFaceAfter(x1,y1,x2,y2){
+    const copy = board.map(row => row.slice());
+    copy[y2][x2]=copy[y1][x1]; copy[y1][x1]=null;
+    let red=null, black=null;
+    for(let y=0;y<10;y++) for(let x=0;x<9;x++){ const p=copy[y][x]; if(p && p.type==='K') { if(p.side==='r') red={x,y}; else black={x,y}; } }
+    if(!red || !black || red.x!==black.x) return false;
+    const a=Math.min(red.y,black.y)+1,b=Math.max(red.y,black.y);
+    for(let y=a;y<b;y++) if(copy[y][red.x]) return false;
+    return true;
+  }
+  function rawLegal(x,y){
+    const p=board[y][x]; if(!p) return [];
+    const out=[];
+    function add(nx,ny){ if(inBoard(nx,ny) && !same(p,board[ny][nx])) out.push([nx,ny]); }
+    if(p.type==='R') {
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{ let nx=x+d[0], ny=y+d[1]; while(inBoard(nx,ny)){ if(board[ny][nx]){ if(board[ny][nx].side!==p.side) out.push([nx,ny]); break; } out.push([nx,ny]); nx+=d[0]; ny+=d[1]; } });
+    }
+    if(p.type==='C') {
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{ let nx=x+d[0], ny=y+d[1], jumped=false; while(inBoard(nx,ny)){ if(!jumped){ if(board[ny][nx]) jumped=true; else out.push([nx,ny]); } else if(board[ny][nx]){ if(board[ny][nx].side!==p.side) out.push([nx,ny]); break; } nx+=d[0]; ny+=d[1]; } });
+    }
+    if(p.type==='N') [[1,2,0,1],[-1,2,0,1],[1,-2,0,-1],[-1,-2,0,-1],[2,1,1,0],[2,-1,1,0],[-2,1,-1,0],[-2,-1,-1,0]].forEach(m=>{ if(!board[y+m[3]][x+m[2]]) add(x+m[0],y+m[1]); });
+    if(p.type==='B') [[2,2],[2,-2],[-2,2],[-2,-2]].forEach(m=>{ const nx=x+m[0], ny=y+m[1], ex=x+m[0]/2, ey=y+m[1]/2; if(inBoard(nx,ny) && !board[ey][ex] && (p.side==='r' ? ny>=5 : ny<=4)) add(nx,ny); });
+    if(p.type==='A') [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(m=>{ const nx=x+m[0], ny=y+m[1]; if(palace(p.side,nx,ny)) add(nx,ny); });
+    if(p.type==='K') [[1,0],[-1,0],[0,1],[0,-1]].forEach(m=>{ const nx=x+m[0], ny=y+m[1]; if(palace(p.side,nx,ny)) add(nx,ny); });
+    if(p.type==='P') {
+      const forward = p.side==='r' ? -1 : 1; add(x,y+forward);
+      const crossed = p.side==='r' ? y<=4 : y>=5;
+      if(crossed){ add(x+1,y); add(x-1,y); }
+    }
+    return out.filter(m => !kingsFaceAfter(x,y,m[0],m[1]));
+  }
+  function render(){
+    boardEl.innerHTML='';
+    for(let y=0;y<10;y++) for(let x=0;x<9;x++){
+      const cell=document.createElement('button'); cell.type='button'; cell.className='chess-cell'; cell.dataset.x=x; cell.dataset.y=y;
+      if(y===4 || y===5) cell.classList.add('river');
+      if(selected && selected.x===x && selected.y===y) cell.classList.add('selected');
+      if(legal.some(m=>m[0]===x && m[1]===y)) cell.classList.add('legal');
+      const p=board[y][x];
+      if(p){ const piece=document.createElement('span'); piece.className='piece ' + (p.side==='r'?'red':'black'); piece.textContent=labels[p.side][p.type]; cell.appendChild(piece); }
+      cell.addEventListener('click', () => clickCell(x,y)); boardEl.appendChild(cell);
+    }
+    statusEl.textContent = over ? statusEl.textContent : (turn==='r' ? '红方行棋' : '黑方行棋');
+  }
+  function clickCell(x,y){
+    if(over) return;
+    const p=board[y][x];
+    if(selected){
+      const ok=legal.some(m=>m[0]===x && m[1]===y);
+      if(ok){ move(selected.x,selected.y,x,y); return; }
+    }
+    if(p && p.side===turn){ selected={x:x,y:y}; legal=rawLegal(x,y); render(); }
+    else { selected=null; legal=[]; render(); }
+  }
+  function move(x1,y1,x2,y2){
+    const p=board[y1][x1], target=board[y2][x2];
+    board[y2][x2]=p; board[y1][x1]=null;
+    const li=document.createElement('li'); li.textContent=(p.side==='r'?'红':'黑') + labels[p.side][p.type] + '：' + (x1+1) + ',' + (y1+1) + ' 到 ' + (x2+1) + ',' + (y2+1) + (target ? '，吃 ' + labels[target.side][target.type] : ''); movesEl.prepend(li);
+    if(target && target.type==='K'){ over=true; statusEl.textContent=(p.side==='r'?'红方':'黑方') + '获胜'; }
+    else turn = turn==='r' ? 'b' : 'r';
+    selected=null; legal=[]; render();
+  }
+  document.getElementById('restart').addEventListener('click', reset);
+  reset();
+})();
+</script>
+</body>
+</html>

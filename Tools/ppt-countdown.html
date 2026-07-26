@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT放映悬浮倒计时工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: transparent;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .floating-timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            min-width: 200px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .time-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .control-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+        
+        .start-btn { background: #4CAF50; color: white; }
+        .pause-btn { background: #ff9800; color: white; }
+        .reset-btn { background: #f44336; color: white; }
+        
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .settings-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000000;
+            display: none;
+            min-width: 300px;
+        }
+        
+        .settings-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+        
+        .setting-item {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .setting-label {
+            color: white;
+            font-size: 0.95em;
+        }
+        
+        .setting-input {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .setting-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        .apply-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .close-settings {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        
+        .warning {
+            color: #FFC107 !important;
+            animation: blinkWarning 1s infinite;
+        }
+        
+        @keyframes blinkWarning {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .alarm {
+            animation: alarmPulse 0.5s infinite alternate;
+        }
+        
+        @keyframes alarmPulse {
+            from { 
+                background: rgba(244, 67, 54, 0.85);
+                box-shadow: 0 0 20px rgba(244, 67, 54, 0.6);
+            }
+            to { 
+                background: rgba(0, 0, 0, 0.85);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+        }
+        
+        .drag-handle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            cursor: move;
+            background: transparent;
+        }
+        
+        .position-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000001;
+            display: none;
+            font-size: 0.9em;
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/standalone.css">
+  <script defer src="../assets/standalone.js" data-home="../index.html" data-return="../tools.html" data-return-label="Tools"></script>
+</head>
+<body>
+    <div class="floating-timer" id="floatingTimer">
+        <div class="drag-handle" id="dragHandle"></div>
+        <div class="time-display" id="timeDisplay">05:00</div>
+        <div class="controls">
+            <button class="control-btn start-btn" id="startBtn">开始</button>
+            <button class="control-btn pause-btn" id="pauseBtn">暂停</button>
+            <button class="control-btn reset-btn" id="resetBtn">重置</button>
+        </div>
+    </div>
+    
+    <div class="settings-panel" id="settingsPanel">
+        <button class="close-settings" id="closeSettings">×</button>
+        <div class="settings-title">倒计时设置</div>
+        
+        <div class="setting-item">
+            <span class="setting-label">分钟:</span>
+            <input type="number" id="minutesInput" class="setting-input" min="0" max="120" value="5">
+        </div>
+        
+        <div class="setting-item">
+            <span class="setting-label">秒钟:</span>
+            <input type="number" id="secondsInput" class="setting-input" min="0" max="59" value="0">
+        </div>
+        
+        <div class="setting-item">
+            <span class="setting-label">位置:</span>
+            <select id="positionSelect" class="setting-input">
+                <option value="top-right">右上角</option>
+                <option value="top-left">左上角</option>
+                <option value="bottom-right">右下角</option>
+                <option value="bottom-left">左下角</option>
+                <option value="center">居中</option>
+            </select>
+        </div>
+        
+        <div class="setting-item">
+            <span class="setting-label">透明度:</span>
+            <input type="range" id="opacitySlider" class="setting-input" min="0.5" max="1" step="0.1" value="0.85">
+        </div>
+        
+        <div class="setting-item">
+            <span class="setting-label">字体大小:</span>
+            <select id="fontSizeSelect" class="setting-input">
+                <option value="2em">小</option>
+                <option value="2.5em" selected>中</option>
+                <option value="3em">大</option>
+            </select>
+        </div>
+        
+        <button class="apply-btn" id="applySettings">应用设置</button>
+    </div>
+    
+    <div class="position-indicator" id="positionIndicator"></div>
+
+    <script>
+        // 全局变量
+        let totalSeconds = 300; // 默认5分钟
+        let remainingSeconds = totalSeconds;
+        let timerInterval = null;
+        let isRunning = false;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+        let isDragging = false;
+        
+        // DOM元素
+        const floatingTimer = document.getElementById('floatingTimer');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const closeSettings = document.getElementById('closeSettings');
+        const applySettings = document.getElementById('applySettings');
+        const dragHandle = document.getElementById('dragHandle');
+        const positionIndicator = document.getElementById('positionIndicator');
+        
+        // 输入元素
+        const minutesInput = document.getElementById('minutesInput');
+        const secondsInput = document.getElementById('secondsInput');
+        const positionSelect = document.getElementById('positionSelect');
+        const opacitySlider = document.getElementById('opacitySlider');
+        const fontSizeSelect = document.getElementById('fontSizeSelect');
+        
+        // 初始化
+        initializeTimer();
+        
+        // 初始化计时器
+        function initializeTimer() {
+            updateDisplay();
+            loadSettings();
+            setupEventListeners();
+        }
+        
+        // 加载保存的设置
+        function loadSettings() {
+            const savedSettings = JSON.parse(localStorage.getItem('pptTimerSettings')) || {};
+            
+            if (savedSettings.position) {
+                setPosition(savedSettings.position);
+                positionSelect.value = savedSettings.position;
+            }
+            
+            if (savedSettings.opacity) {
+                floatingTimer.style.background = `rgba(0, 0, 0, ${savedSettings.opacity})`;
+                opacitySlider.value = savedSettings.opacity;
+            }
+            
+            if (savedSettings.fontSize) {
+                timeDisplay.style.fontSize = savedSettings.fontSize;
+                fontSizeSelect.value = savedSettings.fontSize;
+            }
+            
+            if (savedSettings.time) {
+                minutesInput.value = savedSettings.time.minutes || 5;
+                secondsInput.value = savedSettings.time.seconds || 0;
+            }
+        }
+        
+        // 保存设置
+        function saveSettings() {
+            const settings = {
+                position: getPositionFromStyle(),
+                opacity: parseFloat(opacitySlider.value),
+                fontSize: fontSizeSelect.value,
+                time: {
+                    minutes: parseInt(minutesInput.value) || 0,
+                    seconds: parseInt(secondsInput.value) || 0
+                }
+            };
+            localStorage.setItem('pptTimerSettings', JSON.stringify(settings));
+        }
+        
+        // 获取当前位置
+        function getPositionFromStyle() {
+            const rect = floatingTimer.getBoundingClientRect();
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+            
+            // 判断位置
+            if (rect.top < 50 && rect.right > winWidth - 100) return 'top-right';
+            if (rect.top < 50 && rect.left < 100) return 'top-left';
+            if (rect.bottom > winHeight - 50 && rect.right > winWidth - 100) return 'bottom-right';
+            if (rect.bottom > winHeight - 50 && rect.left < 100) return 'bottom-left';
+            if (Math.abs(rect.left - winWidth/2 + rect.width/2) < 50 && 
+                Math.abs(rect.top - winHeight/2 + rect.height/2) < 50) return 'center';
+            
+            return 'custom'; // 自定义位置
+        }
+        
+        // 设置位置
+        function setPosition(position) {
+            const width = floatingTimer.offsetWidth;
+            const height = floatingTimer.offsetHeight;
+            const padding = 20;
+            
+            switch(position) {
+                case 'top-right':
+                    floatingTimer.style.top = `${padding}px`;
+                    floatingTimer.style.right = `${padding}px`;
+                    floatingTimer.style.left = 'auto';
+                    floatingTimer.style.bottom = 'auto';
+                    break;
+                case 'top-left':
+                    floatingTimer.style.top = `${padding}px`;
+                    floatingTimer.style.left = `${padding}px`;
+                    floatingTimer.style.right = 'auto';
+                    floatingTimer.style.bottom = 'auto';
+                    break;
+                case 'bottom-right':
+                    floatingTimer.style.bottom = `${padding}px`;
+                    floatingTimer.style.right = `${padding}px`;
+                    floatingTimer.style.top = 'auto';
+                    floatingTimer.style.left = 'auto';
+                    break;
+                case 'bottom-left':
+                    floatingTimer.style.bottom = `${padding}px`;
+                    floatingTimer.style.left = `${padding}px`;
+                    floatingTimer.style.top = 'auto';
+                    floatingTimer.style.right = 'auto';
+                    break;
+                case 'center':
+                    floatingTimer.style.top = '50%';
+                    floatingTimer.style.left = '50%';
+                    floatingTimer.style.transform = 'translate(-50%, -50%)';
+                    floatingTimer.style.right = 'auto';
+                    floatingTimer.style.bottom = 'auto';
+                    break;
+            }
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            // 控制按钮
+            startBtn.addEventListener('click', startTimer);
+            pauseBtn.addEventListener('click', pauseTimer);
+            resetBtn.addEventListener('click', resetTimer);
+            
+            // 设置面板
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === ',') {
+                    e.preventDefault();
+                    toggleSettings();
+                }
+            });
+            
+            closeSettings.addEventListener('click', () => {
+                settingsPanel.style.display = 'none';
+            });
+            
+            applySettings.addEventListener('click', () => {
+                applyCurrentSettings();
+                settingsPanel.style.display = 'none';
+            });
+            
+            // 拖拽功能
+            dragHandle.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', dragMove);
+            document.addEventListener('mouseup', endDrag);
+            
+            // 防止拖拽时选中文本
+            dragHandle.addEventListener('selectstart', (e) => e.preventDefault());
+        }
+        
+        // 开始计时
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    remainingSeconds--;
+                    updateDisplay();
+                    
+                    if (remainingSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        timeDisplay.classList.add('alarm');
+                        showAlarmNotification();
+                    }
+                }, 1000);
+            }
+        }
+        
+        // 暂停计时
+        function pauseTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+            }
+        }
+        
+        // 重置计时
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timeDisplay.classList.remove('alarm');
+            
+            const minutes = parseInt(minutesInput.value) || 0;
+            const seconds = parseInt(secondsInput.value) || 0;
+            totalSeconds = minutes * 60 + seconds;
+            remainingSeconds = totalSeconds;
+            
+            updateDisplay();
+        }
+        
+        // 更新显示
+        function updateDisplay() {
+            const mins = Math.floor(remainingSeconds / 60).toString().padStart(2, '0');
+            const secs = (remainingSeconds % 60).toString().padStart(2, '0');
+            
+            timeDisplay.textContent = `${mins}:${secs}`;
+            
+            // 剩余时间少于1分钟时显示警告
+            if (remainingSeconds <= 60 && remainingSeconds > 0) {
+                timeDisplay.classList.add('warning');
+            } else {
+                timeDisplay.classList.remove('warning');
+            }
+        }
+        
+        // 显示设置面板
+        function toggleSettings() {
+            settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        // 应用当前设置
+        function applyCurrentSettings() {
+            setPosition(positionSelect.value);
+            floatingTimer.style.background = `rgba(0, 0, 0, ${opacitySlider.value})`;
+            timeDisplay.style.fontSize = fontSizeSelect.value;
+            saveSettings();
+        }
+        
+        // 拖拽开始
+        function startDrag(e) {
+            isDragging = true;
+            const rect = floatingTimer.getBoundingClientRect();
+            dragOffsetX = e.clientX - rect.left;
+            dragOffsetY = e.clientY - rect.top;
+            
+            // 移除固定定位的transform（如果是居中的话）
+            if (floatingTimer.style.transform === 'translate(-50%, -50%)') {
+                floatingTimer.style.top = `${rect.top}px`;
+                floatingTimer.style.left = `${rect.left}px`;
+                floatingTimer.style.transform = 'none';
+                floatingTimer.style.right = 'auto';
+                floatingTimer.style.bottom = 'auto';
+            }
+        }
+        
+        // 拖拽移动
+        function dragMove(e) {
+            if (!isDragging) return;
+            
+            const x = e.clientX - dragOffsetX;
+            const y = e.clientY - dragOffsetY;
+            
+            // 边界检查
+            const maxX = window.innerWidth - floatingTimer.offsetWidth;
+            const maxY = window.innerHeight - floatingTimer.offsetHeight;
+            
+            const boundedX = Math.max(0, Math.min(x, maxX));
+            const boundedY = Math.max(0, Math.min(y, maxY));
+            
+            floatingTimer.style.left = `${boundedX}px`;
+            floatingTimer.style.top = `${boundedY}px`;
+        }
+        
+        // 拖拽结束
+        function endDrag() {
+            isDragging = false;
+        }
+        
+        // 显示警报通知
+        function showAlarmNotification() {
+            // 创建临时警报元素
+            const alarmEl = document.createElement('div');
+            alarmEl.textContent = '时间到！';
+            alarmEl.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(244, 67, 54, 0.9);
+                color: white;
+                padding: 20px 40px;
+                border-radius: 10px;
+                font-size: 2em;
+                font-weight: bold;
+                z-index: 1000002;
+                animation: fadeOut 3s forwards;
+                pointer-events: none;
+            `;
+            
+            document.body.appendChild(alarmEl);
+            
+            // 3秒后移除
+            setTimeout(() => {
+                alarmEl.remove();
+            }, 3000);
+            
+            // 播放声音提醒
+            playBeepSound();
+        }
+        
+        // 播放提示音
+        function playBeepSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.value = 800;
+                gainNode.gain.value = 0.3;
+                
+                oscillator.start();
+                setTimeout(() => {
+                    oscillator.stop();
+                    audioCtx.close();
+                }, 500);
+            } catch(e) {
+                console.log("音频播放失败:", e);
+            }
+        }
+        
+        // 监听窗口大小变化
+        window.addEventListener('resize', () => {
+            // 确保悬浮窗在屏幕范围内
+            const rect = floatingTimer.getBoundingClientRect();
+            const maxX = window.innerWidth - floatingTimer.offsetWidth;
+            const maxY = window.innerHeight - floatingTimer.offsetHeight;
+            
+            if (rect.right > window.innerWidth) {
+                floatingTimer.style.left = `${maxX}px`;
+            }
+            if (rect.bottom > window.innerHeight) {
+                floatingTimer.style.top = `${maxY}px`;
+            }
+        });
+    </script>
+</body>
+</html>

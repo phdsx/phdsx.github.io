@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>父母性别计算器 - 基因遗传分析工具</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        neutral: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .stat-card-hover {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .stat-card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .progress-animation {
+                transition: width 0.3s ease-in-out;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/standalone.css">
+  <script defer src="../assets/standalone.js" data-home="../index.html" data-return="../tools.html" data-return-label="Tools"></script>
+</head>
+<body class="font-inter bg-gray-50 min-h-screen">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50 transition-custom">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-dna text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-neutral">父母性别计算器</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="返回首页">
+                    <i class="fa fa-home text-neutral"></i>
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="切换主题">
+                    <i class="fa fa-moon-o text-neutral"></i>
+                </button>
+                <button id="about-btn" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="关于工具">
+                    <i class="fa fa-info-circle text-neutral"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <!-- 介绍卡片 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 transform hover:shadow-xl transition-custom">
+            <h2 class="text-xl font-semibold text-neutral mb-2">基因遗传性别分析工具</h2>
+            <p class="text-gray-600">
+                选择需要计算的对象，通过模拟基因遗传分析，预测可能的性别结果。
+                本工具仅作娱乐用途，不代表真实的科学预测。
+            </p>
+        </div>
+        
+        <!-- 选择和结果区域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- 选择区域 -->
+            <div class="flex flex-col h-full">
+                <div class="bg-white rounded-t-xl shadow-md p-4 flex justify-between items-center border-b border-gray-100">
+                    <h3 class="font-medium text-neutral flex items-center">
+                        <i class="fa fa-list-ul mr-2 text-primary"></i>选择计算对象
+                    </h3>
+                    <div class="flex space-x-2">
+                        <button id="reset-selection" class="p-2 text-gray-500 hover:text-red-500 rounded hover:bg-gray-100 transition-custom" title="重置">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-grow w-full p-6 bg-gray-50 border border-gray-200 rounded-b-xl">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="calculation-target" class="block text-sm font-medium text-gray-700 mb-1">计算对象</label>
+                            <select id="calculation-target" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-custom bg-white">
+                                <option value="">请选择要计算的对象</option>
+                                <option value="first-child">第一个孩子</option>
+                                <option value="second-child">第二个孩子</option>
+                                <option value="third-child">第三个孩子</option>
+                                <option value="twins">双胞胎</option>
+                                <option value="triplets">三胞胎</option>
+                            </select>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="father-age" class="block text-sm font-medium text-gray-700 mb-1">父亲年龄</label>
+                                <input type="number" id="father-age" min="18" max="100" value="30" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-custom bg-white">
+                            </div>
+                            <div>
+                                <label for="mother-age" class="block text-sm font-medium text-gray-700 mb-1">母亲年龄</label>
+                                <input type="number" id="mother-age" min="18" max="100" value="28"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-custom bg-white">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">已有子女情况（可选）</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                                <div class="flex items-center">
+                                    <input type="radio" id="no-children" name="children" value="none" checked
+                                        class="w-4 h-4 text-primary focus:ring-primary border-gray-300">
+                                    <label for="no-children" class="ml-2 text-gray-700">无</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" id="has-boy" name="children" value="boy"
+                                        class="w-4 h-4 text-primary focus:ring-primary border-gray-300">
+                                    <label for="has-boy" class="ml-2 text-gray-700">有男孩</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" id="has-girl" name="children" value="girl"
+                                        class="w-4 h-4 text-primary focus:ring-primary border-gray-300">
+                                    <label for="has-girl" class="ml-2 text-gray-700">有女孩</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="radio" id="has-both" name="children" value="both"
+                                        class="w-4 h-4 text-primary focus:ring-primary border-gray-300">
+                                    <label for="has-both" class="ml-2 text-gray-700">有男有女</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div class="flex flex-col h-full">
+                <div class="bg-white rounded-t-xl shadow-md p-4 flex justify-between items-center border-b border-gray-100">
+                    <h3 class="font-medium text-neutral flex items-center">
+                        <i class="fa fa-bar-chart mr-2 text-secondary"></i>计算结果
+                    </h3>
+                    <div class="flex space-x-2">
+                        <button id="copy-result" class="p-2 text-gray-500 hover:text-secondary rounded hover:bg-gray-100 transition-custom" title="复制结果" disabled>
+                            <i class="fa fa-copy"></i>
+                        </button>
+                        <button id="download-result" class="p-2 text-gray-500 hover:text-secondary rounded hover:bg-gray-100 transition-custom" title="下载结果" disabled>
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-grow w-full p-6 bg-gray-50 border border-gray-200 rounded-b-xl">
+                    <!-- 初始状态提示 -->
+                    <div id="initial-state" class="h-full flex flex-col items-center justify-center text-center text-gray-500">
+                        <i class="fa fa-calculator text-5xl mb-4 opacity-30"></i>
+                        <p>请选择计算对象并点击"开始计算"按钮</p>
+                        <p class="mt-2 text-sm">系统将模拟基因遗传分析过程</p>
+                    </div>
+                    
+                    <!-- 进度条区域 -->
+                    <div id="progress-container" class="h-full flex flex-col items-center justify-center hidden">
+                        <div class="w-full mb-6">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>正在分析基因数据...</span>
+                                <span id="progress-percentage">0%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div id="progress-bar" class="h-full bg-primary progress-animation" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div id="progress-steps" class="text-center text-gray-600">
+                            <p>正在提取染色体信息</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 结果显示区域 -->
+                    <div id="result-container" class="hidden">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-white p-4 rounded-lg shadow-sm stat-card-hover">
+                                <div class="text-gray-500 text-sm mb-1">预测性别</div>
+                                <div class="text-2xl font-bold text-primary" id="gender-result">-</div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm stat-card-hover">
+                                <div class="text-gray-500 text-sm mb-1">概率</div>
+                                <div class="text-2xl font-bold text-primary" id="probability-result">-</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="font-medium text-neutral mb-3">详细分析</h4>
+                            <pre id="detailed-analysis" class="text-sm text-gray-600 whitespace-pre-wrap"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="mt-8 flex justify-center">
+            <button 
+                id="calculate-btn" 
+                class="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-custom font-medium flex items-center justify-center"
+                disabled
+            >
+                <i class="fa fa-play mr-2"></i>开始计算
+            </button>
+        </div>
+        
+        <!-- 说明区域 -->
+        <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+            <h3 class="font-semibold text-neutral mb-4 flex items-center">
+                <i class="fa fa-info-circle mr-2 text-primary"></i>工具说明
+            </h3>
+            <div class="text-gray-600 space-y-2">
+                <p>1. 本工具仅为娱乐性质，性别由性染色体决定，自然受孕中男女概率约为1:1</p>
+                <p>2. 计算结果基于模拟的基因遗传算法，不代表真实的科学预测</p>
+                <p>3. 所有计算均在本地完成，不会上传任何个人信息</p>
+                <p>4. 选择不同的计算对象会影响模拟计算的复杂度和结果展示方式</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-white border-t border-gray-200 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>父母性别计算器 &copy; 2025 - 娱乐性质的基因遗传模拟工具</p>
+            <p class="mt-1">本工具仅供娱乐，不构成任何医学建议</p>
+            <p class="mt-1">Ver.1.0.20250804</p>
+        </div>
+    </footer>
+    
+    <!-- 关于模态框 -->
+    <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden opacity-0 transition-custom">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 transform scale-95 transition-custom">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-neutral">关于父母性别计算器</h3>
+                    <button id="close-about" class="text-gray-500 hover:text-gray-700">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">
+                    父母性别计算器是一个基于基因遗传原理的娱乐性工具，通过模拟染色体组合过程，
+                    为用户提供趣味性的性别预测结果。
+                </p>
+                <h4 class="font-semibold text-neutral mb-2">功能特点：</h4>
+                <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                    <li>支持多种计算对象选择（单胎、双胞胎等）</li>
+                    <li>模拟真实的计算过程，显示动态进度条</li>
+                    <li>提供详细的性别概率分析结果</li>
+                    <li>所有计算均在本地完成，保护隐私</li>
+                </ul>
+                <p class="text-gray-500 text-sm">
+                    免责声明：本工具仅作娱乐用途，不代表科学事实，不能用于任何医学决策参考。
+                </p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-b-xl text-center">
+                <button id="got-it" class="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-custom">
+                    明白了
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 通知提示 -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-neutral text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-custom flex items-center">
+        <i id="toast-icon" class="fa fa-check-circle mr-2"></i>
+        <span id="toast-message">操作成功</span>
+    </div>
+
+    <script>
+        // DOM元素引用
+        const calculationTarget = document.getElementById('calculation-target');
+        const fatherAge = document.getElementById('father-age');
+        const motherAge = document.getElementById('mother-age');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resetSelectionBtn = document.getElementById('reset-selection');
+        const copyResultBtn = document.getElementById('copy-result');
+        const downloadResultBtn = document.getElementById('download-result');
+        const initialState = document.getElementById('initial-state');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercentage = document.getElementById('progress-percentage');
+        const progressSteps = document.getElementById('progress-steps');
+        const resultContainer = document.getElementById('result-container');
+        const genderResult = document.getElementById('gender-result');
+        const probabilityResult = document.getElementById('probability-result');
+        const detailedAnalysis = document.getElementById('detailed-analysis');
+        const aboutBtn = document.getElementById('about-btn');
+        const aboutModal = document.getElementById('about-modal');
+        const closeAboutBtn = document.getElementById('close-about');
+        const gotItBtn = document.getElementById('got-it');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        const toastIcon = document.getElementById('toast-icon');
+        
+        // 计算步骤文本
+        const calculationSteps = [
+            "正在提取染色体信息",
+            "分析父母基因序列",
+            "模拟减数分裂过程",
+            "计算染色体组合概率",
+            "生成性别预测结果",
+            "准备详细分析报告"
+        ];
+        
+        // 显示通知提示
+        function showToast(message, isError = false) {
+            toastMessage.textContent = message;
+            toastIcon.className = isError ? 'fa fa-exclamation-circle mr-2' : 'fa fa-check-circle mr-2';
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+        
+        // 检查是否可以启用计算按钮
+        function checkCalculateEnabled() {
+            calculateBtn.disabled = !calculationTarget.value;
+        }
+        
+        // 模拟计算过程 - 先重置进度条再开始计算
+        function simulateCalculation() {
+            // 隐藏初始状态和结果，显示进度条容器
+            initialState.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+            progressContainer.classList.remove('hidden');
+            
+            // 禁用相关按钮
+            calculateBtn.disabled = true;
+            calculationTarget.disabled = true;
+            fatherAge.disabled = true;
+            motherAge.disabled = true;
+            document.querySelectorAll('input[name="children"]').forEach(radio => {
+                radio.disabled = true;
+            });
+            
+            // 重置进度条（关键修改：确保每次计算前进度条归零）
+            progressBar.style.width = '0%';
+            progressPercentage.textContent = '0%';
+            progressSteps.textContent = calculationSteps[0];
+            
+            // 短暂延迟，让用户看到进度条重置
+            setTimeout(() => {
+                let progress = 0;
+                const target = calculationTarget.value;
+                const totalDuration = target === 'triplets' ? 8000 : target === 'twins' ? 6000 : 5000;
+                const intervalTime = 50;
+                const stepsCount = calculationSteps.length;
+                
+                // 更新进度条
+                const progressInterval = setInterval(() => {
+                    progress += 100 / (totalDuration / intervalTime);
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(progressInterval);
+                        
+                        // 计算完成，显示结果
+                        setTimeout(() => {
+                            showResults();
+                        }, 500);
+                    }
+                    
+                    // 更新步骤文本
+                    const currentStep = Math.min(Math.floor((progress / 100) * stepsCount), stepsCount - 1);
+                    progressSteps.textContent = calculationSteps[currentStep];
+                    
+                    progressBar.style.width = `${progress}%`;
+                    progressPercentage.textContent = `${Math.round(progress)}%`;
+                }, intervalTime);
+            }, 300); // 300ms延迟，让用户清晰看到进度条从0开始
+        }
+        
+        // 生成并显示结果
+        function showResults() {
+            const target = calculationTarget.value;
+            const fatherAgeVal = parseInt(fatherAge.value);
+            const motherAgeVal = parseInt(motherAge.value);
+            const childrenStatus = document.querySelector('input[name="children"]:checked').value;
+            
+            // 生成随机概率（50%左右波动）
+            let baseProbability = 50;
+            let variation = Math.random() * 15; // 0-15%的波动
+            if (Math.random() > 0.5) {
+                variation = -variation;
+            }
+            
+            // 根据不同条件调整概率（仅为模拟）
+            if (childrenStatus === 'boy') {
+                variation -= 5; // 如果已有男孩，略微降低生男孩的概率
+            } else if (childrenStatus === 'girl') {
+                variation += 5; // 如果已有女孩，略微提高生男孩的概率
+            }
+            
+            // 父亲年龄较大时略微调整
+            if (fatherAgeVal > 45) {
+                variation -= 3;
+            }
+            
+            // 母亲年龄较大时略微调整
+            if (motherAgeVal > 40) {
+                variation += 2;
+            }
+            
+            const boyProbability = Math.min(Math.max(baseProbability + variation, 40), 60);
+            const girlProbability = 100 - boyProbability;
+            
+            // 决定性别结果
+            let genderText, probabilityText, analysisText;
+            
+            if (target === 'twins') {
+                // 双胞胎可能有三种情况
+                const twinType = Math.random();
+                if (twinType < 0.6) {
+                    genderText = "龙凤胎";
+                    probabilityText = "较高";
+                    analysisText = `根据模拟计算，双胞胎为龙凤胎的概率约为${Math.round(boyProbability)}%。\n\n` +
+                                   `其中男孩概率: ${Math.round(boyProbability)}%\n` +
+                                   `女孩概率: ${Math.round(girlProbability)}%\n\n` +
+                                   `分析依据: 父母年龄分别为${fatherAgeVal}岁和${motherAgeVal}岁，` +
+                                   `结合已有子女情况，系统模拟了23对染色体的组合过程，` +
+                                   `得出以上预测结果。`;
+                } else if (twinType < 0.8) {
+                    genderText = "两个男孩";
+                    probabilityText = `${Math.round(boyProbability)}%`;
+                    analysisText = `根据模拟计算，双胞胎为两个男孩的概率约为${Math.round(boyProbability)}%。\n\n` +
+                                   `分析依据: 父母年龄分别为${fatherAgeVal}岁和${motherAgeVal}岁，` +
+                                   `结合已有子女情况，系统模拟了23对染色体的组合过程，` +
+                                   `得出以上预测结果。`;
+                } else {
+                    genderText = "两个女孩";
+                    probabilityText = `${Math.round(girlProbability)}%`;
+                    analysisText = `根据模拟计算，双胞胎为两个女孩的概率约为${Math.round(girlProbability)}%。\n\n` +
+                                   `分析依据: 父母年龄分别为${fatherAgeVal}岁和${motherAgeVal}岁，` +
+                                   `结合已有子女情况，系统模拟了23对染色体的组合过程，` +
+                                   `得出以上预测结果。`;
+                }
+            } else if (target === 'triplets') {
+                // 三胞胎情况
+                const tripletType = Math.random();
+                if (tripletType < 0.4) {
+                    genderText = "两男一女";
+                    probabilityText = "中等";
+                } else if (tripletType < 0.7) {
+                    genderText = "两女一男";
+                    probabilityText = "中等";
+                } else if (tripletType < 0.85) {
+                    genderText = "三个男孩";
+                    probabilityText = `${Math.round(boyProbability)}%`;
+                } else {
+                    genderText = "三个女孩";
+                    probabilityText = `${Math.round(girlProbability)}%`;
+                }
+                analysisText = `根据模拟计算，三胞胎为${genderText}的概率较高。\n\n` +
+                               `男孩平均概率: ${Math.round(boyProbability)}%\n` +
+                               `女孩平均概率: ${Math.round(girlProbability)}%\n\n` +
+                               `分析依据: 父母年龄分别为${fatherAgeVal}岁和${motherAgeVal}岁，` +
+                               `系统模拟了多组染色体组合，得出以上预测结果。`;
+            } else {
+                // 单胎情况
+                const isBoy = Math.random() < boyProbability / 100;
+                genderText = isBoy ? "男孩" : "女孩";
+                probabilityText = `${isBoy ? Math.round(boyProbability) : Math.round(girlProbability)}%`;
+                analysisText = `根据模拟计算，预测性别为${genderText}的概率约为${probabilityText}。\n\n` +
+                               `Y染色体继承概率: ${Math.round(boyProbability)}%\n` +
+                               `X染色体继承概率: ${Math.round(girlProbability)}%\n\n` +
+                               `分析依据: 父亲提供${isBoy ? 'Y' : 'X'}染色体，母亲提供X染色体，` +
+                               `父母年龄分别为${fatherAgeVal}岁和${motherAgeVal}岁，` +
+                               `结合已有子女情况，系统模拟了性染色体的组合过程。`;
+            }
+            
+            // 更新结果显示
+            genderResult.textContent = genderText;
+            probabilityResult.textContent = probabilityText;
+            detailedAnalysis.textContent = analysisText;
+            
+            // 显示结果，隐藏进度条
+            progressContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            
+            // 启用按钮
+            calculationTarget.disabled = false;
+            fatherAge.disabled = false;
+            motherAge.disabled = false;
+            document.querySelectorAll('input[name="children"]').forEach(radio => {
+                radio.disabled = false;
+            });
+            checkCalculateEnabled();
+            copyResultBtn.disabled = false;
+            downloadResultBtn.disabled = false;
+            
+            // 添加结果卡片动画
+            document.querySelectorAll('.stat-card-hover').forEach(card => {
+                card.classList.add('ring-2', 'ring-secondary/30');
+                setTimeout(() => {
+                    card.classList.remove('ring-2', 'ring-secondary/30');
+                }, 500);
+            });
+            
+            showToast('计算完成');
+        }
+        
+        // 重置选择
+        function resetSelection() {
+            calculationTarget.value = '';
+            fatherAge.value = 30;
+            motherAge.value = 28;
+            document.getElementById('no-children').checked = true;
+            
+            // 重置显示状态
+            resultContainer.classList.add('hidden');
+            progressContainer.classList.add('hidden');
+            initialState.classList.remove('hidden');
+            
+            // 重置按钮状态
+            checkCalculateEnabled();
+            copyResultBtn.disabled = true;
+            downloadResultBtn.disabled = true;
+            
+            // 重置进度条
+            progressBar.style.width = '0%';
+            progressPercentage.textContent = '0%';
+            
+            showToast('已重置选择');
+        }
+        
+        // 复制结果到剪贴板
+        function copyToClipboard() {
+            const resultText = `计算对象: ${calculationTarget.options[calculationTarget.selectedIndex].text}\n` +
+                              `父亲年龄: ${fatherAge.value}岁\n` +
+                              `母亲年龄: ${motherAge.value}岁\n` +
+                              `已有子女: ${document.querySelector('input[name="children"]:checked + label').textContent}\n\n` +
+                              `预测性别: ${genderResult.textContent}\n` +
+                              `概率: ${probabilityResult.textContent}\n\n` +
+                              `详细分析:\n${detailedAnalysis.textContent}`;
+            
+            navigator.clipboard.writeText(resultText).then(() => {
+                // 复制成功动画
+                copyResultBtn.classList.add('text-green-500');
+                setTimeout(() => {
+                    copyResultBtn.classList.remove('text-green-500');
+                }, 500);
+                
+                showToast('结果已复制到剪贴板');
+            }).catch(err => {
+                showToast('复制失败，请手动复制', true);
+                console.error('无法复制内容: ', err);
+            });
+        }
+        
+        // 下载结果
+        function downloadResult() {
+            const resultText = `父母性别计算器 - 计算结果\n\n` +
+                              `计算对象: ${calculationTarget.options[calculationTarget.selectedIndex].text}\n` +
+                              `父亲年龄: ${fatherAge.value}岁\n` +
+                              `母亲年龄: ${motherAge.value}岁\n` +
+                              `已有子女: ${document.querySelector('input[name="children"]:checked + label').textContent}\n\n` +
+                              `预测性别: ${genderResult.textContent}\n` +
+                              `概率: ${probabilityResult.textContent}\n\n` +
+                              `详细分析:\n${detailedAnalysis.textContent}\n\n` +
+                              `注: 本结果仅为模拟计算，仅供娱乐参考`;
+            
+            const blob = new Blob([resultText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '父母性别计算结果.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('结果已下载');
+        }
+        
+        // 切换主题
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark');
+            const icon = themeToggleBtn.querySelector('i');
+            
+            if (isDark) {
+                icon.classList.remove('fa-moon-o');
+                icon.classList.add('fa-sun-o');
+                document.body.classList.add('bg-gray-900', 'text-white');
+                document.body.classList.remove('bg-gray-50');
+                // 更新深色模式下的元素样式
+                document.querySelectorAll('.bg-white').forEach(el => {
+                    el.classList.remove('bg-white');
+                    el.classList.add('bg-gray-800');
+                });
+                document.querySelectorAll('.bg-gray-50').forEach(el => {
+                    el.classList.remove('bg-gray-50');
+                    el.classList.add('bg-gray-900');
+                });
+                document.querySelectorAll('.text-gray-600').forEach(el => {
+                    el.classList.remove('text-gray-600');
+                    el.classList.add('text-gray-300');
+                });
+                document.querySelectorAll('.text-gray-500').forEach(el => {
+                    el.classList.remove('text-gray-500');
+                    el.classList.add('text-gray-400');
+                });
+                document.querySelectorAll('.text-gray-700').forEach(el => {
+                    el.classList.remove('text-gray-700');
+                    el.classList.add('text-gray-300');
+                });
+                document.querySelectorAll('.border-gray-200').forEach(el => {
+                    el.classList.remove('border-gray-200');
+                    el.classList.add('border-gray-700');
+                });
+                showToast('已切换至深色模式');
+            } else {
+                icon.classList.remove('fa-sun-o');
+                icon.classList.add('fa-moon-o');
+                document.body.classList.remove('bg-gray-900', 'text-white');
+                document.body.classList.add('bg-gray-50');
+                // 恢复浅色模式下的元素样式
+                document.querySelectorAll('.bg-gray-800').forEach(el => {
+                    el.classList.remove('bg-gray-800');
+                    el.classList.add('bg-white');
+                });
+                document.querySelectorAll('.bg-gray-900').forEach(el => {
+                    el.classList.remove('bg-gray-900');
+                    el.classList.add('bg-gray-50');
+                });
+                document.querySelectorAll('.text-gray-300').forEach(el => {
+                    if (el.classList.contains('text-gray-700')) {
+                        el.classList.remove('text-gray-300');
+                    } else {
+                        el.classList.remove('text-gray-300');
+                        el.classList.add('text-gray-600');
+                    }
+                });
+                document.querySelectorAll('.text-gray-400').forEach(el => {
+                    el.classList.remove('text-gray-400');
+                    el.classList.add('text-gray-500');
+                });
+                document.querySelectorAll('.border-gray-700').forEach(el => {
+                    el.classList.remove('border-gray-700');
+                    el.classList.add('border-gray-200');
+                });
+                showToast('已切换至浅色模式');
+            }
+        }
+        
+        // 显示关于模态框
+        function showAboutModal() {
+            aboutModal.classList.remove('hidden', 'opacity-0');
+            aboutModal.classList.add('opacity-100');
+            aboutModal.querySelector('div').classList.remove('scale-95');
+            aboutModal.querySelector('div').classList.add('scale-100');
+        }
+        
+        // 隐藏关于模态框
+        function hideAboutModal() {
+            aboutModal.classList.remove('opacity-100');
+            aboutModal.classList.add('opacity-0');
+            aboutModal.querySelector('div').classList.remove('scale-100');
+            aboutModal.querySelector('div').classList.add('scale-95');
+            
+            setTimeout(() => {
+                aboutModal.classList.add('hidden');
+            }, 300);
+        }
+        
+        // 事件监听
+        calculationTarget.addEventListener('change', checkCalculateEnabled);
+        calculateBtn.addEventListener('click', simulateCalculation);
+        resetSelectionBtn.addEventListener('click', resetSelection);
+        copyResultBtn.addEventListener('click', copyToClipboard);
+        downloadResultBtn.addEventListener('click', downloadResult);
+        aboutBtn.addEventListener('click', showAboutModal);
+        closeAboutBtn.addEventListener('click', hideAboutModal);
+        gotItBtn.addEventListener('click', hideAboutModal);
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        
+        // 点击模态框外部关闭
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                hideAboutModal();
+            }
+        });
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+Enter 执行计算
+            if (e.ctrlKey && e.key === 'Enter' && !calculateBtn.disabled) {
+                e.preventDefault();
+                simulateCalculation();
+            }
+            
+            // Ctrl+C 复制结果 (仅当有结果且未聚焦在输入元素上)
+            if (e.ctrlKey && e.key === 'c' && 
+                !copyResultBtn.disabled && 
+                document.activeElement.tagName !== 'INPUT' && 
+                document.activeElement.tagName !== 'SELECT') {
+                e.preventDefault();
+                copyToClipboard();
+            }
+        });
+        
+        // 页面滚动时改变导航栏样式
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('py-2', 'shadow-lg');
+                header.classList.remove('py-3', 'shadow-md');
+            } else {
+                header.classList.add('py-3', 'shadow-md');
+                header.classList.remove('py-2', 'shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

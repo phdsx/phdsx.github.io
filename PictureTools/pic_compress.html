@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>照片压缩工具</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#6B7280',
+            success: '#36D399',
+            warning: '#FBBD23',
+            danger: '#F87272',
+            neutral: '#F3F4F6',
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .shadow-custom {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+      .transition-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/standalone.css">
+  <script defer src="../assets/standalone.js" data-home="../index.html" data-return="../tools.html" data-return-label="Tools"></script>
+</head>
+<body class="font-inter bg-gray-50 min-h-screen flex flex-col">
+  <!-- 导航栏 -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-picture-o text-primary text-2xl"></i>
+        <h1 class="text-xl font-bold text-gray-800">照片压缩工具</h1>
+      </div>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="text-gray-600 hover:text-primary transition-custom">首页</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-custom">使用指南</a></li>
+          <li><a href="#" class="text-gray-600 hover:text-primary transition-custom">关于我们</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="flex-grow container mx-auto px-4 py-8">
+    <div class="max-w-5xl mx-auto">
+      <!-- 工具介绍 -->
+      <section class="mb-10 text-center">
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">高效压缩你的照片</h2>
+        <p class="text-gray-600 max-w-3xl mx-auto text-lg">无需安装任何软件，在浏览器中即可轻松压缩照片，保持良好画质的同时大幅减小文件大小。</p>
+      </section>
+
+      <!-- 工具主体 -->
+      <section class="bg-white rounded-xl shadow-custom p-6 md:p-8 mb-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- 左侧：上传和设置 -->
+          <div class="space-y-6">
+            <!-- 上传区域 -->
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-custom cursor-pointer" id="drop-area">
+              <input type="file" id="file-input" accept="image/*" class="hidden">
+              <div class="space-y-4">
+                <i class="fa fa-cloud-upload text-5xl text-gray-400"></i>
+                <h3 class="text-xl font-semibold text-gray-700">拖放照片到此处</h3>
+                <p class="text-gray-500">或者</p>
+                <button class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-custom" id="select-file-btn">
+                  选择照片
+                </button>
+                <p class="text-gray-400 text-sm">支持 JPG, PNG, WebP 格式</p>
+              </div>
+            </div>
+
+            <!-- 原始图片信息 -->
+            <div id="original-image-info" class="hidden">
+              <div class="flex items-center space-x-3 mb-4">
+                <div class="w-12 h-12 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
+                  <img id="thumbnail" src="" alt="图片缩略图" class="w-full h-full object-cover">
+                </div>
+                <div>
+                  <h4 class="font-medium text-gray-800" id="original-filename">文件名.jpg</h4>
+                  <div class="flex items-center text-sm text-gray-500">
+                    <span id="original-size">0 KB</span>
+                    <span class="mx-2">•</span>
+                    <span id="original-dimensions">0 × 0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 压缩设置 -->
+            <div id="compression-settings" class="hidden space-y-6">
+              <h3 class="text-lg font-semibold text-gray-800">压缩设置</h3>
+              
+              <!-- 质量滑块 -->
+              <div>
+                <div class="flex justify-between mb-2">
+                  <label for="quality" class="text-gray-700 font-medium">压缩质量</label>
+                  <span id="quality-value" class="text-primary font-medium">80%</span>
+                </div>
+                <input type="range" id="quality" min="1" max="100" value="80" 
+                  class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>低质量 (小文件)</span>
+                  <span>高质量 (大文件)</span>
+                </div>
+              </div>
+
+              <!-- 格式选择 -->
+              <div>
+                <label class="block text-gray-700 font-medium mb-2">输出格式</label>
+                <div class="grid grid-cols-3 gap-3">
+                  <button class="format-option bg-primary text-white py-2 px-4 rounded-lg text-center transition-custom" data-format="auto">
+                    <i class="fa fa-magic mr-1"></i>自动
+                  </button>
+                  <button class="format-option bg-gray-100 text-gray-700 py-2 px-4 rounded-lg text-center transition-custom hover:bg-gray-200" data-format="jpeg">
+                    <i class="fa fa-file-image-o mr-1"></i>JPEG
+                  </button>
+                  <button class="format-option bg-gray-100 text-gray-700 py-2 px-4 rounded-lg text-center transition-custom hover:bg-gray-200" data-format="png">
+                    <i class="fa fa-file-image-o mr-1"></i>PNG
+                  </button>
+                </div>
+              </div>
+
+              <!-- 高级选项 -->
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <div class="flex justify-between items-center mb-3">
+                  <h4 class="text-gray-700 font-medium">高级选项</h4>
+                  <button id="advanced-toggle" class="text-primary text-sm hover:underline">
+                    展开 <i class="fa fa-chevron-down ml-1"></i>
+                  </button>
+                </div>
+                <div id="advanced-options" class="hidden space-y-4">
+                  <div>
+                    <label class="flex items-center">
+                      <input type="checkbox" id="keep-exif" class="mr-2 accent-primary">
+                      <span class="text-gray-700">保留 EXIF 信息</span>
+                    </label>
+                    <p class="text-xs text-gray-500 mt-1">包含拍摄设备、位置等元数据</p>
+                  </div>
+                  <div>
+                    <label class="flex items-center">
+                      <input type="checkbox" id="resize" class="mr-2 accent-primary">
+                      <span class="text-gray-700">等比缩放图片</span>
+                    </label>
+                    <div id="resize-options" class="ml-6 mt-2 space-y-3 hidden">
+                      <div class="flex items-center">
+                        <label for="resize-percentage" class="w-24 text-gray-700">缩放比例:</label>
+                        <input type="number" id="resize-percentage" min="1" max="100" value="100" 
+                          class="w-16 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                        <span class="ml-1 text-gray-700">%</span>
+                      </div>
+                      <p class="text-xs text-gray-500">设置为 50% 将使图片尺寸变为原来的一半</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 压缩按钮 -->
+              <button id="compress-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-custom flex items-center justify-center">
+                <i class="fa fa-compress mr-2"></i>
+                开始压缩
+              </button>
+            </div>
+          </div>
+
+          <!-- 右侧：预览和结果 -->
+          <div class="space-y-6">
+            <!-- 预览区域 -->
+            <div class="bg-gray-50 rounded-lg overflow-hidden shadow-inner flex-grow">
+              <div class="flex flex-col h-full">
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                  <h3 class="font-medium text-gray-800">预览</h3>
+                  <div class="flex space-x-2">
+                    <button class="preview-toggle text-sm px-3 py-1 rounded-md bg-primary text-white" data-view="original">原图</button>
+                    <button class="preview-toggle text-sm px-3 py-1 rounded-md bg-gray-200 text-gray-700" data-view="compressed">压缩后</button>
+                  </div>
+                </div>
+                <div class="flex-grow flex items-center justify-center p-4">
+                  <div id="preview-container" class="max-w-full max-h-[400px] overflow-auto">
+                    <img id="preview-image" src="" alt="图片预览" class="max-w-full max-h-[400px] object-contain">
+                  </div>
+                </div>
+                <div id="preview-placeholder" class="flex-grow flex flex-col items-center justify-center p-8 text-center">
+                  <i class="fa fa-picture-o text-4xl text-gray-300 mb-4"></i>
+                  <p class="text-gray-500">上传图片后在此处预览</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 压缩结果 -->
+            <div id="compression-results" class="hidden space-y-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-gray-50 rounded-lg p-4">
+                  <h4 class="text-sm text-gray-500 mb-1">原始大小</h4>
+                  <p id="original-size-display" class="text-2xl font-semibold text-gray-800">0 KB</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                  <h4 class="text-sm text-gray-500 mb-1">压缩后</h4>
+                  <p id="compressed-size-display" class="text-2xl font-semibold text-primary">0 KB</p>
+                </div>
+              </div>
+              <div class="bg-green-50 rounded-lg p-4 flex items-center">
+                <i class="fa fa-check-circle text-green-500 mr-3 text-xl"></i>
+                <div>
+                  <p class="text-green-700 font-medium">节省了 <span id="savings-percentage">0%</span></p>
+                  <p class="text-sm text-green-600">图片质量保持良好的同时减小了文件大小</p>
+                </div>
+              </div>
+              <button id="download-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-custom flex items-center justify-center">
+                <i class="fa fa-download mr-2"></i>
+                下载压缩后的图片
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 使用指南 -->
+      <section class="bg-white rounded-xl shadow-custom p-6 md:p-8 mb-10">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">使用指南</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <i class="fa fa-upload text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">1. 上传图片</h3>
+            <p class="text-gray-600">点击上传区域或拖放图片到指定区域，支持 JPG、PNG 和 WebP 格式的图片。</p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <i class="fa fa-sliders text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">2. 调整设置</h3>
+            <p class="text-gray-600">根据需要调整压缩质量、输出格式和其他高级选项，实时预览效果。</p>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+              <i class="fa fa-download text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">3. 下载图片</h3>
+            <p class="text-gray-600">点击下载按钮获取压缩后的图片，文件会保存在您的设备上。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 常见问题 -->
+      <section class="bg-white rounded-xl shadow-custom p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">常见问题</h2>
+        <div class="space-y-4">
+          <div class="border-b border-gray-100 pb-4">
+            <h3 class="text-lg font-medium text-gray-800 mb-2">图片压缩会影响画质吗？</h3>
+            <p class="text-gray-600">压缩会减少图片文件大小，通常会有轻微的画质损失。您可以通过调整压缩质量滑块找到大小和质量的平衡点。</p>
+          </div>
+          <div class="border-b border-gray-100 pb-4">
+            <h3 class="text-lg font-medium text-gray-800 mb-2">支持哪些图片格式？</h3>
+            <p class="text-gray-600">我们支持 JPG、PNG 和 WebP 格式的图片上传。您可以选择保持原始格式或转换为其他格式。</p>
+          </div>
+          <div class="border-b border-gray-100 pb-4">
+            <h3 class="text-lg font-medium text-gray-800 mb-2">压缩后的图片保存在哪里？</h3>
+            <p class="text-gray-600">压缩后的图片会下载到您的设备上，具体位置取决于您的浏览器设置。</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-medium text-gray-800 mb-2">图片会存储在您的服务器上吗？</h3>
+            <p class="text-gray-600">不会。所有图片处理都在您的浏览器中完成，不会上传到我们的服务器。</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-picture-o text-primary text-2xl"></i>
+            <h3 class="text-xl font-bold">照片压缩工具</h3>
+          </div>
+          <p class="text-gray-400">快速、高效地压缩您的照片，节省存储空间和上传时间。</p>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-instagram"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-github"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition-custom">首页</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-custom">使用指南</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-custom">常见问题</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-custom">关于我们</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+          <ul class="space-y-2">
+            <li class="flex items-center text-gray-400">
+              <i class="fa fa-envelope-o mr-2"></i>
+              <a href="mailto:support@photocompresor.com" class="hover:text-white transition-custom">666@666.com</a>
+            </li>
+            <li class="flex items-center text-gray-400">
+              <i class="fa fa-phone mr-2"></i>
+              <span>6666666666</span>
+            </li>
+            <li class="flex items-center text-gray-400">
+              <i class="fa fa-map-marker mr-2"></i>
+              <span>北京市略略略</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 照片压缩工具 版权所有</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 全局变量
+    let originalImage = null;
+    let compressedImage = null;
+    let currentView = 'original';
+    let selectedFormat = 'auto';
+    
+    // DOM 元素
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('file-input');
+    const selectFileBtn = document.getElementById('select-file-btn');
+    const originalImageInfo = document.getElementById('original-image-info');
+    const thumbnail = document.getElementById('thumbnail');
+    const originalFilename = document.getElementById('original-filename');
+    const originalSize = document.getElementById('original-size');
+    const originalDimensions = document.getElementById('original-dimensions');
+    const compressionSettings = document.getElementById('compression-settings');
+    const qualitySlider = document.getElementById('quality');
+    const qualityValue = document.getElementById('quality-value');
+    const formatOptions = document.querySelectorAll('.format-option');
+    const advancedToggle = document.getElementById('advanced-toggle');
+    const advancedOptions = document.getElementById('advanced-options');
+    const keepExifCheckbox = document.getElementById('keep-exif');
+    const resizeCheckbox = document.getElementById('resize');
+    const resizeOptions = document.getElementById('resize-options');
+    const resizePercentage = document.getElementById('resize-percentage');
+    const compressBtn = document.getElementById('compress-btn');
+    const previewImage = document.getElementById('preview-image');
+    const previewPlaceholder = document.getElementById('preview-placeholder');
+    const previewContainer = document.getElementById('preview-container');
+    const previewToggles = document.querySelectorAll('.preview-toggle');
+    const compressionResults = document.getElementById('compression-results');
+    const originalSizeDisplay = document.getElementById('original-size-display');
+    const compressedSizeDisplay = document.getElementById('compressed-size-display');
+    const savingsPercentage = document.getElementById('savings-percentage');
+    const downloadBtn = document.getElementById('download-btn');
+    
+    // 初始化
+    function init() {
+      // 文件上传相关事件
+      selectFileBtn.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', handleFileSelect);
+      
+      // 拖放相关事件
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+      });
+      
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+      });
+      
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+      });
+      
+      function highlight() {
+        dropArea.classList.add('border-primary', 'bg-primary/5');
+      }
+      
+      function unhighlight() {
+        dropArea.classList.remove('border-primary', 'bg-primary/5');
+      }
+      
+      dropArea.addEventListener('drop', handleDrop, false);
+      
+      function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length) {
+          handleFiles(files);
+        }
+      }
+      
+      // 质量滑块事件
+      qualitySlider.addEventListener('input', () => {
+        qualityValue.textContent = `${qualitySlider.value}%`;
+      });
+      
+      // 格式选择事件
+      formatOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          formatOptions.forEach(opt => {
+            opt.classList.remove('bg-primary', 'text-white');
+            opt.classList.add('bg-gray-100', 'text-gray-700');
+          });
+          
+          option.classList.remove('bg-gray-100', 'text-gray-700');
+          option.classList.add('bg-primary', 'text-white');
+          selectedFormat = option.dataset.format;
+        });
+      });
+      
+      // 高级选项切换
+      advancedToggle.addEventListener('click', () => {
+        const isExpanded = advancedOptions.classList.toggle('hidden');
+        advancedToggle.innerHTML = isExpanded 
+          ? '收起 <i class="fa fa-chevron-up ml-1"></i>' 
+          : '展开 <i class="fa fa-chevron-down ml-1"></i>';
+      });
+      
+      // 调整大小选项切换
+      resizeCheckbox.addEventListener('change', () => {
+        resizeOptions.classList.toggle('hidden', !resizeCheckbox.checked);
+      });
+      
+      // 预览切换
+      previewToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          currentView = toggle.dataset.view;
+          
+          previewToggles.forEach(t => {
+            t.classList.remove('bg-primary', 'text-white');
+            t.classList.add('bg-gray-200', 'text-gray-700');
+          });
+          
+          toggle.classList.remove('bg-gray-200', 'text-gray-700');
+          toggle.classList.add('bg-primary', 'text-white');
+          
+          updatePreview();
+        });
+      });
+      
+      // 压缩按钮事件
+      compressBtn.addEventListener('click', compressImage);
+      
+      // 下载按钮事件
+      downloadBtn.addEventListener('click', downloadCompressedImage);
+    }
+    
+    // 处理文件选择
+    function handleFileSelect(e) {
+      if (e.target.files.length) {
+        handleFiles(e.target.files);
+      }
+    }
+    
+    // 处理文件
+    function handleFiles(files) {
+      if (files[0].type.indexOf('image/') === -1) {
+        alert('请选择图片文件！');
+        return;
+      }
+      
+      const file = files[0];
+      originalImage = file;
+      
+      // 显示图片信息
+      displayImageInfo(file);
+      
+      // 显示预览
+      displayPreview(file);
+      
+      // 显示设置和结果区域
+      originalImageInfo.classList.remove('hidden');
+      compressionSettings.classList.remove('hidden');
+      previewPlaceholder.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      compressionResults.classList.add('hidden');
+    }
+    
+    // 显示图片信息
+    function displayImageInfo(file) {
+      originalFilename.textContent = file.name;
+      originalSize.textContent = formatFileSize(file.size);
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          originalDimensions.textContent = `${img.width} × ${img.height}`;
+          thumbnail.src = e.target.result;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    // 显示预览
+    function displayPreview(file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        previewImage.src = e.target.result;
+        updatePreview();
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    // 更新预览
+    function updatePreview() {
+      if (currentView === 'original') {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImage.src = e.target.result;
+        };
+        reader.readAsDataURL(originalImage);
+      } else if (currentView === 'compressed' && compressedImage) {
+        previewImage.src = compressedImage;
+      }
+    }
+    
+    // 压缩图片
+    function compressImage() {
+      const quality = parseInt(qualitySlider.value) / 100;
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          // 创建 canvas 进行图像处理
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          // 计算调整后的尺寸
+          let width = img.width;
+          let height = img.height;
+          
+          if (resizeCheckbox.checked) {
+            const scale = parseInt(resizePercentage.value) / 100;
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          
+          // 绘制图像到 canvas
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // 确定输出格式
+          let format = selectedFormat;
+          if (format === 'auto') {
+            const fileExtension = originalImage.name.split('.').pop().toLowerCase();
+            format = fileExtension === 'png' ? 'png' : 'jpeg';
+          }
+          
+          // 压缩并获取结果
+          canvas.toBlob(function(blob) {
+            compressedImage = URL.createObjectURL(blob);
+            
+            // 更新预览
+            currentView = 'compressed';
+            updatePreview();
+            previewToggles.forEach(toggle => {
+              if (toggle.dataset.view === 'compressed') {
+                toggle.classList.remove('bg-gray-200', 'text-gray-700');
+                toggle.classList.add('bg-primary', 'text-white');
+              } else {
+                toggle.classList.remove('bg-primary', 'text-white');
+                toggle.classList.add('bg-gray-200', 'text-gray-700');
+              }
+            });
+            
+            // 显示压缩结果
+            displayCompressionResults(originalImage.size, blob.size);
+          }, format === 'png' ? 'image/png' : 'image/jpeg', quality);
+        };
+        img.src = e.target.result;
+      };
+      
+      reader.readAsDataURL(originalImage);
+    }
+    
+    // 显示压缩结果
+    function displayCompressionResults(originalSize, compressedSize) {
+      originalSizeDisplay.textContent = formatFileSize(originalSize);
+      compressedSizeDisplay.textContent = formatFileSize(compressedSize);
+      
+      const savings = Math.round((1 - compressedSize / originalSize) * 100);
+      savingsPercentage.textContent = `${savings}%`;
+      
+      compressionResults.classList.remove('hidden');
+      
+      // 平滑滚动到结果区域
+      compressionResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // 下载压缩后的图片
+    function downloadCompressedImage() {
+      if (!compressedImage) return;
+      
+      // 创建下载链接
+      const link = document.createElement('a');
+      link.href = compressedImage;
+      
+      // 获取原始文件名并添加压缩后缀
+      const fileName = originalImage.name.replace(/(\.[^/.]+)$/, '-compressed$1');
+      link.download = fileName;
+      
+      // 模拟点击下载
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    
+    // 格式化文件大小
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+    
