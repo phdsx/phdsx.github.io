@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f7fb">
+  <title>二维码生成 - PHDSX</title>
+  <link rel="stylesheet" href="../assets/standalone.css?v=20260730b">
+  <style>
+    :root {
+      --qr-bg: #f4f7fb;
+      --qr-panel: #fff;
+      --qr-ink: #101828;
+      --qr-muted: #667085;
+      --qr-line: #dfe6ee;
+      --qr-brand: #1769e0;
+      --qr-danger: #c93636;
+    }
+    body.qr-page {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--qr-bg);
+      color: var(--qr-ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+    .qr-main { width: min(100%, 1120px); margin: 0 auto; padding: 42px 28px; }
+    .qr-heading { margin-bottom: 24px; }
+    .qr-heading span { color: var(--qr-brand); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+    .qr-heading h1 { margin: 9px 0 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; }
+    .qr-heading p { margin: 0; color: var(--qr-muted); line-height: 1.7; }
+    .qr-workspace { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(330px, .85fr); gap: 18px; align-items: start; }
+    .qr-panel { padding: 22px; border: 1px solid var(--qr-line); border-radius: 8px; background: var(--qr-panel); box-shadow: 0 1px 2px rgba(16,24,40,.04); }
+    .qr-tabs { display: inline-flex; gap: 4px; margin-bottom: 20px; padding: 4px; border: 1px solid var(--qr-line); border-radius: 7px; background: #f8fafc; }
+    .qr-tab { min-width: 96px; min-height: 38px; padding: 0 15px; border: 0; border-radius: 6px; color: var(--qr-muted); background: transparent; font-weight: 700; cursor: pointer; }
+    .qr-tab.active { color: #fff; background: var(--qr-brand); }
+    .qr-field { display: grid; gap: 8px; margin-bottom: 17px; }
+    .qr-field label, .qr-options-title { font-size: 13px; font-weight: 750; }
+    .qr-field textarea, .qr-field select, .qr-file-box {
+      width: 100%;
+      border: 1px solid #c9d4e1;
+      border-radius: 7px;
+      color: var(--qr-ink);
+      background: #fff;
+    }
+    .qr-field textarea { min-height: 178px; padding: 13px 14px; resize: vertical; line-height: 1.65; }
+    .qr-field textarea:focus, .qr-field select:focus { border-color: var(--qr-brand); outline: 0; box-shadow: 0 0 0 4px rgba(23,105,224,.1); }
+    .qr-field-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--qr-muted); font-size: 11px; }
+    .qr-file-box { display: grid; justify-items: center; gap: 8px; min-height: 178px; padding: 30px 20px; border-style: dashed; text-align: center; cursor: pointer; }
+    .qr-file-box:hover { border-color: var(--qr-brand); background: #f8fbff; }
+    .qr-file-box input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .qr-file-symbol { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 8px; color: var(--qr-brand); background: #eaf2ff; font-size: 23px; }
+    .qr-file-box strong { font-size: 14px; }
+    .qr-file-box small { color: var(--qr-muted); line-height: 1.55; }
+    .qr-options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--qr-line); }
+    .qr-field select { min-height: 42px; padding: 0 11px; }
+    .qr-color-row { display: grid; grid-template-columns: 44px 1fr; gap: 9px; align-items: center; }
+    .qr-color-row input[type="color"] { width: 44px; height: 42px; padding: 3px; border: 1px solid var(--qr-line); border-radius: 7px; background: #fff; cursor: pointer; }
+    .qr-color-row input[type="text"] { min-width: 0; height: 42px; padding: 0 10px; border: 1px solid var(--qr-line); border-radius: 7px; color: var(--qr-muted); background: #f8fafc; }
+    .qr-actions { display: flex; gap: 9px; margin-top: 4px; }
+    .qr-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 17px; border: 1px solid var(--qr-line); border-radius: 7px; color: var(--qr-ink); background: #fff; font-weight: 750; cursor: pointer; }
+    .qr-button.primary { flex: 1; border-color: var(--qr-brand); color: #fff; background: var(--qr-brand); }
+    .qr-button:hover { filter: brightness(.97); }
+    .qr-error { margin: 13px 0 0; padding: 10px 12px; border: 1px solid #f1c4c4; border-radius: 7px; color: var(--qr-danger); background: #fff6f6; font-size: 12px; line-height: 1.5; }
+    .qr-preview { position: sticky; top: 24px; }
+    .qr-preview-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .qr-preview-head h2 { margin: 0; font-size: 17px; }
+    .qr-status { color: var(--qr-muted); font-size: 11px; }
+    .qr-canvas-wrap { display: grid; place-items: center; min-height: 360px; padding: 24px; border: 1px solid var(--qr-line); border-radius: 8px; background-color: #eef3f8; background-image: linear-gradient(45deg,#e4eaf1 25%,transparent 25%),linear-gradient(-45deg,#e4eaf1 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e4eaf1 75%),linear-gradient(-45deg,transparent 75%,#e4eaf1 75%); background-position: 0 0,0 8px,8px -8px,-8px 0; background-size: 16px 16px; }
+    #qrcode { display: grid; place-items: center; padding: 14px; background: #fff; box-shadow: 0 12px 30px rgba(16,24,40,.12); }
+    #qrcode img, #qrcode canvas { display: block; max-width: 100%; height: auto !important; }
+    .qr-preview-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
+    .qr-note { margin: 15px 0 0; color: var(--qr-muted); font-size: 11px; line-height: 1.65; }
+    @media (max-width: 850px) {
+      .qr-main { padding: 28px 18px; }
+      .qr-workspace { grid-template-columns: 1fr; }
+      .qr-preview { position: static; }
+    }
+    @media (max-width: 520px) {
+      .qr-main { padding: 22px 12px; }
+      .qr-panel { padding: 16px; }
+      .qr-options { grid-template-columns: 1fr; }
+      .qr-canvas-wrap { min-height: 300px; padding: 14px; }
+      .qr-actions, .qr-preview-actions { grid-template-columns: 1fr; flex-wrap: wrap; }
+      .qr-button { width: 100%; }
+    }
+  </style>
+  <script defer src="../assets/qrcode.min.js"></script>
+  <script defer src="../assets/standalone.js?v=20260730b" data-home="../index.html" data-return="../tools.html"></script>
+</head>
+<body class="qr-page">
+  <main class="qr-main">
+    <header class="qr-heading">
+      <span>LOCAL QR GENERATOR</span>
+      <h1>二维码生成</h1>
+      <p>把文字、网址或小型文件转换成二维码。内容只在当前浏览器中处理。</p>
+    </header>
+
+    <div class="qr-workspace">
+      <section class="qr-panel" aria-label="二维码内容设置">
+        <div class="qr-tabs" role="tablist" aria-label="输入类型">
+          <button class="qr-tab active" type="button" role="tab" aria-selected="true" data-mode="text">文字 / 网址</button>
+          <button class="qr-tab" type="button" role="tab" aria-selected="false" data-mode="file">小型文件</button>
+        </div>
+
+        <div data-mode-panel="text">
+          <div class="qr-field">
+            <label for="qr-text">二维码内容</label>
+            <textarea id="qr-text" placeholder="输入文字、网址、电话、邮箱等内容">https://phdsx.github.io/</textarea>
+            <div class="qr-field-meta"><span>建议控制在 1,200 字节以内</span><span data-byte-count>0 字节</span></div>
+          </div>
+        </div>
+
+        <div data-mode-panel="file" hidden>
+          <label class="qr-file-box" for="qr-file">
+            <input id="qr-file" type="file">
+            <span class="qr-file-symbol">＋</span>
+            <strong data-file-name>选择要编码的文件</strong>
+            <small>最大 1.2 KB。文件会转换为 Data URL，不会上传到服务器。</small>
+          </label>
+        </div>
+
+        <div class="qr-options">
+          <div class="qr-field">
+            <label for="qr-size">二维码尺寸</label>
+            <select id="qr-size">
+              <option value="240">240 × 240</option>
+              <option value="320" selected>320 × 320</option>
+              <option value="400">400 × 400</option>
+            </select>
+          </div>
+          <div class="qr-field">
+            <label for="qr-level">纠错等级</label>
+            <select id="qr-level">
+              <option value="L">低 · 容量更大</option>
+              <option value="M" selected>中 · 推荐</option>
+              <option value="Q">较高</option>
+              <option value="H">高 · 容量较小</option>
+            </select>
+          </div>
+          <div class="qr-field">
+            <label for="qr-dark">前景色</label>
+            <div class="qr-color-row"><input id="qr-dark" type="color" value="#101828"><input type="text" value="#101828" data-color-label="qr-dark" readonly></div>
+          </div>
+          <div class="qr-field">
+            <label for="qr-light">背景色</label>
+            <div class="qr-color-row"><input id="qr-light" type="color" value="#ffffff"><input type="text" value="#ffffff" data-color-label="qr-light" readonly></div>
+          </div>
+        </div>
+
+        <div class="qr-actions">
+          <button class="qr-button primary" type="button" id="generate-qr">生成二维码</button>
+          <button class="qr-button" type="button" id="clear-qr">清空</button>
+        </div>
+        <p class="qr-error" id="qr-error" role="alert" hidden></p>
+      </section>
+
+      <aside class="qr-panel qr-preview" aria-label="二维码预览">
+        <div class="qr-preview-head"><h2>预览</h2><span class="qr-status" id="qr-status">等待生成</span></div>
+        <div class="qr-canvas-wrap"><div id="qrcode" aria-label="生成的二维码"></div></div>
+        <div class="qr-preview-actions">
+          <button class="qr-button" type="button" id="download-qr" disabled>下载 PNG</button>
+          <button class="qr-button" type="button" id="copy-content" disabled>复制内容</button>
+        </div>
+        <p class="qr-note">二维码适合承载短文本和链接。文件模式只适用于极小文件，普通图片、视频和文档通常应先上传到可访问的位置，再把下载链接生成二维码。</p>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const MAX_FILE_BYTES = 1200;
+      const textInput = document.getElementById('qr-text');
+      const fileInput = document.getElementById('qr-file');
+      const output = document.getElementById('qrcode');
+      const error = document.getElementById('qr-error');
+      const status = document.getElementById('qr-status');
+      const generateButton = document.getElementById('generate-qr');
+      const downloadButton = document.getElementById('download-qr');
+      const copyButton = document.getElementById('copy-content');
+      const byteCount = document.querySelector('[data-byte-count]');
+      const fileName = document.querySelector('[data-file-name]');
+      let mode = 'text';
+      let payload = '';
+      let filePayload = '';
+
+      function bytes(value) {
+        return new TextEncoder().encode(value || '').length;
+      }
+
+      function updateByteCount() {
+        byteCount.textContent = bytes(textInput.value) + ' 字节';
+      }
+
+      function showError(message) {
+        error.textContent = message;
+        error.hidden = !message;
+      }
+
+      function setMode(nextMode) {
+        mode = nextMode;
+        document.querySelectorAll('[data-mode]').forEach(function (tab) {
+          const active = tab.dataset.mode === mode;
+          tab.classList.toggle('active', active);
+          tab.setAttribute('aria-selected', String(active));
+        });
+        document.querySelectorAll('[data-mode-panel]').forEach(function (panel) {
+          panel.hidden = panel.dataset.modePanel !== mode;
+        });
+        showError('');
+      }
+
+      function levelValue() {
+        return {
+          L: QRCode.CorrectLevel.L,
+          M: QRCode.CorrectLevel.M,
+          Q: QRCode.CorrectLevel.Q,
+          H: QRCode.CorrectLevel.H
+        }[document.getElementById('qr-level').value];
+      }
+
+      function renderCode() {
+        if (typeof QRCode === 'undefined') {
+          showError('二维码组件加载失败，请检查网络连接后刷新页面。');
+          return;
+        }
+        payload = mode === 'file' ? filePayload : textInput.value.trim();
+        if (!payload) {
+          showError(mode === 'file' ? '请先选择一个小型文件。' : '请输入要生成二维码的内容。');
+          return;
+        }
+        if (mode === 'text' && bytes(payload) > 1800) {
+          showError('内容过长。请缩短到约 1,800 字节以内，或降低纠错等级。');
+          return;
+        }
+        showError('');
+        output.replaceChildren();
+        const size = Number(document.getElementById('qr-size').value);
+        try {
+          new QRCode(output, {
+            text: payload,
+            width: size,
+            height: size,
+            colorDark: document.getElementById('qr-dark').value,
+            colorLight: document.getElementById('qr-light').value,
+            correctLevel: levelValue()
+          });
+          status.textContent = bytes(payload) + ' 字节 · 已生成';
+          downloadButton.disabled = false;
+          copyButton.disabled = false;
+        } catch (exception) {
+          output.replaceChildren();
+          status.textContent = '生成失败';
+          downloadButton.disabled = true;
+          copyButton.disabled = true;
+          showError('内容超过当前二维码容量，请缩短内容或选择更低的纠错等级。');
+        }
+      }
+
+      document.querySelectorAll('[data-mode]').forEach(function (tab) {
+        tab.addEventListener('click', function () { setMode(tab.dataset.mode); });
+      });
+
+      textInput.addEventListener('input', updateByteCount);
+      fileInput.addEventListener('change', function () {
+        const file = fileInput.files && fileInput.files[0];
+        filePayload = '';
+        if (!file) {
+          fileName.textContent = '选择要编码的文件';
+          return;
+        }
+        if (file.size > MAX_FILE_BYTES) {
+          fileInput.value = '';
+          fileName.textContent = '选择要编码的文件';
+          showError('文件为 ' + file.size + ' 字节，超过 1.2 KB 限制。建议上传文件后生成下载链接二维码。');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function () {
+          filePayload = reader.result;
+          fileName.textContent = file.name + ' · ' + file.size + ' 字节';
+          showError('');
+        };
+        reader.onerror = function () { showError('文件读取失败，请重新选择。'); };
+        reader.readAsDataURL(file);
+      });
+
+      document.querySelectorAll('input[type="color"]').forEach(function (input) {
+        input.addEventListener('input', function () {
+          document.querySelector('[data-color-label="' + input.id + '"]').value = input.value;
+        });
+      });
+
+      generateButton.addEventListener('click', renderCode);
+      document.getElementById('clear-qr').addEventListener('click', function () {
+        textInput.value = '';
+        fileInput.value = '';
+        filePayload = '';
+        payload = '';
+        fileName.textContent = '选择要编码的文件';
+        output.replaceChildren();
+        status.textContent = '等待生成';
+        downloadButton.disabled = true;
+        copyButton.disabled = true;
+        showError('');
+        updateByteCount();
+      });
+
+      downloadButton.addEventListener('click', function () {
+        const canvas = output.querySelector('canvas');
+        const image = output.querySelector('img');
+        const source = canvas ? canvas.toDataURL('image/png') : image && image.src;
+        if (!source) return;
+        const link = document.createElement('a');
+        link.href = source;
+        link.download = 'phdsx-qrcode.png';
+        link.click();
+      });
+
+      copyButton.addEventListener('click', async function () {
+        try {
+          await navigator.clipboard.writeText(payload);
+          copyButton.textContent = '已复制';
+          setTimeout(function () { copyButton.textContent = '复制内容'; }, 1200);
+        } catch (exception) {
+          showError('浏览器未允许复制，请手动复制原始内容。');
+        }
+      });
+
+      updateByteCount();
+      renderCode();
+    });
+  </script>
+</body>
+</html>

@@ -10,31 +10,166 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#f4f7fb">
   <title>PHDSX 个人主页</title>
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/site.css?v=20260730b">
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="index.html" aria-label="返回首页"><span class="brand-mark">P</span><span>PHDSX</span></a>
-    <nav class="site-nav" aria-label="主导航"><a class="nav-link active" href="index.html">首页</a><a class="nav-link" href="tools.html">工具</a><a class="nav-link" href="games.html">游戏</a><a class="nav-link" href="blog.html">博客</a><a class="nav-link" href="directory.html">黄页</a></nav>
-  </header>
-  <main>
-    <section class="hero">
-      <div>
-        <h1>一个简洁、好用、持续生长的个人主页。</h1>
-        <p>把日常工具、小游戏、学习笔记和常用黄页整理到同一个入口。页面风格统一为轻量科技感，适合快速查找，也方便后续继续扩展。</p>
-        <div class="hero-actions"><a class="button primary" href="tools.html">进入工具库</a><a class="button" href="games.html">玩点游戏</a></div>
+  <header class="site-header"></header>
+
+  <main class="home-main portal-home">
+    <section class="portal-search" aria-labelledby="home-title">
+      <p class="portal-eyebrow">PHDSX PERSONAL HUB</p>
+      <h1 id="home-title">搜索你需要的内容</h1>
+      <div class="search-categories" data-search-categories aria-label="搜索分类">
+        <button class="active" type="button" data-search-category="全部">全部</button>
+        <button type="button" data-search-category="工具">工具</button>
+        <button type="button" data-search-category="游戏">游戏</button>
+        <button type="button" data-search-category="博客">博客</button>
+        <button type="button" data-search-category="小说">小说</button>
+        <button type="button" data-search-category="黄页">黄页</button>
       </div>
-      <aside class="signal-panel" aria-label="站点概览"><div class="metric-grid"><div class="metric"><strong>16</strong><span>实用工具</span></div><div class="metric"><strong>4</strong><span>游戏入口</span></div><div class="metric"><strong>3</strong><span>博客笔记</span></div><div class="metric"><strong>3</strong><span>黄页条目</span></div></div></aside>
+      <div class="command-search">
+        <label class="sr-only" for="home-search">搜索站内内容</label>
+        <input id="home-search" type="search" data-home-search placeholder="搜索全部内容" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="home-search-results">
+        <button class="portal-search-button" type="button" data-search-submit aria-label="搜索">搜索</button>
+        <span class="command-key" aria-hidden="true">Ctrl K</span>
+        <div class="home-search-panel" data-home-search-panel hidden>
+          <p class="home-search-status" data-home-search-status aria-live="polite"></p>
+          <div class="home-search-list" id="home-search-results" data-home-search-list role="listbox"></div>
+        </div>
+      </div>
+      <div class="command-links" aria-label="热门搜索">
+        <span>热门：</span>
+        <button type="button" data-search-suggestion="雷劈计算器">雷劈计算器</button>
+        <button type="button" data-search-suggestion="图片压缩">图片压缩</button>
+        <button type="button" data-search-suggestion="俄罗斯方块">俄罗斯方块</button>
+        <button type="button" data-search-suggestion="小说">小说连载</button>
+      </div>
     </section>
-    <section class="section"><div class="section-head"><div><h2>常用入口</h2><p class="section-lede">从这里直达站点的主要功能区。</p></div></div><div class="card-grid"><article class="link-card"><div><span class="tag">Tools</span><h3>工具</h3><p>图片处理、文本处理、倒计时和演示辅助工具。</p></div><a class="card-action" href="tools.html">查看</a></article><article class="link-card"><div><span class="tag">Games</span><h3>游戏</h3><p>俄罗斯方块、潜艇大战、水果忍者和中国象棋。</p></div><a class="card-action" href="games.html">查看</a></article><article class="link-card"><div><span class="tag">Blog</span><h3>博客</h3><p>支持日期、主题筛选和搜索的笔记阅读区。</p></div><a class="card-action" href="blog.html">查看</a></article></div></section>
+
+    <section class="portal-dashboard" aria-label="快捷入口">
+      <div class="portal-panel portal-ranking">
+        <div class="portal-panel-head"><h2>热门入口</h2><span>常用</span></div>
+        <ol>
+          <li><a href="ChouXiangTool/雷劈计算器.html"><span>雷劈计算器</span><small>趣味工具</small></a></li>
+          <li><a href="PictureTools/pic_compress.html"><span>图片压缩</span><small>图片处理</small></a></li>
+          <li><a href="Tools/ppt-countdown.html"><span>PPT 倒计时</span><small>工作效率</small></a></li>
+          <li><a href="novels.html"><span>小说连载</span><small>持续更新</small></a></li>
+        </ol>
+      </div>
+
+      <div class="portal-panel portal-direct">
+        <div class="portal-panel-head"><h2>工具直达</h2><a href="tools.html">全部工具</a></div>
+        <div class="portal-app-grid">
+          <a href="PictureTools/pic_compress.html"><img src="assets/icons/image-compress.webp" alt=""><span>图片压缩</span></a>
+          <a href="PictureTools/pic_cut.html"><img src="assets/icons/image-crop.webp" alt=""><span>图片裁剪</span></a>
+          <a href="TextTool/TextDropDup.html"><img src="assets/icons/text-dedupe.webp" alt=""><span>文本去重</span></a>
+          <a href="TextTool/WordCount.html"><img src="assets/icons/word-count.webp" alt=""><span>字数统计</span></a>
+          <a href="Tools/qr-generator.html"><img src="assets/icons/qr-generator.webp" alt=""><span>二维码生成</span></a>
+          <a href="Tools/ppt-countdown.html"><img src="assets/icons/ppt-countdown.webp" alt=""><span>PPT 倒计时</span></a>
+          <a href="ChouXiangTool/下班倒计时.html"><img src="assets/icons/work-countdown.webp" alt=""><span>下班倒计时</span></a>
+          <a href="ChouXiangTool/吃啥饭.html"><img src="assets/icons/meal-randomizer.webp" alt=""><span>吃啥饭</span></a>
+          <a href="ChouXiangTool/雷劈计算器.html"><img src="assets/icons/lightning-calculator.webp" alt=""><span>雷劈计算器</span></a>
+        </div>
+      </div>
+
+      <div class="portal-panel overview-panel">
+        <div class="portal-panel-head"><h2>站点概览</h2><span>在线</span></div>
+        <time class="home-clock" data-home-clock>--:--:--</time>
+        <p data-home-date>正在读取日期</p>
+        <div class="overview-counts">
+          <a href="tools.html"><strong>17</strong><span>工具</span></a>
+          <a href="games.html"><strong>4</strong><span>游戏</span></a>
+          <a href="blog.html"><strong>4</strong><span>阅读</span></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="home-layout">
+      <div class="home-content">
+        <section class="home-section" aria-labelledby="common-title">
+          <div class="home-section-head">
+            <div><h2 id="common-title">全部功能</h2><p>按使用场景整理，快速找到合适的入口。</p></div>
+            <a href="tools.html">查看全部 17 项</a>
+          </div>
+          <div class="tool-groups">
+            <section class="tool-group">
+              <div class="tool-group-head"><span class="tool-group-icon blue">IMG</span><div><h3>图片处理</h3><p>压缩、裁剪与输出</p></div></div>
+              <div class="tool-links">
+                <a href="PictureTools/pic_compress.html"><img class="feature-icon" src="assets/icons/image-compress.webp" alt=""><span>图片压缩</span><small>减小体积</small></a>
+                <a href="PictureTools/pic_cut.html"><img class="feature-icon" src="assets/icons/image-crop.webp" alt=""><span>图片裁剪</span><small>调整画面</small></a>
+                <a href="PictureTools/pic_scale_change.html"><img class="feature-icon" src="assets/icons/image-resize.webp" alt=""><span>图片缩放</span><small>修改尺寸</small></a>
+                <a href="PictureTools/pic_watermark.html"><img class="feature-icon" src="assets/icons/image-watermark.webp" alt=""><span>图片水印</span><small>添加标记</small></a>
+              </div>
+            </section>
+            <section class="tool-group">
+              <div class="tool-group-head"><span class="tool-group-icon green">TXT</span><div><h3>文本效率</h3><p>整理、统计与转换</p></div></div>
+              <div class="tool-links">
+                <a href="TextTool/TextDropDup.html"><img class="feature-icon" src="assets/icons/text-dedupe.webp" alt=""><span>文本去重</span><small>清理重复</small></a>
+                <a href="TextTool/WordCount.html"><img class="feature-icon" src="assets/icons/word-count.webp" alt=""><span>字数统计</span><small>字符段落</small></a>
+                <a href="TextTool/WordPretty.html"><img class="feature-icon" src="assets/icons/text-format.webp" alt=""><span>文本美化</span><small>整理格式</small></a>
+                <a href="TextTool/case-converter.html"><img class="feature-icon" src="assets/icons/case-convert.webp" alt=""><span>大小写转换</span><small>英文转换</small></a>
+                <a href="Tools/qr-generator.html"><img class="feature-icon" src="assets/icons/qr-generator.webp" alt=""><span>二维码生成</span><small>文字与文件</small></a>
+              </div>
+            </section>
+            <section class="tool-group">
+              <div class="tool-group-head"><span class="tool-group-icon amber">TIME</span><div><h3>时间与工作</h3><p>倒计时与演示辅助</p></div></div>
+              <div class="tool-links">
+                <a href="Tools/ppt-countdown.html"><img class="feature-icon" src="assets/icons/ppt-countdown.webp" alt=""><span>PPT 倒计时</span><small>演示悬浮</small></a>
+                <a href="ChouXiangTool/下班倒计时.html"><img class="feature-icon" src="assets/icons/work-countdown.webp" alt=""><span>下班倒计时</span><small>工作节奏</small></a>
+                <a href="ChouXiangTool/倒计时.html"><img class="feature-icon" src="assets/icons/date-countdown.webp" alt=""><span>日期倒计时</span><small>重要节点</small></a>
+                <a href="JS/vipvideo.html"><img class="feature-icon" src="assets/icons/video-player.webp" alt=""><span>VIP 视频</span><small>媒体入口</small></a>
+              </div>
+            </section>
+            <section class="tool-group">
+              <div class="tool-group-head"><span class="tool-group-icon coral">FUN</span><div><h3>生活与趣味</h3><p>轻松选择与娱乐</p></div></div>
+              <div class="tool-links">
+                <a href="ChouXiangTool/吃啥饭.html"><img class="feature-icon" src="assets/icons/meal-randomizer.webp" alt=""><span>吃啥饭</span><small>随机菜单</small></a>
+                <a href="ChouXiangTool/雷劈计算器.html"><img class="feature-icon" src="assets/icons/lightning-calculator.webp" alt=""><span>雷劈计算器</span><small>趣味测试</small></a>
+                <a href="ChouXiangTool/父母性别计算器.html"><img class="feature-icon" src="assets/icons/family-calculator.webp" alt=""><span>父母性别计算器</span><small>趣味工具</small></a>
+                <a href="novels.html"><img class="feature-icon" src="assets/icons/serial-novel.webp" alt=""><span>小说连载</span><small>继续阅读</small></a>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="home-section" aria-labelledby="games-title">
+          <div class="home-section-head"><div><h2 id="games-title">游戏与灵感</h2><p>适合短暂放松的本地小游戏。</p></div><a href="games.html">全部游戏</a></div>
+          <div class="game-showcase">
+            <a class="game-tile" href="ChineseChess.html"><img class="game-image" src="assets/icons/game-chess.webp" alt=""><span><strong>中国象棋</strong><small>本地双人对弈</small></span></a>
+            <a class="game-tile" href="Games/tetris.html"><img class="game-image" src="assets/icons/game-tetris.webp" alt=""><span><strong>俄罗斯方块</strong><small>经典方块消除</small></span></a>
+            <a class="game-tile" href="Games/dinnerninja/index.html"><img class="game-image" src="assets/icons/game-fruit.webp" alt=""><span><strong>水果忍者</strong><small>休闲切水果</small></span></a>
+            <a class="game-tile" href="Games/submarine-battle.html"><img class="game-image" src="assets/icons/game-submarine.webp" alt=""><span><strong>潜艇大战</strong><small>Canvas 射击游戏</small></span></a>
+          </div>
+        </section>
+      </div>
+
+      <aside class="home-rail" aria-label="站点动态">
+        <section class="rail-panel">
+          <div class="rail-head"><h2>最新内容</h2><a href="blog.html">查看全部</a></div>
+          <div class="rail-list">
+            <a href="novels.html" data-keywords="小说 连载 零号回声"><span>《零号回声》连载</span><small>小说</small></a>
+            <a href="blog-post.html?src=Python%2FPython_tutorail.md&title=Python%20%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22"><span>Python 教程笔记</span><small>Python</small></a>
+            <a href="blog-post.html?src=Python%2FPython_output.md&title=Python%20%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22"><span>Python 输出笔记</span><small>Python</small></a>
+          </div>
+        </section>
+        <section class="rail-panel">
+          <div class="rail-head"><h2>黄页直达</h2><a href="directory.html">完整黄页</a></div>
+          <div class="rail-list directory-links">
+            <a href="tel:10086"><span>中国移动客服</span><strong>10086</strong></a>
+            <a href="tel:021-32455332"><span>示例公司固话</span><strong>021-32455332</strong></a>
+            <a href="tel:13576542453"><span>示例联系人</span><strong>135-7654-2453</strong></a>
+          </div>
+        </section>
+      </aside>
+    </div>
   </main>
   <footer class="site-footer">
     <span>PHDSX 个人主页</span>
     <span>Tools · Games · Blog · Directory</span>
   </footer>
-  <script src="assets/site.js"></script>
-  
+  <script src="assets/catalog.js?v=20260730a"></script>
+  <script src="assets/site.js?v=20260730e"></script>
 </body>
 </html>
