@@ -63,6 +63,14 @@
     .qr-color-row { display: grid; grid-template-columns: 44px 1fr; gap: 9px; align-items: center; }
     .qr-color-row input[type="color"] { width: 44px; height: 42px; padding: 3px; border: 1px solid var(--qr-line); border-radius: 7px; background: #fff; cursor: pointer; }
     .qr-color-row input[type="text"] { min-width: 0; height: 42px; padding: 0 10px; border: 1px solid var(--qr-line); border-radius: 7px; color: var(--qr-muted); background: #f8fafc; }
+    .qr-logo-box { display: flex; align-items: center; gap: 10px; min-height: 42px; }
+    .qr-logo-box input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .qr-logo-pick { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 13px; border: 1px dashed #aebdce; border-radius: 7px; color: var(--qr-brand); background: #f8fbff; font-size: 12px; font-weight: 750; cursor: pointer; }
+    .qr-logo-name { min-width: 0; overflow: hidden; color: var(--qr-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .qr-logo-remove { flex: 0 0 auto; border: 0; color: var(--qr-danger); background: transparent; font-size: 12px; cursor: pointer; }
+    .qr-theme-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+    .qr-theme { min-height: 38px; padding: 0 6px; border: 1px solid var(--qr-line); border-radius: 7px; color: var(--qr-muted); background: #fff; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .qr-theme.active { border-color: var(--qr-brand); color: var(--qr-brand); background: #f2f7ff; box-shadow: 0 0 0 2px rgba(23,105,224,.08); }
     .qr-actions { display: flex; gap: 9px; margin-top: 4px; }
     .qr-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 17px; border: 1px solid var(--qr-line); border-radius: 7px; color: var(--qr-ink); background: #fff; font-weight: 750; cursor: pointer; }
     .qr-button.primary { flex: 1; border-color: var(--qr-brand); color: #fff; background: var(--qr-brand); }
@@ -72,9 +80,14 @@
     .qr-preview-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
     .qr-preview-head h2 { margin: 0; font-size: 17px; }
     .qr-status { color: var(--qr-muted); font-size: 11px; }
+    .qr-capacity { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: -4px 0 14px; }
+    .qr-capacity-item { padding: 9px 10px; border: 1px solid var(--qr-line); border-radius: 7px; background: #f8fafc; }
+    .qr-capacity-item span { display: block; margin-bottom: 3px; color: var(--qr-muted); font-size: 10px; }
+    .qr-capacity-item strong { font-size: 13px; font-variant-numeric: tabular-nums; }
     .qr-canvas-wrap { display: grid; place-items: center; min-height: 360px; padding: 24px; border: 1px solid var(--qr-line); border-radius: 8px; background-color: #eef3f8; background-image: linear-gradient(45deg,#e4eaf1 25%,transparent 25%),linear-gradient(-45deg,#e4eaf1 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e4eaf1 75%),linear-gradient(-45deg,transparent 75%,#e4eaf1 75%); background-position: 0 0,0 8px,8px -8px,-8px 0; background-size: 16px 16px; }
     #qrcode { display: grid; place-items: center; padding: 14px; background: #fff; box-shadow: 0 12px 30px rgba(16,24,40,.12); }
     #qrcode img, #qrcode canvas { display: block; max-width: 100%; height: auto !important; }
+    #qrcode canvas { border-radius: 2px; }
     .qr-preview-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
     .qr-note { margin: 15px 0 0; color: var(--qr-muted); font-size: 11px; line-height: 1.65; }
     @media (max-width: 850px) {
@@ -113,7 +126,7 @@
           <div class="qr-field">
             <label for="qr-text">二维码内容</label>
             <textarea id="qr-text" placeholder="输入文字、网址、电话、邮箱等内容">https://phdsx.github.io/</textarea>
-            <div class="qr-field-meta"><span>建议控制在 1,200 字节以内</span><span data-byte-count>0 字节</span></div>
+            <div class="qr-field-meta"><span>按实际编码容量检测，不限制字符数</span><span data-byte-count>0 字节</span></div>
           </div>
         </div>
 
@@ -122,7 +135,7 @@
             <input id="qr-file" type="file">
             <span class="qr-file-symbol">＋</span>
             <strong data-file-name>选择要编码的文件</strong>
-            <small>最大 1.2 KB。文件会转换为 Data URL，不会上传到服务器。</small>
+            <small>最大 1.2 KB。文件会转换为 Data URL；编码后会比原文件稍大，但不会上传服务器。</small>
           </label>
         </div>
 
@@ -152,6 +165,32 @@
             <label for="qr-light">背景色</label>
             <div class="qr-color-row"><input id="qr-light" type="color" value="#ffffff"><input type="text" value="#ffffff" data-color-label="qr-light" readonly></div>
           </div>
+          <div class="qr-field">
+            <label for="qr-style">点阵样式</label>
+            <select id="qr-style">
+              <option value="square">经典方块</option>
+              <option value="rounded" selected>柔和圆角</option>
+              <option value="dots">圆点</option>
+            </select>
+          </div>
+          <div class="qr-field">
+            <label for="qr-logo">中心 Logo</label>
+            <div class="qr-logo-box">
+              <label class="qr-logo-pick" for="qr-logo">上传图片</label>
+              <input id="qr-logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+              <span class="qr-logo-name" id="qr-logo-name">未选择</span>
+              <button class="qr-logo-remove" type="button" id="remove-logo" hidden>移除</button>
+            </div>
+          </div>
+          <div class="qr-field" style="grid-column: 1 / -1">
+            <span class="qr-options-title">主题</span>
+            <div class="qr-theme-row" role="group" aria-label="二维码主题">
+              <button class="qr-theme active" type="button" data-theme="classic" data-dark="#101828" data-light="#ffffff">经典</button>
+              <button class="qr-theme" type="button" data-theme="ocean" data-dark="#075985" data-light="#f0f9ff">海洋</button>
+              <button class="qr-theme" type="button" data-theme="forest" data-dark="#14532d" data-light="#f0fdf4">森林</button>
+              <button class="qr-theme" type="button" data-theme="plum" data-dark="#581c87" data-light="#faf5ff">梅紫</button>
+            </div>
+          </div>
         </div>
 
         <div class="qr-actions">
@@ -163,6 +202,11 @@
 
       <aside class="qr-panel qr-preview" aria-label="二维码预览">
         <div class="qr-preview-head"><h2>预览</h2><span class="qr-status" id="qr-status">等待生成</span></div>
+        <div class="qr-capacity" aria-label="二维码容量">
+          <div class="qr-capacity-item"><span>已占用</span><strong id="qr-capacity-used">—</strong></div>
+          <div class="qr-capacity-item"><span>剩余</span><strong id="qr-capacity-remaining">—</strong></div>
+          <div class="qr-capacity-item"><span>总容量</span><strong id="qr-capacity-total">—</strong></div>
+        </div>
         <div class="qr-canvas-wrap"><div id="qrcode" aria-label="生成的二维码"></div></div>
         <div class="qr-preview-actions">
           <button class="qr-button" type="button" id="download-qr" disabled>下载 PNG</button>
@@ -176,26 +220,71 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const MAX_FILE_BYTES = 1200;
+      const QR_BYTE_CAPACITY = [
+        [17,14,11,7],[32,26,20,14],[53,42,32,24],[78,62,46,34],[106,84,60,44],
+        [134,106,74,58],[154,122,86,64],[192,152,108,84],[230,180,130,98],[271,213,151,119],
+        [321,251,177,137],[367,287,203,155],[425,331,241,177],[458,362,258,194],[520,412,292,220],
+        [586,450,322,250],[644,504,364,280],[718,560,394,310],[792,624,442,338],[858,666,482,382],
+        [929,711,509,403],[1003,779,565,439],[1091,857,611,461],[1171,911,661,511],[1273,997,715,535],
+        [1367,1059,751,593],[1465,1125,805,625],[1528,1190,868,658],[1628,1264,908,698],[1732,1370,982,742],
+        [1840,1452,1030,790],[1952,1538,1112,842],[2068,1628,1168,898],[2188,1722,1228,958],[2303,1809,1283,983],
+        [2431,1911,1351,1051],[2563,1989,1423,1093],[2699,2099,1499,1139],[2809,2213,1579,1219],[2953,2331,1663,1273]
+      ];
       const textInput = document.getElementById('qr-text');
       const fileInput = document.getElementById('qr-file');
       const output = document.getElementById('qrcode');
       const error = document.getElementById('qr-error');
       const status = document.getElementById('qr-status');
+      const capacityUsed = document.getElementById('qr-capacity-used');
+      const capacityRemaining = document.getElementById('qr-capacity-remaining');
+      const capacityTotal = document.getElementById('qr-capacity-total');
       const generateButton = document.getElementById('generate-qr');
       const downloadButton = document.getElementById('download-qr');
       const copyButton = document.getElementById('copy-content');
       const byteCount = document.querySelector('[data-byte-count]');
       const fileName = document.querySelector('[data-file-name]');
+      const logoInput = document.getElementById('qr-logo');
+      const logoName = document.getElementById('qr-logo-name');
+      const removeLogoButton = document.getElementById('remove-logo');
       let mode = 'text';
       let payload = '';
       let filePayload = '';
+      let logoImage = null;
+      let renderTimer = 0;
 
       function bytes(value) {
         return new TextEncoder().encode(value || '').length;
       }
 
+      function qrEncodedBytes(value) {
+        const bodyLength = bytes(value);
+        return bodyLength + (bodyLength !== Array.from(value).length ? 3 : 0);
+      }
+
+      function formatBytes(value) {
+        return Number(value).toLocaleString('zh-CN') + ' B';
+      }
+
+      function updateCapacity(matrix, usedBytes) {
+        const level = document.getElementById('qr-level').value;
+        const levelIndex = { L: 0, M: 1, Q: 2, H: 3 }[level];
+        const version = matrix ? (matrix.getModuleCount() - 17) / 4 : 40;
+        const total = QR_BYTE_CAPACITY[version - 1][levelIndex];
+        capacityUsed.textContent = formatBytes(usedBytes);
+        capacityRemaining.textContent = formatBytes(Math.max(0, total - usedBytes));
+        capacityTotal.textContent = formatBytes(total);
+        return version;
+      }
+
+      function resetCapacity() {
+        capacityUsed.textContent = '—';
+        capacityRemaining.textContent = '—';
+        capacityTotal.textContent = '—';
+      }
+
       function updateByteCount() {
-        byteCount.textContent = bytes(textInput.value) + ' 字节';
+        const value = textInput.value;
+        byteCount.textContent = Array.from(value).length + ' 字符 · ' + bytes(value) + ' 字节';
       }
 
       function showError(message) {
@@ -225,6 +314,109 @@
         }[document.getElementById('qr-level').value];
       }
 
+      function roundRect(context, x, y, width, height, radius) {
+        const safeRadius = Math.min(radius, width / 2, height / 2);
+        context.beginPath();
+        context.roundRect(x, y, width, height, safeRadius);
+        context.fill();
+      }
+
+      function isFinder(row, column, count) {
+        return (row < 7 && column < 7) ||
+          (row < 7 && column >= count - 7) ||
+          (row >= count - 7 && column < 7);
+      }
+
+      function drawFinder(context, column, row, unit, quiet, dark, light, style) {
+        const x = (quiet + column) * unit;
+        const y = (quiet + row) * unit;
+        const radius = style === 'square' ? 0 : unit * 1.25;
+        context.fillStyle = dark;
+        roundRect(context, x, y, unit * 7, unit * 7, radius);
+        context.fillStyle = light;
+        roundRect(context, x + unit, y + unit, unit * 5, unit * 5, Math.max(0, radius - unit * .25));
+        context.fillStyle = dark;
+        roundRect(context, x + unit * 2, y + unit * 2, unit * 3, unit * 3, style === 'dots' ? unit * 1.5 : Math.max(0, radius - unit * .5));
+      }
+
+      function paintMatrix(matrix, size) {
+        const count = matrix.getModuleCount();
+        const quiet = 4;
+        const unit = size / (count + quiet * 2);
+        const dark = document.getElementById('qr-dark').value;
+        const light = document.getElementById('qr-light').value;
+        const style = document.getElementById('qr-style').value;
+        const canvas = document.createElement('canvas');
+        const ratio = Math.max(1, window.devicePixelRatio || 1);
+        canvas.width = Math.round(size * ratio);
+        canvas.height = Math.round(size * ratio);
+        canvas.style.width = size + 'px';
+        canvas.style.height = size + 'px';
+        const context = canvas.getContext('2d');
+        context.scale(ratio, ratio);
+        context.fillStyle = light;
+        context.fillRect(0, 0, size, size);
+        context.fillStyle = dark;
+
+        for (let row = 0; row < count; row += 1) {
+          for (let column = 0; column < count; column += 1) {
+            if (!matrix.isDark(row, column) || isFinder(row, column, count)) continue;
+            const x = (quiet + column) * unit;
+            const y = (quiet + row) * unit;
+            if (style === 'square') {
+              context.fillRect(x, y, unit + .25, unit + .25);
+            } else {
+              const inset = style === 'dots' ? unit * .12 : unit * .045;
+              const radius = style === 'dots' ? unit / 2 : unit * .28;
+              roundRect(context, x + inset, y + inset, unit - inset * 2, unit - inset * 2, radius);
+            }
+          }
+        }
+
+        drawFinder(context, 0, 0, unit, quiet, dark, light, style);
+        drawFinder(context, count - 7, 0, unit, quiet, dark, light, style);
+        drawFinder(context, 0, count - 7, unit, quiet, dark, light, style);
+
+        if (logoImage) {
+          const logoSize = size * .19;
+          const padding = unit * 1.1;
+          const x = (size - logoSize) / 2;
+          const y = (size - logoSize) / 2;
+          context.fillStyle = light;
+          roundRect(context, x - padding, y - padding, logoSize + padding * 2, logoSize + padding * 2, unit * 1.2);
+          context.save();
+          context.beginPath();
+          context.roundRect(x, y, logoSize, logoSize, unit * .8);
+          context.clip();
+          context.drawImage(logoImage, x, y, logoSize, logoSize);
+          context.restore();
+        }
+        output.replaceChildren(canvas);
+      }
+
+      function scheduleRender() {
+        window.clearTimeout(renderTimer);
+        renderTimer = window.setTimeout(renderCode, 120);
+      }
+
+      function encodePayload(value) {
+        const codePoints = Array.from(value, function (character) { return character.codePointAt(0); });
+        const unicodePayload = {
+          length: codePoints.length,
+          charCodeAt: function (index) { return codePoints[index]; },
+          toString: function () { return value; }
+        };
+        const scratch = document.createElement('div');
+        const encoder = new QRCode(scratch, {
+          width: 32,
+          height: 32,
+          correctLevel: levelValue()
+        });
+        // 旧库按 UTF-16 码元拆分 Emoji；以 Unicode 码点适配器传入可得到标准 UTF-8。
+        encoder.makeCode(unicodePayload);
+        return encoder;
+      }
+
       function renderCode() {
         if (typeof QRCode === 'undefined') {
           showError('二维码组件加载失败，请检查网络连接后刷新页面。');
@@ -233,41 +425,40 @@
         payload = mode === 'file' ? filePayload : textInput.value.trim();
         if (!payload) {
           showError(mode === 'file' ? '请先选择一个小型文件。' : '请输入要生成二维码的内容。');
-          return;
-        }
-        if (mode === 'text' && bytes(payload) > 1800) {
-          showError('内容过长。请缩短到约 1,800 字节以内，或降低纠错等级。');
+          resetCapacity();
           return;
         }
         showError('');
-        output.replaceChildren();
         const size = Number(document.getElementById('qr-size').value);
+        const usedBytes = qrEncodedBytes(payload);
         try {
-          new QRCode(output, {
-            text: payload,
-            width: size,
-            height: size,
-            colorDark: document.getElementById('qr-dark').value,
-            colorLight: document.getElementById('qr-light').value,
-            correctLevel: levelValue()
-          });
-          status.textContent = bytes(payload) + ' 字节 · 已生成';
+          const encoder = encodePayload(payload);
+          paintMatrix(encoder._oQRCode, size);
+          const version = updateCapacity(encoder._oQRCode, usedBytes);
+          status.textContent = '版本 V' + version + ' · 实时预览';
           downloadButton.disabled = false;
           copyButton.disabled = false;
         } catch (exception) {
           output.replaceChildren();
-          status.textContent = '生成失败';
+          updateCapacity(null, usedBytes);
+          status.textContent = '超出最大容量';
           downloadButton.disabled = true;
           copyButton.disabled = true;
-          showError('内容超过当前二维码容量，请缩短内容或选择更低的纠错等级。');
+          showError('当前内容在“' + document.getElementById('qr-level').selectedOptions[0].textContent + '”纠错等级下无法编码。请降低纠错等级或缩短内容。');
         }
       }
 
       document.querySelectorAll('[data-mode]').forEach(function (tab) {
-        tab.addEventListener('click', function () { setMode(tab.dataset.mode); });
+        tab.addEventListener('click', function () {
+          setMode(tab.dataset.mode);
+          scheduleRender();
+        });
       });
 
-      textInput.addEventListener('input', updateByteCount);
+      textInput.addEventListener('input', function () {
+        updateByteCount();
+        if (mode === 'text') scheduleRender();
+      });
       fileInput.addEventListener('change', function () {
         const file = fileInput.files && fileInput.files[0];
         filePayload = '';
@@ -286,6 +477,7 @@
           filePayload = reader.result;
           fileName.textContent = file.name + ' · ' + file.size + ' 字节';
           showError('');
+          scheduleRender();
         };
         reader.onerror = function () { showError('文件读取失败，请重新选择。'); };
         reader.readAsDataURL(file);
@@ -294,7 +486,69 @@
       document.querySelectorAll('input[type="color"]').forEach(function (input) {
         input.addEventListener('input', function () {
           document.querySelector('[data-color-label="' + input.id + '"]').value = input.value;
+          document.querySelectorAll('[data-theme]').forEach(function (theme) {
+            const active = theme.dataset.dark === document.getElementById('qr-dark').value &&
+              theme.dataset.light === document.getElementById('qr-light').value;
+            theme.classList.toggle('active', active);
+          });
+          scheduleRender();
         });
+      });
+
+      document.querySelectorAll('[data-theme]').forEach(function (theme) {
+        theme.addEventListener('click', function () {
+          const darkInput = document.getElementById('qr-dark');
+          const lightInput = document.getElementById('qr-light');
+          darkInput.value = theme.dataset.dark;
+          lightInput.value = theme.dataset.light;
+          document.querySelector('[data-color-label="qr-dark"]').value = theme.dataset.dark;
+          document.querySelector('[data-color-label="qr-light"]').value = theme.dataset.light;
+          document.querySelectorAll('[data-theme]').forEach(function (item) {
+            item.classList.toggle('active', item === theme);
+          });
+          scheduleRender();
+        });
+      });
+
+      ['qr-size', 'qr-level', 'qr-style'].forEach(function (id) {
+        document.getElementById(id).addEventListener('change', scheduleRender);
+      });
+
+      logoInput.addEventListener('change', function () {
+        const file = logoInput.files && logoInput.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          logoInput.value = '';
+          showError('Logo 请选择 PNG、JPG、WebP 或 SVG 图片。');
+          return;
+        }
+        if (file.size > 2 * 1024 * 1024) {
+          logoInput.value = '';
+          showError('Logo 图片不能超过 2 MB。');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function () {
+          const image = new Image();
+          image.onload = function () {
+            logoImage = image;
+            logoName.textContent = file.name;
+            removeLogoButton.hidden = false;
+            showError('');
+            scheduleRender();
+          };
+          image.onerror = function () { showError('Logo 图片无法读取，请更换图片。'); };
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      removeLogoButton.addEventListener('click', function () {
+        logoInput.value = '';
+        logoImage = null;
+        logoName.textContent = '未选择';
+        removeLogoButton.hidden = true;
+        scheduleRender();
       });
 
       generateButton.addEventListener('click', renderCode);
@@ -303,9 +557,14 @@
         fileInput.value = '';
         filePayload = '';
         payload = '';
+        logoInput.value = '';
+        logoImage = null;
+        logoName.textContent = '未选择';
+        removeLogoButton.hidden = true;
         fileName.textContent = '选择要编码的文件';
         output.replaceChildren();
         status.textContent = '等待生成';
+        resetCapacity();
         downloadButton.disabled = true;
         copyButton.disabled = true;
         showError('');
