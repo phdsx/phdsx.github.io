@@ -5,6 +5,7 @@ const PALETTE = {
 };
 
 const SHELF_ANCHORS = [0.436, 0.79];
+const BOTTLE_MOUTH_SOURCE_Y = 0.09;
 
 export function computeBottleSourceRect(imageWidth, imageHeight) {
   const width = imageWidth * 0.54;
@@ -14,6 +15,14 @@ export function computeBottleSourceRect(imageWidth, imageHeight) {
     y: (imageHeight - height) / 2,
     width,
     height,
+  };
+}
+
+export function computeBottleMouthAnchor(imageWidth, imageHeight) {
+  const source = computeBottleSourceRect(imageWidth, imageHeight);
+  return {
+    x: (imageWidth / 2 - source.x) / source.width,
+    y: (imageHeight * BOTTLE_MOUTH_SOURCE_Y - source.y) / source.height,
   };
 }
 
@@ -77,15 +86,23 @@ export function computeLayout(width, height, tubeCount) {
   const gap = Math.max(8, Math.min(18, sceneWidth * 0.025));
   const bottleWidth = Math.max(44, Math.min(66, (sceneWidth - gap * (columns + 1)) / columns));
   const bottleHeight = bottleWidth * 2.45;
+  const rowTotal = columns === 0 ? 0 : Math.ceil(tubeCount / columns);
+  const fallbackTop = Math.max(20, height * 0.12);
+  const fallbackBottom = 20;
+  const fallbackGap = rowTotal > 1
+    ? Math.max(12, (height - fallbackTop - fallbackBottom - rowTotal * bottleHeight) / (rowTotal - 1))
+    : 0;
   const bottles = Array.from({ length: tubeCount }, (_, index) => {
     const row = Math.floor(index / columns);
     const rowCount = Math.min(columns, tubeCount - row * columns);
     const rowWidth = rowCount * bottleWidth + (rowCount - 1) * gap;
     const column = index % columns;
-    const shelfAnchor = SHELF_ANCHORS[row] ?? SHELF_ANCHORS.at(-1);
+    const rowTop = rowTotal <= SHELF_ANCHORS.length
+      ? scene.y + scene.height * SHELF_ANCHORS[row] - bottleHeight
+      : fallbackTop + row * (bottleHeight + fallbackGap);
     return {
       x: scene.x + (sceneWidth - rowWidth) / 2 + column * (bottleWidth + gap),
-      y: scene.y + scene.height * shelfAnchor - bottleHeight,
+      y: rowTop,
       width: bottleWidth,
       height: bottleHeight,
     };
@@ -109,10 +126,10 @@ function drawSand(ctx, box, tube) {
 
 export function createRenderer(canvas, assets) {
   const ctx = canvas.getContext('2d');
-  const bottleSource = computeBottleSourceRect(
-    assets.bottle.naturalWidth || assets.bottle.width,
-    assets.bottle.naturalHeight || assets.bottle.height,
-  );
+  const bottleImageWidth = assets.bottle.naturalWidth || assets.bottle.width;
+  const bottleImageHeight = assets.bottle.naturalHeight || assets.bottle.height;
+  const bottleSource = computeBottleSourceRect(bottleImageWidth, bottleImageHeight);
+  const bottleMouthAnchor = computeBottleMouthAnchor(bottleImageWidth, bottleImageHeight);
   let layout = computeLayout(canvas.clientWidth || 390, canvas.clientHeight || 844, 0);
 
   function resize(tubeCount) {
@@ -186,7 +203,7 @@ export function createRenderer(canvas, assets) {
         const stream = (progress - 0.35) / 0.43;
         const start = transformBottlePoint(
           source,
-          { x: 0.5, y: 0.12 },
+          bottleMouthAnchor,
           { dx, dy, rotation },
         );
         const end = { x: target.x + target.width / 2, y: target.y + target.height * 0.16 };
