@@ -58,6 +58,7 @@ export function undo(session) {
   if (!session.history.length) return { ...session, message: '还没有可以撤销的步骤' };
 
   const tubes = cloneTubes(session.history.at(-1));
+  if (session.extraTube && tubes.length === session.level.tubes.length) tubes.push([]);
   return {
     ...session,
     tubes,

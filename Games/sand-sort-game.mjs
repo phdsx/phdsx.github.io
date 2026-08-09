@@ -18,17 +18,22 @@ const DEFAULT_PROGRESS = Object.freeze({
   muted: false,
 });
 
-function clampLevel(value) {
-  return Math.max(0, Math.min(29, Number(value) || 0));
+function normalizeLevelIndex(value) {
+  if (!Number.isInteger(value)) return 0;
+  return Math.max(0, Math.min(29, value));
 }
 
 export function normalizeProgress(value) {
   const saved = value && typeof value === 'object' ? value : {};
+  const currentLevel = normalizeLevelIndex(saved.currentLevel);
+  const unlockedLevel = Math.max(currentLevel, normalizeLevelIndex(saved.unlockedLevel));
   return {
-    currentLevel: clampLevel(saved.currentLevel),
-    unlockedLevel: clampLevel(saved.unlockedLevel),
-    coins: Number(saved.coins) || DEFAULT_PROGRESS.coins,
-    muted: Boolean(saved.muted),
+    currentLevel,
+    unlockedLevel,
+    coins: Number.isSafeInteger(saved.coins) && saved.coins >= 0
+      ? saved.coins
+      : DEFAULT_PROGRESS.coins,
+    muted: saved.muted === true,
   };
 }
 
@@ -45,6 +50,10 @@ export function navigateKeyboardIndex(current, key, count, columns) {
     return next < count ? next : safeCurrent;
   }
   return safeCurrent;
+}
+
+export function isGameInputBlocked({ locked, tutorialOpen, winOpen }) {
+  return locked === true || tutorialOpen === true || winOpen === true;
 }
 
 function loadProgress() {
@@ -102,11 +111,13 @@ async function initializeGame() {
   const levelNumber = document.querySelector('#level-number');
   const coinCount = document.querySelector('#coin-count');
   const soundButton = document.querySelector('#sound-button');
+  const statusBar = document.querySelector('.status-bar');
   const tutorial = document.querySelector('#tutorial');
   const startButton = document.querySelector('[data-action="start"]');
   const winDialog = document.querySelector('#win-dialog');
   const nextButton = document.querySelector('[data-action="next"]');
   const toolDock = document.querySelector('.tool-dock');
+  const backgroundRegions = [statusBar, canvas, status, toolDock];
 
   const progress = loadProgress();
   let session = createSession(progress.currentLevel, 0);
@@ -122,6 +133,26 @@ async function initializeGame() {
   }
 
   updateSoundButton();
+
+  function overlayIsOpen() {
+    return !tutorial.hidden || !winDialog.hidden;
+  }
+
+  function inputIsBlocked() {
+    return isGameInputBlocked({
+      locked,
+      tutorialOpen: !tutorial.hidden,
+      winOpen: !winDialog.hidden,
+    });
+  }
+
+  function updateOverlayGate() {
+    const blockedByOverlay = overlayIsOpen();
+    for (const region of backgroundRegions) {
+      region.inert = blockedByOverlay;
+      region.toggleAttribute('aria-hidden', blockedByOverlay);
+    }
+  }
 
   const [backgroundResult, bottleResult] = await Promise.all([
     loadImageSafely('./sand-sort-assets/background.png', 8, 8),
@@ -187,12 +218,13 @@ async function initializeGame() {
       winDialog.hidden = false;
       locked = false;
       setBusy(shell, canvas, false);
+      updateOverlayGate();
       nextButton.focus();
     }
   }
 
   async function chooseBottle(index) {
-    if (locked || index < 0 || index >= session.tubes.length) return;
+    if (inputIsBlocked() || index < 0 || index >= session.tubes.length) return;
     keyboardIndex = index;
     const previousSelected = session.selected;
     session = selectTube(session, index);
@@ -233,7 +265,7 @@ async function initializeGame() {
   }
 
   canvas.addEventListener('pointerup', async (event) => {
-    if (locked) return;
+    if (inputIsBlocked()) return;
     canvas.focus({ preventScroll: true });
     const rect = canvas.getBoundingClientRect();
     const index = hitTestBottle(
@@ -245,7 +277,7 @@ async function initializeGame() {
   });
 
   canvas.addEventListener('keydown', async (event) => {
-    if (locked) return;
+    if (inputIsBlocked()) return;
     const digitIndex = event.key === '0' ? 9 : Number.parseInt(event.key, 10) - 1;
     if (Number.isInteger(digitIndex) && digitIndex >= 0 && digitIndex < session.tubes.length) {
       event.preventDefault();
@@ -270,7 +302,7 @@ async function initializeGame() {
 
   toolDock.addEventListener('click', async (event) => {
     const button = event.target.closest('[data-tool]');
-    if (!button || locked) return;
+    if (!button || inputIsBlocked()) return;
     const tool = button.dataset.tool;
     locked = true;
     setBusy(shell, canvas, true);
@@ -302,6 +334,7 @@ async function initializeGame() {
 
   startButton.addEventListener('click', () => {
     tutorial.hidden = true;
+    updateOverlayGate();
     canvas.focus({ preventScroll: true });
     announceKeyboardPosition();
   });
@@ -315,6 +348,7 @@ async function initializeGame() {
     session = createSession(nextIndex, 0);
     keyboardIndex = 0;
     winDialog.hidden = true;
+    updateOverlayGate();
     render();
     canvas.focus({ preventScroll: true });
   });
@@ -337,6 +371,8 @@ async function initializeGame() {
   window.addEventListener('resize', scheduleResize, { passive: true });
   render();
   startButton.disabled = false;
+  updateOverlayGate();
+  startButton.focus();
 }
 
 function showInitializationError() {

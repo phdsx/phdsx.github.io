@@ -34,6 +34,31 @@ test('undo restores the previous immutable tubes', () => {
   assert.notEqual(session.tubes[0], before[0]);
 });
 
+test('undo preserves an extra empty tube added after the latest move', () => {
+  let session = createSession(0, 0);
+  const baseCount = session.tubes.length;
+  const move = session.level.solution[0];
+  session = commitPendingMove(selectTube(selectTube(session, move.from), move.to));
+  session = addExtraTube(session);
+  session = undo(session);
+
+  assert.equal(session.extraTube, true);
+  assert.equal(session.tubes.length, baseCount + 1);
+  assert.deepEqual(session.tubes.at(-1), []);
+});
+
+test('undo keeps the existing extra-tube snapshot when the move followed its addition', () => {
+  let session = addExtraTube(createSession(0, 0));
+  const extraIndex = session.tubes.length - 1;
+  const sourceIndex = session.tubes.findIndex((tube) => tube.length > 0);
+  session = commitPendingMove(selectTube(selectTube(session, sourceIndex), extraIndex));
+  session = undo(session);
+
+  assert.equal(session.extraTube, true);
+  assert.equal(session.tubes.length, session.level.tubes.length + 1);
+  assert.deepEqual(session.tubes.at(-1), []);
+});
+
 test('extra bottle is free but only one can be active at a time', () => {
   let session = createSession(0, 0);
   const baseCount = session.tubes.length;
