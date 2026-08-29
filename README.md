@@ -65,7 +65,11 @@ AI 雷达展示来自 [CodexRadar](https://codexradar.com/)、[Codex Reset](http
 
 ## 许可说明
 
-本仓库目前未附带开源许可证。未经明确授权，不代表允许复制、修改或再分发仓库中的内容。
+除另有注明的第三方内容外，本项目由 PHDSX 以 [GNU Affero General Public License v3.0 或更高版本](LICENSE) 发布（SPDX：`AGPL-3.0-or-later`）。你可以依照许可证使用、研究、修改和再分发本项目；如果你修改本项目并通过网络向用户提供服务，还必须向这些用户提供对应版本的完整源代码。
+
+项目包含的第三方代码、素材及其许可证不因本项目采用 AGPL 而改变，详情见 [第三方声明](THIRD_PARTY_NOTICES.md)。其中 `Games/dinnerninja` 目录继续适用其目录内的 Apache-2.0 许可证及源文件中保留的 MIT 声明。
+
+Copyright © 2020–2026 PHDSX
 
 ---
 

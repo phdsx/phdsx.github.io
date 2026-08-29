@@ -377,6 +377,21 @@ function initNovelProgress() {
     link.textContent = chapter > 1 ? `继续阅读第 ${chapter} 章` : '开始阅读';
   });
 }
+function initLicenseLinks() {
+  document.querySelectorAll('.site-footer').forEach((footer) => {
+    if (footer.querySelector('[data-site-license]')) return;
+    const licenseLink = document.createElement('a');
+    licenseLink.href = '/LICENSE';
+    licenseLink.dataset.siteLicense = '';
+    licenseLink.textContent = 'AGPL-3.0-or-later';
+    licenseLink.setAttribute('aria-label', '查看 AGPL-3.0-or-later 许可证');
+    const sourceLink = document.createElement('a');
+    sourceLink.href = 'https://github.com/phdsx/phdsx.github.io';
+    sourceLink.textContent = '获取源代码';
+    sourceLink.setAttribute('aria-label', '在 GitHub 获取本站对应源代码');
+    footer.append(licenseLink, sourceLink);
+  });
+}
 initSiteSidebar();
 initSiteNavigation();
 initHomeWorkspace();
@@ -384,3 +399,4 @@ initHomeStats();
 initCardSearch('[data-tool-search]', '[data-keywords]');
 initBlogFilters();
 initNovelProgress();
+initLicenseLinks();
