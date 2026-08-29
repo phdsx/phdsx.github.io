@@ -18,20 +18,23 @@ function initSiteSidebar() {
   }
   document.body.classList.add('has-site-sidebar');
   const currentPage = location.pathname.split('/').pop() || 'index.html';
-  const gamePages = ['games.html', 'ChineseChess.html'];
-  const gameNavigation = gamePages.includes(currentPage) ? `
+  const currentPath = decodeURIComponent(location.pathname).replace(/\\/g, '/');
+  const script = document.currentScript || document.querySelector('script[src*="assets/site.js"]');
+  const root = new URL('../', script && script.src ? script.src : location.href).href;
+  const isGamePage = currentPage === 'games.html' || /\/games\//i.test(currentPath);
+  const gameNavigation = isGamePage ? `
       <div class="nav-section nav-section--secondary">
         <span class="nav-section-label">游戏分类</span>
-        <a class="nav-link nav-link--sub" href="ChineseChess.html"><span class="nav-symbol">将</span><span>中国象棋</span></a>
-        <a class="nav-link nav-link--sub" href="Games/tetris.html"><span class="nav-symbol">田</span><span>俄罗斯方块</span></a>
-        <a class="nav-link nav-link--sub" href="Games/dinnerninja/index.html"><span class="nav-symbol">切</span><span>水果忍者</span></a>
-        <a class="nav-link nav-link--sub" href="Games/submarine-battle.html"><span class="nav-symbol">潜</span><span>潜艇大战</span></a>
-        <a class="nav-link nav-link--sub" href="Games/parking-pulse.html"><span class="nav-symbol">泊</span><span>Parking Pulse</span></a>
-        <a class="nav-link nav-link--sub" href="Games/sand-sort.html"><span class="nav-symbol">沙</span><span>沙子分类</span></a>
+        <a class="nav-link nav-link--sub" href="${root}games/board/chinese-chess.html"><span class="nav-symbol">将</span><span>中国象棋</span></a>
+        <a class="nav-link nav-link--sub" href="${root}games/arcade/tetris.html"><span class="nav-symbol">田</span><span>俄罗斯方块</span></a>
+        <a class="nav-link nav-link--sub" href="${root}games/arcade/fruit-ninja/index.html"><span class="nav-symbol">切</span><span>水果忍者</span></a>
+        <a class="nav-link nav-link--sub" href="${root}games/arcade/submarine-battle/index.html"><span class="nav-symbol">潜</span><span>潜艇大战</span></a>
+        <a class="nav-link nav-link--sub" href="${root}games/puzzle/parking-pulse/index.html"><span class="nav-symbol">泊</span><span>Parking Pulse</span></a>
+        <a class="nav-link nav-link--sub" href="${root}games/puzzle/sand-sort/index.html"><span class="nav-symbol">沙</span><span>沙子分类</span></a>
       </div>` : '';
   document.body.classList.add(currentPage === 'index.html' ? 'is-home-page' : 'is-sub-page');
   header.innerHTML = `
-    <a class="brand" href="index.html" aria-label="返回首页">
+    <a class="brand" href="${root}index.html" aria-label="返回首页">
       <span class="brand-mark">P</span>
       <span class="brand-copy"><strong>PHDSX</strong><small>PERSONAL HUB</small></span>
     </a>
@@ -39,21 +42,21 @@ function initSiteSidebar() {
     <nav class="site-nav" id="site-navigation" aria-label="主导航">
       <div class="nav-section">
         <span class="nav-section-label">站点</span>
-        <a class="nav-link" href="index.html"><span class="nav-symbol">⌂</span><span>首页</span></a>
-        <a class="nav-link" href="tools.html"><span class="nav-symbol">⌘</span><span>工具</span></a>
-        <a class="nav-link" href="games.html"><span class="nav-symbol">◇</span><span>游戏</span></a>
-        <a class="nav-link" href="blog.html"><span class="nav-symbol">▤</span><span>博客</span></a>
-        <a class="nav-link" href="directory.html"><span class="nav-symbol">☷</span><span>黄页</span></a>
+        <a class="nav-link" href="${root}index.html"><span class="nav-symbol">⌂</span><span>首页</span></a>
+        <a class="nav-link" href="${root}tools.html"><span class="nav-symbol">⌘</span><span>工具</span></a>
+        <a class="nav-link" href="${root}games.html"><span class="nav-symbol">◇</span><span>游戏</span></a>
+        <a class="nav-link" href="${root}blog.html"><span class="nav-symbol">▤</span><span>博客</span></a>
+        <a class="nav-link" href="${root}directory.html"><span class="nav-symbol">☷</span><span>黄页</span></a>
       </div>
       <div class="nav-section">
         <span class="nav-section-label">阅读</span>
-        <a class="nav-link" href="novels.html"><span class="nav-symbol">▥</span><span>小说</span></a>
+        <a class="nav-link" href="${root}novels/index.html"><span class="nav-symbol">▥</span><span>小说</span></a>
       </div>
       <div class="nav-section">
         <span class="nav-section-label">发布与记录</span>
-        <a class="nav-link" href="software.html"><span class="nav-symbol">▣</span><span>软件作品</span></a>
-        <a class="nav-link" href="ai-radar.html"><span class="nav-symbol">◎</span><span>AI 雷达</span></a>
-        <a class="nav-link" href="brand-blacklist.html"><span class="nav-symbol">!</span><span>品牌黑名单</span></a>
+        <a class="nav-link" href="${root}software.html"><span class="nav-symbol">▣</span><span>软件作品</span></a>
+        <a class="nav-link" href="${root}ai-radar.html"><span class="nav-symbol">◎</span><span>AI 雷达</span></a>
+        <a class="nav-link" href="${root}brand-blacklist/index.html"><span class="nav-symbol">!</span><span>品牌黑名单</span></a>
       </div>
       ${gameNavigation}
     </nav>
@@ -87,11 +90,9 @@ function initSiteSidebar() {
 }
 function initSiteNavigation() {
   const current = location.pathname.split('/').pop() || 'index.html';
-  const detailSections = { 'blog-post.html': 'blog.html', 'novel-reader.html': 'novels.html', 'brand-blacklist-detail.html': 'brand-blacklist.html' };
+  const detailSections = { 'blog-post.html': 'blog.html', 'reader.html': 'index.html', 'detail.html': 'index.html' };
   const currentPath = decodeURIComponent(location.pathname).replace(/\\/g, '/');
-  const isGamePage = current === 'ChineseChess.html'
-    || /\/Games\/(?:tetris|submarine-battle|parking-pulse|sand-sort)\.html$/i.test(currentPath)
-    || /\/Games\/dinnerninja\/index\.html$/i.test(currentPath);
+  const isGamePage = currentPage === 'games.html' || /\/games\//i.test(currentPath);
   document.querySelectorAll('.site-nav .nav-link').forEach((link) => {
     const label = link.querySelector(':scope > span:last-child')?.textContent.trim() || link.textContent.trim();
     if (label) {
@@ -101,7 +102,9 @@ function initSiteNavigation() {
     }
     const target = new URL(link.href, location.href).pathname.split('/').pop() || 'index.html';
     const isGameIndex = target === 'games.html' && isGamePage;
-    const active = target === current || isGameIndex || detailSections[current] === target;
+    const inNovelSection = /\/novels\/(?:index|reader)\.html$/i.test(currentPath) && /\/novels\//i.test(link.href);
+    const inBlacklistSection = /\/brand-blacklist\/(?:index|detail)\.html$/i.test(currentPath) && /\/brand-blacklist\//i.test(link.href);
+    const active = target === current || isGameIndex || detailSections[current] === target || inNovelSection || inBlacklistSection;
     link.classList.toggle('active', active);
     if (active) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -124,6 +127,9 @@ function initCardSearch(inputSelector, cardSelector) {
       const keywords = normalizeText(card.dataset.keywords || card.textContent);
       card.hidden = Boolean(query && !keywords.includes(query));
       if (!card.hidden) visibleCount += 1;
+    });
+    document.querySelectorAll('[data-catalog-group]').forEach((group) => {
+      group.hidden = ![...group.querySelectorAll(cardSelector)].some((card) => !card.hidden);
     });
     empty.hidden = !query || visibleCount > 0;
     empty.textContent = query && visibleCount === 0 ? `没有找到与“${input.value.trim()}”匹配的内容。` : '';
@@ -308,7 +314,7 @@ function getSearchType(href) {
   if (/software\.html/i.test(href)) return '软件';
   if (/novel/i.test(href)) return '小说';
   if (/blog|Python/i.test(href)) return '博客';
-  if (/games|ChineseChess/i.test(href)) return '游戏';
+  if (/games/i.test(href)) return '游戏';
   if (/directory|^tel:/i.test(href)) return '黄页';
   return '工具';
 }
@@ -373,7 +379,7 @@ function initNovelProgress() {
     try { storedProgress = localStorage.getItem(`phdsx-novel-progress-${novelId}`) || '1'; } catch (error) { /* Storage can be unavailable in privacy modes. */ }
     const progress = Number.parseInt(storedProgress, 10);
     const chapter = Number.isFinite(progress) && progress > 0 ? progress : 1;
-    link.href = `novel-reader.html?id=${encodeURIComponent(novelId)}&chapter=${chapter}`;
+    link.href = `reader.html?id=${encodeURIComponent(novelId)}&chapter=${chapter}`;
     link.textContent = chapter > 1 ? `继续阅读第 ${chapter} 章` : '开始阅读';
   });
 }

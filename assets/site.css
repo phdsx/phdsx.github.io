@@ -172,6 +172,9 @@ main { min-height: calc(100vh - 166px); }
 .section h1, .section h2 { margin: 0; font-size: clamp(29px, 4vw, 42px); line-height: 1.15; }
 .section-lede { max-width: 720px; margin: 9px 0 0; color: var(--muted); line-height: 1.75; }
 .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.catalog-group { margin-top: 28px; }
+.catalog-group:first-of-type { margin-top: 0; }
+.catalog-group > h2 { margin: 0 0 14px; color: var(--ink); font-size: 18px; }
 .link-card, .contact-row {
   position: relative;
   display: flex;
@@ -445,7 +448,7 @@ main { min-height: calc(100vh - 166px); }
 .block-art i { width: 22px; height: 22px; border-radius: 3px; background: #3b82f6; box-shadow: inset 0 -3px 0 rgba(0,0,0,.18); }
 .block-art i:nth-child(2), .block-art i:nth-child(5) { background: #e85d5d; }
 .block-art i:nth-child(3), .block-art i:nth-child(6) { background: #e8a317; }
-.fruit-art { background: #eaf7e7 url("../Games/dinnerninja/images/fruit/sandia.png") center / 110px auto no-repeat; }
+.fruit-art { background: #eaf7e7 url("../games/arcade/fruit-ninja/images/fruit/sandia.png") center / 110px auto no-repeat; }
 .home-rail { display: grid; align-content: start; gap: 14px; padding-left: 26px; border-left: 1px solid var(--line); }
 .rail-panel { padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .overview-panel { text-align: center; }

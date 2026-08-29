@@ -1,0 +1,37 @@
+{
+  "id": "brand-slug",
+  "isDemo": false,
+  "name": "品牌名称",
+  "aliases": ["品牌别名"],
+  "listedAt": "YYYY-MM-DD",
+  "category": {
+    "primary": "一级品牌分类",
+    "secondary": "二级品牌分类"
+  },
+  "country": "所属国家或地区",
+  "reason": {
+    "primary": "一级原因分类",
+    "secondary": "二级原因分类"
+  },
+  "eventTitle": "事件标题",
+  "eventDate": "YYYY-MM-DD",
+  "summary": "用一两句话概述可核验事实。",
+  "details": [
+    "详细经过第一段。",
+    "详细经过第二段。"
+  ],
+  "timeline": [
+    {
+      "date": "YYYY-MM-DD",
+      "title": "时间线节点",
+      "description": "该节点发生的事实。"
+    }
+  ],
+  "sources": [
+    {
+      "label": "来源标题或机构名称",
+      "url": "https://example.com/source"
+    }
+  ],
+  "resolution": "当前处理结果或后续进展。"
+}

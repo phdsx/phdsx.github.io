@@ -11,12 +11,12 @@
   const compact = /ppt-countdown\.html$/i.test(location.pathname);
   const gameNavigation = section === 'games' ? `
         <span class="phdsx-shell__group-label">游戏分类</span>
-        ${gameLink(root + 'ChineseChess.html', 'ChineseChess.html', '将', '中国象棋')}
-        ${gameLink(root + 'Games/tetris.html', 'Games/tetris.html', '田', '俄罗斯方块')}
-        ${gameLink(root + 'Games/dinnerninja/index.html', 'Games/dinnerninja/index.html', '切', '水果忍者')}
-        ${gameLink(root + 'Games/submarine-battle.html', 'Games/submarine-battle.html', '潜', '潜艇大战')}
-        ${gameLink(root + 'Games/parking-pulse.html', 'Games/parking-pulse.html', '泊', 'Parking Pulse')}
-        ${gameLink(root + 'Games/sand-sort.html', 'Games/sand-sort.html', '沙', '沙子分类')}` : '';
+        ${gameLink(root + 'games/board/chinese-chess.html', 'games/board/chinese-chess.html', '将', '中国象棋')}
+        ${gameLink(root + 'games/arcade/tetris.html', 'games/arcade/tetris.html', '田', '俄罗斯方块')}
+        ${gameLink(root + 'games/arcade/fruit-ninja/index.html', 'games/arcade/fruit-ninja/index.html', '切', '水果忍者')}
+        ${gameLink(root + 'games/arcade/submarine-battle/index.html', 'games/arcade/submarine-battle/index.html', '潜', '潜艇大战')}
+        ${gameLink(root + 'games/puzzle/parking-pulse/index.html', 'games/puzzle/parking-pulse/index.html', '泊', 'Parking Pulse')}
+        ${gameLink(root + 'games/puzzle/sand-sort/index.html', 'games/puzzle/sand-sort/index.html', '沙', '沙子分类')}` : '';
 
   document.documentElement.classList.add('phdsx-themed');
   document.body.classList.add('phdsx-has-shell');
@@ -51,11 +51,11 @@
         ${navLink(root + 'blog.html', 'blog', '▤', '博客')}
         ${navLink(root + 'directory.html', 'directory', '☷', '黄页')}
         <span class="phdsx-shell__group-label">阅读</span>
-        ${navLink(root + 'novels.html', 'novels', '▥', '小说')}
+        ${navLink(root + 'novels/index.html', 'novels', '▥', '小说')}
         <span class="phdsx-shell__group-label">发布与记录</span>
         ${navLink(root + 'software.html', 'software', '▣', '软件作品')}
         ${navLink(root + 'ai-radar.html', 'radar', '◎', 'AI 雷达')}
-        ${navLink(root + 'brand-blacklist.html', 'blacklist', '!', '品牌黑名单')}
+        ${navLink(root + 'brand-blacklist/index.html', 'blacklist', '!', '品牌黑名单')}
         ${gameNavigation}
       </nav>
       <a class="phdsx-shell__back" href="${returnUrl}">返回${sectionLabel(section)}</a>
@@ -99,8 +99,8 @@
   }
 
   function getSection(url) {
-    if (/games\.html|ChineseChess/i.test(url)) return 'games';
-    if (/novels?\.html|novel-reader/i.test(url)) return 'novels';
+    if (/games\.html|games\//i.test(url)) return 'games';
+    if (/novels?\/|novel-reader|reader\.html/i.test(url)) return 'novels';
     if (/blog\.html/i.test(url)) return 'blog';
     if (/directory\.html/i.test(url)) return 'directory';
     if (/software\.html/i.test(url)) return 'software';

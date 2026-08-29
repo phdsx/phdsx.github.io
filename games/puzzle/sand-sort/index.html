@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090f2f">
+  <title>沙子分类 · PHDSX</title>
+  <link rel="stylesheet" href="sand-sort.css">
+</head>
+<body>
+  <main class="game-shell" data-game-state="loading">
+    <header class="status-bar" inert aria-hidden="true">
+      <a class="back-button" href="../../../games.html" aria-label="返回游戏列表">返回</a>
+      <div class="level-pill">第 <strong id="level-number">1</strong> 关</div>
+      <div class="resource-pill" aria-label="体力充足">体力 <strong>充足</strong></div>
+      <div class="resource-pill" aria-label="金币"><span id="coin-count">200</span></div>
+      <button id="sound-button" type="button" aria-pressed="false" aria-label="关闭游戏声音">声音</button>
+    </header>
+
+    <canvas
+      id="game-canvas"
+      tabindex="0"
+      aria-label="沙子分类游戏区域"
+      aria-describedby="keyboard-help"
+      aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Home End Enter Space 1 2 3 4 5 6 7 8 9 0"
+      inert
+      aria-hidden="true"
+    ></canvas>
+    <p id="keyboard-help" class="visually-hidden">使用方向键定位瓶子，按回车或空格选择，也可以按数字键直接选择前十个瓶子。</p>
+    <p id="game-status" class="game-status" aria-live="polite" inert aria-hidden="true">正在载入游戏</p>
+
+    <nav class="tool-dock" aria-label="免费游戏工具" inert aria-hidden="true">
+      <button type="button" data-tool="undo">撤销<small>免费</small></button>
+      <button type="button" data-tool="hint">提示<small>免费</small></button>
+      <button type="button" data-tool="shuffle">重排<small>免费</small></button>
+      <button type="button" data-tool="extra">加空瓶<small>免费</small></button>
+      <button type="button" data-tool="restart">重开<small>免费</small></button>
+    </nav>
+
+    <section id="tutorial" class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
+      <h1 id="tutorial-title">点击瓶子开始分类</h1>
+      <p>先选择装有沙子的瓶子，再选择空瓶或顶部同色的瓶子。</p>
+      <button type="button" data-action="start" disabled>开始游戏</button>
+    </section>
+
+    <section id="win-dialog" class="overlay-card" role="dialog" aria-modal="true" aria-labelledby="win-title" hidden>
+      <h2 id="win-title">分类完成！</h2>
+      <p>所有颜色都回到了自己的瓶子。</p>
+      <button type="button" data-action="next">下一关</button>
+    </section>
+  </main>
+  <script type="module" src="sand-sort-game.mjs"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 (function () {
   const records = Array.isArray(window.PHDSX_BRAND_BLACKLIST) ? window.PHDSX_BRAND_BLACKLIST : [];
+  const categoryConfig = window.PHDSX_BRAND_BLACKLIST_CATEGORIES || {};
 
   function normalize(value) {
     return String(value || '').toLowerCase().replace(/[\s·•—_\-（）()【】\[\]]+/g, '');
@@ -35,6 +36,7 @@
     if (!list) return;
     const nameSearch = document.querySelector('[data-blacklist-name]');
     const categorySearch = document.querySelector('[data-blacklist-category]');
+    const subcategorySearch = document.querySelector('[data-blacklist-subcategory]');
     const countrySearch = document.querySelector('[data-blacklist-country]');
     const count = document.querySelector('[data-blacklist-count]');
     const empty = document.querySelector('[data-blacklist-empty]');
@@ -42,17 +44,35 @@
     const total = document.querySelector('[data-blacklist-total]');
     if (total) total.textContent = String(records.length);
 
-    [...new Set(records.map((record) => record.category).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'zh-CN')).forEach((value) => categorySearch.appendChild(createOption(value)));
+    const configuredCategories = Array.isArray(categoryConfig.brandCategories) ? categoryConfig.brandCategories : [];
+    const primaryCategories = configuredCategories.length
+      ? configuredCategories.map((item) => item.name)
+      : [...new Set(records.map((record) => categoryPart(record, 'primary')).filter(Boolean))];
+    primaryCategories.sort((a, b) => a.localeCompare(b, 'zh-CN')).forEach((value) => categorySearch.appendChild(createOption(value)));
     [...new Set(records.map((record) => record.country).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'zh-CN')).forEach((value) => countrySearch.appendChild(createOption(value)));
+
+    function updateSubcategories() {
+      const primary = categorySearch.value;
+      const configured = configuredCategories.find((item) => item.name === primary);
+      const values = configured
+        ? configured.children
+        : [...new Set(records.filter((record) => categoryPart(record, 'primary') === primary).map((record) => categoryPart(record, 'secondary')).filter(Boolean))];
+      subcategorySearch.replaceChildren(createOption(''));
+      subcategorySearch.firstElementChild.textContent = '全部二级分类';
+      [...values].sort((a, b) => a.localeCompare(b, 'zh-CN')).forEach((value) => subcategorySearch.appendChild(createOption(value)));
+      subcategorySearch.disabled = !primary;
+    }
 
     function render() {
       const query = nameSearch.value;
       const category = categorySearch.value;
+      const subcategory = subcategorySearch.value;
       const country = countrySearch.value;
       const filtered = records.filter((record) => {
         const names = [record.name, ...(record.aliases || [])].join(' ');
         return fuzzyMatch(names, query)
-          && (!category || record.category === category)
+          && (!category || categoryPart(record, 'primary') === category)
+          && (!subcategory || categoryPart(record, 'secondary') === subcategory)
           && (!country || record.country === country);
       });
       list.replaceChildren();
@@ -64,11 +84,11 @@
         row.innerHTML = `
           <td data-label="品牌名称"><span class="blacklist-brand-name">${escapeHtml(record.name)}</span>${record.isDemo ? '<span class="blacklist-demo-tag">演示</span>' : ''}</td>
           <td data-label="入黑时间"><time datetime="${escapeHtml(record.listedAt)}">${escapeHtml(formatDate(record.listedAt))}</time></td>
-          <td data-label="品牌分类">${escapeHtml(record.category || '未分类')}</td>
+          <td data-label="品牌分类">${escapeHtml(categoryLabel(record.category))}</td>
           <td data-label="所属国家">${escapeHtml(record.country || '未标注')}</td>
-          <td data-label="入黑原因类别"><span class="blacklist-reason">${escapeHtml(record.reasonCategory || '未分类')}</span></td>
+          <td data-label="入黑原因类别"><span class="blacklist-reason">${escapeHtml(categoryLabel(record.reason))}</span></td>
           <td class="blacklist-open" aria-hidden="true">查看详情 →</td>`;
-        const open = () => { location.href = `brand-blacklist-detail.html?id=${encodeURIComponent(record.id)}`; };
+        const open = () => { location.href = `detail.html?id=${encodeURIComponent(record.id)}`; };
         row.addEventListener('click', open);
         row.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
@@ -79,14 +99,21 @@
       empty.hidden = filtered.length > 0;
     }
 
-    [nameSearch, categorySearch, countrySearch].forEach((control) => control.addEventListener(control.tagName === 'INPUT' ? 'input' : 'change', render));
+    nameSearch.addEventListener('input', render);
+    categorySearch.addEventListener('change', () => {
+      updateSubcategories();
+      render();
+    });
+    [subcategorySearch, countrySearch].forEach((control) => control.addEventListener('change', render));
     reset.addEventListener('click', () => {
       nameSearch.value = '';
       categorySearch.value = '';
+      updateSubcategories();
       countrySearch.value = '';
       render();
       nameSearch.focus();
     });
+    updateSubcategories();
     render();
   }
 
@@ -96,7 +123,7 @@
     const id = new URLSearchParams(location.search).get('id');
     const record = records.find((item) => item.id === id);
     if (!record) {
-      root.innerHTML = '<div class="blacklist-not-found"><span>404</span><h1>没有找到这条品牌记录</h1><p>记录可能已被删除、改名，或链接不完整。</p><a class="button" href="brand-blacklist.html">返回品牌黑名单</a></div>';
+      root.innerHTML = '<div class="blacklist-not-found"><span>404</span><h1>没有找到这条品牌记录</h1><p>记录可能已被删除、改名，或链接不完整。</p><a class="button" href="index.html">返回品牌黑名单</a></div>';
       document.title = '记录未找到 - 品牌黑名单 - PHDSX';
       return;
     }
@@ -108,16 +135,16 @@
       ? `<ul class="blacklist-source-list">${record.sources.map((source) => `<li><a href="${escapeAttribute(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}</a></li>`).join('')}</ul>`
       : '<p class="blacklist-source-empty">此演示记录没有外部来源；正式记录应附可核验来源。</p>';
     root.innerHTML = `
-      <nav class="blacklist-breadcrumb" aria-label="面包屑"><a href="brand-blacklist.html">品牌黑名单</a><span aria-hidden="true">/</span><span>${escapeHtml(record.name)}</span></nav>
+      <nav class="blacklist-breadcrumb" aria-label="面包屑"><a href="index.html">品牌黑名单</a><span aria-hidden="true">/</span><span>${escapeHtml(record.name)}</span></nav>
       <header class="blacklist-detail-head">
         <div><p class="blacklist-kicker">BLACKLIST EVENT</p><h1>${escapeHtml(record.name)}</h1><p>${escapeHtml(record.summary)}</p></div>
         ${record.isDemo ? '<span class="blacklist-demo-banner">非真实演示记录</span>' : ''}
       </header>
       <dl class="blacklist-facts">
         <div><dt>入黑时间</dt><dd>${escapeHtml(formatDate(record.listedAt))}</dd></div>
-        <div><dt>品牌分类</dt><dd>${escapeHtml(record.category || '未分类')}</dd></div>
+        <div><dt>品牌分类</dt><dd>${escapeHtml(categoryLabel(record.category))}</dd></div>
         <div><dt>所属国家</dt><dd>${escapeHtml(record.country || '未标注')}</dd></div>
-        <div><dt>原因类别</dt><dd>${escapeHtml(record.reasonCategory || '未分类')}</dd></div>
+        <div><dt>原因类别</dt><dd>${escapeHtml(categoryLabel(record.reason))}</dd></div>
       </dl>
       <div class="blacklist-detail-layout">
         <article class="blacklist-event-card">
@@ -142,6 +169,17 @@
 
   function escapeAttribute(value) {
     return escapeHtml(value).replace(/`/g, '&#096;');
+  }
+
+  function categoryPart(record, level) {
+    if (record.category && typeof record.category === 'object') return record.category[level] || '';
+    return level === 'primary' ? String(record.category || '') : '';
+  }
+
+  function categoryLabel(value) {
+    if (!value) return '未分类';
+    if (typeof value === 'string') return value;
+    return [value.primary, value.secondary].filter(Boolean).join(' / ') || '未分类';
   }
 
   initList();

@@ -25,7 +25,7 @@
 .software-actions small { color: var(--muted); font-size: 11px; }
 .blacklist-notice { display: flex; gap: 12px; margin-bottom: 18px; padding: 14px 16px; border: 1px solid #f0d9ac; border-radius: 8px; color: #805200; background: #fffaf0; font-size: 12px; line-height: 1.65; }
 .blacklist-notice strong { flex: 0 0 auto; }
-.blacklist-filters { display: grid; grid-template-columns: minmax(240px, 1.4fr) minmax(170px, .7fr) minmax(170px, .7fr) auto; gap: 10px; align-items: end; margin-bottom: 14px; padding: 17px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.blacklist-filters { display: grid; grid-template-columns: minmax(220px, 1.25fr) repeat(3, minmax(150px, .7fr)) auto; gap: 10px; align-items: end; margin-bottom: 14px; padding: 17px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .blacklist-filter { display: grid; gap: 7px; }
 .blacklist-filter label { font-size: 12px; font-weight: 750; }
 .blacklist-filter :is(input, select) { width: 100%; }

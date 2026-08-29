@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>干饭抽签决定器 - 今天吃什么不再是难题</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        neutral: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .card-hover {
+                @apply hover:shadow-xl transform hover:-translate-y-1 transition-custom;
+            }
+            .edit-btn {
+                @apply text-blue-500 hover:text-blue-700 p-1 transition-custom;
+            }
+            .delete-btn {
+                @apply text-red-500 hover:text-red-700 p-1 transition-custom;
+            }
+        }
+    </style>
+<link rel="stylesheet" href="../../assets/standalone.css?v=20260824a">
+<script defer src="../../assets/standalone.js?v=20260829b" data-home="../../index.html" data-return="../../tools.html" data-return-label="Tools"></script>
+</head>
+<body class="font-inter bg-gray-50 min-h-screen">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50 transition-custom">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-cutlery text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-neutral">干饭抽签决定器</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../../index.html" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="返回首页">
+                    <i class="fa fa-home text-neutral"></i>
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="切换主题">
+                    <i class="fa fa-moon-o text-neutral"></i>
+                </button>
+                <button id="about-btn" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="关于工具">
+                    <i class="fa fa-info-circle text-neutral"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <!-- 介绍卡片 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 card-hover">
+            <h2 class="text-xl font-semibold text-neutral mb-2">今天吃什么不再是难题</h2>
+            <p class="text-gray-600">
+                还在为每天吃什么而烦恼吗？点击下方按钮，让系统为你随机决定今日的完美餐单，
+                包含主食、蔬菜、肉类、汤品和饮料的全套搭配！你还可以自定义编辑食物选项。
+            </p>
+        </div>
+        
+        <!-- 抽签区域 -->
+        <div class="max-w-2xl mx-auto">
+            <!-- 结果显示卡片 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8 min-h-[300px] flex flex-col justify-center items-center">
+                <div id="result" class="text-center opacity-0 transition-opacity duration-1000 text-lg md:text-xl">
+                    <!-- 结果将在这里显示 -->
+                </div>
+                <div id="initial-message" class="text-gray-500 text-center">
+                    <i class="fa fa-question-circle text-5xl mb-4 text-primary/30"></i>
+                    <p>点击下方按钮开始抽签，决定今天吃什么</p>
+                </div>
+            </div>
+            
+            <!-- 操作按钮 -->
+            <div class="flex justify-center">
+                <button 
+                    id="drawButton" 
+                    onclick="drawLunch()"
+                    class="px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-custom font-medium flex items-center justify-center text-lg"
+                >
+                    <i class="fa fa-random mr-2"></i>开始抽签
+                </button>
+            </div>
+        </div>
+        
+        <!-- 选项设置 - 支持自定义编辑 -->
+        <div class="mt-12 bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto">
+            <h3 class="font-semibold text-neutral mb-4 flex items-center">
+                <i class="fa fa-cog mr-2 text-primary"></i>可选择的食物类别
+                <span class="ml-2 text-sm text-gray-500">(点击可编辑)</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-medium text-primary flex items-center">
+                            <i class="fa fa-birthday-cake mr-1"></i>主食
+                        </h4>
+                        <button onclick="openEditModal('zhushi')" class="edit-btn" title="添加主食">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    <ul id="zhushi-list" class="text-gray-600 space-y-1 ml-6">
+                        <!-- 由JS填充 -->
+                    </ul>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-medium text-primary flex items-center">
+                            <i class="fa fa-leaf mr-1"></i>蔬菜
+                        </h4>
+                        <button onclick="openEditModal('qingcai')" class="edit-btn" title="添加蔬菜">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    <ul id="qingcai-list" class="text-gray-600 space-y-1 ml-6">
+                        <!-- 由JS填充 -->
+                    </ul>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-medium text-primary flex items-center">
+                            <i class="fa fa-drumstick-bite mr-1"></i>肉类
+                        </h4>
+                        <button onclick="openEditModal('rou')" class="edit-btn" title="添加肉类">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    <ul id="rou-list" class="text-gray-600 space-y-1 ml-6">
+                        <!-- 由JS填充 -->
+                    </ul>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-medium text-primary flex items-center">
+                            <i class="fa fa-coffee mr-1"></i>汤品
+                        </h4>
+                        <button onclick="openEditModal('tang')" class="edit-btn" title="添加汤品">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    <ul id="tang-list" class="text-gray-600 space-y-1 ml-6">
+                        <!-- 由JS填充 -->
+                    </ul>
+                    
+                    <div class="flex justify-between items-center mb-2 mt-4">
+                        <h4 class="font-medium text-primary flex items-center">
+                            <i class="fa fa-glass mr-1"></i>饮料
+                        </h4>
+                        <button onclick="openEditModal('yinliao')" class="edit-btn" title="添加饮料">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    <ul id="yinliao-list" class="text-gray-600 space-y-1 ml-6">
+                        <!-- 由JS填充 -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-white border-t border-gray-200 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>干饭抽签决定器 &copy; 2025 - 解决你的每日用餐选择困难症</p>
+            <p class="mt-1">随机选择，公平公正，让每一餐都充满惊喜</p>
+        </div>
+    </footer>
+    
+    <!-- 关于模态框 -->
+    <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden opacity-0 transition-custom">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 transform scale-95 transition-custom">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-neutral">关于干饭抽签决定器</h3>
+                    <button id="close-about" class="text-gray-500 hover:text-gray-700">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">
+                    干饭抽签决定器是一个帮助你解决"今天吃什么"这个千古难题的工具。
+                </p>
+                <h4 class="font-semibold text-neutral mb-2">主要功能：</h4>
+                <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                    <li>随机生成完整的一餐搭配</li>
+                    <li>包含主食、蔬菜、肉类、汤品和饮料</li>
+                    <li>支持自定义编辑食物选项</li>
+                    <li>操作简单，一键生成</li>
+                    <li>所有选择均在本地完成</li>
+                </ul>
+                <p class="text-gray-500 text-sm">
+                    当你不知道吃什么的时候，让运气来决定，也许会有意外的美味发现！
+                </p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-b-xl text-center">
+                <button id="got-it" class="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-custom">
+                    明白了
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 编辑食物项的模态框 -->
+    <div id="edit-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden opacity-0 transition-custom">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 transform scale-95 transition-custom">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex justify-between items-center">
+                    <h3 id="edit-modal-title" class="text-xl font-bold text-neutral">添加食物</h3>
+                    <button id="close-edit" class="text-gray-500 hover:text-gray-700">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <input type="hidden" id="edit-category" value="">
+                <input type="hidden" id="edit-index" value="-1">
+                
+                <label for="food-name" class="block text-gray-700 mb-2">食物名称</label>
+                <input 
+                    type="text" 
+                    id="food-name" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-custom"
+                    placeholder="请输入食物名称"
+                >
+                
+                <div class="mt-4 text-red-500 text-sm hidden" id="edit-error">
+                    请输入食物名称
+                </div>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end space-x-3">
+                <button id="cancel-edit" class="px-4 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition-custom">
+                    取消
+                </button>
+                <button id="save-edit" class="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-custom">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 通知提示 -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-neutral text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-custom flex items-center">
+        <i id="toast-icon" class="fa fa-check-circle mr-2"></i>
+        <span id="toast-message">操作成功</span>
+    </div>
+
+    <script>
+        // 食物选项 - 从本地存储加载或使用默认值
+        let foodOptions = {
+            zhushi: [],
+            qingcai: [],
+            rou: [],
+            tang: [],
+            yinliao: []
+        };
+        
+        // 默认食物选项
+        const defaultFoodOptions = {
+            zhushi: ["米饭", "馒头", "肉龙", "花卷", "窝头", "面条","馄饨","炒饭","不吃饭"],
+            qingcai: ["白菜", "萝卜", "黄瓜", "卷心菜", "生菜", "菜花"],
+            rou: ["猪肉", "牛肉", "羊肉", "鸡肉", "鸭肉"],
+            tang: ["蛋花玉米汤", "翡翠白玉汤", "西红柿蛋花汤", "玉米龙骨汤","海带汤", "不喝汤"],
+            yinliao: ["可乐", "雪碧", "芬达", "七喜", "醒目", "酷儿"]
+        };
+        
+        // 类别名称映射
+        const categoryNames = {
+            zhushi: "主食",
+            qingcai: "蔬菜",
+            rou: "肉类",
+            tang: "汤品",
+            yinliao: "饮料"
+        };
+        
+        // DOM元素引用
+        const resultDiv = document.getElementById('result');
+        const initialMessage = document.getElementById('initial-message');
+        const drawButton = document.getElementById('drawButton');
+        const aboutBtn = document.getElementById('about-btn');
+        const aboutModal = document.getElementById('about-modal');
+        const closeAboutBtn = document.getElementById('close-about');
+        const gotItBtn = document.getElementById('got-it');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        const toastIcon = document.getElementById('toast-icon');
+        
+        // 编辑模态框元素
+        const editModal = document.getElementById('edit-modal');
+        const editModalTitle = document.getElementById('edit-modal-title');
+        const editCategory = document.getElementById('edit-category');
+        const editIndex = document.getElementById('edit-index');
+        const foodNameInput = document.getElementById('food-name');
+        const editError = document.getElementById('edit-error');
+        const closeEditBtn = document.getElementById('close-edit');
+        const cancelEditBtn = document.getElementById('cancel-edit');
+        const saveEditBtn = document.getElementById('save-edit');
+        
+        // 从本地存储加载食物选项
+        function loadFoodOptions() {
+            const saved = localStorage.getItem('foodOptions');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // 合并保存的选项和默认选项，确保不会有空数组
+                    for (const category in defaultFoodOptions) {
+                        foodOptions[category] = parsed[category] && parsed[category].length > 0 
+                            ? parsed[category] 
+                            : defaultFoodOptions[category];
+                    }
+                } catch (e) {
+                    console.error('Failed to parse saved food options', e);
+                    // 使用默认选项
+                    Object.assign(foodOptions, defaultFoodOptions);
+                }
+            } else {
+                // 使用默认选项
+                Object.assign(foodOptions, defaultFoodOptions);
+            }
+        }
+        
+        // 保存食物选项到本地存储
+        function saveFoodOptions() {
+            localStorage.setItem('foodOptions', JSON.stringify(foodOptions));
+        }
+        
+        // 填充食物列表
+        function populateFoodLists() {
+            for (const category in foodOptions) {
+                const listElement = document.getElementById(`${category}-list`);
+                if (listElement) {
+                    // 清空列表
+                    listElement.innerHTML = '';
+                    
+                    // 添加每个食物项
+                    foodOptions[category].forEach((item, index) => {
+                        const li = document.createElement('li');
+                        li.className = 'flex justify-between items-center';
+                        li.innerHTML = `
+                            <span class="flex items-center">
+                                <span class="inline-block w-5 h-5 rounded-full bg-primary/10 text-primary text-xs flex items-center justify-center mr-2">
+                                    ${index + 1}
+                                </span>
+                                ${item}
+                            </span>
+                            <div class="flex space-x-1">
+                                <button onclick="openEditModal('${category}', ${index})" class="edit-btn" title="编辑">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button onclick="deleteFoodItem('${category}', ${index})" class="delete-btn" title="删除">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        `;
+                        listElement.appendChild(li);
+                    });
+                }
+            }
+        }
+        
+        // 打开编辑模态框
+        function openEditModal(category, index = -1) {
+            editCategory.value = category;
+            editIndex.value = index;
+            
+            if (index === -1) {
+                // 添加新项
+                editModalTitle.textContent = `添加${categoryNames[category]}`;
+                foodNameInput.value = '';
+            } else {
+                // 编辑现有项
+                editModalTitle.textContent = `编辑${categoryNames[category]}`;
+                foodNameInput.value = foodOptions[category][index];
+            }
+            
+            // 重置错误提示
+            editError.classList.add('hidden');
+            
+            // 显示模态框
+            editModal.classList.remove('hidden', 'opacity-0');
+            editModal.classList.add('opacity-100');
+            editModal.querySelector('div').classList.remove('scale-95');
+            editModal.querySelector('div').classList.add('scale-100');
+            
+            // 聚焦输入框
+            setTimeout(() => {
+                foodNameInput.focus();
+            }, 300);
+        }
+        
+        // 关闭编辑模态框
+        function closeEditModal() {
+            editModal.classList.remove('opacity-100');
+            editModal.classList.add('opacity-0');
+            editModal.querySelector('div').classList.remove('scale-100');
+            editModal.querySelector('div').classList.add('scale-95');
+            
+            setTimeout(() => {
+                editModal.classList.add('hidden');
+            }, 300);
+        }
+        
+        // 保存食物项
+        function saveFoodItem() {
+            const category = editCategory.value;
+            const index = parseInt(editIndex.value);
+            const name = foodNameInput.value.trim();
+            
+            // 验证输入
+            if (!name) {
+                editError.classList.remove('hidden');
+                return;
+            }
+            
+            if (index === -1) {
+                // 添加新项
+                foodOptions[category].push(name);
+                showToast(`已添加${categoryNames[category]}: ${name}`);
+            } else {
+                // 更新现有项
+                const oldName = foodOptions[category][index];
+                foodOptions[category][index] = name;
+                showToast(`已更新${categoryNames[category]}: ${oldName} → ${name}`);
+            }
+            
+            // 保存并更新列表
+            saveFoodOptions();
+            populateFoodLists();
+            
+            // 关闭模态框
+            closeEditModal();
+        }
+        
+        // 删除食物项
+        function deleteFoodItem(category, index) {
+            if (foodOptions[category].length <= 1) {
+                showToast(`至少保留一个${categoryNames[category]}选项`, true);
+                return;
+            }
+            
+            const deleted = foodOptions[category].splice(index, 1)[0];
+            saveFoodOptions();
+            populateFoodLists();
+            showToast(`已删除${categoryNames[category]}: ${deleted}`);
+        }
+        
+        // 抽签功能
+        function drawLunch() {
+            // 禁用按钮防止重复点击
+            drawButton.disabled = true;
+            drawButton.classList.add('opacity-70', 'cursor-not-allowed');
+            showToast('正在抽签中...');
+            
+            // 隐藏初始消息
+            initialMessage.classList.add('opacity-0');
+            initialMessage.style.transition = 'opacity 0.5s ease';
+            
+            // 先隐藏结果
+            resultDiv.style.opacity = 0;
+            
+            // 添加抽签动画效果
+            drawButton.innerHTML = '<i class="fa fa-circle-o-notch fa-spin mr-2"></i>抽签中...';
+            
+            // 延迟执行，增加抽签的仪式感
+            setTimeout(() => {
+                // 随机选择
+                const selectzhushi = foodOptions.zhushi[Math.floor(Math.random() * foodOptions.zhushi.length)];
+                const selectqingcai = foodOptions.qingcai[Math.floor(Math.random() * foodOptions.qingcai.length)];
+                const selectrou = foodOptions.rou[Math.floor(Math.random() * foodOptions.rou.length)];
+                const selecttang = foodOptions.tang[Math.floor(Math.random() * foodOptions.tang.length)];
+                const selectyinliao = foodOptions.yinliao[Math.floor(Math.random() * foodOptions.yinliao.length)];
+                
+                // 显示结果
+                resultDiv.innerHTML = `
+                    <div class="bg-primary/5 p-6 rounded-lg border border-primary/20 w-full">
+                        <h3 class="text-xl font-bold text-primary mb-4">今日推荐餐单</h3>
+                        <div class="space-y-3 text-left">
+                            <p class="flex items-center"><i class="fa fa-birthday-cake text-primary mr-2"></i> <span class="font-medium">主食：</span>${selectzhushi}</p>
+                            <p class="flex items-center"><i class="fa fa-leaf text-green-500 mr-2"></i> <span class="font-medium">蔬菜：</span>${selectqingcai}</p>
+                            <p class="flex items-center"><i class="fa fa-drumstick-bite text-red-500 mr-2"></i> <span class="font-medium">肉类：</span>${selectrou}</p>
+                            <p class="flex items-center"><i class="fa fa-coffee text-amber-600 mr-2"></i> <span class="font-medium">汤品：</span>${selecttang}</p>
+                            <p class="flex items-center"><i class="fa fa-glass text-blue-500 mr-2"></i> <span class="font-medium">饮料：</span>${selectyinliao}</p>
+                        </div>
+                    </div>
+                `;
+                
+                // 显示结果，添加淡入效果
+                setTimeout(() => {
+                    resultDiv.style.opacity = 1;
+                    drawButton.innerHTML = '<i class="fa fa-random mr-2"></i>重新抽签';
+                    drawButton.disabled = false;
+                    drawButton.classList.remove('opacity-70', 'cursor-not-allowed');
+                    showToast('抽签完成，祝您用餐愉快！');
+                }, 100);
+                
+            }, 1500); // 1.5秒的抽签过程
+        }
+        
+        // 显示通知提示
+        function showToast(message, isError = false) {
+            toastMessage.textContent = message;
+            toastIcon.className = isError ? 'fa fa-exclamation-circle mr-2' : 'fa fa-check-circle mr-2';
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+        
+        // 切换主题
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark');
+            const icon = themeToggleBtn.querySelector('i');
+            
+            if (isDark) {
+                icon.classList.remove('fa-moon-o');
+                icon.classList.add('fa-sun-o');
+                document.body.classList.add('bg-gray-900', 'text-white');
+                document.body.classList.remove('bg-gray-50');
+                document.querySelectorAll('div.bg-white').forEach(el => {
+                    el.classList.remove('bg-white');
+                    el.classList.add('bg-gray-800');
+                });
+                showToast('已切换至深色模式');
+            } else {
+                icon.classList.remove('fa-sun-o');
+                icon.classList.add('fa-moon-o');
+                document.body.classList.remove('bg-gray-900', 'text-white');
+                document.body.classList.add('bg-gray-50');
+                document.querySelectorAll('div.bg-gray-800').forEach(el => {
+                    el.classList.remove('bg-gray-800');
+                    el.classList.add('bg-white');
+                });
+                showToast('已切换至浅色模式');
+            }
+        }
+        
+        // 显示关于模态框
+        function showAboutModal() {
+            aboutModal.classList.remove('hidden', 'opacity-0');
+            aboutModal.classList.add('opacity-100');
+            aboutModal.querySelector('div').classList.remove('scale-95');
+            aboutModal.querySelector('div').classList.add('scale-100');
+        }
+        
+        // 隐藏关于模态框
+        function hideAboutModal() {
+            aboutModal.classList.remove('opacity-100');
+            aboutModal.classList.add('opacity-0');
+            aboutModal.querySelector('div').classList.remove('scale-100');
+            aboutModal.querySelector('div').classList.add('scale-95');
+            
+            setTimeout(() => {
+                aboutModal.classList.add('hidden');
+            }, 300);
+        }
+        
+        // 事件监听
+        aboutBtn.addEventListener('click', showAboutModal);
+        closeAboutBtn.addEventListener('click', hideAboutModal);
+        gotItBtn.addEventListener('click', hideAboutModal);
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        
+        // 编辑模态框事件
+        closeEditBtn.addEventListener('click', closeEditModal);
+        cancelEditBtn.addEventListener('click', closeEditModal);
+        saveEditBtn.addEventListener('click', saveFoodItem);
+        
+        // 点击模态框外部关闭
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                hideAboutModal();
+            }
+        });
+        
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                closeEditModal();
+            }
+        });
+        
+        // 键盘事件 - ESC关闭模态框
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hideAboutModal();
+                closeEditModal();
+            }
+            
+            // Enter键保存编辑
+            if (e.key === 'Enter' && !editModal.classList.contains('hidden')) {
+                saveFoodItem();
+            }
+        });
+        
+        // 页面滚动时改变导航栏样式
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('py-2', 'shadow-lg');
+                header.classList.remove('py-3', 'shadow-md');
+            } else {
+                header.classList.add('py-3', 'shadow-md');
+                header.classList.remove('py-2', 'shadow-lg');
+            }
+        });
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            loadFoodOptions();
+            populateFoodLists();
+        });
+    </script>
+</body>
+</html>

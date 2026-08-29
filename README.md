@@ -18,10 +18,10 @@
 | [在线工具](https://phdsx.github.io/tools.html) | 文本处理、图片处理、二维码、倒计时、拼音辅助和生活小工具 |
 | [网页游戏](https://phdsx.github.io/games.html) | 中国象棋、俄罗斯方块、潜艇大战、Parking Pulse、沙子分类等 |
 | [博客](https://phdsx.github.io/blog.html) | Python、HTML、JavaScript 与 Markdown 学习记录 |
-| [小说](https://phdsx.github.io/novels.html) | 支持章节导航、阅读进度和显示设置的在线阅读页 |
+| [小说](https://phdsx.github.io/novels/) | 支持章节导航、阅读进度和显示设置的在线阅读页 |
 | [软件作品](https://phdsx.github.io/software.html) | 自制软件与 Web 作品的版本发布入口 |
 | [AI 雷达](https://phdsx.github.io/ai-radar.html) | 模型能力评分与 Codex 重置预测聚合 |
-| [品牌黑名单](https://phdsx.github.io/brand-blacklist.html) | 支持搜索、分类、国家筛选和事件详情的专题记录页 |
+| [品牌黑名单](https://phdsx.github.io/brand-blacklist/) | 支持搜索、分类、国家筛选和事件详情的专题记录页 |
 
 ## 精选作品
 
@@ -29,7 +29,7 @@
 
 为 Word 文档逐字生成拼音 EQ 域代码，支持声调符号、声调数字、逐字校验、复制和 TXT 导出。
 
-[立即使用](https://phdsx.github.io/Tools/eq-pinyin-code.html)
+[立即使用](https://phdsx.github.io/tools/document/eq-pinyin-code.html)
 
 ### AI 雷达
 
@@ -52,6 +52,35 @@
 - 工具优先在浏览器本地处理内容
 - 可直接部署到 GitHub Pages
 
+## 文件结构
+
+仓库按“公开入口、可维护内容、静态资源、维护脚本”分层：
+
+```text
+├─ *.html       稳定的公开页面入口
+├─ novels/      小说目录与阅读器
+├─ brand-blacklist/ 黑名单列表与详情页
+├─ content/     按内容类型和主题分级保存的源内容与集合数据
+├─ assets/      页面直接加载的样式、脚本、图片和生成数据
+├─ scripts/     新建记录、内容校验与生成脚本
+├─ games/
+│  ├─ board/    棋盘游戏
+│  ├─ arcade/   街机游戏
+│  ├─ puzzle/   益智游戏
+│  └─ legacy/   旧游戏入口
+└─ tools/
+   ├─ document/ 文档与演示工具
+   ├─ utility/  通用工具
+   ├─ time/     时间工具
+   ├─ image/    图片工具
+   ├─ text/     文本工具
+   ├─ lifestyle/ 生活工具
+   ├─ fun/      趣味工具
+   └─ media/    媒体工具
+```
+
+详细的内容分类规则见 [`content/README.md`](content/README.md)。品牌黑名单的新增方法和模板见 [`content/collections/brand-blacklist/README.md`](content/collections/brand-blacklist/README.md)。
+
 
 ## AI 雷达数据说明
 
@@ -67,7 +96,7 @@ AI 雷达展示来自 [CodexRadar](https://codexradar.com/)、[Codex Reset](http
 
 除另有注明的第三方内容外，本项目由 PHDSX 以 [GNU Affero General Public License v3.0 或更高版本](LICENSE) 发布（SPDX：`AGPL-3.0-or-later`）。你可以依照许可证使用、研究、修改和再分发本项目；如果你修改本项目并通过网络向用户提供服务，还必须向这些用户提供对应版本的完整源代码。
 
-项目包含的第三方代码、素材及其许可证不因本项目采用 AGPL 而改变，详情见 [第三方声明](THIRD_PARTY_NOTICES.md)。其中 `Games/dinnerninja` 目录继续适用其目录内的 Apache-2.0 许可证及源文件中保留的 MIT 声明。
+项目包含的第三方代码、素材及其许可证不因本项目采用 AGPL 而改变，详情见 [第三方声明](THIRD_PARTY_NOTICES.md)。其中 `games/arcade/fruit-ninja` 目录继续适用其目录内的 Apache-2.0 许可证及源文件中保留的 MIT 声明。
 
 Copyright © 2020–2026 PHDSX
 

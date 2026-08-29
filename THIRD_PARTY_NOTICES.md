@@ -6,8 +6,8 @@
 
 | 路径或组件 | 许可证 | 说明 |
 | --- | --- | --- |
-| `Games/dinnerninja/` | Apache License 2.0 | 完整许可证见 [`Games/dinnerninja/LICENSE`](Games/dinnerninja/LICENSE)。 |
-| `Games/dinnerninja/scripts/all.js` 中保留许可头的组件 | MIT License | 许可和版权声明已保留在源文件中。 |
+| `games/arcade/fruit-ninja/` | Apache License 2.0 | 完整许可证见 [`games/arcade/fruit-ninja/LICENSE`](games/arcade/fruit-ninja/LICENSE)。 |
+| `games/arcade/fruit-ninja/scripts/all.js` 中保留许可头的组件 | MIT License | 许可和版权声明已保留在源文件中。 |
 
 此清单用于帮助识别第三方许可，不取代各文件、目录或上游项目中的原始声明。如果本清单与原始声明不一致，以原始声明为准。
 

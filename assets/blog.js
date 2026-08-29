@@ -49,9 +49,8 @@ function renderMarkdown(md) {
 }
 (async function initPost() {
   const posts = {
-    'Python/Python_output.md': { title: 'Python 输出笔记', topic: 'Python', date: '2020-05-22' },
-    'Python/Python_tutorail.md': { title: 'Python 教程笔记', topic: 'Python', date: '2020-05-22' },
-    'index.md': { title: '站点更新记录', topic: '站点', date: '2020-05-22' }
+    'content/blog/python/python-tutorial.md': { title: 'Python 教程笔记', topic: 'Python', date: '2020-05-22' },
+    'content/blog/site/site-update.md': { title: '站点更新记录', topic: '站点', date: '2020-05-22' }
   };
   const params = new URLSearchParams(location.search);
   const src = params.get('src');

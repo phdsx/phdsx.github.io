@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义倒计时 - PHDSX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* 设置字体 */
+            text-align: center; /* 文字居中对齐 */
+            margin-top: 50px; /* 顶部边距 */
+        }
+
+        #countdown {
+            font-size: 48px; /* 设置倒计时时间的字体大小 */
+            margin: 20px 0; /* 上下边距 */
+            font-weight: bold; /* 字体加粗 */
+            align-items: center; /* 垂直居中对齐 */
+        }
+
+        #progressBar {
+            width: 20%; /* 设置进度条宽度为容器的20% */
+            background-color: #f3f3f3; /* 设置进度条背景颜色 */
+            position: relative; /* 设置相对定位 */
+            align-items: center; /* 在flex容器中居中对齐 */
+            display: flex; /* 使用flex布局 */
+            margin: 0 auto; /* 水平居中对齐 */
+        }
+
+        #progress {
+            height: 30px; /* 进度条的高度 */
+            background-color: #4caf50; /* 进度条的颜色 */
+            width: 0%; /* 初始宽度为0 */
+            transition: width 1s linear; /* 宽度变化时的过渡效果 */
+        }
+
+        #percent {
+            position: absolute; /* 绝对定位以覆盖在进度条上 */
+            top: 0; /* 距离顶部0 */
+            left: 50%; /* 距离左侧50% */
+            transform: translateX(-50%); /* 将自身宽度的一半移入中心 */
+            font-weight: bold; /* 字体加粗 */
+        }
+    </style>
+<link rel="stylesheet" href="../../assets/standalone.css?v=20260824a">
+<script defer src="../../assets/standalone.js?v=20260829b" data-home="../../index.html" data-return="../../tools.html" data-return-label="Tools"></script>
+</head>
+<body>
+
+<h1>自定义倒计时</h1>
+
+<label for="hoursInput">时：</label>
+<input type="number" id="hoursInput" placeholder="小时" min="0" />
+
+<label for="minutesInput">分：</label>
+<input type="number" id="minutesInput" placeholder="分钟" min="0" max="59" />
+
+<label for="secondsInput">秒：</label>
+<input type="number" id="secondsInput" placeholder="秒" min="0" max="59" />
+
+<button id="startButton">开始倒计时</button>
+
+<div id="countdown"></div> <!-- 显示倒计时的区域 -->
+<div id="progressBar"> <!-- 进度条容器 -->
+    <div id="progress"></div> <!-- 进度条本体 -->
+    <div id="percent">0%</div> <!-- 百分比文本 -->
+</div>
+
+<script>
+    let countdown; // 用于存储计时器ID
+
+    document.getElementById('startButton').addEventListener('click', function() {
+        // 获取用户输入的小时、分钟和秒数，并转换为秒
+        const hours = parseInt(document.getElementById('hoursInput').value) || 0;
+        const minutes = parseInt(document.getElementById('minutesInput').value) || 0;
+        const seconds = parseInt(document.getElementById('secondsInput').value) || 0;
+
+        let totalTime = hours * 3600 + minutes * 60 + seconds; // 计算总秒数
+
+        if (totalTime <= 0) {
+            alert('请输入有效的时间'); // 如果输入的时间无效，警告用户
+            return;
+        }
+
+        clearInterval(countdown); // 清除已有的计时器
+        document.getElementById('countdown').textContent = formatTime(totalTime); // 显示初始倒计时时间
+        document.getElementById('progress').style.width = '0%'; // 初始化进度条
+        document.getElementById('percent').textContent = '0%'; // 初始化百分比显示
+
+        let initialTime = totalTime; // 存储初始时间以计算百分比
+
+        countdown = setInterval(function() {
+            totalTime--; // 每秒减少总时间
+
+            if (totalTime < 0) {
+                clearInterval(countdown); // 时间到后停止计时器
+                document.getElementById('countdown').textContent = "时间到！"; // 显示时间到的信息
+                document.getElementById('progress').style.width = '100%'; // 进度条填满
+                document.getElementById('percent').textContent = '100%'; // 更新百分比显示
+            } else {
+                document.getElementById('countdown').textContent = formatTime(totalTime); // 更新倒计时时间
+                const percentage = ((initialTime - totalTime) / initialTime) * 100; // 计算已过去的百分比
+                document.getElementById('progress').style.width = percentage + '%'; // 更新进度条宽度
+                document.getElementById('percent').textContent = Math.round(percentage) + '%'; // 更新百分比显示
+            }
+        }, 1000); // 每秒执行一次
+    });
+
+    function formatTime(totalSeconds) {
+        const hours = Math.floor(totalSeconds / 3600); // 计算小时
+        const minutes = Math.floor((totalSeconds % 3600) / 60); // 计算分钟
+        const seconds = totalSeconds % 60; // 计算秒
+
+        // 格式化时间为hh:mm:ss的格式
+        return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
+    }
+</script>
+
+</body>
+</html>

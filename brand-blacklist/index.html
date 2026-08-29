@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="品牌黑名单记录，支持按品牌名称模糊搜索，以及按品牌类别和所属国家筛选。">
+  <title>品牌黑名单 - PHDSX</title>
+  <link rel="stylesheet" href="../assets/site.css?v=20260829a">
+  <link rel="stylesheet" href="../assets/collections.css?v=20260829a">
+</head>
+<body>
+  <header class="site-header"></header>
+  <main>
+    <section class="section">
+      <div class="collection-hero">
+        <div><p class="collection-kicker">BRAND RECORDS</p><h1>品牌黑名单</h1><p>按品牌名称、分类与所属国家查找记录，并进入详情页查看完整入黑事件和时间线。</p></div>
+        <div class="collection-stat"><strong data-blacklist-total>1</strong><span>收录记录</span></div>
+      </div>
+      <div class="blacklist-notice"><strong>信息说明</strong><span>当前仅含一条明确标注的非真实演示记录，用于展示页面功能。正式记录应基于可核验事实并附来源。</span></div>
+      <div class="blacklist-filters" role="search" aria-label="筛选品牌黑名单">
+        <div class="blacklist-filter"><label for="blacklist-name">品牌名称</label><input class="search-input" id="blacklist-name" data-blacklist-name type="search" placeholder="支持名称模糊搜索" autocomplete="off"></div>
+        <div class="blacklist-filter"><label for="blacklist-category">一级分类</label><select class="select-input" id="blacklist-category" data-blacklist-category><option value="">全部一级分类</option></select></div>
+        <div class="blacklist-filter"><label for="blacklist-subcategory">二级分类</label><select class="select-input" id="blacklist-subcategory" data-blacklist-subcategory disabled><option value="">全部二级分类</option></select></div>
+        <div class="blacklist-filter"><label for="blacklist-country">所属国家</label><select class="select-input" id="blacklist-country" data-blacklist-country><option value="">全部国家</option></select></div>
+        <button class="button secondary blacklist-filter-reset" type="button" data-blacklist-reset>重置筛选</button>
+      </div>
+      <div class="blacklist-results-meta"><span data-blacklist-count aria-live="polite">共 0 条记录</span><span>点击记录查看详细事件</span></div>
+      <div class="blacklist-table-wrap">
+        <table class="blacklist-table">
+          <thead><tr><th scope="col">品牌名称</th><th scope="col">入黑时间</th><th scope="col">品牌分类</th><th scope="col">所属国家</th><th scope="col">入黑原因类别</th><th scope="col"><span class="sr-only">操作</span></th></tr></thead>
+          <tbody data-blacklist-list></tbody>
+        </table>
+      </div>
+      <p class="blacklist-empty" data-blacklist-empty hidden>没有找到符合当前条件的品牌记录。</p>
+    </section>
+  </main>
+  <footer class="site-footer"><span>PHDSX 个人主页</span><span>品牌记录 · 事实核验 · 持续更新</span></footer>
+  <script src="../assets/brand-blacklist-data.js?v=20260830a"></script>
+  <script src="../assets/site.js?v=20260829b"></script>
+  <script src="../assets/brand-blacklist.js?v=20260830a"></script>
+</body>
+</html>

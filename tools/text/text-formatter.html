@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本格式化工具 - 美化您的文本内容</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind自定义主题 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        neutral: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .btn-hover {
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .btn-hover:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
+        }
+    </style>
+<link rel="stylesheet" href="../../assets/standalone.css?v=20260824a">
+<script defer src="../../assets/standalone.js?v=20260829b" data-home="../../index.html" data-return="../../tools.html" data-return-label="Tools"></script>
+</head>
+<body class="font-inter bg-gray-50 min-h-screen">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50 transition-custom">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-align-left text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-neutral">文本格式化工具</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../../index.html" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="返回首页">
+                    <i class="fa fa-home text-neutral"></i>
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="切换主题">
+                    <i class="fa fa-moon-o text-neutral"></i>
+                </button>
+                <button id="about-btn" class="p-2 rounded-full hover:bg-gray-100 transition-custom" title="关于工具">
+                    <i class="fa fa-info-circle text-neutral"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <!-- 介绍卡片 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8 transform hover:shadow-xl transition-custom">
+            <h2 class="text-xl font-semibold text-neutral mb-2">专业的文本美化与格式化工具</h2>
+            <p class="text-gray-600">
+                输入或粘贴需要格式化的文本，选择合适的格式化选项，工具将自动美化您的文本，
+                支持大小写转换、去除多余空格、段落整理等多种功能，让您的文本更加规范易读。
+            </p>
+        </div>
+        
+        <!-- 文本输入和格式化结果区域 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- 输入区域 -->
+            <div class="flex flex-col h-full">
+                <div class="bg-white rounded-t-xl shadow-md p-4 flex justify-between items-center border-b border-gray-100">
+                    <h3 class="font-medium text-neutral flex items-center">
+                        <i class="fa fa-file-text-o mr-2 text-primary"></i>原始文本
+                    </h3>
+                    <div class="flex space-x-2">
+                        <button id="clear-input" class="p-2 text-gray-500 hover:text-red-500 rounded hover:bg-gray-100 transition-custom" title="清空">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                        <button id="sample-text" class="p-2 text-gray-500 hover:text-primary rounded hover:bg-gray-100 transition-custom" title="示例文本">
+                            <i class="fa fa-file-text"></i>
+                        </button>
+                    </div>
+                </div>
+                <textarea 
+                    id="input-text" 
+                    class="flex-grow w-full p-4 bg-gray-50 border border-gray-200 rounded-b-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none resize-none transition-custom"
+                    placeholder="请在此输入或粘贴需要格式化的文本内容..."
+                    rows="15"
+                ></textarea>
+            </div>
+            
+            <!-- 格式化结果区域 -->
+            <div class="flex flex-col h-full">
+                <div class="bg-white rounded-t-xl shadow-md p-4 flex justify-between items-center border-b border-gray-100">
+                    <h3 class="font-medium text-neutral flex items-center">
+                        <i class="fa fa-magic mr-2 text-secondary"></i>格式化结果
+                    </h3>
+                    <div class="flex space-x-2">
+                        <button id="copy-result" class="p-2 text-gray-500 hover:text-secondary rounded hover:bg-gray-100 transition-custom" title="复制结果">
+                            <i class="fa fa-copy"></i>
+                        </button>
+                        <button id="download-result" class="p-2 text-gray-500 hover:text-secondary rounded hover:bg-gray-100 transition-custom" title="下载结果">
+                            <i class="fa fa-download"></i>
+                        </button>
+                        <button id="replace-input" class="p-2 text-gray-500 hover:text-secondary rounded hover:bg-gray-100 transition-custom" title="替换输入">
+                            <i class="fa fa-exchange"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-grow w-full p-4 bg-gray-50 border border-gray-200 rounded-b-xl">
+                    <textarea 
+                        id="output-text" 
+                        class="flex-grow w-full h-full p-2 bg-transparent border-none outline-none resize-none transition-custom"
+                        placeholder="格式化后的文本将显示在这里..."
+                        rows="15"
+                        readonly
+                    ></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 格式化选项 -->
+        <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+            <h3 class="font-semibold text-neutral mb-4 flex items-center">
+                <i class="fa fa-sliders mr-2 text-primary"></i>格式化选项
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                <!-- 大小写转换 -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-medium text-neutral mb-3">大小写转换</h4>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button data-format="uppercase" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover">
+                            全部大写
+                        </button>
+                        <button data-format="lowercase" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover">
+                            全部小写
+                        </button>
+                        <button data-format="capitalize" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover">
+                            首字母大写
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 空格处理 -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-medium text-neutral mb-3">空格处理</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button data-format="trim" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-scissors mr-2"></i>去除首尾空格
+                        </button>
+                        <button data-format="remove-extra-spaces" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-compress mr-2"></i>合并多余空格
+                        </button>
+                        <button data-format="remove-all-spaces" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-ban mr-2"></i>移除所有空格
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 段落处理 -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-medium text-neutral mb-3">段落处理</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button data-format="normalize-paragraphs" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-align-justify mr-2"></i>规范段落格式
+                        </button>
+                        <button data-format="remove-empty-lines" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-eraser mr-2"></i>移除空行
+                        </button>
+                        <button data-format="add-line-breaks" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-arrow-down mr-2"></i>添加换行符
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 特殊格式 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-medium text-neutral mb-3">特殊格式</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button data-format="reverse" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-rotate-right mr-2"></i>反转文本
+                        </button>
+                        <button data-format="remove-punctuation" class="format-btn px-3 py-2 text-sm bg-white border border-gray-200 rounded hover:border-primary hover:text-primary transition-custom btn-hover flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2"></i>移除标点
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 自定义分隔符 -->
+                <div class="bg-gray-50 p-4 rounded-lg col-span-1 sm:col-span-2 md:col-span-3">
+                    <h4 class="font-medium text-neutral mb-3">自定义替换</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">查找</label>
+                            <input type="text" id="find-text" class="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">替换为</label>
+                            <input type="text" id="replace-text" class="w-full px-3 py-2 text-sm border border-gray-200 rounded focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none">
+                        </div>
+                        <div class="flex items-end">
+                            <button id="replace-btn" class="w-full px-3 py-2 text-sm bg-primary text-white rounded hover:bg-primary/90 transition-custom btn-hover flex items-center justify-center">
+                                <i class="fa fa-refresh mr-2"></i>替换
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <button 
+                id="format-btn" 
+                class="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-custom font-medium flex items-center justify-center"
+            >
+                <i class="fa fa-magic mr-2"></i>应用所有选中格式
+            </button>
+            <button 
+                id="auto-format-btn" 
+                class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-neutral rounded-lg shadow-sm hover:shadow transition-custom font-medium flex items-center justify-center"
+            >
+                <i class="fa fa-refresh mr-2"></i>实时格式化
+            </button>
+        </div>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-white border-t border-gray-200 py-6">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>文本格式化工具 &copy; 2025 - 专业的文本美化解决方案</p>
+            <p class="mt-1">所有处理均在您的浏览器中完成，不会上传您的文本内容</p>
+            <p class="mt-1">Ver.1.0.20250804</p>
+        </div>
+    </footer>
+    
+    <!-- 关于模态框 -->
+    <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden opacity-0 transition-custom">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 transform scale-95 transition-custom">
+            <div class="p-6 border-b border-gray-100">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-neutral">关于文本格式化工具</h3>
+                    <button id="close-about" class="text-gray-500 hover:text-gray-700">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">
+                    文本格式化工具是一个功能全面的文本美化工具，帮助您快速规范和美化文本格式。
+                </p>
+                <h4 class="font-semibold text-neutral mb-2">主要功能：</h4>
+                <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                    <li>大小写转换（全部大写、全部小写、首字母大写）</li>
+                    <li>空格处理（去除首尾空格、合并多余空格、移除所有空格）</li>
+                    <li>段落格式化（规范段落、移除空行、添加换行）</li>
+                    <li>特殊格式处理（反转文本、移除标点符号）</li>
+                    <li>自定义文本替换功能</li>
+                    <li>支持实时格式化模式</li>
+                </ul>
+                <p class="text-gray-500 text-sm">
+                    所有处理均在本地浏览器中完成，不会上传您的文本内容，保护您的隐私安全。
+                </p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-b-xl text-center">
+                <button id="got-it" class="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-custom">
+                    明白了
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 通知提示 -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-neutral text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-custom flex items-center">
+        <i id="toast-icon" class="fa fa-check-circle mr-2"></i>
+        <span id="toast-message">操作成功</span>
+    </div>
+
+    <script>
+        // DOM元素引用
+        const inputText = document.getElementById('input-text');
+        const outputText = document.getElementById('output-text');
+        const formatBtn = document.getElementById('format-btn');
+        const autoFormatBtn = document.getElementById('auto-format-btn');
+        const clearInputBtn = document.getElementById('clear-input');
+        const copyResultBtn = document.getElementById('copy-result');
+        const downloadResultBtn = document.getElementById('download-result');
+        const replaceInputBtn = document.getElementById('replace-input');
+        const sampleTextBtn = document.getElementById('sample-text');
+        const findTextInput = document.getElementById('find-text');
+        const replaceTextInput = document.getElementById('replace-text');
+        const replaceBtn = document.getElementById('replace-btn');
+        const formatButtons = document.querySelectorAll('.format-btn');
+        const aboutBtn = document.getElementById('about-btn');
+        const aboutModal = document.getElementById('about-modal');
+        const closeAboutBtn = document.getElementById('close-about');
+        const gotItBtn = document.getElementById('got-it');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        const toastIcon = document.getElementById('toast-icon');
+        
+        // 示例文本
+        const sampleText = `   这是一段  示例文本，   用来说明文本格式化工具的功能。  
+它包含了多余的   空格和不规范的  换行。
+
+THIS IS A TEST OF CAPITALIZATION.
+这是另一段   文本，有很多  问题需要  解决。`;
+        
+        // 状态变量
+        let autoFormatEnabled = false;
+        let activeFormats = new Set(); // 跟踪当前激活的格式化选项
+        
+        // 显示通知提示
+        function showToast(message, isError = false) {
+            toastMessage.textContent = message;
+            toastIcon.className = isError ? 'fa fa-exclamation-circle mr-2' : 'fa fa-check-circle mr-2';
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+        
+        // 文本格式化功能 - 根据选择的格式处理文本
+        function formatText() {
+            let text = inputText.value;
+            if (!text.trim()) {
+                outputText.value = '';
+                return;
+            }
+            
+            // 应用所有激活的格式化选项
+            activeFormats.forEach(format => {
+                switch(format) {
+                    case 'uppercase':
+                        text = text.toUpperCase();
+                        break;
+                    case 'lowercase':
+                        text = text.toLowerCase();
+                        break;
+                    case 'capitalize':
+                        // 首字母大写，其他字母小写
+                        text = text.toLowerCase().replace(/(?:^|\s)\S/g, function(a) {
+                            return a.toUpperCase();
+                        });
+                        break;
+                    case 'trim':
+                        text = text.trim();
+                        break;
+                    case 'remove-extra-spaces':
+                        // 合并多个空格为一个
+                        text = text.replace(/\s+/g, ' ');
+                        break;
+                    case 'remove-all-spaces':
+                        // 移除所有空格
+                        text = text.replace(/\s+/g, '');
+                        break;
+                    case 'normalize-paragraphs':
+                        // 规范段落格式 - 每个段落前空两格，段落间空一行
+                        text = text.split(/\n\s*/).filter(paragraph => paragraph.trim()).map(paragraph => {
+                            return '  ' + paragraph.replace(/\s+/g, ' ').trim();
+                        }).join('\n\n');
+                        break;
+                    case 'remove-empty-lines':
+                        // 移除空行
+                        text = text.split('\n').filter(line => line.trim() !== '').join('\n');
+                        break;
+                    case 'add-line-breaks':
+                        // 在句号、问号、感叹号后添加换行
+                        text = text.replace(/([。！？,.?!])\s*/g, '$1\n');
+                        break;
+                    case 'reverse':
+                        // 反转文本
+                        text = text.split('').reverse().join('');
+                        break;
+                    case 'remove-punctuation':
+                        // 移除标点符号
+                        text = text.replace(/[^\w\s\u4e00-\u9fa5]/gi, '');
+                        break;
+                }
+            });
+            
+            outputText.value = text;
+            
+            if (!autoFormatEnabled) {
+                showToast('文本格式化完成');
+            }
+        }
+        
+        // 应用单个格式化选项
+        function applySingleFormat(formatType) {
+            // 切换格式化选项的激活状态
+            if (activeFormats.has(formatType)) {
+                activeFormats.delete(formatType);
+                // 移除按钮高亮
+                document.querySelector(`[data-format="${formatType}"]`).classList.remove('bg-primary/10', 'border-primary', 'text-primary');
+            } else {
+                // 对于互斥的选项（如大小写转换），先移除同类选项
+                if (['uppercase', 'lowercase', 'capitalize'].includes(formatType)) {
+                    ['uppercase', 'lowercase', 'capitalize'].forEach(format => {
+                        activeFormats.delete(format);
+                        document.querySelector(`[data-format="${format}"]`).classList.remove('bg-primary/10', 'border-primary', 'text-primary');
+                    });
+                }
+                
+                activeFormats.add(formatType);
+                // 添加按钮高亮
+                document.querySelector(`[data-format="${formatType}"]`).classList.add('bg-primary/10', 'border-primary', 'text-primary');
+            }
+            
+            // 应用格式化
+            if (autoFormatEnabled) {
+                formatText();
+            } else {
+                // 显示已选择的格式数量
+                showToast(`已选择 ${activeFormats.size} 项格式化选项`);
+            }
+        }
+        
+        // 文本替换功能
+        function replaceText() {
+            const findText = findTextInput.value;
+            const replaceText = replaceTextInput.value;
+            
+            if (!findText) {
+                showToast('请输入要查找的内容', true);
+                return;
+            }
+            
+            let text = inputText.value;
+            const regex = new RegExp(findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+            const newText = text.replace(regex, replaceText);
+            
+            inputText.value = newText;
+            
+            // 如果开启了自动格式化，重新格式化
+            if (autoFormatEnabled) {
+                formatText();
+            }
+            
+            showToast(`已替换 ${(newText.match(regex) || []).length} 处匹配内容`);
+        }
+        
+        // 复制结果到剪贴板
+        function copyToClipboard() {
+            const resultText = outputText.value;
+            if (!resultText) {
+                showToast('没有可复制的格式化结果', true);
+                return;
+            }
+            
+            navigator.clipboard.writeText(resultText).then(() => {
+                // 复制成功动画
+                copyResultBtn.classList.add('text-green-500');
+                setTimeout(() => {
+                    copyResultBtn.classList.remove('text-green-500');
+                }, 500);
+                
+                showToast('格式化结果已复制到剪贴板');
+            }).catch(err => {
+                showToast('复制失败，请手动复制', true);
+                console.error('无法复制内容: ', err);
+            });
+        }
+        
+        // 下载结果
+        function downloadResult() {
+            const resultText = outputText.value;
+            if (!resultText) {
+                showToast('没有可下载的格式化结果', true);
+                return;
+            }
+            
+            const blob = new Blob([resultText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '格式化文本结果.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('格式化结果已下载');
+        }
+        
+        // 用结果替换输入
+        function replaceInputWithResult() {
+            const resultText = outputText.value;
+            if (!resultText) {
+                showToast('没有可替换的内容', true);
+                return;
+            }
+            
+            inputText.value = resultText;
+            
+            // 添加动画效果
+            inputText.classList.add('ring-2', 'ring-primary/30');
+            setTimeout(() => {
+                inputText.classList.remove('ring-2', 'ring-primary/30');
+            }, 500);
+            
+            // 如果开启了自动格式化，重新格式化
+            if (autoFormatEnabled) {
+                formatText();
+            }
+            
+            showToast('已用结果替换输入文本');
+        }
+        
+        // 切换实时格式化模式
+        function toggleAutoFormat() {
+            autoFormatEnabled = !autoFormatEnabled;
+            
+            if (autoFormatEnabled) {
+                autoFormatBtn.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+                autoFormatBtn.classList.add('bg-primary', 'hover:bg-primary/90', 'text-white');
+                autoFormatBtn.querySelector('i').classList.add('fa-spin');
+                inputText.addEventListener('input', formatText);
+                formatText(); // 立即格式化一次
+                showToast('已开启实时格式化');
+            } else {
+                autoFormatBtn.classList.remove('bg-primary', 'hover:bg-primary/90', 'text-white');
+                autoFormatBtn.classList.add('bg-gray-200', 'hover:bg-gray-300', 'text-neutral');
+                autoFormatBtn.querySelector('i').classList.remove('fa-spin');
+                inputText.removeEventListener('input', formatText);
+                showToast('已关闭实时格式化');
+            }
+        }
+        
+        // 显示示例文本
+        function loadSampleText() {
+            inputText.value = sampleText;
+            inputText.focus();
+            
+            // 动画效果
+            inputText.classList.add('ring-2', 'ring-primary/30');
+            setTimeout(() => {
+                inputText.classList.remove('ring-2', 'ring-primary/30');
+            }, 500);
+            
+            if (autoFormatEnabled) {
+                formatText();
+            }
+            
+            showToast('已加载示例文本');
+        }
+        
+        // 切换主题
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark');
+            const icon = themeToggleBtn.querySelector('i');
+            
+            if (isDark) {
+                icon.classList.remove('fa-moon-o');
+                icon.classList.add('fa-sun-o');
+                document.body.classList.add('bg-gray-900', 'text-white');
+                document.body.classList.remove('bg-gray-50');
+                // 更新深色模式下的元素样式
+                document.querySelectorAll('.bg-white').forEach(el => {
+                    el.classList.remove('bg-white');
+                    el.classList.add('bg-gray-800');
+                });
+                document.querySelectorAll('.bg-gray-50').forEach(el => {
+                    el.classList.remove('bg-gray-50');
+                    el.classList.add('bg-gray-900');
+                });
+                document.querySelectorAll('.text-gray-600').forEach(el => {
+                    el.classList.remove('text-gray-600');
+                    el.classList.add('text-gray-300');
+                });
+                document.querySelectorAll('.text-gray-500').forEach(el => {
+                    el.classList.remove('text-gray-500');
+                    el.classList.add('text-gray-400');
+                });
+                document.querySelectorAll('.border-gray-200').forEach(el => {
+                    el.classList.remove('border-gray-200');
+                    el.classList.add('border-gray-700');
+                });
+                showToast('已切换至深色模式');
+            } else {
+                icon.classList.remove('fa-sun-o');
+                icon.classList.add('fa-moon-o');
+                document.body.classList.remove('bg-gray-900', 'text-white');
+                document.body.classList.add('bg-gray-50');
+                // 恢复浅色模式下的元素样式
+                document.querySelectorAll('.bg-gray-800').forEach(el => {
+                    el.classList.remove('bg-gray-800');
+                    el.classList.add('bg-white');
+                });
+                document.querySelectorAll('.bg-gray-900').forEach(el => {
+                    el.classList.remove('bg-gray-900');
+                    el.classList.add('bg-gray-50');
+                });
+                document.querySelectorAll('.text-gray-300').forEach(el => {
+                    el.classList.remove('text-gray-300');
+                    el.classList.add('text-gray-600');
+                });
+                document.querySelectorAll('.text-gray-400').forEach(el => {
+                    el.classList.remove('text-gray-400');
+                    el.classList.add('text-gray-500');
+                });
+                document.querySelectorAll('.border-gray-700').forEach(el => {
+                    el.classList.remove('border-gray-700');
+                    el.classList.add('border-gray-200');
+                });
+                showToast('已切换至浅色模式');
+            }
+        }
+        
+        // 显示关于模态框
+        function showAboutModal() {
+            aboutModal.classList.remove('hidden', 'opacity-0');
+            aboutModal.classList.add('opacity-100');
+            aboutModal.querySelector('div').classList.remove('scale-95');
+            aboutModal.querySelector('div').classList.add('scale-100');
+        }
+        
+        // 隐藏关于模态框
+        function hideAboutModal() {
+            aboutModal.classList.remove('opacity-100');
+            aboutModal.classList.add('opacity-0');
+            aboutModal.querySelector('div').classList.remove('scale-100');
+            aboutModal.querySelector('div').classList.add('scale-95');
+            
+            setTimeout(() => {
+                aboutModal.classList.add('hidden');
+            }, 300);
+        }
+        
+        // 事件监听
+        formatBtn.addEventListener('click', formatText);
+        autoFormatBtn.addEventListener('click', toggleAutoFormat);
+        clearInputBtn.addEventListener('click', () => {
+            inputText.value = '';
+            outputText.value = '';
+            activeFormats.clear();
+            formatButtons.forEach(btn => {
+                btn.classList.remove('bg-primary/10', 'border-primary', 'text-primary');
+            });
+            inputText.focus();
+            showToast('输入已清空');
+        });
+        copyResultBtn.addEventListener('click', copyToClipboard);
+        downloadResultBtn.addEventListener('click', downloadResult);
+        replaceInputBtn.addEventListener('click', replaceInputWithResult);
+        sampleTextBtn.addEventListener('click', loadSampleText);
+        replaceBtn.addEventListener('click', replaceText);
+        aboutBtn.addEventListener('click', showAboutModal);
+        closeAboutBtn.addEventListener('click', hideAboutModal);
+        gotItBtn.addEventListener('click', hideAboutModal);
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        
+        // 格式化按钮点击事件
+        formatButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const formatType = button.getAttribute('data-format');
+                applySingleFormat(formatType);
+            });
+        });
+        
+        // 按Enter键执行替换
+        replaceTextInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                replaceText();
+            }
+        });
+        
+        // 点击模态框外部关闭
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                hideAboutModal();
+            }
+        });
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+Enter 执行格式化
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                formatText();
+            }
+            
+            // Ctrl+C 复制结果 (仅当有结果且未聚焦在输入元素上)
+            if (e.ctrlKey && e.key === 'c' && 
+                outputText.value && 
+                document.activeElement.tagName !== 'INPUT' && 
+                document.activeElement.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                copyToClipboard();
+            }
+        });
+        
+        // 页面滚动时改变导航栏样式
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('py-2', 'shadow-lg');
+                header.classList.remove('py-3', 'shadow-md');
+            } else {
+                header.classList.add('py-3', 'shadow-md');
+                header.classList.remove('py-2', 'shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>

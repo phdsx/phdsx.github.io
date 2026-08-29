@@ -1,0 +1,14 @@
+{
+  "brandCategories": [
+    {
+      "name": "示例分类",
+      "children": ["未细分"]
+    }
+  ],
+  "reasonCategories": [
+    {
+      "name": "功能演示",
+      "children": ["页面功能"]
+    }
+  ]
+}
