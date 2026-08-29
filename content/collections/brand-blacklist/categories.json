@@ -3,12 +3,20 @@
     {
       "name": "示例分类",
       "children": ["未细分"]
+    },
+    {
+      "name": "食品饮料",
+      "children": ["奶茶"]
     }
   ],
   "reasonCategories": [
     {
       "name": "功能演示",
       "children": ["页面功能"]
+    },
+    {
+      "name": "歧视男性",
+      "children": ["价格歧视"]
     }
   ]
 }

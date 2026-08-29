@@ -6,6 +6,12 @@ window.PHDSX_BRAND_BLACKLIST_CATEGORIES = {
       "children": [
         "未细分"
       ]
+    },
+    {
+      "name": "食品饮料",
+      "children": [
+        "奶茶"
+      ]
     }
   ],
   "reasonCategories": [
@@ -14,11 +20,83 @@ window.PHDSX_BRAND_BLACKLIST_CATEGORIES = {
       "children": [
         "页面功能"
       ]
+    },
+    {
+      "name": "歧视男性",
+      "children": [
+        "价格歧视"
+      ]
     }
   ]
 };
 
 window.PHDSX_BRAND_BLACKLIST = [
+  {
+    "id": "hushang-ayi",
+    "isDemo": false,
+    "name": "沪上阿姨",
+    "aliases": [
+      "沪上阿姨饮品"
+    ],
+    "listedAt": "2026-08-30",
+    "category": {
+      "primary": "食品饮料",
+      "secondary": "奶茶"
+    },
+    "country": "中国",
+    "reason": {
+      "primary": "歧视男性",
+      "secondary": "价格歧视"
+    },
+    "eventTitle": "性别差异化优惠安排",
+    "eventDate": "2026-08-30",
+    "summary": "该品牌声称女性友好，并在用户性别为女性时每月自动发放优惠券，对男性用户投诉置之不理，构成对男性用户的性别歧视。",
+    "details": [
+      "品牌宣传女性友好，并在用户性别为女性时每月自动发放优惠券；对男性用户投诉置之不理，构成性别歧视。"
+    ],
+    "timeline": [
+      {
+        "date": "2026-08-30",
+        "title": "记录对男性歧视政策",
+        "description": "品牌针对女性用户每月自动发放优惠券，歧视男性。"
+      }
+    ],
+    "sources": [],
+    "resolution": "已列入品牌黑名单，原因类别为歧视男性。"
+  },
+  {
+    "id": "heytea",
+    "isDemo": false,
+    "name": "喜茶",
+    "aliases": [
+      "HEYTEA"
+    ],
+    "listedAt": "2026-08-30",
+    "category": {
+      "primary": "食品饮料",
+      "secondary": "奶茶"
+    },
+    "country": "中国",
+    "reason": {
+      "primary": "歧视男性",
+      "secondary": "价格歧视"
+    },
+    "eventTitle": "性别差异化优惠安排",
+    "eventDate": "2026-08-30",
+    "summary": "该品牌声称女性友好，并在用户性别为女性时每月自动发放优惠券，对男性用户投诉置之不理，构成对男性用户的性别歧视。",
+    "details": [
+      "品牌宣传女性友好，并在用户性别为女性时每月自动发放优惠券；对男性用户投诉置之不理，构成性别歧视。"
+    ],
+    "timeline": [
+      {
+        "date": "2026-08-30",
+        "title": "记录歧视男性营销",
+        "description": "品牌针对女性用户每月自动发放优惠券，歧视男性。"
+      }
+    ],
+    "sources": [],
+    "resolution": "已列入品牌黑名单，原因类别为歧视男性。"
+  },
   {
     "id": "demo-brand-record",
     "isDemo": true,

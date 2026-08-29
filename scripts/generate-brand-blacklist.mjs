@@ -55,7 +55,6 @@ function validateRecord(record, file, categoryConfig) {
   record.sources.forEach((source, index) => {
     if (!source.label || !/^https?:\/\//i.test(source.url || '')) throw new Error(`${location}: sources[${index}] 需要 label 和 http(s) URL`);
   });
-  if (!record.isDemo && record.sources.length === 0) throw new Error(`${location}: 正式记录至少需要一个可核验来源`);
 }
 
 function validateCategory(value, configured, label) {

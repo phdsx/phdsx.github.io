@@ -82,11 +82,11 @@
         row.dataset.blacklistRow = record.id;
         row.setAttribute('aria-label', `查看 ${record.name} 的详细入黑事件`);
         row.innerHTML = `
-          <td data-label="品牌名称"><span class="blacklist-brand-name">${escapeHtml(record.name)}</span>${record.isDemo ? '<span class="blacklist-demo-tag">演示</span>' : ''}</td>
+          <td data-label="品牌名称"><span class="blacklist-brand-name">${escapeHtml(record.name)}</span>${record.isDemo ? '<span class="blacklist-demo-tag">演示</span>' : ''}${record.verificationStatus === 'user-reported' ? '<span class="blacklist-pending-tag">待核验</span>' : ''}</td>
           <td data-label="入黑时间"><time datetime="${escapeHtml(record.listedAt)}">${escapeHtml(formatDate(record.listedAt))}</time></td>
           <td data-label="品牌分类">${escapeHtml(categoryLabel(record.category))}</td>
           <td data-label="所属国家">${escapeHtml(record.country || '未标注')}</td>
-          <td data-label="入黑原因类别"><span class="blacklist-reason">${escapeHtml(categoryLabel(record.reason))}</span></td>
+          <td data-label="入黑原因类别"><span class="blacklist-reason">${escapeHtml(categoryPrimary(record.reason))}</span></td>
           <td class="blacklist-open" aria-hidden="true">查看详情 →</td>`;
         const open = () => { location.href = `detail.html?id=${encodeURIComponent(record.id)}`; };
         row.addEventListener('click', open);
@@ -138,13 +138,13 @@
       <nav class="blacklist-breadcrumb" aria-label="面包屑"><a href="index.html">品牌黑名单</a><span aria-hidden="true">/</span><span>${escapeHtml(record.name)}</span></nav>
       <header class="blacklist-detail-head">
         <div><p class="blacklist-kicker">BLACKLIST EVENT</p><h1>${escapeHtml(record.name)}</h1><p>${escapeHtml(record.summary)}</p></div>
-        ${record.isDemo ? '<span class="blacklist-demo-banner">非真实演示记录</span>' : ''}
+        ${record.isDemo ? '<span class="blacklist-demo-banner">非真实演示记录</span>' : ''}${record.verificationStatus === 'user-reported' ? '<span class="blacklist-pending-banner">用户提交 · 待核验</span>' : ''}
       </header>
       <dl class="blacklist-facts">
         <div><dt>入黑时间</dt><dd>${escapeHtml(formatDate(record.listedAt))}</dd></div>
         <div><dt>品牌分类</dt><dd>${escapeHtml(categoryLabel(record.category))}</dd></div>
         <div><dt>所属国家</dt><dd>${escapeHtml(record.country || '未标注')}</dd></div>
-        <div><dt>原因类别</dt><dd>${escapeHtml(categoryLabel(record.reason))}</dd></div>
+        <div><dt>原因类别</dt><dd>${escapeHtml(categoryPrimary(record.reason))}</dd></div>
       </dl>
       <div class="blacklist-detail-layout">
         <article class="blacklist-event-card">
@@ -180,6 +180,11 @@
     if (!value) return '未分类';
     if (typeof value === 'string') return value;
     return [value.primary, value.secondary].filter(Boolean).join(' / ') || '未分类';
+  }
+
+  function categoryPrimary(value) {
+    if (!value) return '未分类';
+    return typeof value === 'string' ? value : value.primary || '未分类';
   }
 
   initList();
