@@ -14,8 +14,8 @@
     .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
     .brand { display:flex; align-items:center; gap:10px; color:var(--ink); text-decoration:none; font-weight:900; letter-spacing:.04em; }
     .brand-mark { display:grid; place-items:center; width:42px; height:42px; border:3px solid var(--ink); border-radius:15px; color:var(--cream); background:var(--navy); box-shadow:0 5px 0 rgba(38,51,76,.22); }
-    .back-link { color:var(--ink); font-size:.9rem; font-weight:800; text-decoration:none; opacity:.78; }
-    .back-link:hover { opacity:1; }
+    .back-link { display:grid; place-items:center; width:42px; height:42px; padding:0; border:2px solid rgba(38,51,76,.3); border-radius:50%; color:var(--ink); background:rgba(255,255,255,.72); box-shadow:0 4px 0 rgba(38,51,76,.14); cursor:pointer; font-size:1.25rem; font-weight:900; opacity:.9; }
+    .back-link:hover,.back-link:focus-visible { opacity:1; outline:3px solid var(--yellow); outline-offset:2px; }
     .game-card { overflow:hidden; border:3px solid rgba(255,255,255,.72); border-radius:30px; background:rgba(255,253,247,.74); box-shadow:var(--shadow); }
     .game-head { display:grid; grid-template-columns:1fr auto; align-items:end; gap:18px; padding:22px 24px 16px; }
     .eyebrow { margin:0 0 6px; color:var(--mint-deep); font-size:.76rem; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
@@ -47,12 +47,12 @@
     .slots { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; padding:10px; border:3px solid rgba(255,255,255,.72); border-radius:20px; background:rgba(147,153,202,.54); }
     .slot { display:grid; place-items:center; min-height:74px; border:2px dashed rgba(255,255,255,.82); border-radius:14px; color:rgba(255,255,255,.88); font-size:.73rem; font-weight:900; }
     .slot.is-filled { border-style:solid; background:rgba(255,255,255,.18); }
-    .slot .vehicle { width:86%; min-height:53px; cursor:default; }
-    .board-panel { margin:0 18px; padding:17px; border:3px solid rgba(255,255,255,.72); border-radius:24px 24px 15px 15px; background:#9da6d2; }
+    .slot .vehicle { width:86%; min-height:53px; cursor:default; pointer-events:none; }
+    .board-panel { min-height:0; margin:0 18px; padding:17px; border:3px solid rgba(255,255,255,.72); border-radius:24px 24px 15px 15px; background:#9da6d2; }
     .board-title { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; color:var(--cream); }
     .board-title strong { font-size:.98rem; }
     .board-title span { font-size:.74rem; font-weight:800; opacity:.86; }
-    .board { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); grid-template-rows:repeat(6,minmax(44px,1fr)); gap:5px; min-height:385px; padding:10px; border:3px solid rgba(255,255,255,.8); border-radius:18px; background-color:#aeb7de; background-image:linear-gradient(rgba(255,255,255,.13) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.13) 2px,transparent 2px); background-size:calc(100% / 6) calc(100% / 6); }
+    .board { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); grid-template-rows:repeat(6,minmax(38px,1fr)); gap:5px; min-height:0; padding:10px; border:3px solid rgba(255,255,255,.8); border-radius:18px; background-color:#aeb7de; background-image:linear-gradient(rgba(255,255,255,.13) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.13) 2px,transparent 2px); background-size:calc(100% / 6) calc(100% / 6); }
     .board:focus-within { border-color:var(--yellow); }
     .vehicle { position:relative; z-index:2; display:flex; align-items:center; justify-content:center; min-width:0; min-height:38px; padding:0; overflow:visible; border:0; border-radius:14px; color:white; background:transparent; box-shadow:none; cursor:pointer; transition:transform .18s ease,filter .18s ease,opacity .18s ease; }
     .vehicle::before,.vehicle::after { display:none; }
@@ -89,6 +89,7 @@
     .tool-button:hover:not(:disabled),.tool-button:focus-visible:not(:disabled) { transform:translateY(-3px); background:#fff; outline:3px solid rgba(255,255,255,.78); outline-offset:2px; }
     .tool-button:active:not(:disabled) { transform:translateY(1px); box-shadow:0 2px 0 rgba(38,51,76,.18); }
     .tool-button:disabled { opacity:.45; cursor:not-allowed; }
+    .tool-button.is-active { outline:4px solid var(--yellow); outline-offset:3px; transform:translateY(-3px); }
     .tool-icon { display:block; font-size:1.42rem; line-height:1.05; }
     .tool-name { display:block; margin-top:2px; font-size:.76rem; font-weight:900; }
     .tool-count { display:block; margin-top:1px; color:var(--muted); font-size:.68rem; font-weight:800; }
@@ -100,46 +101,47 @@
     .modal p { margin:0 0 20px; color:var(--muted); line-height:1.55; }
     .primary-button { width:100%; padding:13px 18px; border:3px solid var(--ink); border-radius:15px; color:var(--cream); background:var(--navy); box-shadow:0 4px 0 rgba(38,51,76,.2); cursor:pointer; font-weight:900; }
     .primary-button:hover,.primary-button:focus-visible { background:#435172; outline:3px solid var(--yellow); outline-offset:2px; }
-    @media (max-width:640px) { .game-wrap{padding:10px 8px 20px}.topbar{margin-bottom:9px}.game-card{border-radius:23px}.game-head{padding:17px 15px 13px}.level-badge{min-width:74px;padding:9px 10px}.level-badge strong{font-size:1.1rem}.passenger-panel,.slots-panel,.board-panel{margin-left:10px;margin-right:10px}.passenger-panel{padding:12px}.slots{gap:6px;padding:7px}.slot{min-height:60px;font-size:.64rem}.slot .vehicle{min-height:45px}.board-panel{padding:11px}.board{min-height:350px;grid-template-rows:repeat(6,minmax(39px,1fr));gap:4px;padding:7px}.vehicle{border-width:2px;border-radius:9px}.vehicle .arrow{font-size:1.1rem}.vehicle.horizontal{min-width:62px}.vehicle.vertical{min-height:64px}.tool-dock{gap:6px;padding:12px 10px 14px}.tool-button{min-height:56px;border-radius:13px}.tool-icon{font-size:1.2rem}.tool-name{font-size:.68rem} }
-    @media (max-width:390px) { .subtitle{font-size:.82rem}.board{min-height:315px}.vehicle .capacity{display:none}.status-message{font-size:.76rem} }
+    @media (max-width:640px) { .game-wrap{padding:10px 8px 20px}.topbar{margin-bottom:9px}.game-card{border-radius:23px}.game-head{padding:17px 15px 13px}.level-badge{min-width:74px;padding:9px 10px}.level-badge strong{font-size:1.1rem}.passenger-panel,.slots-panel,.board-panel{margin-left:10px;margin-right:10px}.passenger-panel{padding:12px}.slots{gap:6px;padding:7px}.slot{min-height:55px;font-size:.64rem}.slot .vehicle{min-height:43px}.board-panel{padding:11px}.board{min-height:0;grid-template-rows:repeat(6,minmax(34px,1fr));gap:4px;padding:7px}.vehicle{border-width:2px;border-radius:9px}.vehicle .arrow{font-size:1.1rem}.vehicle.horizontal{min-width:62px}.vehicle.vertical{min-height:58px}.tool-dock{gap:6px;padding:8px 10px 11px}.tool-button{min-height:56px;border-radius:13px}.tool-icon{font-size:1.2rem}.tool-name{font-size:.68rem} }
+    @media (max-width:390px) { .subtitle{font-size:.82rem}.vehicle .capacity{display:none}.status-message{font-size:.76rem} }
 
     /* Video-style full-screen mobile game composition */
     body { overflow-x:hidden; background:#aeb9dd; }
-    .game-wrap { width:min(576px,100vw); min-height:100vh; margin:0 auto; padding:0; }
+    .game-wrap { width:min(576px,100vw); height:100vh; height:100dvh; min-height:640px; margin:0 auto; padding:0; }
     .topbar { position:absolute; top:12px; left:50%; z-index:30; width:min(576px,100vw); margin:0; padding:0 15px; transform:translateX(-50%); pointer-events:none; }
     .topbar .brand,.topbar .back-link { pointer-events:auto; }
     .topbar .brand { color:#fff; text-shadow:0 2px 0 rgba(38,51,76,.24); }
-    .topbar .brand-mark { width:42px; height:42px; border-color:#fff; border-radius:50%; background:#39aee6; box-shadow:0 4px 0 rgba(38,51,76,.22); }
+    .topbar .brand-mark { width:42px; height:42px; border-color:#fff; border-radius:50%; background:#354260; box-shadow:0 4px 0 rgba(38,51,76,.22); }
     .topbar .brand span:last-child { display:none; }
-    .topbar .back-link { color:#fff; opacity:.92; text-shadow:0 2px 0 rgba(38,51,76,.24); }
-    .game-card { display:flex; flex-direction:column; min-height:100dvh; border:0; border-radius:0; background:linear-gradient(#8fd04d 0 17%,#c7d0ec 17% 100%); box-shadow:none; }
-    .game-head { position:relative; display:flex; flex:0 0 auto; justify-content:center; min-height:128px; padding:53px 18px 10px; background:#8fd04d; text-align:center; }
+    .topbar .back-link { color:#26334c; opacity:.96; text-shadow:none; }
+    .game-card { display:flex; flex-direction:column; height:100%; min-height:0; overflow:hidden; border:0; border-radius:0; background:linear-gradient(#8fd04d 0 15%,#c7d0ec 15% 100%); box-shadow:none; }
+    .game-head { position:relative; display:flex; flex:0 0 auto; justify-content:center; min-height:112px; padding:49px 18px 7px; background:#8fd04d; text-align:center; }
     .game-head .eyebrow { display:none; }
     .game-head h1 { color:#fff; font-size:clamp(1.8rem,6vw,2.5rem); letter-spacing:.04em; text-shadow:0 3px 0 #26334c,2px 0 0 #26334c,-2px 0 0 #26334c; }
     .game-head .subtitle { display:none; }
     .level-badge { position:absolute; top:23px; left:50%; min-width:auto; padding:0; border:0; color:#fff; background:transparent; box-shadow:none; transform:translateX(-50%); }
     .level-badge strong { font-size:1.38rem; text-shadow:0 2px 0 #26334c; }
     .level-badge span { display:none; }
-    .passenger-panel { flex:0 0 auto; margin:0; padding:9px 13px 10px; border-radius:0; background:#c7d0ec; }
-    .passenger-panel .panel-label { color:#fff; text-shadow:0 2px 0 rgba(38,51,76,.22); }
-    .queue { min-height:48px; margin-top:4px; padding-left:5px; padding-right:5px; }
-    .slots-panel { flex:0 0 auto; margin:0; padding:0 13px 11px; background:#c7d0ec; }
-    .slots-panel .panel-label { color:#fff; text-shadow:0 2px 0 rgba(38,51,76,.22); }
-    .slots { gap:8px; padding:8px; border:0; border-radius:13px; background:rgba(139,151,191,.58); }
-    .slot { min-height:61px; border:2px dashed rgba(255,255,255,.86); background:rgba(151,162,200,.32); }
-    .slot .vehicle { min-height:52px; }
-    .board-panel { display:flex; flex:1 1 auto; flex-direction:column; margin:0; padding:10px 12px 0; border:0; border-radius:0; background:#aeb9dd; }
-    .board-title { flex:0 0 auto; margin:0 5px 7px; color:#fff; text-shadow:0 2px 0 rgba(38,51,76,.22); }
+    .passenger-panel { flex:0 0 auto; margin:0; padding:7px 13px 7px; border-radius:0; background:#c7d0ec; }
+    .passenger-panel .panel-label { color:#26334c; text-shadow:none; }
+    .queue { min-height:43px; margin-top:2px; padding:1px 5px 5px; }
+    .queue-person { height:36px; }
+    .queue-person img { height:33px; }
+    .slots-panel { flex:0 0 auto; margin:0; padding:0 13px 8px; background:#c7d0ec; }
+    .slots-panel .panel-label { color:#26334c; text-shadow:none; }
+    .slots { gap:7px; padding:7px; border:0; border-radius:13px; background:rgba(91,108,160,.42); }
+    .slot { min-height:53px; border:2px dashed rgba(255,255,255,.9); color:#26334c; background:rgba(255,255,255,.24); }
+    .slot .vehicle { min-height:45px; }
+    .board-panel { display:flex; flex:1 1 auto; min-height:0; flex-direction:column; margin:0; padding:8px 12px 0; border:0; border-radius:0; background:#aeb9dd; }
+    .board-title { flex:0 0 auto; margin:0 5px 6px; color:#26334c; text-shadow:none; }
     .board-title span { opacity:.9; }
-    .board { flex:1 1 auto; min-height:350px; height:auto; padding:8px; border:3px solid rgba(255,255,255,.88); border-radius:17px; background-color:#aeb9dd; }
+    .board { flex:1 1 auto; min-height:0; height:auto; padding:8px; border:3px solid rgba(255,255,255,.88); border-radius:17px; background-color:#aeb9dd; }
     .vehicle .bus-sprite { width:151%; height:165%; }
     .vehicle.vertical .bus-sprite { width:165%; height:151%; }
-    .status-row { flex:0 0 auto; min-height:32px; padding:7px 4px 5px; }
+    .status-row { flex:0 0 auto; min-height:30px; padding:6px 4px 4px; color:#26334c; }
     .status-message { font-size:.75rem; }
     .move-counter { font-size:.68rem; }
-    .tool-dock { grid-template-columns:repeat(3,1fr); flex:0 0 auto; gap:18px; padding:9px 28px 16px; background:#a7b7e7; }
-    .tool-dock #reset-button { display:none; }
-    .tool-button { width:min(88px,22vw); min-height:0; aspect-ratio:1; justify-self:center; padding:8px 5px; border:3px solid rgba(255,255,255,.9); border-radius:50%; color:#fff; background:radial-gradient(circle at 35% 27%,#f6a8df 0 8%,#be45d7 39%,#7b26a5 100%); box-shadow:0 5px 0 rgba(38,51,76,.23),inset 0 3px 0 rgba(255,255,255,.32); text-shadow:0 2px 0 rgba(38,51,76,.4); }
+    .tool-dock { grid-template-columns:repeat(3,1fr); flex:0 0 auto; gap:14px; padding:7px 28px calc(10px + env(safe-area-inset-bottom)); background:#8fa5df; }
+    .tool-button { width:min(76px,20vw); min-height:0; aspect-ratio:1; justify-self:center; padding:6px 4px; border:3px solid rgba(255,255,255,.9); border-radius:50%; color:#fff; background:radial-gradient(circle at 35% 27%,#f6a8df 0 8%,#be45d7 39%,#7b26a5 100%); box-shadow:0 5px 0 rgba(38,51,76,.23),inset 0 3px 0 rgba(255,255,255,.32); text-shadow:0 2px 0 rgba(38,51,76,.4); }
     .tool-button:nth-child(2) { background:radial-gradient(circle at 35% 27%,#ffefb5 0 8%,#f9bd4d 39%,#e2752f 100%); }
     .tool-button:nth-child(3) { background:radial-gradient(circle at 35% 27%,#a9f3cb 0 8%,#32c874 39%,#168b68 100%); }
     .tool-icon { font-size:1.8rem; }
@@ -149,21 +151,22 @@
     .vehicle { transform:rotate(var(--tilt,0deg)); }
     .vehicle:hover,.vehicle:focus-visible { transform:translateY(-3px) rotate(var(--tilt,0deg)) scale(1.04); }
     .vehicle.is-selected { transform:translateY(-3px) rotate(var(--tilt,0deg)) scale(1.04); }
-    @media (min-width:700px) { .game-card { min-height:100vh; } }
+    @media (max-height:720px) { .game-head{min-height:96px;padding-top:43px}.game-head h1{font-size:1.7rem}.queue{min-height:37px}.queue-person{height:32px}.queue-person img{height:29px}.slot{min-height:47px}.tool-button{width:min(66px,18vw)}.tool-dock{padding-top:5px;padding-bottom:7px} }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
   </style>
 </head>
 <body>
   <main class="game-wrap">
-    <div class="topbar"><a class="brand" href="../games.html" aria-label="返回游戏列表"><span class="brand-mark">⚙</span><span>PARKING PULSE</span></a><a class="back-link" href="../games.html" aria-label="返回游戏列表"><span aria-hidden="true">•••　◉</span></a></div>
+    <div class="topbar"><a class="brand" href="../games.html" aria-label="返回游戏列表"><span class="brand-mark" aria-hidden="true">←</span><span>PARKING PULSE</span></a><button class="back-link" type="button" id="reset-button" aria-label="重新开始本关"><span aria-hidden="true">↺</span></button></div>
     <section class="game-card" aria-label="停车脉冲游戏">
       <header class="game-head"><div><p class="eyebrow">Park & Match</p><h1>停车脉冲</h1><p class="subtitle">把没有被挡住的车送出去，让同色乘客上车。车位有限，先看清箭头，再点击出发。</p></div><div class="level-badge"><strong>第 1 关</strong><span>LEVEL</span></div></header>
-      <section class="passenger-panel" aria-labelledby="passenger-label"><div class="panel-label"><span id="passenger-label">乘客队列 · 下一站</span><span class="remaining" id="remaining-count">剩余 0 人</span></div><div class="queue" id="passenger-queue" aria-live="polite"></div></section>
+      <section class="passenger-panel" aria-labelledby="passenger-label"><div class="panel-label"><span id="passenger-label">乘客队列 · 下一站</span><span class="remaining" id="remaining-count">剩余 0 人</span></div><div class="queue" id="passenger-queue" role="img" aria-label="乘客队列"></div></section>
       <section class="slots-panel" aria-labelledby="slots-label"><div class="panel-label" style="margin:0 2px 7px"><span id="slots-label">接客位 · 4 格</span><span>满员车辆自动出站</span></div><div class="slots" id="parking-slots"></div></section>
-      <section class="board-panel" aria-labelledby="board-label"><div class="board-title"><strong id="board-label">停车场</strong><span>点按车辆驶出 · 箭头方向即路线</span></div><div class="board" id="vehicle-board"></div><div class="status-row"><span class="status-message" id="status-message" aria-live="polite">先找一辆没有被挡住的车</span><span class="move-counter" id="move-counter">0 次操作</span></div></section>
-      <footer class="tool-dock" aria-label="游戏道具"><button class="tool-button" type="button" data-tool="sort" aria-label="重排乘客队列"><span class="tool-icon">↝</span><span class="tool-name">重排</span><span class="tool-count" id="sort-count">0/2</span></button><button class="tool-button" type="button" data-tool="remove" aria-label="移除选中的车辆"><span class="tool-icon">✦</span><span class="tool-name">移除</span><span class="tool-count" id="remove-count">0/2</span></button><button class="tool-button" type="button" data-tool="refresh" aria-label="刷新一辆车辆"><span class="tool-icon">↻</span><span class="tool-name">刷新</span><span class="tool-count" id="refresh-count">0/2</span></button><button class="tool-button" type="button" id="reset-button" aria-label="重新开始本关"><span class="tool-icon">↺</span><span class="tool-name">重来</span><span class="tool-count">重新挑战</span></button></footer>
+      <section class="board-panel" aria-labelledby="board-label"><div class="board-title"><strong id="board-label">停车场</strong><span>点按车辆驶出 · 箭头方向即路线</span></div><div class="board" id="vehicle-board" tabindex="-1"></div><div class="status-row"><span class="status-message" id="status-message" aria-live="polite">先找一辆没有被挡住的车</span><span class="move-counter" id="move-counter">0 次操作</span></div></section>
+      <footer class="tool-dock" aria-label="游戏道具"><button class="tool-button" type="button" data-tool="sort" aria-label="重排乘客队列，剩余 2 次"><span class="tool-icon">↝</span><span class="tool-name">重排</span><span class="tool-count" id="sort-count">×2</span></button><button class="tool-button" type="button" data-tool="remove" aria-label="移除车辆，剩余 2 次"><span class="tool-icon">✦</span><span class="tool-name">移除</span><span class="tool-count" id="remove-count">×2</span></button><button class="tool-button" type="button" data-tool="refresh" aria-label="调头车辆，剩余 2 次"><span class="tool-icon">↻</span><span class="tool-name">调头</span><span class="tool-count" id="refresh-count">×2</span></button></footer>
     </section>
   </main>
-  <div class="modal" id="result-modal" hidden><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="result-title"><div class="modal-icon" id="result-icon">🎉</div><h2 id="result-title">出站成功！</h2><p id="result-copy">乘客们都赶上车了。</p><button class="primary-button" type="button" id="result-button">再来一局</button></div></div>
+  <div class="modal" id="result-modal" hidden><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-describedby="result-copy"><div class="modal-icon" id="result-icon">🎉</div><h2 id="result-title">出站成功！</h2><p id="result-copy">乘客们都赶上车了。</p><button class="primary-button" type="button" id="result-button">重新挑战</button></div></div>
   <script>
     (() => {
       const COLORS = { coral:{label:'珊瑚',hex:'#ef6f65'}, sky:{label:'晴蓝',hex:'#26b7d3'}, sun:{label:'暖橙',hex:'#f39a3f'}, mint:{label:'薄荷',hex:'#56bf76'} };
@@ -171,30 +174,377 @@
       const LEVEL = { width:6, height:6, slots:4, passengers:[{color:'coral',count:3},{color:'sky',count:4},{color:'sun',count:3},{color:'mint',count:4}], vehicles:[
         {id:'coral-a',color:'coral',x:1,y:1,length:2,direction:'right',capacity:3},{id:'sky-a',color:'sky',x:4,y:1,length:1,direction:'left',capacity:2},{id:'mint-a',color:'mint',x:6,y:1,length:1,direction:'down',capacity:4},{id:'sun-a',color:'sun',x:1,y:2,length:1,direction:'right',capacity:3},{id:'coral-b',color:'coral',x:3,y:2,length:1,direction:'right',capacity:2},{id:'sky-b',color:'sky',x:5,y:2,length:2,direction:'down',capacity:2},{id:'mint-b',color:'mint',x:1,y:3,length:1,direction:'down',capacity:4},{id:'sun-b',color:'sun',x:4,y:3,length:1,direction:'left',capacity:3},{id:'coral-c',color:'coral',x:6,y:3,length:1,direction:'left',capacity:1},{id:'sky-c',color:'sky',x:2,y:4,length:1,direction:'up',capacity:2},{id:'mint-c',color:'mint',x:4,y:4,length:1,direction:'down',capacity:4},{id:'sun-c',color:'sun',x:6,y:4,length:1,direction:'up',capacity:3},{id:'coral-d',color:'coral',x:1,y:5,length:2,direction:'right',capacity:2},{id:'sky-d',color:'sky',x:4,y:5,length:1,direction:'up',capacity:2},{id:'mint-d',color:'mint',x:6,y:5,length:1,direction:'left',capacity:4},{id:'sun-d',color:'sun',x:2,y:6,length:1,direction:'up',capacity:3}
       ]};
-      const els = { queue:document.getElementById('passenger-queue'), remaining:document.getElementById('remaining-count'), slots:document.getElementById('parking-slots'), board:document.getElementById('vehicle-board'), status:document.getElementById('status-message'), moves:document.getElementById('move-counter'), modal:document.getElementById('result-modal'), resultIcon:document.getElementById('result-icon'), resultTitle:document.getElementById('result-title'), resultCopy:document.getElementById('result-copy'), resultButton:document.getElementById('result-button'), reset:document.getElementById('reset-button') };
+      const els = {
+        main:document.querySelector('.game-wrap'), queue:document.getElementById('passenger-queue'),
+        remaining:document.getElementById('remaining-count'), slots:document.getElementById('parking-slots'),
+        board:document.getElementById('vehicle-board'), status:document.getElementById('status-message'),
+        moves:document.getElementById('move-counter'), modal:document.getElementById('result-modal'),
+        resultIcon:document.getElementById('result-icon'), resultTitle:document.getElementById('result-title'),
+        resultCopy:document.getElementById('result-copy'), resultButton:document.getElementById('result-button'),
+        reset:document.getElementById('reset-button')
+      };
+      const timers = new Set();
+      const directionOrder = ['left','up','right','down'];
       let game = null;
-      function createLevel() { return { passengers:LEVEL.passengers.map(group=>({...group})), vehicles:LEVEL.vehicles.map(vehicle=>({...vehicle,load:0,status:'active',slot:null})), slots:Array(LEVEL.slots).fill(null), tools:{sort:2,remove:2,refresh:2}, selectedId:null, boardingVehicleId:null, removeMode:false, moves:0, resolving:false, result:null, message:'先找一辆没有被挡住的车' }; }
+
+      function motionDelay(milliseconds) {
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : milliseconds;
+      }
+
+      function later(callback,milliseconds) {
+        const timer=window.setTimeout(()=>{timers.delete(timer);callback();},motionDelay(milliseconds));
+        timers.add(timer);
+      }
+
+      function clearTimers() {
+        timers.forEach(timer=>window.clearTimeout(timer));
+        timers.clear();
+      }
+
+      function createLevel() {
+        return {
+          passengers:LEVEL.passengers.map(group=>({...group})),
+          vehicles:LEVEL.vehicles.map(vehicle=>({...vehicle,load:0,status:'active',slot:null})),
+          slots:Array(LEVEL.slots).fill(null), tools:{sort:2,remove:2,refresh:2},
+          selectedId:null, blockedId:null, boardingVehicleId:null, boardingCount:0,
+          toolMode:null, moves:0, resolving:false, result:null, resultReason:null,
+          message:'先找一辆没有被挡住的车'
+        };
+      }
+
       function activeVehicles() { return game.vehicles.filter(vehicle=>vehicle.status==='active'); }
+      function parkedVehicles() { return game.slots.map(id=>id?getVehicle(id):null).filter(Boolean); }
       function passengerTotal() { return game.passengers.reduce((sum,group)=>sum+group.count,0); }
       function getVehicle(id) { return game.vehicles.find(vehicle=>vehicle.id===id); }
-      function occupiedCells(vehicle) { const cells=[]; const horizontal=vehicle.direction==='left'||vehicle.direction==='right'; for(let i=0;i<vehicle.length;i+=1) cells.push({x:vehicle.x+(horizontal?i:0),y:vehicle.y+(horizontal?0:i)}); return cells; }
-      function canMove(vehicle,vehicles=activeVehicles()) { const horizontal=vehicle.direction==='left'||vehicle.direction==='right'; const start=horizontal?vehicle.x:vehicle.y; const step=vehicle.direction==='right'||vehicle.direction==='down'?1:-1; const edge=step===1?(horizontal?LEVEL.width:LEVEL.height):1; const first=step===1?start+vehicle.length:start-1; if((step===1&&first>edge)||(step===-1&&first<edge)) return {ok:true}; for(let cursor=first;step===1?cursor<=edge:cursor>=edge;cursor+=step){const cell=horizontal?{x:cursor,y:vehicle.y}:{x:vehicle.x,y:cursor}; if(vehicles.some(other=>other.id!==vehicle.id&&occupiedCells(other).some(point=>point.x===cell.x&&point.y===cell.y))) return {ok:false,reason:'前方有车挡住了，换一辆试试'};} return {ok:true}; }
-      function vehicleMarkup(vehicle,place='board') { const color=COLORS[vehicle.color]; const horizontal=vehicle.direction==='left'||vehicle.direction==='right'; const selected=vehicle.id===game.selectedId?' is-selected':''; const blocked=vehicle.id===game.blockedId?' is-blocked':''; const moving=vehicle.status==='departing'?' is-departing':''; const tilt=((vehicle.id.charCodeAt(0)+vehicle.id.length)%5-2)*3; const boarding=place==='slot'&&game.boardingVehicleId===vehicle.id?`<span class="boarding-people"><img class="boarding-person person-${vehicle.color}" src="assets/parking-pulse-person.png" alt=""><img class="boarding-person person-${vehicle.color}" src="assets/parking-pulse-person.png" alt=""></span>`:''; const style=place==='board'?`grid-column:${vehicle.x}/span ${horizontal?vehicle.length:1};grid-row:${vehicle.y}/span ${horizontal?1:vehicle.length};--vehicle-color:${color.hex};--tilt:${tilt}deg;`:`--vehicle-color:${color.hex};--tilt:${tilt}deg;`; return `<button class="vehicle ${horizontal?'horizontal':'vertical'} color-${vehicle.color} dir-${vehicle.direction}${selected}${blocked}${moving}" style="${style}" data-vehicle-id="${vehicle.id}" aria-label="${color.label}车辆，${DIRS[vehicle.direction]}方向，容量 ${vehicle.capacity} 人"><img class="bus-sprite" src="assets/parking-pulse-bus.png" alt=""><span class="arrow">${DIRS[vehicle.direction]}</span>${boarding}<span class="capacity">${vehicle.load}/${vehicle.capacity}</span></button>`; }
-      function renderQueue() { const people=game.passengers.flatMap(group=>Array.from({length:group.count},()=>group.color)); els.queue.innerHTML=people.length?people.map((color,index)=>`<span class="queue-person person-${color}" style="--person-color:${COLORS[color].hex};--person-index:${index}" aria-label="${COLORS[color].label}乘客"><img src="assets/parking-pulse-person.png" alt=""></span>`).join(''):'<span class="empty-queue">乘客全部上车啦！</span>'; els.remaining.textContent=`剩余 ${passengerTotal()} 人`; }
-      function renderSlots() { els.slots.innerHTML=game.slots.map((vehicleId,index)=>{const vehicle=vehicleId?getVehicle(vehicleId):null;return `<div class="slot${vehicle?' is-filled':''}" aria-label="接客位 ${index+1}${vehicle?' 已占用':' 空闲'}">${vehicle?vehicleMarkup(vehicle,'slot'):`空位 ${index+1}`}</div>`;}).join(''); }
-      function renderBoard() { els.board.innerHTML=activeVehicles().map(vehicle=>vehicleMarkup(vehicle)).join(''); els.board.querySelectorAll('[data-vehicle-id]').forEach(button=>button.addEventListener('click',()=>handleVehicleClick(button.dataset.vehicleId))); }
-      function renderTools() { ['sort','remove','refresh'].forEach(name=>{const button=document.querySelector(`[data-tool="${name}"]`);button.querySelector('.tool-count').textContent=`${2-game.tools[name]}/2`;button.disabled=game.tools[name]<=0||game.resolving||Boolean(game.result);}); els.reset.disabled=false; }
-      function render() { renderQueue(); renderSlots(); renderBoard(); renderTools(); els.status.textContent=game.message; els.moves.textContent=`${game.moves} 次操作`; if(game.result){els.resultIcon.textContent=game.result==='win'?'🎉':'🚌';els.resultTitle.textContent=game.result==='win'?'出站成功！':'车位被占满了';els.resultCopy.textContent=game.result==='win'?`你用了 ${game.moves} 次操作，把所有乘客都送到了目的地。`:'别急，换个顺序，先把能出去的车送走。';els.modal.hidden=false;}else els.modal.hidden=true; }
-      function loadPassengers(vehicle) { while(vehicle.load<vehicle.capacity&&game.passengers.length&&game.passengers[0].color===vehicle.color){const group=game.passengers[0];const boarding=Math.min(vehicle.capacity-vehicle.load,group.count);vehicle.load+=boarding;group.count-=boarding;if(group.count===0) game.passengers.shift();} }
+
+      function occupiedCells(vehicle,direction=vehicle.direction) {
+        const cells=[];
+        const horizontal=direction==='left'||direction==='right';
+        for(let index=0;index<vehicle.length;index+=1) {
+          cells.push({x:vehicle.x+(horizontal?index:0),y:vehicle.y+(horizontal?0:index)});
+        }
+        return cells;
+      }
+
+      function canMove(vehicle,vehicles=activeVehicles()) {
+        const horizontal=vehicle.direction==='left'||vehicle.direction==='right';
+        const start=horizontal?vehicle.x:vehicle.y;
+        const step=vehicle.direction==='right'||vehicle.direction==='down'?1:-1;
+        const edge=step===1?(horizontal?LEVEL.width:LEVEL.height):1;
+        const first=step===1?start+vehicle.length:start-1;
+        if((step===1&&first>edge)||(step===-1&&first<edge)) return {ok:true};
+        for(let cursor=first;step===1?cursor<=edge:cursor>=edge;cursor+=step) {
+          const cell=horizontal?{x:cursor,y:vehicle.y}:{x:vehicle.x,y:cursor};
+          if(vehicles.some(other=>other.id!==vehicle.id&&occupiedCells(other).some(point=>point.x===cell.x&&point.y===cell.y))) {
+            return {ok:false,reason:'前方有车挡住了，换一辆试试'};
+          }
+        }
+        return {ok:true};
+      }
+
+      function placementIsValid(vehicle,direction) {
+        const cells=occupiedCells(vehicle,direction);
+        if(cells.some(cell=>cell.x<1||cell.x>LEVEL.width||cell.y<1||cell.y>LEVEL.height)) return false;
+        return !activeVehicles().some(other=>other.id!==vehicle.id&&occupiedCells(other).some(otherCell=>cells.some(cell=>cell.x===otherCell.x&&cell.y===otherCell.y)));
+      }
+
+      function vehicleMarkup(vehicle,place='board') {
+        const color=COLORS[vehicle.color];
+        const horizontal=vehicle.direction==='left'||vehicle.direction==='right';
+        const selected=vehicle.id===game.selectedId?' is-selected':'';
+        const blocked=vehicle.id===game.blockedId?' is-blocked':'';
+        const moving=vehicle.status==='departing'?' is-departing':'';
+        const tilt=((vehicle.id.charCodeAt(0)+vehicle.id.length)%5-2)*3;
+        const boardingCount=place==='slot'&&game.boardingVehicleId===vehicle.id?Math.min(3,game.boardingCount):0;
+        const boarding=boardingCount?`<span class="boarding-people" aria-hidden="true">${Array.from({length:boardingCount},()=>`<img class="boarding-person person-${vehicle.color}" src="assets/parking-pulse-person.png" alt="">`).join('')}</span>`:'';
+        const style=place==='board'?`grid-column:${vehicle.x}/span ${horizontal?vehicle.length:1};grid-row:${vehicle.y}/span ${horizontal?1:vehicle.length};--vehicle-color:${color.hex};--tilt:${tilt}deg;`:`--vehicle-color:${color.hex};--tilt:${tilt}deg;`;
+        const common=`class="vehicle ${horizontal?'horizontal':'vertical'} color-${vehicle.color} dir-${vehicle.direction}${selected}${blocked}${moving}" style="${style}" data-vehicle-id="${vehicle.id}"`;
+        const contents=`<img class="bus-sprite" src="assets/parking-pulse-bus.png" alt=""><span class="arrow" aria-hidden="true">${DIRS[vehicle.direction]}</span>${boarding}<span class="capacity">${vehicle.load}/${vehicle.capacity}</span>`;
+        if(place==='slot') return `<div ${common} role="img" aria-label="${color.label}候车车辆，已载 ${vehicle.load} 人，容量 ${vehicle.capacity} 人">${contents}</div>`;
+        const route=canMove(vehicle).ok?'路线畅通':'前方受阻';
+        return `<button ${common} type="button" aria-label="第 ${vehicle.y} 行第 ${vehicle.x} 列，${color.label}车辆，${DIRS[vehicle.direction]}方向，容量 ${vehicle.capacity} 人，${route}">${contents}</button>`;
+      }
+
+      function renderQueue() {
+        const people=game.passengers.flatMap(group=>Array.from({length:group.count},()=>group.color));
+        els.queue.innerHTML=people.length?people.map((color,index)=>`<span class="queue-person person-${color}" style="--person-color:${COLORS[color].hex};--person-index:${index}" aria-hidden="true"><img src="assets/parking-pulse-person.png" alt=""></span>`).join(''):'<span class="empty-queue">乘客全部上车啦！</span>';
+        const head=game.passengers[0];
+        els.queue.setAttribute('aria-label',head?`乘客队列，当前 ${COLORS[head.color].label}，共剩余 ${passengerTotal()} 人`:'乘客已经全部上车');
+        els.remaining.textContent=`剩余 ${passengerTotal()} 人`;
+      }
+
+      function renderSlots() {
+        els.slots.innerHTML=game.slots.map((vehicleId,index)=>{
+          const vehicle=vehicleId?getVehicle(vehicleId):null;
+          return `<div class="slot${vehicle?' is-filled':''}" aria-label="接客位 ${index+1}${vehicle?' 已占用':' 空闲'}">${vehicle?vehicleMarkup(vehicle,'slot'):`空位 ${index+1}`}</div>`;
+        }).join('');
+      }
+
+      function renderBoard() {
+        els.board.innerHTML=activeVehicles().map(vehicle=>vehicleMarkup(vehicle)).join('');
+        els.board.querySelectorAll('[data-vehicle-id]').forEach(button=>button.addEventListener('click',()=>handleVehicleClick(button.dataset.vehicleId)));
+      }
+
+      function renderTools() {
+        const toolLabels={sort:'重排乘客队列',remove:'移除车辆',refresh:'调头车辆'};
+        ['sort','remove','refresh'].forEach(name=>{
+          const button=document.querySelector(`[data-tool="${name}"]`);
+          button.querySelector('.tool-count').textContent=`×${game.tools[name]}`;
+          button.setAttribute('aria-label',`${toolLabels[name]}，剩余 ${game.tools[name]} 次${game.toolMode===name?'，选择模式已开启':''}`);
+          button.classList.toggle('is-active',game.toolMode===name);
+          button.disabled=game.tools[name]<=0||game.resolving||Boolean(game.result);
+        });
+        els.reset.disabled=game.resolving;
+      }
+
+      function renderResult() {
+        if(game.result) {
+          els.resultIcon.textContent=game.result==='win'?'🎉':'🚌';
+          els.resultTitle.textContent=game.result==='win'?'出站成功！':game.resultReason==='full'?'车位被占满了':'没有可用路线了';
+          els.resultCopy.textContent=game.result==='win'?`你用了 ${game.moves} 次操作，把所有乘客都送到了目的地。`:'当前已经没有能够推进局面的操作，重新安排顺序再试一次吧。';
+          if(els.modal.hidden) {
+            els.modal.hidden=false;
+            els.main.inert=true;
+            els.main.setAttribute('aria-hidden','true');
+            window.requestAnimationFrame(()=>els.resultButton.focus());
+          }
+        } else if(!els.modal.hidden) {
+          els.modal.hidden=true;
+          els.main.inert=false;
+          els.main.removeAttribute('aria-hidden');
+        }
+      }
+
+      function render(focusVehicleId=null,focusToolName=null) {
+        renderQueue();
+        renderSlots();
+        renderBoard();
+        renderTools();
+        els.status.textContent=game.message;
+        els.moves.textContent=`${game.moves} 次操作`;
+        renderResult();
+        if(!game.result&&focusVehicleId) window.requestAnimationFrame(()=>els.board.querySelector(`[data-vehicle-id="${focusVehicleId}"]`)?.focus({preventScroll:true}));
+        if(!game.result&&focusToolName) window.requestAnimationFrame(()=>document.querySelector(`[data-tool="${focusToolName}"]`)?.focus({preventScroll:true}));
+      }
+
+      function loadPassengers(vehicle) {
+        const before=vehicle.load;
+        while(vehicle.load<vehicle.capacity&&game.passengers.length&&game.passengers[0].color===vehicle.color) {
+          const group=game.passengers[0];
+          const boarding=Math.min(vehicle.capacity-vehicle.load,group.count);
+          vehicle.load+=boarding;
+          group.count-=boarding;
+          if(group.count===0) game.passengers.shift();
+        }
+        return vehicle.load-before;
+      }
+
       function firstOpenSlot() { return game.slots.findIndex(slot=>slot===null); }
-      function depart(vehicle) { if(!vehicle||vehicle.status!=='parked') return; game.slots[vehicle.slot]=null;vehicle.status='departed';vehicle.slot=null;game.boardingVehicleId=null;game.message=`${COLORS[vehicle.color].label}车辆满员出站，车位空出来了`;game.resolving=false;checkResult();render(); }
-      function moveVehicle(id) { if(game.resolving||game.result) return; const vehicle=getVehicle(id);if(!vehicle||vehicle.status!=='active') return;game.selectedId=id;const check=canMove(vehicle);if(!check.ok){game.blockedId=id;game.message=check.reason;render();window.setTimeout(()=>{game.blockedId=null;render();},360);return;} const slot=firstOpenSlot();if(slot<0){game.message='接客位满了，先让一辆车满员出站';checkResult(true);render();return;} game.resolving=true;game.moves+=1;vehicle.status='departing';game.message=`${COLORS[vehicle.color].label}车辆驶向接客位…`;render();window.setTimeout(()=>{vehicle.status='parked';vehicle.slot=slot;game.slots[slot]=vehicle.id;loadPassengers(vehicle);game.boardingVehicleId=vehicle.id;game.message=vehicle.load?`${COLORS[vehicle.color].label}车辆接到 ${vehicle.load} 位乘客`:'颜色不匹配，车辆先在接客位等待';render();if(vehicle.load>=vehicle.capacity) window.setTimeout(()=>depart(vehicle),900);else {game.resolving=false;checkResult();render();window.setTimeout(()=>{if(game.boardingVehicleId===vehicle.id){game.boardingVehicleId=null;render();}},720);}},420); }
-      function removeVehicle(vehicle) { if(!vehicle||vehicle.status!=='active') return;vehicle.status='removed';game.selectedId=null;game.removeMode=false;game.message='障碍车辆已移除，路线打开了';game.resolving=false;checkResult();render(); }
-      function handleVehicleClick(id) { const vehicle=getVehicle(id);if(!vehicle||game.resolving||game.result) return;game.selectedId=id;if(game.removeMode){removeVehicle(vehicle);return;}moveVehicle(id); }
-      function useTool(name) { if(game.resolving||game.result||game.tools[name]<=0) return; if(name==='sort'){const headColor=game.passengers[0]?.color;const candidate=activeVehicles().find(vehicle=>vehicle.color===headColor&&canMove(vehicle).ok)||activeVehicles().find(vehicle=>canMove(vehicle).ok);if(candidate&&headColor){const index=game.passengers.findIndex(group=>group.color===candidate.color);if(index>0) game.passengers.unshift(game.passengers.splice(index,1)[0]);}else game.passengers.reverse();game.message='乘客队列重新排好了';} if(name==='remove'){const selected=getVehicle(game.selectedId);if(selected?.status==='active'){removeVehicle(selected);game.tools.remove-=1;render();return;}game.removeMode=true;game.message='请选择一辆要移除的车';} if(name==='refresh'){const selected=getVehicle(game.selectedId);const vehicle=selected?.status==='active'?selected:activeVehicles()[0];if(vehicle){const directions=['left','up','right','down'];vehicle.direction=directions[(directions.indexOf(vehicle.direction)+1)%directions.length];game.message='车辆方向刷新了，再找一条通路';}} game.tools[name]-=1;render(); }
-      function checkResult(forceLose=false) { if(passengerTotal()===0){game.result='win';game.message='全部乘客都到站了！';return;} const occupied=game.slots.every(Boolean);const movable=activeVehicles().some(vehicle=>canMove(vehicle).ok);if(forceLose||(occupied&&!movable)||(!activeVehicles().length&&passengerTotal()>0)){game.result='lose';game.message='没有可用路线了';} }
-      function reset() { game=createLevel();render(); }
-      document.querySelectorAll('[data-tool]').forEach(button=>button.addEventListener('click',()=>useTool(button.dataset.tool))); els.reset.addEventListener('click',reset);els.resultButton.addEventListener('click',()=>{els.modal.hidden=true;reset();});reset();window.ParkingPulse={createLevel,canMove,moveVehicle,useTool,reset,getState:()=>game};
+
+      function resolveBoarding() {
+        if(!game||game.result) return;
+        const headColor=game.passengers[0]?.color;
+        const vehicle=parkedVehicles().find(candidate=>candidate.color===headColor&&candidate.load<candidate.capacity);
+        if(!vehicle) {
+          game.boardingVehicleId=null;
+          game.boardingCount=0;
+          game.resolving=false;
+          checkResult();
+          render();
+          return;
+        }
+        const boarded=loadPassengers(vehicle);
+        game.boardingVehicleId=vehicle.id;
+        game.boardingCount=boarded;
+        game.message=`${COLORS[vehicle.color].label}车辆接到 ${boarded} 位乘客`;
+        render();
+        later(()=>{
+          game.boardingVehicleId=null;
+          game.boardingCount=0;
+          if(vehicle.load>=vehicle.capacity) {
+            game.slots[vehicle.slot]=null;
+            vehicle.status='departed';
+            vehicle.slot=null;
+            game.message=`${COLORS[vehicle.color].label}车辆满员出站，车位空出来了`;
+            render();
+            later(resolveBoarding,180);
+          } else {
+            render();
+            later(resolveBoarding,100);
+          }
+        },620);
+      }
+
+      function moveVehicle(id) {
+        if(game.resolving||game.result) return;
+        const vehicle=getVehicle(id);
+        if(!vehicle||vehicle.status!=='active') return;
+        game.selectedId=id;
+        const check=canMove(vehicle);
+        if(!check.ok) {
+          game.blockedId=id;
+          game.message=check.reason;
+          render(id);
+          later(()=>{game.blockedId=null;render(id);},360);
+          return;
+        }
+        const slot=firstOpenSlot();
+        if(slot<0) {
+          game.message='接客位已满，试试重排乘客队列';
+          checkResult();
+          render(id);
+          return;
+        }
+        game.resolving=true;
+        game.moves+=1;
+        vehicle.status='departing';
+        game.message=`${COLORS[vehicle.color].label}车辆驶向接客位…`;
+        render();
+        later(()=>{
+          vehicle.status='parked';
+          vehicle.slot=slot;
+          game.slots[slot]=vehicle.id;
+          game.selectedId=null;
+          const headMatches=game.passengers[0]?.color===vehicle.color;
+          game.message=headMatches?`${COLORS[vehicle.color].label}车辆准备接客`:'颜色不匹配，车辆先在接客位等待';
+          render();
+          later(resolveBoarding,headMatches?80:180);
+        },420);
+      }
+
+      function removeVehicle(vehicle) {
+        if(!vehicle||vehicle.status!=='active'||game.tools.remove<=0) return;
+        vehicle.status='removed';
+        game.tools.remove-=1;
+        game.selectedId=null;
+        game.toolMode=null;
+        game.message='障碍车辆已移除，路线打开了';
+        checkResult();
+        render(null,'remove');
+      }
+
+      function turnVehicle(vehicle) {
+        if(!vehicle||vehicle.status!=='active'||game.tools.refresh<=0) return;
+        const start=directionOrder.indexOf(vehicle.direction);
+        let nextDirection=null;
+        for(let step=1;step<directionOrder.length;step+=1) {
+          const candidate=directionOrder[(start+step)%directionOrder.length];
+          if(placementIsValid(vehicle,candidate)) { nextDirection=candidate;break; }
+        }
+        game.toolMode=null;
+        if(!nextDirection) {
+          game.message='这辆车周围空间不足，无法安全调头';
+          render(vehicle.id,'refresh');
+          return;
+        }
+        vehicle.direction=nextDirection;
+        game.tools.refresh-=1;
+        game.selectedId=vehicle.id;
+        game.message=`${COLORS[vehicle.color].label}车辆已调头为 ${DIRS[nextDirection]} 方向`;
+        checkResult();
+        render(vehicle.id,'refresh');
+      }
+
+      function handleVehicleClick(id) {
+        const vehicle=getVehicle(id);
+        if(!vehicle||game.resolving||game.result) return;
+        game.selectedId=id;
+        if(game.toolMode==='remove') { removeVehicle(vehicle);return; }
+        if(game.toolMode==='refresh') { turnVehicle(vehicle);return; }
+        moveVehicle(id);
+      }
+
+      function sortPassengers() {
+        const waiting=parkedVehicles().find(vehicle=>game.passengers.slice(1).some(group=>group.color===vehicle.color));
+        const activeMatch=activeVehicles().find(vehicle=>vehicle.color===game.passengers[0]?.color&&canMove(vehicle).ok);
+        const movable=activeVehicles().find(vehicle=>canMove(vehicle).ok);
+        const candidate=waiting||activeMatch||movable;
+        const index=candidate?game.passengers.findIndex(group=>group.color===candidate.color):-1;
+        if(index<=0) {
+          game.message=index===0?'当前队首已经是最合适的颜色':'现在没有可重排的有效颜色';
+          render(null,'sort');
+          return;
+        }
+        game.passengers.unshift(game.passengers.splice(index,1)[0]);
+        game.tools.sort-=1;
+        game.toolMode=null;
+        game.resolving=true;
+        game.message=`${COLORS[candidate.color].label}乘客已排到队首`;
+        render(null,'sort');
+        later(resolveBoarding,220);
+      }
+
+      function useTool(name) {
+        if(game.resolving||game.result||game.tools[name]<=0) return;
+        if(name==='sort') { sortPassengers();return; }
+        if(game.toolMode===name) {
+          game.toolMode=null;
+          game.selectedId=null;
+          game.message='已取消道具选择';
+          render(null,name);
+          return;
+        }
+        const selected=getVehicle(game.selectedId);
+        if(selected?.status==='active') {
+          if(name==='remove') removeVehicle(selected);
+          else turnVehicle(selected);
+          return;
+        }
+        game.toolMode=name;
+        game.selectedId=null;
+        game.message=name==='remove'?'请选择一辆要移除的车，再点一次道具可取消':'请选择一辆要调头的车，再点一次道具可取消';
+        render(null,name);
+      }
+
+      function hasUsefulSort() {
+        if(game.tools.sort<=0) return false;
+        return parkedVehicles().some(vehicle=>game.passengers.slice(1).some(group=>group.color===vehicle.color));
+      }
+
+      function checkResult() {
+        if(game.resolving||game.result) return;
+        if(passengerTotal()===0) {
+          game.result='win';
+          game.resultReason='complete';
+          game.message='全部乘客都到站了！';
+          return;
+        }
+        const active=activeVehicles();
+        const occupied=game.slots.every(Boolean);
+        const movable=active.some(vehicle=>canMove(vehicle).ok);
+        const sortCanHelp=hasUsefulSort();
+        const boardToolCanHelp=!occupied&&active.length>0&&(game.tools.remove>0||game.tools.refresh>0);
+        if(occupied&&!sortCanHelp) {
+          game.result='lose';
+          game.resultReason='full';
+          game.message='接客位已满，没有车辆能够继续装客';
+        } else if(!occupied&&!movable&&!sortCanHelp&&!boardToolCanHelp) {
+          game.result='lose';
+          game.resultReason='blocked';
+          game.message='没有可用路线了';
+        } else if(occupied&&sortCanHelp) {
+          game.message='接客位已满，重排队列可以继续装客';
+        } else if(!movable&&boardToolCanHelp) {
+          game.message='暂时没有直达路线，可以使用移除或调头';
+        }
+      }
+
+      function reset(focusBoard=false) {
+        clearTimers();
+        els.main.inert=false;
+        els.main.removeAttribute('aria-hidden');
+        els.modal.hidden=true;
+        game=createLevel();
+        render();
+        if(focusBoard) window.requestAnimationFrame(()=>els.board.querySelector('.vehicle')?.focus({preventScroll:true}));
+      }
+
+      document.querySelectorAll('[data-tool]').forEach(button=>button.addEventListener('click',()=>useTool(button.dataset.tool)));
+      els.reset.addEventListener('click',()=>reset(true));
+      els.resultButton.addEventListener('click',()=>reset(true));
+      els.modal.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();reset(true);}});
+      reset();
+      window.ParkingPulse={createLevel,canMove,moveVehicle,useTool,reset,getState:()=>game};
     })();
   </script>
 </body>
