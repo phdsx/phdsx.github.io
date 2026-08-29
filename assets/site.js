@@ -1,37 +1,21 @@
 function normalizeText(value) {
   return (value || '').toString().trim().toLowerCase();
 }
-const SITE_SEARCH_CATALOG = [
-  ['二维码生成', 'Tools/qr-generator.html', '工具', '二维码 QR Code 文字 网址 文件 本地生成'],
-  ['PPT 放映悬浮倒计时', 'Tools/ppt-countdown.html', '工具', 'PPT 演示 放映 悬浮 倒计时 时间'],
-  ['下班倒计时', 'ChouXiangTool/下班倒计时.html', '工具', '下班 工作 时间 倒计时'],
-  ['日期倒计时', 'ChouXiangTool/倒计时.html', '工具', '考试 纪念日 时间 日期 倒计时'],
-  ['吃啥饭', 'ChouXiangTool/吃啥饭.html', '工具', '吃饭 菜单 随机 选择 生活'],
-  ['父母性别计算器', 'ChouXiangTool/父母性别计算器.html', '工具', '父母 性别 计算器 趣味'],
-  ['雷劈计算器', 'ChouXiangTool/雷劈计算器.html', '工具', '雷 雷劈 计算器 趣味 娱乐'],
-  ['图片压缩', 'PictureTools/pic_compress.html', '工具', '图片 照片 压缩 体积'],
-  ['图片裁剪', 'PictureTools/pic_cut.html', '工具', '图片 照片 裁剪 比例'],
-  ['图片缩放', 'PictureTools/pic_scale_change.html', '工具', '图片 照片 缩放 尺寸 比例'],
-  ['图片水印', 'PictureTools/pic_watermark.html', '工具', '图片 照片 水印 桌面'],
-  ['移动端水印', 'PictureTools/pic_watermark_mob.html', '工具', '图片 照片 水印 手机'],
-  ['大小写转换', 'TextTool/case-converter.html', '工具', '英文 字母 大写 小写 文本 转换'],
-  ['文本去重', 'TextTool/TextDropDup.html', '工具', '文字 文本 去重 重复行 清理'],
-  ['字数统计', 'TextTool/WordCount.html', '工具', '文字 文本 字数 字符 段落 统计'],
-  ['文本美化', 'TextTool/WordPretty.html', '工具', '文字 文本 美化 排版 格式'],
-  ['VIP 视频解析', 'JS/vipvideo.html', '工具', 'VIP 视频 媒体 解析 播放'],
-  ['中国象棋', 'ChineseChess.html', '游戏', '中国 象棋 棋牌游戏 双人'],
-  ['俄罗斯方块', 'Games/tetris.html', '游戏', '俄罗斯 方块 消除 经典'],
-  ['水果忍者', 'Games/dinnerninja/index.html', '游戏', '水果 忍者 切水果 休闲'],
-  ['潜艇大战', 'Games/submarine-battle.html', '游戏', '潜艇 大战 深海 射击'],
-  ['零号回声', 'novels.html', '小说', '小说 连载 零号回声 科幻 悬疑 阅读'],
-  ['Python 教程笔记', 'blog-post.html?src=Python%2FPython_tutorail.md&title=Python%20%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22', '博客', 'Python 教程 学习 笔记'],
-  ['Python 输出笔记', 'blog-post.html?src=Python%2FPython_output.md&title=Python%20%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22', '博客', 'Python 输出 学习 笔记'],
-  ['站点更新记录', 'blog-post.html?src=index.md&title=%E7%AB%99%E7%82%B9%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95&topic=%E7%AB%99%E7%82%B9&date=2020-05-22', '博客', '站点 网站 更新 记录'],
-  ['常用电话黄页', 'directory.html', '黄页', '电话 黄页 联系方式 中国移动 客服']
-].map(([label, href, type, keywords]) => ({ label, href, type, keywords }));
+function getSiteCatalog() {
+  return Array.isArray(window.PHDSX_SEARCH_INDEX) ? window.PHDSX_SEARCH_INDEX : [];
+}
 function initSiteSidebar() {
   const header = document.querySelector('.site-header');
   if (!header) return;
+  const main = document.querySelector('main');
+  if (main && !main.id) main.id = 'main-content';
+  if (main && !document.querySelector('.skip-link')) {
+    const skip = document.createElement('a');
+    skip.className = 'skip-link';
+    skip.href = '#main-content';
+    skip.textContent = '跳到主要内容';
+    document.body.insertBefore(skip, header);
+  }
   document.body.classList.add('has-site-sidebar');
   const currentPage = location.pathname.split('/').pop() || 'index.html';
   const gamePages = ['games.html', 'ChineseChess.html'];
@@ -42,6 +26,8 @@ function initSiteSidebar() {
         <a class="nav-link nav-link--sub" href="Games/tetris.html"><span class="nav-symbol">田</span><span>俄罗斯方块</span></a>
         <a class="nav-link nav-link--sub" href="Games/dinnerninja/index.html"><span class="nav-symbol">切</span><span>水果忍者</span></a>
         <a class="nav-link nav-link--sub" href="Games/submarine-battle.html"><span class="nav-symbol">潜</span><span>潜艇大战</span></a>
+        <a class="nav-link nav-link--sub" href="Games/parking-pulse.html"><span class="nav-symbol">泊</span><span>Parking Pulse</span></a>
+        <a class="nav-link nav-link--sub" href="Games/sand-sort.html"><span class="nav-symbol">沙</span><span>沙子分类</span></a>
       </div>` : '';
   document.body.classList.add(currentPage === 'index.html' ? 'is-home-page' : 'is-sub-page');
   header.innerHTML = `
@@ -49,7 +35,8 @@ function initSiteSidebar() {
       <span class="brand-mark">P</span>
       <span class="brand-copy"><strong>PHDSX</strong><small>PERSONAL HUB</small></span>
     </a>
-    <nav class="site-nav" aria-label="主导航">
+    <button class="site-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="展开站点导航"><span></span><span></span><span></span></button>
+    <nav class="site-nav" id="site-navigation" aria-label="主导航">
       <div class="nav-section">
         <span class="nav-section-label">站点</span>
         <a class="nav-link" href="index.html"><span class="nav-symbol">⌂</span><span>首页</span></a>
@@ -60,24 +47,61 @@ function initSiteSidebar() {
       </div>
       <div class="nav-section">
         <span class="nav-section-label">阅读</span>
-        <a class="nav-link" href="novels.html"><span class="nav-symbol">▥</span><span>小说连载</span></a>
+        <a class="nav-link" href="novels.html"><span class="nav-symbol">▥</span><span>小说</span></a>
+      </div>
+      <div class="nav-section">
+        <span class="nav-section-label">发布与记录</span>
+        <a class="nav-link" href="software.html"><span class="nav-symbol">▣</span><span>软件作品</span></a>
+        <a class="nav-link" href="ai-radar.html"><span class="nav-symbol">◎</span><span>AI 雷达</span></a>
+        <a class="nav-link" href="brand-blacklist.html"><span class="nav-symbol">!</span><span>品牌黑名单</span></a>
       </div>
       ${gameNavigation}
     </nav>
     <div class="sidebar-meta"><span>PHDSX · 2026</span><small>持续整理与更新</small></div>
   `;
+
+  const toggle = header.querySelector('.site-nav-toggle');
+  const closeNavigation = (restoreFocus) => {
+    header.classList.remove('is-open');
+    document.body.classList.remove('site-nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', '展开站点导航');
+    if (restoreFocus) toggle.focus();
+  };
+  toggle.addEventListener('click', () => {
+    const open = header.classList.toggle('is-open');
+    document.body.classList.toggle('site-nav-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? '收起站点导航' : '展开站点导航');
+  });
+  header.querySelectorAll('.nav-link').forEach((link) => link.addEventListener('click', () => closeNavigation(false)));
+  document.addEventListener('click', (event) => {
+    if (header.classList.contains('is-open') && !header.contains(event.target)) closeNavigation(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && header.classList.contains('is-open')) closeNavigation(true);
+  });
+  window.matchMedia('(min-width: 901px)').addEventListener('change', (event) => {
+    if (event.matches) closeNavigation(false);
+  });
 }
 function initSiteNavigation() {
   const current = location.pathname.split('/').pop() || 'index.html';
-  const blogPages = ['blog-post.html'];
+  const detailSections = { 'blog-post.html': 'blog.html', 'novel-reader.html': 'novels.html', 'brand-blacklist-detail.html': 'brand-blacklist.html' };
   const currentPath = decodeURIComponent(location.pathname).replace(/\\/g, '/');
   const isGamePage = current === 'ChineseChess.html'
-    || /\/Games\/(?:tetris|submarine-battle)\.html$/i.test(currentPath)
+    || /\/Games\/(?:tetris|submarine-battle|parking-pulse|sand-sort)\.html$/i.test(currentPath)
     || /\/Games\/dinnerninja\/index\.html$/i.test(currentPath);
   document.querySelectorAll('.site-nav .nav-link').forEach((link) => {
+    const label = link.querySelector(':scope > span:last-child')?.textContent.trim() || link.textContent.trim();
+    if (label) {
+      link.dataset.label = label;
+      link.title = label;
+      link.setAttribute('aria-label', label);
+    }
     const target = new URL(link.href, location.href).pathname.split('/').pop() || 'index.html';
     const isGameIndex = target === 'games.html' && isGamePage;
-    const active = target === current || isGameIndex || (blogPages.includes(current) && target === 'blog.html');
+    const active = target === current || isGameIndex || detailSections[current] === target;
     link.classList.toggle('active', active);
     if (active) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -87,12 +111,22 @@ function initCardSearch(inputSelector, cardSelector) {
   const input = document.querySelector(inputSelector);
   if (!input) return;
   const cards = [...document.querySelectorAll(cardSelector)];
+  const grid = cards[0] && cards[0].parentElement;
+  const empty = document.createElement('p');
+  empty.className = 'filter-empty';
+  empty.hidden = true;
+  empty.setAttribute('role', 'status');
+  if (grid) grid.before(empty);
   const apply = () => {
     const query = normalizeText(input.value);
+    let visibleCount = 0;
     cards.forEach((card) => {
       const keywords = normalizeText(card.dataset.keywords || card.textContent);
       card.hidden = Boolean(query && !keywords.includes(query));
+      if (!card.hidden) visibleCount += 1;
     });
+    empty.hidden = !query || visibleCount > 0;
+    empty.textContent = query && visibleCount === 0 ? `没有找到与“${input.value.trim()}”匹配的内容。` : '';
   };
   input.addEventListener('input', apply);
   apply();
@@ -107,9 +141,7 @@ function initHomeWorkspace() {
     const suggestions = [...document.querySelectorAll('[data-search-suggestion]')];
     const submit = document.querySelector('[data-search-submit]');
     const seen = new Set();
-    const indexedCatalog = Array.isArray(window.PHDSX_SEARCH_INDEX) && window.PHDSX_SEARCH_INDEX.length
-      ? window.PHDSX_SEARCH_INDEX
-      : SITE_SEARCH_CATALOG;
+    const indexedCatalog = getSiteCatalog();
     const pageCatalog = [...document.querySelectorAll('main a[href]')].filter((link) => {
       const href = link.getAttribute('href');
       return Boolean(href && !href.startsWith('#'));
@@ -132,6 +164,7 @@ function initHomeWorkspace() {
       const query = normalizeText(input.value);
       resultList.replaceChildren();
       activeIndex = -1;
+      input.removeAttribute('aria-activedescendant');
       if (!query && activeCategory === '全部') {
         panel.hidden = true;
         input.setAttribute('aria-expanded', 'false');
@@ -148,8 +181,10 @@ function initHomeWorkspace() {
         const label = document.createElement('span');
         const type = document.createElement('small');
         link.href = item.href;
+        link.id = `home-search-option-${index}`;
         link.dataset.searchResult = String(index);
         link.setAttribute('role', 'option');
+        link.setAttribute('aria-selected', 'false');
         label.textContent = item.label;
         type.textContent = item.type;
         link.append(label, type);
@@ -167,7 +202,12 @@ function initHomeWorkspace() {
       const results = [...resultList.querySelectorAll('[data-search-result]')];
       if (!results.length) return;
       activeIndex = (activeIndex + direction + results.length) % results.length;
-      results.forEach((item, index) => item.classList.toggle('is-active', index === activeIndex));
+      results.forEach((item, index) => {
+        const active = index === activeIndex;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-selected', String(active));
+      });
+      input.setAttribute('aria-activedescendant', results[activeIndex].id);
       results[activeIndex].scrollIntoView({ block: 'nearest' });
     };
 
@@ -184,12 +224,17 @@ function initHomeWorkspace() {
       } else if (event.key === 'Escape') {
         panel.hidden = true;
         input.setAttribute('aria-expanded', 'false');
+        input.removeAttribute('aria-activedescendant');
       }
     });
     categoryButtons.forEach((button) => {
       button.addEventListener('click', () => {
         activeCategory = button.dataset.searchCategory || '全部';
-        categoryButtons.forEach((item) => item.classList.toggle('active', item === button));
+        categoryButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
         input.placeholder = activeCategory === '全部' ? '搜索全部内容' : `搜索${activeCategory}`;
         render();
         input.focus();
@@ -198,7 +243,11 @@ function initHomeWorkspace() {
     suggestions.forEach((button) => {
       button.addEventListener('click', () => {
         activeCategory = '全部';
-        categoryButtons.forEach((item) => item.classList.toggle('active', item.dataset.searchCategory === '全部'));
+        categoryButtons.forEach((item) => {
+          const active = item.dataset.searchCategory === '全部';
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
         input.placeholder = '搜索全部内容';
         input.value = button.dataset.searchSuggestion || button.textContent;
         render();
@@ -215,6 +264,7 @@ function initHomeWorkspace() {
       if (!event.target.closest('.portal-search')) {
         panel.hidden = true;
         input.setAttribute('aria-expanded', 'false');
+        input.removeAttribute('aria-activedescendant');
       }
     });
     document.addEventListener('keydown', (event) => {
@@ -223,6 +273,7 @@ function initHomeWorkspace() {
         input.focus();
       }
     });
+    categoryButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.classList.contains('active'))));
   }
 
   const clock = document.querySelector('[data-home-clock]');
@@ -237,7 +288,24 @@ function initHomeWorkspace() {
     setInterval(update, 1000);
   }
 }
+function initHomeStats() {
+  const catalog = getSiteCatalog();
+  document.querySelectorAll('[data-site-count]').forEach((element) => {
+    const type = element.dataset.siteCount;
+    const count = type === '阅读'
+      ? catalog.filter((item) => item.type === '博客' || item.type === '小说').length
+      : catalog.filter((item) => item.type === type).length;
+    element.textContent = String(count);
+  });
+  document.querySelectorAll('[data-catalog-total]').forEach((element) => {
+    const count = catalog.filter((item) => item.type === element.dataset.catalogTotal).length;
+    element.textContent = String(count);
+  });
+}
 function getSearchType(href) {
+  if (/ai-radar/i.test(href)) return '雷达';
+  if (/brand-blacklist/i.test(href)) return '黑名单';
+  if (/software\.html/i.test(href)) return '软件';
   if (/novel/i.test(href)) return '小说';
   if (/blog|Python/i.test(href)) return '博客';
   if (/games|ChineseChess/i.test(href)) return '游戏';
@@ -259,6 +327,11 @@ function initBlogFilters() {
   const search = document.querySelector('[data-blog-search]');
   const sort = document.querySelector('[data-blog-sort]');
   const chips = [...document.querySelectorAll('[data-blog-topic]')];
+  const empty = document.createElement('p');
+  empty.className = 'filter-empty';
+  empty.hidden = true;
+  empty.setAttribute('role', 'status');
+  list.before(empty);
   let topic = '全部';
   const apply = () => {
     const query = normalizeText(search && search.value);
@@ -268,6 +341,9 @@ function initBlogFilters() {
       const matchQuery = !query || normalizeText(card.dataset.keywords).includes(query);
       card.hidden = !(matchTopic && matchQuery);
     });
+    const visibleCount = cards.filter((card) => !card.hidden).length;
+    empty.hidden = visibleCount > 0;
+    empty.textContent = visibleCount ? '' : '没有找到符合当前筛选条件的文章。';
     const sorted = cards.sort((a, b) => {
       const mode = sort ? sort.value : 'date-desc';
       if (mode === 'date-asc') return a.dataset.date.localeCompare(b.dataset.date);
@@ -278,17 +354,24 @@ function initBlogFilters() {
   };
   chips.forEach((chip) => chip.addEventListener('click', () => {
     topic = chip.dataset.blogTopic;
-    chips.forEach((item) => item.classList.toggle('active', item === chip));
+    chips.forEach((item) => {
+      const active = item === chip;
+      item.classList.toggle('active', active);
+      item.setAttribute('aria-pressed', String(active));
+    });
     apply();
   }));
   if (search) search.addEventListener('input', apply);
   if (sort) sort.addEventListener('change', apply);
+  chips.forEach((chip) => chip.setAttribute('aria-pressed', String(chip.classList.contains('active'))));
   apply();
 }
 function initNovelProgress() {
   document.querySelectorAll('[data-novel-continue]').forEach((link) => {
     const novelId = link.dataset.novelId;
-    const progress = Number.parseInt(localStorage.getItem(`phdsx-novel-progress-${novelId}`) || '1', 10);
+    let storedProgress = '1';
+    try { storedProgress = localStorage.getItem(`phdsx-novel-progress-${novelId}`) || '1'; } catch (error) { /* Storage can be unavailable in privacy modes. */ }
+    const progress = Number.parseInt(storedProgress, 10);
     const chapter = Number.isFinite(progress) && progress > 0 ? progress : 1;
     link.href = `novel-reader.html?id=${encodeURIComponent(novelId)}&chapter=${chapter}`;
     link.textContent = chapter > 1 ? `继续阅读第 ${chapter} 章` : '开始阅读';
@@ -297,6 +380,7 @@ function initNovelProgress() {
 initSiteSidebar();
 initSiteNavigation();
 initHomeWorkspace();
+initHomeStats();
 initCardSearch('[data-tool-search]', '[data-keywords]');
 initBlogFilters();
 initNovelProgress();

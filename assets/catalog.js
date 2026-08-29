@@ -1,4 +1,5 @@
 window.PHDSX_SEARCH_INDEX = [
+  { label: 'EQ 单字拼音域代码生成器', href: 'Tools/eq-pinyin-code.html', type: '工具', keywords: 'Word EQ 拼音 域代码 调号 声调 单字 逐字生成' },
   { label: '二维码生成', href: 'Tools/qr-generator.html', type: '工具', keywords: '二维码 QR Code 文字 网址 文件 本地生成' },
   { label: 'PPT 放映悬浮倒计时', href: 'Tools/ppt-countdown.html', type: '工具', keywords: 'PPT 演示 放映 悬浮 倒计时 时间' },
   { label: '下班倒计时', href: 'ChouXiangTool/下班倒计时.html', type: '工具', keywords: '下班 工作 时间 倒计时' },
@@ -20,9 +21,15 @@ window.PHDSX_SEARCH_INDEX = [
   { label: '俄罗斯方块', href: 'Games/tetris.html', type: '游戏', keywords: '俄罗斯 方块 消除 经典' },
   { label: '水果忍者', href: 'Games/dinnerninja/index.html', type: '游戏', keywords: '水果 忍者 切水果 休闲' },
   { label: '潜艇大战', href: 'Games/submarine-battle.html', type: '游戏', keywords: '潜艇 大战 深海 射击' },
+  { label: 'Parking Pulse', href: 'Games/parking-pulse.html', type: '游戏', keywords: '停车 挪车 接客 巴士 益智 Parking Pulse' },
+  { label: '沙子分类', href: 'Games/sand-sort.html', type: '游戏', keywords: '沙子 分类 玻璃瓶 颜色 益智 Sand Sort' },
   { label: '零号回声', href: 'novels.html', type: '小说', keywords: '小说 连载 零号回声 科幻 悬疑 阅读' },
   { label: 'Python 教程笔记', href: 'blog-post.html?src=Python%2FPython_tutorail.md&title=Python%20%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22', type: '博客', keywords: 'Python 教程 学习 笔记' },
   { label: 'Python 输出笔记', href: 'blog-post.html?src=Python%2FPython_output.md&title=Python%20%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22', type: '博客', keywords: 'Python 输出 学习 笔记' },
   { label: '站点更新记录', href: 'blog-post.html?src=index.md&title=%E7%AB%99%E7%82%B9%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95&topic=%E7%AB%99%E7%82%B9&date=2020-05-22', type: '博客', keywords: '站点 网站 更新 记录' },
-  { label: '常用电话黄页', href: 'directory.html', type: '黄页', keywords: '电话 黄页 联系方式 中国移动 客服' }
+  { label: '常用电话黄页', href: 'directory.html', type: '黄页', keywords: '电话 黄页 联系方式 中国移动 客服' },
+  { label: '软件作品发布', href: 'software.html', type: '软件', keywords: '软件 作品 发布 版本 下载 在线使用 Web 工具' },
+  { label: 'AI 雷达', href: 'ai-radar.html', type: '雷达', keywords: 'AI 雷达 CodexRadar 综合智能 软件工程 视觉推理 Codex Reset 预测 Next 48 hours Forecast pulse' },
+  { label: '品牌黑名单', href: 'brand-blacklist.html', type: '黑名单', keywords: '品牌 黑名单 名称 模糊搜索 分类 国家 入黑原因 事件' },
+  { label: '示例品牌演示记录', href: 'brand-blacklist-detail.html?id=demo-brand-record', type: '黑名单', keywords: '示例品牌 演示记录 详细入黑事件 非真实数据' }
 ];

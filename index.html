@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f4f7fb">
   <title>PHDSX 个人主页</title>
-  <link rel="stylesheet" href="assets/site.css?v=20260730b">
+  <link rel="stylesheet" href="assets/site.css?v=20260829a">
 </head>
 <body>
   <header class="site-header"></header>
@@ -20,7 +20,8 @@
   <main class="home-main portal-home">
     <section class="portal-search" aria-labelledby="home-title">
       <p class="portal-eyebrow">PHDSX PERSONAL HUB</p>
-      <h1 id="home-title">搜索你需要的内容</h1>
+      <h1 id="home-title">快速找到你要用的内容</h1>
+      <p class="portal-search-lede">工具、游戏、博客、小说、软件作品与品牌记录，都从这里开始。</p>
       <div class="search-categories" data-search-categories aria-label="搜索分类">
         <button class="active" type="button" data-search-category="全部">全部</button>
         <button type="button" data-search-category="工具">工具</button>
@@ -28,10 +29,13 @@
         <button type="button" data-search-category="博客">博客</button>
         <button type="button" data-search-category="小说">小说</button>
         <button type="button" data-search-category="黄页">黄页</button>
+        <button type="button" data-search-category="软件">软件</button>
+        <button type="button" data-search-category="雷达">雷达</button>
+        <button type="button" data-search-category="黑名单">黑名单</button>
       </div>
       <div class="command-search">
         <label class="sr-only" for="home-search">搜索站内内容</label>
-        <input id="home-search" type="search" data-home-search placeholder="搜索全部内容" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="home-search-results">
+        <input id="home-search" type="search" data-home-search placeholder="搜索全部内容" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="home-search-results">
         <button class="portal-search-button" type="button" data-search-submit aria-label="搜索">搜索</button>
         <span class="command-key" aria-hidden="true">Ctrl K</span>
         <div class="home-search-panel" data-home-search-panel hidden>
@@ -44,24 +48,15 @@
         <button type="button" data-search-suggestion="雷劈计算器">雷劈计算器</button>
         <button type="button" data-search-suggestion="图片压缩">图片压缩</button>
         <button type="button" data-search-suggestion="俄罗斯方块">俄罗斯方块</button>
-        <button type="button" data-search-suggestion="小说">小说连载</button>
+        <button type="button" data-search-suggestion="小说">小说</button>
       </div>
     </section>
 
     <section class="portal-dashboard" aria-label="快捷入口">
-      <div class="portal-panel portal-ranking">
-        <div class="portal-panel-head"><h2>热门入口</h2><span>常用</span></div>
-        <ol>
-          <li><a href="ChouXiangTool/雷劈计算器.html"><span>雷劈计算器</span><small>趣味工具</small></a></li>
-          <li><a href="PictureTools/pic_compress.html"><span>图片压缩</span><small>图片处理</small></a></li>
-          <li><a href="Tools/ppt-countdown.html"><span>PPT 倒计时</span><small>工作效率</small></a></li>
-          <li><a href="novels.html"><span>小说连载</span><small>持续更新</small></a></li>
-        </ol>
-      </div>
-
-      <div class="portal-panel portal-direct">
-        <div class="portal-panel-head"><h2>工具直达</h2><a href="tools.html">全部工具</a></div>
+      <div class="portal-panel portal-direct portal-panel--primary">
+        <div class="portal-panel-head"><div><h2>工具直达</h2><p class="portal-panel-note">按使用场景整理，常用入口优先。</p></div><a href="tools.html">全部工具</a></div>
         <div class="portal-app-grid">
+          <a href="Tools/eq-pinyin-code.html"><img src="assets/icons/text-format.webp" alt=""><span>EQ 拼音域代码</span></a>
           <a href="PictureTools/pic_compress.html"><img src="assets/icons/image-compress.webp" alt=""><span>图片压缩</span></a>
           <a href="PictureTools/pic_cut.html"><img src="assets/icons/image-crop.webp" alt=""><span>图片裁剪</span></a>
           <a href="TextTool/TextDropDup.html"><img src="assets/icons/text-dedupe.webp" alt=""><span>文本去重</span></a>
@@ -74,14 +69,25 @@
         </div>
       </div>
 
+      <div class="portal-panel portal-ranking">
+        <div class="portal-panel-head"><h2>热门入口</h2><span>常用</span></div>
+        <ol>
+          <li><a href="ChouXiangTool/雷劈计算器.html"><span>雷劈计算器</span><small>趣味工具</small></a></li>
+          <li><a href="PictureTools/pic_compress.html"><span>图片压缩</span><small>图片处理</small></a></li>
+          <li><a href="Tools/ppt-countdown.html"><span>PPT 倒计时</span><small>工作效率</small></a></li>
+          <li><a href="novels.html"><span>小说</span><small>持续更新</small></a></li>
+        </ol>
+      </div>
+
       <div class="portal-panel overview-panel">
         <div class="portal-panel-head"><h2>站点概览</h2><span>在线</span></div>
         <time class="home-clock" data-home-clock>--:--:--</time>
         <p data-home-date>正在读取日期</p>
         <div class="overview-counts">
-          <a href="tools.html"><strong>17</strong><span>工具</span></a>
-          <a href="games.html"><strong>4</strong><span>游戏</span></a>
-          <a href="blog.html"><strong>4</strong><span>阅读</span></a>
+          <a href="tools.html"><strong data-site-count="工具">17</strong><span>工具</span></a>
+          <a href="games.html"><strong data-site-count="游戏">6</strong><span>游戏</span></a>
+          <a href="blog.html"><strong data-site-count="博客">3</strong><span>博客</span></a>
+          <a href="novels.html"><strong data-site-count="小说">1</strong><span>小说</span></a>
         </div>
       </div>
     </section>
@@ -91,7 +97,7 @@
         <section class="home-section" aria-labelledby="common-title">
           <div class="home-section-head">
             <div><h2 id="common-title">全部功能</h2><p>按使用场景整理，快速找到合适的入口。</p></div>
-            <a href="tools.html">查看全部 17 项</a>
+            <a href="tools.html">查看全部 <span data-catalog-total="工具">17</span> 项</a>
           </div>
           <div class="tool-groups">
             <section class="tool-group">
@@ -106,6 +112,7 @@
             <section class="tool-group">
               <div class="tool-group-head"><span class="tool-group-icon green">TXT</span><div><h3>文本效率</h3><p>整理、统计与转换</p></div></div>
               <div class="tool-links">
+                <a href="Tools/eq-pinyin-code.html"><img class="feature-icon" src="assets/icons/text-format.webp" alt=""><span>EQ 拼音域代码</span><small>逐字调号</small></a>
                 <a href="TextTool/TextDropDup.html"><img class="feature-icon" src="assets/icons/text-dedupe.webp" alt=""><span>文本去重</span><small>清理重复</small></a>
                 <a href="TextTool/WordCount.html"><img class="feature-icon" src="assets/icons/word-count.webp" alt=""><span>字数统计</span><small>字符段落</small></a>
                 <a href="TextTool/WordPretty.html"><img class="feature-icon" src="assets/icons/text-format.webp" alt=""><span>文本美化</span><small>整理格式</small></a>
@@ -128,7 +135,7 @@
                 <a href="ChouXiangTool/吃啥饭.html"><img class="feature-icon" src="assets/icons/meal-randomizer.webp" alt=""><span>吃啥饭</span><small>随机菜单</small></a>
                 <a href="ChouXiangTool/雷劈计算器.html"><img class="feature-icon" src="assets/icons/lightning-calculator.webp" alt=""><span>雷劈计算器</span><small>趣味测试</small></a>
                 <a href="ChouXiangTool/父母性别计算器.html"><img class="feature-icon" src="assets/icons/family-calculator.webp" alt=""><span>父母性别计算器</span><small>趣味工具</small></a>
-                <a href="novels.html"><img class="feature-icon" src="assets/icons/serial-novel.webp" alt=""><span>小说连载</span><small>继续阅读</small></a>
+                <a href="novels.html"><img class="feature-icon" src="assets/icons/serial-novel.webp" alt=""><span>小说</span><small>继续阅读</small></a>
               </div>
             </section>
           </div>
@@ -146,15 +153,15 @@
       </div>
 
       <aside class="home-rail" aria-label="站点动态">
-        <section class="rail-panel">
-          <div class="rail-head"><h2>最新内容</h2><a href="blog.html">查看全部</a></div>
+        <section class="rail-panel rail-panel--reading">
+          <div class="rail-head"><h2>最新内容</h2><a href="blog.html">博客目录</a></div>
           <div class="rail-list">
             <a href="novels.html" data-keywords="小说 连载 零号回声"><span>《零号回声》连载</span><small>小说</small></a>
             <a href="blog-post.html?src=Python%2FPython_tutorail.md&title=Python%20%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22"><span>Python 教程笔记</span><small>Python</small></a>
             <a href="blog-post.html?src=Python%2FPython_output.md&title=Python%20%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22"><span>Python 输出笔记</span><small>Python</small></a>
           </div>
         </section>
-        <section class="rail-panel">
+        <section class="rail-panel rail-panel--directory">
           <div class="rail-head"><h2>黄页直达</h2><a href="directory.html">完整黄页</a></div>
           <div class="rail-list directory-links">
             <a href="tel:10086"><span>中国移动客服</span><strong>10086</strong></a>
@@ -162,14 +169,22 @@
             <a href="tel:13576542453"><span>示例联系人</span><strong>135-7654-2453</strong></a>
           </div>
         </section>
+        <section class="rail-panel rail-panel--records">
+          <div class="rail-head"><h2>作品与记录</h2><a href="software.html">查看发布</a></div>
+          <div class="rail-list">
+            <a href="software.html"><span>软件作品发布</span><small>作品</small></a>
+            <a href="ai-radar.html"><span>AI 雷达</span><small>实时</small></a>
+            <a href="brand-blacklist.html"><span>品牌黑名单</span><small>记录</small></a>
+          </div>
+        </section>
       </aside>
     </div>
   </main>
   <footer class="site-footer">
     <span>PHDSX 个人主页</span>
-    <span>Tools · Games · Blog · Directory</span>
+    <span>工具 · 游戏 · 博客 · 小说 · 软件作品 · AI 雷达 · 品牌黑名单</span>
   </footer>
-  <script src="assets/catalog.js?v=20260730a"></script>
-  <script src="assets/site.js?v=20260730e"></script>
+  <script src="assets/catalog.js?v=20260829b"></script>
+  <script src="assets/site.js?v=20260829b"></script>
 </body>
 </html>

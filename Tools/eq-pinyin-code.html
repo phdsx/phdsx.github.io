@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f7fb">
+  <meta name="description" content="逐字生成并校验 Word EQ 单字拼音域代码，支持调号、调值、复制与 TXT 导出。">
+  <title>EQ 单字拼音域代码生成器 - PHDSX</title>
+  <link rel="stylesheet" href="../assets/standalone.css?v=20260829a">
+  <style>
+    :root {
+      --eq-bg: #f4f7fb;
+      --eq-panel: #fff;
+      --eq-ink: #172033;
+      --eq-muted: #667085;
+      --eq-brand: #1769e0;
+      --eq-brand-dark: #0f4fae;
+      --eq-line: #d9e2f1;
+      --eq-success: #067647;
+      --eq-danger: #b42318;
+    }
+    body.eq-page {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #eef4ff, #f8fafc 50%, #eef7ff);
+      color: var(--eq-ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+    .eq-main { width: min(100%, 1280px); margin: 0 auto; padding: 38px 22px 52px; }
+    .eq-heading { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+    .eq-eyebrow { margin: 0 0 8px; color: var(--eq-brand); font-size: 11px; font-weight: 850; letter-spacing: .12em; }
+    .eq-heading h1 { margin: 0 0 8px; font-size: clamp(27px, 4vw, 42px); line-height: 1.2; }
+    .eq-heading p { max-width: 760px; margin: 0; color: var(--eq-muted); font-size: 14px; line-height: 1.7; }
+    .eq-badge { align-self: flex-start; flex: 0 0 auto; padding: 8px 11px; border: 1px solid #cfe0fa; border-radius: 999px; color: var(--eq-brand); background: #eaf2ff; font-size: 12px; font-weight: 800; }
+    .eq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .eq-panel { min-width: 0; padding: 20px; border: 1px solid var(--eq-line); border-radius: 9px; background: rgba(255,255,255,.97); box-shadow: 0 10px 30px rgba(31,55,90,.07); }
+    .eq-panel--wide { grid-column: 1 / -1; }
+    .eq-panel h2 { margin: 0 0 16px; font-size: 17px; }
+    .eq-label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 750; }
+    .eq-page textarea,
+    .eq-page input,
+    .eq-page select { width: 100%; border: 1px solid var(--eq-line); border-radius: 7px; color: var(--eq-ink); background: #fff; font: inherit; outline: none; }
+    .eq-page textarea { min-height: 220px; padding: 12px 13px; resize: vertical; line-height: 1.7; }
+    .eq-page input,
+    .eq-page select { min-height: 42px; padding: 0 11px; }
+    .eq-page :is(textarea, input, select):focus { border-color: #77a7ef; box-shadow: 0 0 0 4px rgba(23,105,224,.1); }
+    .eq-help { margin: 7px 0 0; color: var(--eq-muted); font-size: 12px; line-height: 1.6; }
+    .eq-settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+    .eq-field--full { grid-column: 1 / -1; }
+    .eq-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
+    .eq-button { min-height: 42px; padding: 0 16px; border: 1px solid transparent; border-radius: 7px; font-weight: 750; cursor: pointer; }
+    .eq-button--primary { color: #fff; background: var(--eq-brand); }
+    .eq-button--primary:hover { background: var(--eq-brand-dark); }
+    .eq-button--secondary { color: var(--eq-brand); border-color: #cfe0fa; background: #edf4ff; }
+    .eq-button--ghost { color: #344054; border-color: var(--eq-line); background: #f8fafc; }
+    .eq-button--danger { color: var(--eq-danger); border-color: #f1d1cd; background: #fff4f2; }
+    .eq-status { min-height: 22px; margin-top: 12px; color: var(--eq-muted); font-size: 13px; }
+    .eq-table-wrap { overflow: auto; border: 1px solid var(--eq-line); border-radius: 8px; }
+    .eq-table { width: 100%; min-width: 900px; border-collapse: collapse; }
+    .eq-table th,
+    .eq-table td { padding: 9px 10px; border-bottom: 1px solid #e8edf5; text-align: left; vertical-align: top; font-size: 13px; }
+    .eq-table th { position: sticky; top: 0; z-index: 1; color: #475467; background: #f8faff; }
+    .eq-table tr:last-child td { border-bottom: 0; }
+    .eq-page .eq-cell-input { min-height: 36px; border-radius: 6px; }
+    .eq-code { min-height: 36px; padding: 8px; border: 1px solid #e4e7ec; border-radius: 6px; background: #f8fafc; font-family: Consolas, "Courier New", monospace; white-space: pre-wrap; word-break: break-all; }
+    .eq-button--small { min-height: 34px; padding: 0 10px; font-size: 12px; }
+    .eq-output { min-height: 210px; font-family: Consolas, "Courier New", monospace; }
+    .eq-note { margin: 16px 0 0; padding: 12px 14px; border-left: 3px solid var(--eq-brand); color: var(--eq-muted); background: #f7faff; font-size: 12px; line-height: 1.7; }
+    @media (max-width: 850px) {
+      .eq-grid { grid-template-columns: 1fr; }
+      .eq-panel--wide { grid-column: auto; }
+      .eq-heading { flex-direction: column; }
+    }
+    @media (max-width: 560px) {
+      .eq-main { padding: 28px 14px 42px; }
+      .eq-panel { padding: 16px; }
+      .eq-settings { grid-template-columns: 1fr; }
+      .eq-field--full { grid-column: auto; }
+      .eq-actions .eq-button { flex: 1 1 140px; }
+    }
+  </style>
+</head>
+<body class="eq-page">
+  <main class="eq-main">
+    <header class="eq-heading">
+      <div>
+        <p class="eq-eyebrow">WORD EQ TOOL</p>
+        <h1>EQ 单字拼音域代码生成器</h1>
+        <p>每个汉字单独生成一个 Word EQ 域代码，避免多个汉字共用一个公式时发生错位或显示错误。</p>
+      </div>
+      <span class="eq-badge">逐字生成 · 支持调号</span>
+    </header>
+
+    <div class="eq-grid">
+      <section class="eq-panel" aria-labelledby="eq-source-title">
+        <h2 id="eq-source-title">1. 输入汉字</h2>
+        <label class="eq-label" for="eq-source">每行一组文本</label>
+        <textarea id="eq-source" placeholder="例如：&#10;是的&#10;僵硬&#10;中华人民共和国"></textarea>
+        <p class="eq-help">每个汉字都会拆成独立公式；最终结果固定为每个公式单独一行。</p>
+        <div class="eq-actions">
+          <button class="eq-button eq-button--primary" id="eq-generate" type="button">生成并校验</button>
+          <button class="eq-button eq-button--secondary" id="eq-sample" type="button">填入示例</button>
+          <button class="eq-button eq-button--danger" id="eq-clear" type="button">清空</button>
+        </div>
+        <div id="eq-status" class="eq-status" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="eq-panel" aria-labelledby="eq-settings-title">
+        <h2 id="eq-settings-title">2. 生成参数</h2>
+        <div class="eq-settings">
+          <div>
+            <label class="eq-label" for="eq-down-value">下移值 do</label>
+            <input id="eq-down-value" type="number" value="38">
+          </div>
+          <div>
+            <label class="eq-label" for="eq-placeholder">占位符</label>
+            <input id="eq-placeholder" value="$">
+          </div>
+          <div>
+            <label class="eq-label" for="eq-tone-type">拼音声调</label>
+            <select id="eq-tone-type">
+              <option value="symbol">声调符号：shì</option>
+              <option value="num">声调数字：shi4</option>
+              <option value="none">无声调：shi</option>
+            </select>
+          </div>
+          <div>
+            <label class="eq-label" for="eq-output-format">最终结果格式</label>
+            <input id="eq-output-format" value="每个单字公式单独一行" disabled>
+          </div>
+          <div class="eq-field--full">
+            <label class="eq-label" for="eq-non-zh">非汉字处理</label>
+            <select id="eq-non-zh">
+              <option value="remove">删除非汉字</option>
+              <option value="keep">保留并生成</option>
+            </select>
+            <p class="eq-help">标准格式：EQ \o(\l(shì),\s\do38($))</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="eq-panel eq-panel--wide" aria-labelledby="eq-review-title">
+        <h2 id="eq-review-title">3. 逐字校验</h2>
+        <div class="eq-table-wrap">
+          <table class="eq-table">
+            <thead>
+              <tr>
+                <th scope="col" style="width:60px">序号</th>
+                <th scope="col" style="width:100px">汉字</th>
+                <th scope="col" style="width:220px">拼音（可修改）</th>
+                <th scope="col" style="width:120px">修改调号</th>
+                <th scope="col">域代码</th>
+                <th scope="col" style="width:80px">操作</th>
+              </tr>
+            </thead>
+            <tbody id="eq-review-body">
+              <tr><td colspan="6" style="padding:28px;text-align:center;color:#98a2b3">尚未生成内容</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="eq-actions">
+          <button class="eq-button eq-button--primary" id="eq-refresh" type="button">刷新代码</button>
+          <button class="eq-button eq-button--secondary" id="eq-copy-all" type="button">复制全部代码</button>
+          <button class="eq-button eq-button--ghost" id="eq-download" type="button">导出 TXT</button>
+        </div>
+      </section>
+
+      <section class="eq-panel eq-panel--wide" aria-labelledby="eq-output-title">
+        <h2 id="eq-output-title">4. 最终结果</h2>
+        <textarea id="eq-output" class="eq-output" placeholder="最终域代码将在这里显示。"></textarea>
+        <div class="eq-actions">
+          <button class="eq-button eq-button--primary" id="eq-copy-output" type="button">复制最终结果</button>
+        </div>
+        <p class="eq-note">Word 中插入域后，请使用 Ctrl+F9 生成域括号，再粘贴 EQ 代码内容；不要直接手打普通大括号。</p>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.27.0/dist/index.js"></script>
+  <script>
+    (function () {
+      const get = (id) => document.getElementById(id);
+      const source = get('eq-source');
+      const body = get('eq-review-body');
+      const output = get('eq-output');
+      const status = get('eq-status');
+      let rows = [];
+
+      function setStatus(message, ok) {
+        status.textContent = message;
+        status.style.color = ok === false ? '#b42318' : '#067647';
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (character) => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+        })[character]);
+      }
+
+      function getPinyin(character) {
+        try {
+          if (!window.pinyinPro || !window.pinyinPro.pinyin) throw new Error('拼音库未加载');
+          return window.pinyinPro.pinyin(character, {
+            toneType: get('eq-tone-type').value,
+            type: 'string',
+            nonZh: get('eq-non-zh').value === 'keep' ? 'consecutive' : 'removed',
+            v: true
+          });
+        } catch (error) {
+          return '';
+        }
+      }
+
+      function stripToneMarks(syllable) {
+        const marks = {
+          'ā':'a','á':'a','ǎ':'a','à':'a','ē':'e','é':'e','ě':'e','è':'e',
+          'ī':'i','í':'i','ǐ':'i','ì':'i','ō':'o','ó':'o','ǒ':'o','ò':'o',
+          'ū':'u','ú':'u','ǔ':'u','ù':'u','ǖ':'ü','ǘ':'ü','ǚ':'ü','ǜ':'ü',
+          'ń':'n','ň':'n','ǹ':'n','ḿ':'m'
+        };
+        return Array.from(syllable || '').map((character) => marks[character] || character).join('');
+      }
+
+      function applyToneMark(syllable, tone) {
+        const base = stripToneMarks((syllable || '').trim().toLowerCase()).replace(/[0-5]$/, '');
+        if (!base || tone === '0' || tone === '') return base;
+        const toneMaps = {
+          a: ['ā','á','ǎ','à'], e: ['ē','é','ě','è'], i: ['ī','í','ǐ','ì'],
+          o: ['ō','ó','ǒ','ò'], u: ['ū','ú','ǔ','ù'], ü: ['ǖ','ǘ','ǚ','ǜ']
+        };
+        let index = -1;
+        if (base.includes('a')) index = base.indexOf('a');
+        else if (base.includes('e')) index = base.indexOf('e');
+        else if (base.includes('ou')) index = base.indexOf('o');
+        else {
+          for (let cursor = base.length - 1; cursor >= 0; cursor -= 1) {
+            if ('aeiouü'.includes(base[cursor])) { index = cursor; break; }
+          }
+        }
+        if (index < 0) return base;
+        const marked = toneMaps[base[index]] && toneMaps[base[index]][Number(tone) - 1];
+        return marked ? base.slice(0, index) + marked + base.slice(index + 1) : base;
+      }
+
+      function applyTone(syllable, tone) {
+        const type = get('eq-tone-type').value;
+        const base = stripToneMarks((syllable || '').trim()).replace(/[0-5]$/, '');
+        if (type === 'none') return base;
+        if (type === 'num') return tone === '0' ? base : `${base}${tone}`;
+        return applyToneMark(syllable, tone);
+      }
+
+      function makeCode(pinyin) {
+        const down = get('eq-down-value').value || '38';
+        const placeholder = get('eq-placeholder').value || '$';
+        return `EQ \\o(\\l(${pinyin}),\\s\\do${down}(${placeholder}))`;
+      }
+
+      function buildFinalOutput() {
+        return rows.map((row) => makeCode(row.pinyin)).join('\n');
+      }
+
+      function refreshCodes() {
+        body.querySelectorAll('tr[data-id]').forEach((tableRow) => {
+          const row = rows.find((item) => item.id === Number(tableRow.dataset.id));
+          if (row) tableRow.querySelector('.eq-code-cell').textContent = makeCode(row.pinyin);
+        });
+        output.value = buildFinalOutput();
+      }
+
+      function renderRows() {
+        if (!rows.length) {
+          body.innerHTML = '<tr><td colspan="6" style="padding:28px;text-align:center;color:#98a2b3">尚未生成内容</td></tr>';
+          return;
+        }
+        body.innerHTML = rows.map((row, index) => `
+          <tr data-id="${row.id}">
+            <td>${index + 1}</td>
+            <td><input class="eq-cell-input eq-char-edit" aria-label="第 ${index + 1} 个字符" value="${escapeHtml(row.char)}"></td>
+            <td><input class="eq-cell-input eq-pinyin-edit" aria-label="第 ${index + 1} 个字符的拼音" value="${escapeHtml(row.pinyin)}" placeholder="校验或填写拼音"></td>
+            <td>
+              <select class="eq-cell-input eq-tone-edit" aria-label="修改第 ${index + 1} 个字符的声调">
+                <option value="">选择声调</option><option value="1">一声</option><option value="2">二声</option>
+                <option value="3">三声</option><option value="4">四声</option><option value="0">轻声</option>
+              </select>
+            </td>
+            <td><div class="eq-code eq-code-cell">${escapeHtml(makeCode(row.pinyin))}</div></td>
+            <td><button class="eq-button eq-button--danger eq-button--small eq-delete-row" type="button">删除</button></td>
+          </tr>`).join('');
+
+        body.querySelectorAll('tr[data-id]').forEach((tableRow) => {
+          const id = Number(tableRow.dataset.id);
+          tableRow.querySelector('.eq-char-edit').addEventListener('input', (event) => {
+            const row = rows.find((item) => item.id === id);
+            if (row) row.char = event.target.value;
+          });
+          tableRow.querySelector('.eq-pinyin-edit').addEventListener('input', (event) => {
+            const row = rows.find((item) => item.id === id);
+            if (!row) return;
+            row.pinyin = event.target.value;
+            tableRow.querySelector('.eq-code-cell').textContent = makeCode(row.pinyin);
+            output.value = buildFinalOutput();
+          });
+          tableRow.querySelector('.eq-tone-edit').addEventListener('change', (event) => {
+            const row = rows.find((item) => item.id === id);
+            if (!row || event.target.value === '') return;
+            row.pinyin = applyTone(row.pinyin, event.target.value);
+            tableRow.querySelector('.eq-pinyin-edit').value = row.pinyin;
+            tableRow.querySelector('.eq-code-cell').textContent = makeCode(row.pinyin);
+            output.value = buildFinalOutput();
+          });
+          tableRow.querySelector('.eq-delete-row').addEventListener('click', () => {
+            rows = rows.filter((item) => item.id !== id);
+            renderRows();
+            refreshCodes();
+            setStatus(rows.length ? `已保留 ${rows.length} 个单字。` : '内容已全部删除。');
+          });
+        });
+      }
+
+      function generate() {
+        const lines = source.value.split(/\r?\n/).filter((line) => line.trim() !== '');
+        rows = [];
+        let index = 0;
+        lines.forEach((line, lineIndex) => {
+          Array.from(line).forEach((character, characterIndex) => {
+            const isChinese = /[\u3400-\u9fff]/.test(character);
+            if (get('eq-non-zh').value === 'remove' && !isChinese) return;
+            rows.push({
+              id: Date.now() + index,
+              lineIndex,
+              characterIndex,
+              char: character,
+              pinyin: getPinyin(character)
+            });
+            index += 1;
+          });
+        });
+        renderRows();
+        refreshCodes();
+        if (!rows.length) setStatus('请先输入至少一个汉字。', false);
+        else if (rows.some((row) => !row.pinyin)) setStatus(`已拆分为 ${rows.length} 个单字，但自动拼音未成功加载，请联网后重试或手工填写。`, false);
+        else setStatus(`已拆分为 ${rows.length} 个单字，每个汉字对应一个独立 EQ 域代码。`);
+      }
+
+      async function copyText(text) {
+        if (!text) { setStatus('没有可复制的内容。', false); return; }
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (error) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          textarea.remove();
+        }
+        setStatus('已复制到剪贴板。');
+      }
+
+      get('eq-generate').addEventListener('click', generate);
+      get('eq-refresh').addEventListener('click', () => { refreshCodes(); setStatus('代码已刷新。'); });
+      get('eq-copy-all').addEventListener('click', () => copyText(buildFinalOutput()));
+      get('eq-copy-output').addEventListener('click', () => copyText(output.value));
+      get('eq-sample').addEventListener('click', () => { source.value = '是的\n僵硬\n中华人民共和国'; setStatus('已填入示例。'); });
+      get('eq-clear').addEventListener('click', () => { source.value = ''; rows = []; renderRows(); output.value = ''; setStatus('已清空。'); });
+      get('eq-download').addEventListener('click', () => {
+        const text = output.value || buildFinalOutput();
+        if (!text) { setStatus('没有可导出的内容。', false); return; }
+        const blob = new Blob(['\uFEFF' + text], { type: 'text/plain;charset=utf-8' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `EQ单字拼音域代码_${new Date().toISOString().slice(0, 10)}.txt`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+        setStatus('TXT 已导出。');
+      });
+      ['eq-down-value', 'eq-placeholder'].forEach((id) => get(id).addEventListener('input', refreshCodes));
+      get('eq-tone-type').addEventListener('change', () => { if (rows.length) generate(); });
+      get('eq-non-zh').addEventListener('change', () => { if (rows.length) generate(); });
+    }());
+  </script>
+  <script src="../assets/standalone.js?v=20260829b" data-home="../index.html" data-return="../tools.html"></script>
+</body>
+</html>

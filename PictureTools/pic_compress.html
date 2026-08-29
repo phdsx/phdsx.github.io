@@ -45,33 +45,16 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="../assets/standalone.css?v=20260730b">
-  <script defer src="../assets/standalone.js?v=20260730b" data-home="../index.html" data-return="../tools.html" data-return-label="Tools"></script>
+<link rel="stylesheet" href="../assets/standalone.css?v=20260824a">
+<script defer src="../assets/standalone.js?v=20260829b" data-home="../index.html" data-return="../tools.html" data-return-label="Tools"></script>
 </head>
 <body class="font-inter bg-gray-50 min-h-screen flex flex-col">
-  <!-- 导航栏 -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <i class="fa fa-picture-o text-primary text-2xl"></i>
-        <h1 class="text-xl font-bold text-gray-800">照片压缩工具</h1>
-      </div>
-      <nav>
-        <ul class="flex space-x-6">
-          <li><a href="../index.html" class="text-gray-600 hover:text-primary transition-custom">首页</a></li>
-          <li><a href="#" class="text-gray-600 hover:text-primary transition-custom">使用指南</a></li>
-          <li><a href="#" class="text-gray-600 hover:text-primary transition-custom">关于我们</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
   <!-- 主内容区 -->
   <main class="flex-grow container mx-auto px-4 py-8">
     <div class="max-w-5xl mx-auto">
       <!-- 工具介绍 -->
       <section class="mb-10 text-center">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">高效压缩你的照片</h2>
+        <h1 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-gray-800 mb-4">高效压缩你的照片</h1>
         <p class="text-gray-600 max-w-3xl mx-auto text-lg">无需安装任何软件，在浏览器中即可轻松压缩照片，保持良好画质的同时大幅减小文件大小。</p>
       </section>
 
@@ -98,7 +81,7 @@
             <div id="original-image-info" class="hidden">
               <div class="flex items-center space-x-3 mb-4">
                 <div class="w-12 h-12 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
-                  <img id="thumbnail" src="" alt="图片缩略图" class="w-full h-full object-cover">
+                  <img id="thumbnail" alt="图片缩略图" class="w-full h-full object-cover">
                 </div>
                 <div>
                   <h4 class="font-medium text-gray-800" id="original-filename">文件名.jpg</h4>
@@ -200,8 +183,8 @@
                   </div>
                 </div>
                 <div class="flex-grow flex items-center justify-center p-4">
-                  <div id="preview-container" class="max-w-full max-h-[400px] overflow-auto">
-                    <img id="preview-image" src="" alt="图片预览" class="max-w-full max-h-[400px] object-contain">
+                  <div id="preview-container" class="hidden max-w-full max-h-[400px] overflow-auto">
+                    <img id="preview-image" alt="图片预览" class="max-w-full max-h-[400px] object-contain">
                   </div>
                 </div>
                 <div id="preview-placeholder" class="flex-grow flex flex-col items-center justify-center p-8 text-center">
@@ -291,56 +274,6 @@
       </section>
     </div>
   </main>
-
-  <!-- 页脚 -->
-  <footer class="bg-gray-800 text-white py-8">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <div class="flex items-center space-x-2 mb-4">
-            <i class="fa fa-picture-o text-primary text-2xl"></i>
-            <h3 class="text-xl font-bold">照片压缩工具</h3>
-          </div>
-          <p class="text-gray-400">快速、高效地压缩您的照片，节省存储空间和上传时间。</p>
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-instagram"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white transition-custom"><i class="fa fa-github"></i></a>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4">快速链接</h4>
-          <ul class="space-y-2">
-            <li><a href="../index.html" class="text-gray-400 hover:text-white transition-custom">首页</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-custom">使用指南</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-custom">常见问题</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-custom">关于我们</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4">联系我们</h4>
-          <ul class="space-y-2">
-            <li class="flex items-center text-gray-400">
-              <i class="fa fa-envelope-o mr-2"></i>
-              <a href="mailto:support@photocompresor.com" class="hover:text-white transition-custom">666@666.com</a>
-            </li>
-            <li class="flex items-center text-gray-400">
-              <i class="fa fa-phone mr-2"></i>
-              <span>6666666666</span>
-            </li>
-            <li class="flex items-center text-gray-400">
-              <i class="fa fa-map-marker mr-2"></i>
-              <span>北京市略略略</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-        <p>&copy; 2025 照片压缩工具 版权所有</p>
-      </div>
-    </div>
-  </footer>
 
   <script>
     // 全局变量

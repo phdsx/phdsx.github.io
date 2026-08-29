@@ -79,5 +79,9 @@
     }
   });
 
-  localStorage.setItem(`phdsx-novel-progress-${novelId}`, String(chapterIndex + 1));
+  try {
+    localStorage.setItem(`phdsx-novel-progress-${novelId}`, String(chapterIndex + 1));
+  } catch (error) {
+    // Reading remains available when storage is blocked by a privacy setting.
+  }
 }());

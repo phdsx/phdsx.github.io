@@ -1,28 +1,7 @@
-window.PHDSX_SEARCH_INDEX = [
-  { label: '二维码生成', href: 'Tools/qr-generator.html', type: '工具', keywords: '二维码 QR Code 文字 网址 文件 本地生成' },
-  { label: 'PPT 放映悬浮倒计时', href: 'Tools/ppt-countdown.html', type: '工具', keywords: 'PPT 演示 放映 悬浮 倒计时 时间' },
-  { label: '下班倒计时', href: 'ChouXiangTool/下班倒计时.html', type: '工具', keywords: '下班 工作 时间 倒计时' },
-  { label: '倒计时', href: 'ChouXiangTool/倒计时.html', type: '工具', keywords: '考试 纪念日 时间 日期 倒计时' },
-  { label: '吃啥饭', href: 'ChouXiangTool/吃啥饭.html', type: '工具', keywords: '吃饭 菜单 随机 选择 生活' },
-  { label: '父母性别计算器', href: 'ChouXiangTool/父母性别计算器.html', type: '工具', keywords: '父母 性别 计算器 趣味' },
-  { label: '雷劈计算器', href: 'ChouXiangTool/雷劈计算器.html', type: '工具', keywords: '雷 雷劈 计算器 趣味 娱乐' },
-  { label: '图片压缩', href: 'PictureTools/pic_compress.html', type: '工具', keywords: '图片 照片 压缩 体积' },
-  { label: '图片裁剪', href: 'PictureTools/pic_cut.html', type: '工具', keywords: '图片 照片 裁剪 比例' },
-  { label: '图片缩放', href: 'PictureTools/pic_scale_change.html', type: '工具', keywords: '图片 照片 缩放 尺寸 比例' },
-  { label: '图片水印', href: 'PictureTools/pic_watermark.html', type: '工具', keywords: '图片 照片 水印 桌面' },
-  { label: '移动端水印', href: 'PictureTools/pic_watermark_mob.html', type: '工具', keywords: '图片 照片 水印 手机 移动端' },
-  { label: '大小写转换', href: 'TextTool/case-converter.html', type: '工具', keywords: '英文 字母 大写 小写 文本 转换' },
-  { label: '文本去重', href: 'TextTool/TextDropDup.html', type: '工具', keywords: '文字 文本 去重 重复行 清理' },
-  { label: '字数统计', href: 'TextTool/WordCount.html', type: '工具', keywords: '文字 文本 字数 字符 段落 统计' },
-  { label: '文本美化', href: 'TextTool/WordPretty.html', type: '工具', keywords: '文字 文本 美化 排版 格式' },
-  { label: 'VIP 视频解析', href: 'JS/vipvideo.html', type: '工具', keywords: 'VIP 视频 媒体 解析 播放' },
-  { label: '中国象棋', href: 'ChineseChess.html', type: '游戏', keywords: '中国 象棋 棋牌游戏 双人' },
-  { label: '俄罗斯方块', href: 'Games/tetris.html', type: '游戏', keywords: '俄罗斯 方块 消除 经典' },
-  { label: '水果忍者', href: 'Games/dinnerninja/index.html', type: '游戏', keywords: '水果 忍者 切水果 休闲' },
-  { label: '潜艇大战', href: 'Games/submarine-battle.html', type: '游戏', keywords: '潜艇 大战 深海 射击' },
-  { label: '零号回声', href: 'novels.html', type: '小说', keywords: '小说 连载 零号回声 科幻 悬疑 阅读' },
-  { label: 'Python 教程笔记', href: 'blog-post.html?src=Python%2FPython_tutorail.md&title=Python%20%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22', type: '博客', keywords: 'Python 教程 学习 笔记' },
-  { label: 'Python 输出笔记', href: 'blog-post.html?src=Python%2FPython_output.md&title=Python%20%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0&topic=Python&date=2020-05-22', type: '博客', keywords: 'Python 输出 学习 笔记' },
-  { label: '站点更新记录', href: 'blog-post.html?src=index.md&title=%E7%AB%99%E7%82%B9%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95&topic=%E7%AB%99%E7%82%B9&date=2020-05-22', type: '博客', keywords: '站点 网站 更新 记录' },
-  { label: '常用电话黄页', href: 'directory.html', type: '黄页', keywords: '电话 黄页 联系方式 中国移动 客服' }
-];
+(function loadCanonicalCatalog() {
+  if (Array.isArray(window.PHDSX_SEARCH_INDEX)) return;
+  const current = document.currentScript;
+  const script = document.createElement('script');
+  script.src = new URL('catalog.js', current && current.src ? current.src : location.href).href;
+  document.head.appendChild(script);
+}());

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xf5uw8ow0b");
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="AI 雷达聚合 CodexRadar 模型能力评分、Codex Reset 预测与雷达动态，以及 Will Codex Reset 的未来 48 小时预测。">
+  <title>AI 雷达 - PHDSX</title>
+  <link rel="stylesheet" href="assets/site.css?v=20260829b">
+  <link rel="stylesheet" href="assets/ai-radar.css?v=20260829b">
+</head>
+<body>
+  <header class="site-header"></header>
+  <main>
+    <section class="section ai-radar-section">
+      <header class="ai-radar-hero">
+        <div>
+          <p class="ai-radar-kicker">LIVE SIGNAL DESK</p>
+          <h1>AI 雷达</h1>
+          <p>集中查看模型能力评分与 Codex 重置预测。打开页面时自动拉取最新数据，也可随时手动刷新。</p>
+        </div>
+        <div class="ai-radar-hero-actions">
+          <button class="button primary ai-refresh-all" type="button" data-ai-refresh-all><span aria-hidden="true">↻</span>刷新全部</button>
+          <p data-ai-refresh-status role="status" aria-live="polite">准备读取三个来源…</p>
+        </div>
+      </header>
+
+      <div class="ai-radar-note" role="note">
+        <strong>独立数据聚合</strong>
+        <span>本站仅展示来源站公开数据，不代表 OpenAI 官方结论。预测值具有不确定性，请点击来源链接查看完整说明。</span>
+      </div>
+
+      <article class="ai-source ai-source--scores" data-ai-source="codexradar">
+        <header class="ai-source-head">
+          <div class="ai-source-identity"><span class="ai-source-mark">CR</span><div><p>MODEL CAPABILITY</p><h2>模型能力评分</h2></div></div>
+          <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codexradar">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codexradar" aria-label="刷新 CodexRadar 数据">↻</button><a href="https://codexradar.com/" target="_blank" rel="noopener noreferrer">前往 CodexRadar ↗</a></div>
+        </header>
+        <p class="ai-source-description">综合智能为同一模型档位的软件工程与视觉推理 IQ 等权平均值；分数与原站同步，不代表绝对能力。</p>
+        <div class="ai-score-highlights" aria-label="能力评分领先项">
+          <div><span>综合智能最高</span><strong data-ai-best="combined">--</strong><small data-ai-best-label="combined">等待数据</small></div>
+          <div><span>软件工程最高</span><strong data-ai-best="software">--</strong><small data-ai-best-label="software">等待数据</small></div>
+          <div><span>视觉推理最高</span><strong data-ai-best="visual">--</strong><small data-ai-best-label="visual">等待数据</small></div>
+        </div>
+        <div class="ai-score-tools">
+          <label class="sr-only" for="ai-score-search">搜索模型或推理档位</label>
+          <input class="search-input" id="ai-score-search" data-ai-score-search type="search" placeholder="搜索模型或档位，例如 Sol / xhigh" autocomplete="off">
+          <span data-ai-score-count aria-live="polite">等待评分数据</span>
+        </div>
+        <div class="ai-score-table-wrap">
+          <table class="ai-score-table">
+            <thead><tr><th scope="col">排名</th><th scope="col">模型 / 档位</th><th scope="col">综合智能</th><th scope="col">软件工程能力</th><th scope="col">视觉推理能力</th></tr></thead>
+            <tbody data-ai-score-list><tr><td colspan="5" class="ai-loading-cell">正在合并两个能力维度…</td></tr></tbody>
+          </table>
+        </div>
+        <footer class="ai-source-foot"><span>数据更新时间：<time data-ai-source-time="codexradar">--</time></span><span>视觉数据经只读镜像获取</span></footer>
+      </article>
+
+      <div class="ai-reset-grid">
+        <article class="ai-source ai-source--reset" data-ai-source="codex-reset">
+          <header class="ai-source-head">
+            <div class="ai-source-identity"><span class="ai-source-mark">CRS</span><div><p>RESET FORECAST</p><h2>Codex Reset 预测</h2></div></div>
+            <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codex-reset">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codex-reset" aria-label="刷新 Codex Reset 数据">↻</button><a href="https://codex-reset.com/zh/" target="_blank" rel="noopener noreferrer">打开来源 ↗</a></div>
+          </header>
+          <div class="ai-probability-row">
+            <div class="ai-probability" data-ai-probability-card="codex-24" style="--probability:0"><span>24 小时内</span><strong data-ai-probability="codex-24">--%</strong></div>
+            <div class="ai-probability" data-ai-probability-card="codex-48" style="--probability:0"><span>48 小时内</span><strong data-ai-probability="codex-48">--%</strong></div>
+            <dl class="ai-reset-facts"><div><dt>模型置信度</dt><dd data-ai-codex-confidence>--</dd></div><div><dt>距上次重置</dt><dd data-ai-codex-age>--</dd></div><div><dt>历史高发时段</dt><dd data-ai-codex-window>--</dd></div></dl>
+          </div>
+          <section class="ai-radar-feed"><div class="ai-subhead"><h3>预测依据</h3><span>Forecast evidence</span></div><ul data-ai-codex-evidence><li class="ai-feed-empty">正在读取预测依据…</li></ul></section>
+          <section class="ai-radar-feed"><div class="ai-subhead"><h3>雷达动态</h3><span>Tibo radar</span></div><div class="ai-signal-list" data-ai-codex-feed><p class="ai-feed-empty">正在读取雷达内容…</p></div></section>
+          <footer class="ai-source-foot"><span>来源更新时间：<time data-ai-source-time="codex-reset">--</time></span><a href="https://codex-reset.com/zh/radar" target="_blank" rel="noopener noreferrer">查看完整雷达 ↗</a></footer>
+        </article>
+
+        <article class="ai-source ai-source--will" data-ai-source="will-reset">
+          <header class="ai-source-head">
+            <div class="ai-source-identity"><span class="ai-source-mark">WCR</span><div><p>FORECAST PULSE</p><h2>Will Codex Reset</h2></div></div>
+            <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="will-reset">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="will-reset" aria-label="刷新 Will Codex Reset 数据">↻</button><a href="https://willcodexreset.com/" target="_blank" rel="noopener noreferrer">打开来源 ↗</a></div>
+          </header>
+          <section class="ai-next-48">
+            <div><p>Next 48 hours</p><strong data-ai-will-48>--%</strong><span data-ai-will-verdict>正在读取预测信号</span></div>
+            <div class="ai-next-24"><span>24 小时内</span><strong data-ai-will-24>--%</strong></div>
+          </section>
+          <section class="ai-radar-feed ai-pulse-feed"><div class="ai-subhead"><h3>Forecast pulse</h3><span>事件与信号记录</span></div><div class="ai-signal-list" data-ai-will-pulse><p class="ai-feed-empty">正在读取信号记录…</p></div></section>
+          <footer class="ai-source-foot"><span>来源更新时间：<time data-ai-source-time="will-reset">--</time></span><span>数据经只读镜像获取</span></footer>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>PHDSX 个人主页</span><span>AI 雷达 · 自动读取公开来源</span></footer>
+  <script src="assets/site.js?v=20260829b"></script>
+  <script src="assets/ai-radar.js?v=20260829b"></script>
+</body>
+</html>
