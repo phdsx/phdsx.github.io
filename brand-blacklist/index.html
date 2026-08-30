@@ -10,41 +10,50 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f172a">
-  <meta name="description" content="品牌黑名单记录，支持按品牌名称模糊搜索，以及按品牌类别和所属国家筛选。">
+  <meta name="theme-color" content="#1b1d23">
+  <meta name="description" content="品牌黑名单资料库，支持按名称、品牌分类、原因分类和所属国家检索记录。">
   <title>品牌黑名单 - PHDSX</title>
   <link rel="stylesheet" href="../assets/site.css?v=20260829a">
-  <link rel="stylesheet" href="../assets/collections.css?v=20260829a">
+  <link rel="stylesheet" href="../assets/collections.css?v=20260830c">
 </head>
 <body>
   <header class="site-header"></header>
   <main>
-    <section class="section">
-      <div class="collection-hero">
-        <div><p class="collection-kicker">BRAND RECORDS</p><h1>品牌黑名单</h1><p>按品牌名称、分类与所属国家查找记录，并进入详情页查看完整入黑事件和时间线。</p></div>
-        <div class="collection-stat"><strong data-blacklist-total>1</strong><span>收录记录</span></div>
+    <section class="section blacklist-section">
+      <header class="blacklist-hero">
+        <div class="blacklist-hero-copy"><p class="blacklist-kicker">BRAND ACCOUNTABILITY ARCHIVE</p><h1>品牌黑名单</h1><p>以品牌、类别、地区和入黑原因为索引的事件档案。选择任一记录，查看事件经过、时间线、图片与来源。</p></div>
+        <div class="blacklist-hero-mark" aria-hidden="true"><span>BLACK</span><strong>LIST</strong><small>LOCAL JSON ARCHIVE</small></div>
+      </header>
+
+      <div class="blacklist-metrics" aria-label="黑名单数据概览">
+        <article><span>收录记录</span><strong data-blacklist-total>—</strong><small>BRANDS</small></article>
+        <article><span>品牌分类</span><strong data-blacklist-category-total>—</strong><small>CATEGORIES</small></article>
+        <article><span>涉及国家或地区</span><strong data-blacklist-country-total>—</strong><small>REGIONS</small></article>
+        <article><span>数据库更新</span><strong class="blacklist-date-metric" data-blacklist-updated>—</strong><small>UPDATED</small></article>
       </div>
-      <div class="blacklist-notice"><strong>信息说明</strong><span>记录按品牌分类、国家和原因类别整理；事件来源链接可在后续核实后补充。</span></div>
-      <div class="blacklist-filters" role="search" aria-label="筛选品牌黑名单">
-        <div class="blacklist-filter"><label for="blacklist-name">品牌名称</label><input class="search-input" id="blacklist-name" data-blacklist-name type="search" placeholder="支持名称模糊搜索" autocomplete="off"></div>
-        <div class="blacklist-filter"><label for="blacklist-category">一级分类</label><select class="select-input" id="blacklist-category" data-blacklist-category><option value="">全部一级分类</option></select></div>
-        <div class="blacklist-filter"><label for="blacklist-subcategory">二级分类</label><select class="select-input" id="blacklist-subcategory" data-blacklist-subcategory disabled><option value="">全部二级分类</option></select></div>
-        <div class="blacklist-filter"><label for="blacklist-country">所属国家</label><select class="select-input" id="blacklist-country" data-blacklist-country><option value="">全部国家</option></select></div>
-        <button class="button secondary blacklist-filter-reset" type="button" data-blacklist-reset>重置筛选</button>
+
+      <div class="blacklist-notice"><strong>阅读说明</strong><span>记录用于归档相关事件及处理进展；请结合详情页中的事件描述与来源自行判断。演示记录会被明确标注。</span></div>
+
+      <div class="blacklist-filter-panel" role="search" aria-label="筛选品牌黑名单">
+        <div class="blacklist-filter-panel-head"><div><span>FILTER / SEARCH</span><strong>检索档案</strong></div><button class="blacklist-reset" type="button" data-blacklist-reset>清除全部条件</button></div>
+        <div class="blacklist-filters">
+          <div class="blacklist-filter blacklist-filter-wide"><label for="blacklist-name">品牌或事件关键词</label><input class="search-input" id="blacklist-name" data-blacklist-name type="search" placeholder="输入名称、别名或事件标题" autocomplete="off"></div>
+          <div class="blacklist-filter"><label for="blacklist-category">品牌一级分类</label><select class="select-input" id="blacklist-category" data-blacklist-category><option value="">全部品牌分类</option></select></div>
+          <div class="blacklist-filter"><label for="blacklist-subcategory">品牌二级分类</label><select class="select-input" id="blacklist-subcategory" data-blacklist-subcategory disabled><option value="">全部二级分类</option></select></div>
+          <div class="blacklist-filter"><label for="blacklist-reason">入黑原因</label><select class="select-input" id="blacklist-reason" data-blacklist-reason><option value="">全部原因分类</option></select></div>
+          <div class="blacklist-filter"><label for="blacklist-country">所属国家或地区</label><select class="select-input" id="blacklist-country" data-blacklist-country><option value="">全部国家或地区</option></select></div>
+          <div class="blacklist-filter"><label for="blacklist-sort">排序</label><select class="select-input" id="blacklist-sort" data-blacklist-sort><option value="latest">最新入黑优先</option><option value="name">品牌名称</option></select></div>
+        </div>
       </div>
-      <div class="blacklist-results-meta"><span data-blacklist-count aria-live="polite">共 0 条记录</span><span>点击记录查看详细事件</span></div>
-      <div class="blacklist-table-wrap">
-        <table class="blacklist-table">
-          <thead><tr><th scope="col">品牌名称</th><th scope="col">入黑时间</th><th scope="col">品牌分类</th><th scope="col">所属国家</th><th scope="col">入黑原因类别</th><th scope="col"><span class="sr-only">操作</span></th></tr></thead>
-          <tbody data-blacklist-list></tbody>
-        </table>
-      </div>
+
+      <div class="blacklist-results-meta"><span data-blacklist-count aria-live="polite">正在读取数据库…</span><span>选择记录查看完整档案</span></div>
+      <div class="blacklist-record-list" data-blacklist-list aria-busy="true"></div>
       <p class="blacklist-empty" data-blacklist-empty hidden>没有找到符合当前条件的品牌记录。</p>
+      <p class="blacklist-load-error" data-blacklist-error hidden>数据库暂时无法读取，请稍后刷新页面。</p>
     </section>
   </main>
   <footer class="site-footer"><span>PHDSX 个人主页</span><span>品牌记录 · 事实核验 · 持续更新</span></footer>
-  <script src="../assets/brand-blacklist-data.js?v=20260830a"></script>
   <script src="../assets/site.js?v=20260829b"></script>
-  <script src="../assets/brand-blacklist.js?v=20260830a"></script>
+  <script src="../assets/brand-blacklist.js?v=20260830b"></script>
 </body>
 </html>

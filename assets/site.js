@@ -92,7 +92,7 @@ function initSiteNavigation() {
   const current = location.pathname.split('/').pop() || 'index.html';
   const detailSections = { 'blog-post.html': 'blog.html', 'reader.html': 'index.html', 'detail.html': 'index.html' };
   const currentPath = decodeURIComponent(location.pathname).replace(/\\/g, '/');
-  const isGamePage = currentPage === 'games.html' || /\/games\//i.test(currentPath);
+  const isGamePage = current === 'games.html' || /\/games\//i.test(currentPath);
   document.querySelectorAll('.site-nav .nav-link').forEach((link) => {
     const label = link.querySelector(':scope > span:last-child')?.textContent.trim() || link.textContent.trim();
     if (label) {
@@ -136,6 +136,90 @@ function initCardSearch(inputSelector, cardSelector) {
   };
   input.addEventListener('input', apply);
   apply();
+}
+function initToolTabs() {
+  const container = document.querySelector('[data-tool-tabs]');
+  if (!container) return;
+  const tabs = [...container.querySelectorAll('[data-tool-tab]')];
+  const panels = [...container.querySelectorAll('[data-tool-panel]')];
+  const status = container.querySelector('[data-tool-tab-status]');
+  const itemName = container.dataset.catalogItemName || '工具';
+  if (!tabs.length || !panels.length) return;
+
+  const activate = (tab) => {
+    const category = tab.dataset.toolTab;
+    tabs.forEach((item) => {
+      const active = item === tab;
+      item.setAttribute('aria-selected', String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.toolPanel !== category;
+    });
+    const panel = panels.find((item) => item.dataset.toolPanel === category);
+    const heading = panel?.querySelector('h2')?.textContent.trim() || '当前';
+    const count = panel?.querySelectorAll('.link-card').length || 0;
+    if (status) status.textContent = `正在显示${heading}分类，共 ${count} ${itemName === '游戏' ? '款' : '项'}${itemName}。`;
+  };
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activate(tab));
+    tab.addEventListener('keydown', (event) => {
+      let nextIndex = index;
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+      else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      tabs[nextIndex].focus();
+      activate(tabs[nextIndex]);
+    });
+  });
+
+  activate(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]);
+}
+function initToolSubtabs() {
+  document.querySelectorAll('[data-tool-subtabs]').forEach((container) => {
+    const tabs = [...container.querySelectorAll('[data-tool-subtab]')];
+    const panels = [...container.querySelectorAll('[data-tool-subpanel]')];
+    const status = container.querySelector('[data-tool-subtab-status]');
+    const itemName = container.dataset.catalogItemName || '工具';
+    if (!tabs.length || !panels.length) return;
+
+    const activate = (tab) => {
+      const subcategory = tab.dataset.toolSubtab;
+      tabs.forEach((item) => {
+        const active = item === tab;
+        item.setAttribute('aria-selected', String(active));
+        item.tabIndex = active ? 0 : -1;
+      });
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.toolSubpanel !== subcategory;
+      });
+      const panel = panels.find((item) => item.dataset.toolSubpanel === subcategory);
+      const label = tab.querySelector(':scope > span:first-child')?.textContent.trim() || '当前';
+      const count = panel?.querySelectorAll('.link-card').length || 0;
+      if (status) status.textContent = `正在显示${label}子分类，共 ${count} ${itemName === '游戏' ? '款' : '项'}${itemName}。`;
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activate(tab));
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex = index;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        tabs[nextIndex].focus();
+        activate(tabs[nextIndex]);
+      });
+    });
+
+    activate(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]);
+  });
 }
 function initHomeWorkspace() {
   const input = document.querySelector('[data-home-search]');
@@ -403,6 +487,8 @@ initSiteNavigation();
 initHomeWorkspace();
 initHomeStats();
 initCardSearch('[data-tool-search]', '[data-keywords]');
+initToolTabs();
+initToolSubtabs();
 initBlogFilters();
 initNovelProgress();
 initLicenseLinks();

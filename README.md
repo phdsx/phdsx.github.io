@@ -59,10 +59,10 @@
 ```text
 ├─ *.html       稳定的公开页面入口
 ├─ novels/      小说目录与阅读器
-├─ brand-blacklist/ 黑名单列表与详情页
-├─ content/     按内容类型和主题分级保存的源内容与集合数据
-├─ assets/      页面直接加载的样式、脚本、图片和生成数据
-├─ scripts/     新建记录、内容校验与生成脚本
+├─ brand-blacklist/ 黑名单页面、JSON 数据库与本地图片
+├─ content/     按内容类型和主题分级保存的文章源内容
+├─ assets/      页面直接加载的样式、脚本和站点图片
+├─ scripts/     本地管理工具与站点校验脚本
 ├─ games/
 │  ├─ board/    棋盘游戏
 │  ├─ arcade/   街机游戏
@@ -79,7 +79,7 @@
    └─ media/    媒体工具
 ```
 
-详细的内容分类规则见 [`content/README.md`](content/README.md)。品牌黑名单的新增方法和模板见 [`content/collections/brand-blacklist/README.md`](content/collections/brand-blacklist/README.md)。
+详细的内容分类规则见 [`content/README.md`](content/README.md)。品牌黑名单的数据结构、本地管理和图片归档规则见 [`brand-blacklist/README.md`](brand-blacklist/README.md)。
 
 
 ## AI 雷达数据说明

@@ -11,32 +11,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="按一级分类与二级标签浏览和切换 PHDSX 网页游戏。">
   <title>游戏 - PHDSX</title>
-  <link rel="stylesheet" href="assets/site.css?v=20260824a">
+  <link rel="stylesheet" href="assets/site.css?v=20260830c">
 </head>
 <body>
   <header class="site-header"></header>
   <main>
-    <section class="section"><div class="section-head"><div><h1>游戏</h1><p class="section-lede">按棋盘、街机和益智类型收纳，打开即玩。</p></div></div>
-      <section class="catalog-group"><h2>棋盘</h2><div class="card-grid">
-        <article class="link-card"><img class="card-media" src="assets/icons/game-chess.webp" alt=""><div><span class="tag">棋盘游戏</span><h3>中国象棋</h3><p>双人本地对弈，支持基础走法与吃子。</p></div><a class="card-action" href="games/board/chinese-chess.html">开始</a></article>
-      </div></section>
-      <section class="catalog-group"><h2>街机</h2><div class="card-grid">
-        <article class="link-card"><img class="card-media" src="assets/icons/game-tetris.webp" alt=""><div><span class="tag">街机游戏</span><h3>俄罗斯方块</h3><p>经典方块消除，响应式 Canvas 小游戏。</p></div><a class="card-action" href="games/arcade/tetris.html">开始</a></article>
-        <article class="link-card"><img class="card-media" src="assets/icons/game-submarine.webp" alt=""><div><span class="tag">街机游戏</span><h3>潜艇大战</h3><p>深海题材 Canvas 射击小游戏。</p></div><a class="card-action" href="games/arcade/submarine-battle/index.html">开始</a></article>
-        <article class="link-card"><img class="card-media" src="assets/icons/game-fruit.webp" alt=""><div><span class="tag">街机游戏</span><h3>水果忍者</h3><p>切水果休闲小游戏。</p></div><a class="card-action" href="games/arcade/fruit-ninja/index.html">开始</a></article>
-      </div></section>
-      <section class="catalog-group"><h2>益智</h2><div class="card-grid">
-        <article class="link-card"><img class="card-media card-media--contain" src="games/puzzle/parking-pulse/assets/parking-pulse-bus.png" alt=""><div><span class="tag">益智游戏</span><h3>Parking Pulse</h3><p>按箭头挪车，让同色乘客上车，挑战有限接客位。</p></div><a class="card-action" href="games/puzzle/parking-pulse/index.html">开始</a></article>
-        <article class="link-card"><img class="card-media" src="games/puzzle/sand-sort/assets/game-cover.png" alt="彩色沙子在玻璃瓶之间倾倒"><div><span class="tag">益智游戏</span><h3>沙子分类</h3><p>把同色沙粒整理进同一个瓶子，所有辅助功能免费使用。</p></div><a class="card-action" href="games/puzzle/sand-sort/index.html">开始</a></article>
-      </div></section>
+    <section class="section tool-tabs-page">
+      <div class="section-head">
+        <div><h1>游戏</h1><p class="section-lede">先选择一级分类，再通过二级标签切换具体游戏类型。</p></div>
+        <span class="catalog-total">3 个一级分类 · 6 个二级分类 · 6 款游戏</span>
+      </div>
+
+      <div class="tool-tabs" data-tool-tabs data-catalog-item-name="游戏">
+        <div class="tool-tab-list" role="tablist" aria-label="游戏分类">
+          <button class="tool-tab" id="game-tab-board" type="button" role="tab" aria-selected="true" aria-controls="game-panel-board" data-tool-tab="board">棋类<span class="tool-tab-count">1</span></button>
+          <button class="tool-tab" id="game-tab-action" type="button" role="tab" aria-selected="false" aria-controls="game-panel-action" data-tool-tab="action" tabindex="-1">动作<span class="tool-tab-count">2</span></button>
+          <button class="tool-tab" id="game-tab-puzzle" type="button" role="tab" aria-selected="false" aria-controls="game-panel-puzzle" data-tool-tab="puzzle" tabindex="-1">益智<span class="tool-tab-count">3</span></button>
+        </div>
+        <span class="sr-only" data-tool-tab-status aria-live="polite">正在显示棋类分类，共 1 款游戏。</span>
+
+        <section class="tool-tab-panel" id="game-panel-board" role="tabpanel" aria-labelledby="game-tab-board" data-tool-panel="board">
+          <div class="tool-tab-panel-head"><div><h2>棋类</h2><p>遵循明确规则、强调布局与对弈策略的游戏。</p></div><span>1 款</span></div>
+          <div class="tool-subtabs" data-tool-subtabs data-catalog-item-name="游戏">
+            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="棋类二级分类">
+              <button class="tool-subtab" id="game-subtab-board-traditional" type="button" role="tab" aria-selected="true" aria-controls="game-subpanel-board-traditional" data-tool-subtab="board-traditional"><span>传统棋类</span><span class="tool-subtab-count">1</span></button>
+            </div></div>
+            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示传统棋类子分类，共 1 款游戏。</span>
+            <section class="tool-subtab-panel" id="game-subpanel-board-traditional" role="tabpanel" aria-labelledby="game-subtab-board-traditional" data-tool-subpanel="board-traditional">
+              <div class="card-grid"><article class="link-card"><img class="card-media" src="assets/icons/game-chess.webp" alt=""><div><span class="tag">传统棋类</span><h3>中国象棋</h3><p>双人本地对弈，支持基础走法与吃子。</p></div><a class="card-action" href="games/board/chinese-chess.html">开始</a></article></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="tool-tab-panel" id="game-panel-action" role="tabpanel" aria-labelledby="game-tab-action" data-tool-panel="action" hidden>
+          <div class="tool-tab-panel-head"><div><h2>动作</h2><p>考验瞄准、反应速度和即时操作的游戏。</p></div><span>2 款</span></div>
+          <div class="tool-subtabs" data-tool-subtabs data-catalog-item-name="游戏">
+            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="动作二级分类">
+              <button class="tool-subtab" id="game-subtab-action-shooting" type="button" role="tab" aria-selected="true" aria-controls="game-subpanel-action-shooting" data-tool-subtab="action-shooting"><span>射击挑战</span><span class="tool-subtab-count">1</span></button>
+              <button class="tool-subtab" id="game-subtab-action-reflex" type="button" role="tab" aria-selected="false" aria-controls="game-subpanel-action-reflex" data-tool-subtab="action-reflex" tabindex="-1"><span>反应挑战</span><span class="tool-subtab-count">1</span></button>
+            </div></div>
+            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示射击挑战子分类，共 1 款游戏。</span>
+            <section class="tool-subtab-panel" id="game-subpanel-action-shooting" role="tabpanel" aria-labelledby="game-subtab-action-shooting" data-tool-subpanel="action-shooting">
+              <div class="card-grid"><article class="link-card"><img class="card-media" src="assets/icons/game-submarine.webp" alt=""><div><span class="tag">射击挑战</span><h3>潜艇大战</h3><p>深海题材 Canvas 射击小游戏。</p></div><a class="card-action" href="games/arcade/submarine-battle/index.html">开始</a></article></div>
+            </section>
+            <section class="tool-subtab-panel" id="game-subpanel-action-reflex" role="tabpanel" aria-labelledby="game-subtab-action-reflex" data-tool-subpanel="action-reflex" hidden>
+              <div class="card-grid"><article class="link-card"><img class="card-media" src="assets/icons/game-fruit.webp" alt=""><div><span class="tag">反应挑战</span><h3>水果忍者</h3><p>切水果休闲小游戏。</p></div><a class="card-action" href="games/arcade/fruit-ninja/index.html">开始</a></article></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="tool-tab-panel" id="game-panel-puzzle" role="tabpanel" aria-labelledby="game-tab-puzzle" data-tool-panel="puzzle" hidden>
+          <div class="tool-tab-panel-head"><div><h2>益智</h2><p>通过观察、规划、消除和分类逐步完成关卡。</p></div><span>3 款</span></div>
+          <div class="tool-subtabs" data-tool-subtabs data-catalog-item-name="游戏">
+            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="益智二级分类">
+              <button class="tool-subtab" id="game-subtab-puzzle-block" type="button" role="tab" aria-selected="true" aria-controls="game-subpanel-puzzle-block" data-tool-subtab="puzzle-block"><span>方块消除</span><span class="tool-subtab-count">1</span></button>
+              <button class="tool-subtab" id="game-subtab-puzzle-traffic" type="button" role="tab" aria-selected="false" aria-controls="game-subpanel-puzzle-traffic" data-tool-subtab="puzzle-traffic" tabindex="-1"><span>交通规划</span><span class="tool-subtab-count">1</span></button>
+              <button class="tool-subtab" id="game-subtab-puzzle-sort" type="button" role="tab" aria-selected="false" aria-controls="game-subpanel-puzzle-sort" data-tool-subtab="puzzle-sort" tabindex="-1"><span>分类整理</span><span class="tool-subtab-count">1</span></button>
+            </div></div>
+            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示方块消除子分类，共 1 款游戏。</span>
+            <section class="tool-subtab-panel" id="game-subpanel-puzzle-block" role="tabpanel" aria-labelledby="game-subtab-puzzle-block" data-tool-subpanel="puzzle-block">
+              <div class="card-grid"><article class="link-card"><img class="card-media" src="assets/icons/game-tetris.webp" alt=""><div><span class="tag">方块消除</span><h3>俄罗斯方块</h3><p>经典方块消除，响应式 Canvas 小游戏。</p></div><a class="card-action" href="games/arcade/tetris.html">开始</a></article></div>
+            </section>
+            <section class="tool-subtab-panel" id="game-subpanel-puzzle-traffic" role="tabpanel" aria-labelledby="game-subtab-puzzle-traffic" data-tool-subpanel="puzzle-traffic" hidden>
+              <div class="card-grid"><article class="link-card"><img class="card-media card-media--contain" src="games/puzzle/parking-pulse/assets/parking-pulse-bus.png" alt=""><div><span class="tag">交通规划</span><h3>Parking Pulse</h3><p>按箭头挪车，让同色乘客上车，挑战有限接客位。</p></div><a class="card-action" href="games/puzzle/parking-pulse/index.html">开始</a></article></div>
+            </section>
+            <section class="tool-subtab-panel" id="game-subpanel-puzzle-sort" role="tabpanel" aria-labelledby="game-subtab-puzzle-sort" data-tool-subpanel="puzzle-sort" hidden>
+              <div class="card-grid"><article class="link-card"><img class="card-media" src="games/puzzle/sand-sort/assets/game-cover.png" alt="彩色沙子在玻璃瓶之间倾倒"><div><span class="tag">分类整理</span><h3>沙子分类</h3><p>把同色沙粒整理进同一个瓶子，所有辅助功能免费使用。</p></div><a class="card-action" href="games/puzzle/sand-sort/index.html">开始</a></article></div>
+            </section>
+          </div>
+        </section>
+      </div>
     </section>
   </main>
   <footer class="site-footer">
     <span>PHDSX 个人主页</span>
     <span>工具 · 游戏 · 博客 · 小说 · 黄页</span>
   </footer>
-  <script src="assets/site.js?v=20260829b"></script>
-  
+  <script src="assets/site.js?v=20260830d"></script>
 </body>
 </html>

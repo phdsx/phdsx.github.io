@@ -43,7 +43,6 @@
 .blacklist-table tbody tr:last-child td { border-bottom: 0; }
 .blacklist-brand-name { font-weight: 800; }
 .blacklist-demo-tag { display: inline-flex; margin-left: 7px; padding: 3px 6px; border-radius: 4px; color: #8a5a00; background: #fff1cc; font-size: 10px; font-weight: 800; }
-.blacklist-pending-tag { display: inline-flex; margin-left: 7px; padding: 3px 6px; border-radius: 4px; color: #245b8e; background: #e8f3ff; font-size: 10px; font-weight: 800; }
 .blacklist-reason { display: inline-flex; padding: 5px 8px; border-radius: 999px; color: #a52a2a; background: #fff0ee; font-size: 11px; font-weight: 750; }
 .blacklist-open { color: var(--brand); font-weight: 750; white-space: nowrap; }
 .blacklist-empty { margin: 12px 0 0; padding: 28px; border: 1px dashed var(--line-strong); border-radius: 8px; color: var(--muted); background: #fff; text-align: center; }
@@ -53,7 +52,6 @@
 .blacklist-detail-head h1 { margin: 0 0 10px; }
 .blacklist-detail-head p:last-child { max-width: 760px; margin: 0; color: var(--muted); line-height: 1.75; }
 .blacklist-demo-banner { flex: 0 0 auto; padding: 8px 10px; border: 1px solid #f0d9ac; border-radius: 6px; color: #805200; background: #fffaf0; font-size: 11px; font-weight: 800; }
-.blacklist-pending-banner { flex: 0 0 auto; padding: 8px 10px; border: 1px solid #b9d8f5; border-radius: 6px; color: #245b8e; background: #eef7ff; font-size: 11px; font-weight: 800; }
 .blacklist-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 20px; }
 .blacklist-facts div { padding: 15px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
 .blacklist-facts dt { color: var(--muted); font-size: 11px; }
@@ -65,6 +63,12 @@
 .blacklist-event-date { margin: 0 0 20px; color: var(--muted); font-size: 12px; }
 .blacklist-event-copy { line-height: 1.85; }
 .blacklist-event-copy p { margin: 0 0 1em; }
+.blacklist-evidence { margin-top: 24px; }
+.blacklist-evidence h2 { margin: 0 0 12px; font-size: 17px; }
+.blacklist-image-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.blacklist-image-grid figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #f8fafc; }
+.blacklist-image-grid img { display: block; width: 100%; max-height: 420px; object-fit: contain; background: #eef2f6; }
+.blacklist-image-grid figcaption { padding: 10px 12px; color: var(--muted); font-size: 12px; line-height: 1.6; }
 .blacklist-resolution { margin-top: 22px; padding: 15px; border-left: 3px solid var(--brand); background: #f4f8ff; }
 .blacklist-resolution p { margin: 6px 0 0; color: var(--muted); line-height: 1.7; }
 .blacklist-detail-side { display: grid; gap: 14px; }
@@ -113,4 +117,135 @@
   .software-actions { grid-column: auto; grid-template-columns: 1fr; justify-items: stretch; }
   .software-actions .button { text-align: center; }
   .blacklist-timeline li { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* Brand blacklist archive */
+.blacklist-section { --blacklist-red: #a8322b; --blacklist-dark: #1b1d23; --blacklist-paper: #f5f3ee; }
+.blacklist-hero { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 40px; min-height: 300px; margin-bottom: 14px; padding: clamp(28px, 5vw, 54px); overflow: hidden; color: #f8f7f3; background: var(--blacklist-dark); }
+.blacklist-hero::before { content: ""; position: absolute; inset: 0; opacity: .12; background-image: linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(90deg, #000, transparent 76%); }
+.blacklist-hero-copy, .blacklist-hero-mark { position: relative; z-index: 1; }
+.blacklist-hero-copy { align-self: end; }
+.blacklist-kicker { margin: 0 0 18px; color: #eaa9a3; font: 800 10px/1.2 ui-monospace, Consolas, monospace; letter-spacing: .17em; }
+.blacklist-hero h1 { max-width: 720px; margin: 0 0 17px; color: #fff; font: 800 clamp(42px, 7vw, 76px)/.94 Georgia, "Noto Serif SC", serif; letter-spacing: -.055em; }
+.blacklist-hero-copy > p:last-child { max-width: 680px; margin: 0; color: #b9bec8; font-size: 14px; line-height: 1.8; }
+.blacklist-hero-mark { display: grid; align-content: center; justify-items: start; padding-left: 28px; border-left: 1px solid #3e424c; font-family: ui-monospace, Consolas, monospace; }
+.blacklist-hero-mark span { color: #848b98; font-size: 27px; letter-spacing: .1em; }
+.blacklist-hero-mark strong { margin-left: -3px; color: #e26056; font-size: 54px; line-height: 1; letter-spacing: -.07em; }
+.blacklist-hero-mark small { margin-top: 22px; color: #777e8b; font-size: 9px; letter-spacing: .14em; }
+.blacklist-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 18px; border: 1px solid #d8d5ce; background: #fff; }
+.blacklist-metrics article { display: grid; min-height: 102px; padding: 18px; border-right: 1px solid #e2dfd8; }
+.blacklist-metrics article:last-child { border-right: 0; }
+.blacklist-metrics span { color: #667085; font-size: 11px; }
+.blacklist-metrics strong { align-self: end; color: var(--blacklist-red); font: 800 27px/1 ui-monospace, Consolas, monospace; }
+.blacklist-metrics .blacklist-date-metric { font-size: 15px; letter-spacing: -.04em; }
+.blacklist-metrics small { margin-top: 6px; color: #a4a7ad; font: 8px/1 ui-monospace, Consolas, monospace; letter-spacing: .13em; }
+.blacklist-notice { align-items: flex-start; margin-bottom: 18px; border-color: #e7d2cd; border-radius: 0; color: #71332f; background: #fff7f5; }
+.blacklist-filter-panel { margin-bottom: 17px; border: 1px solid #d8d5ce; background: #fff; }
+.blacklist-filter-panel-head { display: flex; justify-content: space-between; gap: 20px; align-items: center; padding: 14px 17px; border-bottom: 1px solid #e2dfd8; background: var(--blacklist-paper); }
+.blacklist-filter-panel-head div { display: flex; gap: 12px; align-items: baseline; }
+.blacklist-filter-panel-head span { color: var(--blacklist-red); font: 800 9px/1 ui-monospace, Consolas, monospace; letter-spacing: .13em; }
+.blacklist-filter-panel-head strong { font-size: 13px; }
+.blacklist-reset { padding: 0; border: 0; color: var(--blacklist-red); background: transparent; font-size: 11px; font-weight: 750; cursor: pointer; }
+.blacklist-reset:hover { text-decoration: underline; }
+.blacklist-filters { grid-template-columns: minmax(220px, 1.4fr) repeat(5, minmax(130px, .72fr)); margin: 0; padding: 16px; border: 0; border-radius: 0; background: #fff; }
+.blacklist-filter label { color: #555d69; font-size: 10px; letter-spacing: .02em; }
+.blacklist-filter :is(input, select) { min-height: 43px; border-radius: 3px; background-color: #fbfaf8; }
+.blacklist-results-meta { margin: 0 0 9px; font-size: 11px; }
+.blacklist-record-list { display: grid; border-top: 1px solid #cfcac1; }
+.blacklist-record { display: grid; grid-template-columns: 150px minmax(0, 1fr) 112px; gap: 22px; align-items: stretch; min-height: 150px; padding: 0; border-bottom: 1px solid #d8d5ce; color: inherit; background: #fff; text-decoration: none; transition: border-color .18s ease, background .18s ease, transform .18s ease; }
+.blacklist-record:hover { position: relative; z-index: 1; border-color: var(--blacklist-red); background: #fffaf9; transform: translateX(3px); }
+.blacklist-record-index { display: grid; align-content: space-between; padding: 21px 18px; border-right: 1px solid #e5e1da; background: #f7f5f1; }
+.blacklist-record-index time { color: #353b45; font: 700 11px/1.5 ui-monospace, Consolas, monospace; }
+.blacklist-record-index span { color: #7c828c; font-size: 11px; }
+.blacklist-record-main { align-self: center; padding: 20px 0; }
+.blacklist-record-title { display: flex; gap: 10px; align-items: center; }
+.blacklist-record-title h2 { margin: 0; color: #242832; font: 750 23px/1.2 Georgia, "Noto Serif SC", serif; }
+.blacklist-demo-tag { margin: 0; border-radius: 2px; color: #755b15; background: #fff0bf; }
+.blacklist-record-main > p { display: -webkit-box; max-width: 800px; margin: 10px 0 14px; overflow: hidden; color: #69717e; font-size: 12px; line-height: 1.7; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.blacklist-record-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.blacklist-record-tags span { padding: 4px 7px; border: 1px solid #dedbd4; color: #5f6672; background: #faf9f6; font-size: 9px; }
+.blacklist-record-tags .is-reason { border-color: #ead0cc; color: #8b302a; background: #fff3f1; }
+.blacklist-record-action { display: grid; align-content: space-between; justify-items: end; padding: 21px 18px; border-left: 1px solid #e5e1da; color: var(--blacklist-red); }
+.blacklist-record-action span { font-size: 10px; font-weight: 750; }
+.blacklist-record-action strong { font: 400 27px/1 Georgia, serif; transition: transform .18s ease; }
+.blacklist-record:hover .blacklist-record-action strong { transform: translate(3px, -3px); }
+.blacklist-empty, .blacklist-load-error { margin-top: 0; border-radius: 0; }
+.blacklist-load-error { padding: 28px; border: 1px solid #e2b6b1; color: #8b302a; background: #fff3f1; text-align: center; }
+
+.blacklist-detail-loading { padding: 80px 24px; color: #7c828c; text-align: center; }
+.blacklist-breadcrumb { margin-bottom: 20px; }
+.blacklist-detail-head { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 40px; align-items: end; margin-bottom: 0; padding: clamp(28px, 5vw, 52px); color: #fff; background: var(--blacklist-dark); }
+.blacklist-detail-title h1 { margin: 17px 0 10px; color: #fff; font: 800 clamp(40px, 6vw, 66px)/1 Georgia, "Noto Serif SC", serif; letter-spacing: -.045em; }
+.blacklist-detail-status { display: flex; gap: 14px; align-items: center; }
+.blacklist-detail-status span { padding: 5px 7px; color: #1b1d23; background: #e26056; font: 850 9px/1 ui-monospace, Consolas, monospace; letter-spacing: .1em; }
+.blacklist-detail-status time { color: #969daa; font: 10px/1 ui-monospace, Consolas, monospace; }
+.blacklist-aliases { margin: 0 0 14px; color: #9299a5; font-size: 11px; }
+.blacklist-detail-summary { max-width: 780px !important; margin: 0 !important; color: #c1c5cc !important; font-size: 14px; line-height: 1.8 !important; }
+.blacklist-detail-stamp { display: grid; min-height: 148px; align-content: center; padding: 19px; border: 1px solid #4b4243; color: #fff; background: #261f21; }
+.blacklist-detail-stamp span { color: #df6a61; font: 800 10px/1 ui-monospace, Consolas, monospace; letter-spacing: .15em; }
+.blacklist-detail-stamp strong { margin: 20px 0 7px; font: 750 18px/1.25 Georgia, "Noto Serif SC", serif; }
+.blacklist-detail-stamp small { color: #9399a4; font-size: 10px; }
+.blacklist-demo-banner { margin: 0; padding: 12px 16px; border: 1px solid #ebd19f; border-top: 0; border-radius: 0; }
+.blacklist-facts { gap: 0; margin: 14px 0; border: 1px solid #d8d5ce; background: #fff; }
+.blacklist-facts div { padding: 18px; border: 0; border-right: 1px solid #e2dfd8; border-radius: 0; }
+.blacklist-facts div:last-child { border-right: 0; }
+.blacklist-facts dt { font: 9px/1 ui-monospace, Consolas, monospace; letter-spacing: .08em; }
+.blacklist-facts dd { margin-top: 9px; font-size: 13px; }
+.blacklist-detail-layout { grid-template-columns: minmax(0, 1.45fr) minmax(290px, .55fr); gap: 14px; }
+.blacklist-event-card, .blacklist-detail-side section { border-color: #d8d5ce; border-radius: 0; }
+.blacklist-event-card { padding: clamp(22px, 4vw, 36px); }
+.blacklist-detail-side section { padding: 22px; }
+.blacklist-section-label { margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid #e1ddd6; }
+.blacklist-section-label span { display: block; margin-bottom: 8px; color: var(--blacklist-red); font: 800 9px/1 ui-monospace, Consolas, monospace; letter-spacing: .14em; }
+.blacklist-section-label h2, .blacklist-event-card .blacklist-section-label h2 { margin: 0; color: #252a33; font: 750 23px/1.25 Georgia, "Noto Serif SC", serif; }
+.blacklist-detail-side .blacklist-section-label h2 { font-size: 17px; }
+.blacklist-event-copy { color: #454c57; font-size: 14px; line-height: 1.95; }
+.blacklist-evidence { margin-top: 30px; }
+.blacklist-image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.blacklist-image-grid figure { border-radius: 0; }
+.blacklist-resolution { display: grid; margin-top: 30px; padding: 18px; border: 1px solid #ead1cd; border-left: 4px solid var(--blacklist-red); background: #fff7f5; }
+.blacklist-resolution > span { color: var(--blacklist-red); font: 800 8px/1 ui-monospace, Consolas, monospace; letter-spacing: .12em; }
+.blacklist-resolution > strong { margin-top: 8px; font-size: 13px; }
+.blacklist-resolution p { margin-top: 8px; }
+.blacklist-detail-side { gap: 14px; }
+.blacklist-timeline li { grid-template-columns: 86px 1fr; }
+.blacklist-timeline time { font-family: ui-monospace, Consolas, monospace; }
+.blacklist-timeline-empty { grid-template-columns: 1fr !important; }
+.blacklist-timeline-empty div { border-left: 0; padding-left: 0; }
+.blacklist-timeline-empty div::before { display: none; }
+.blacklist-source-list { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+.blacklist-source-list li { display: grid; grid-template-columns: 24px 1fr; gap: 8px; align-items: start; }
+.blacklist-source-list span { color: #a3a7ae; font: 9px/1.5 ui-monospace, Consolas, monospace; }
+.blacklist-source-list a { color: var(--brand); font-size: 11px; font-weight: 700; line-height: 1.5; }
+
+@media (max-width: 1080px) {
+  .blacklist-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .blacklist-filter-wide { grid-column: span 2; }
+}
+
+@media (max-width: 820px) {
+  .blacklist-hero { grid-template-columns: 1fr; }
+  .blacklist-hero-mark { display: none; }
+  .blacklist-metrics { grid-template-columns: 1fr 1fr; }
+  .blacklist-metrics article:nth-child(2) { border-right: 0; }
+  .blacklist-metrics article:nth-child(-n+2) { border-bottom: 1px solid #e2dfd8; }
+  .blacklist-record { grid-template-columns: 118px minmax(0, 1fr); }
+  .blacklist-record-action { display: none; }
+  .blacklist-detail-head { grid-template-columns: 1fr; }
+  .blacklist-detail-stamp { min-height: 0; }
+}
+
+@media (max-width: 620px) {
+  .blacklist-hero { min-height: 260px; }
+  .blacklist-hero h1 { font-size: 45px; }
+  .blacklist-filter-panel-head { align-items: flex-start; flex-direction: column; }
+  .blacklist-filters { grid-template-columns: 1fr; }
+  .blacklist-filter-wide { grid-column: auto; }
+  .blacklist-record { grid-template-columns: 1fr; gap: 0; }
+  .blacklist-record-index { display: flex; justify-content: space-between; gap: 16px; padding: 13px 16px; border-right: 0; border-bottom: 1px solid #e5e1da; }
+  .blacklist-record-main { padding: 18px 16px; }
+  .blacklist-facts { grid-template-columns: 1fr; }
+  .blacklist-facts div { border-right: 0; border-bottom: 1px solid #e2dfd8; }
+  .blacklist-facts div:last-child { border-bottom: 0; }
+  .blacklist-image-grid { grid-template-columns: 1fr; }
 }

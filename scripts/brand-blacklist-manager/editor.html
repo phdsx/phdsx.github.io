@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>品牌黑名单 · 本地管理台</title>
+  <link rel="stylesheet" href="/editor.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#records" aria-label="品牌黑名单本地管理台">
+        <span class="brand-mark">BL</span>
+        <span><strong>黑名单管理台</strong><small>LOCAL DATABASE</small></span>
+      </a>
+      <nav class="side-nav" aria-label="管理模块">
+        <button class="side-link is-active" data-view="records" type="button"><span>01</span>黑名单记录</button>
+        <button class="side-link" data-view="categories" type="button"><span>02</span>分类管理</button>
+        <button class="side-link" data-view="assets" type="button"><span>03</span>图片资源</button>
+      </nav>
+      <div class="database-card">
+        <span class="pulse"></span>
+        <div><strong>本地直写</strong><small>database / assert</small></div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PHDSX / BRAND CONTROL</p>
+          <h1>品牌黑名单管理</h1>
+        </div>
+        <div class="topbar-actions">
+          <a class="button" href="/brand-blacklist/" target="_blank" rel="noopener">预览公开页面 ↗</a>
+          <div class="topbar-meta">
+            <span id="saveState">正在连接本地数据库…</span>
+            <time id="databaseTime"></time>
+          </div>
+        </div>
+      </header>
+
+      <section class="metrics" aria-label="数据库概览">
+        <article><span>记录总数</span><strong id="recordMetric">—</strong></article>
+        <article><span>品牌分类</span><strong id="categoryMetric">—</strong></article>
+        <article><span>本地图片</span><strong id="assetMetric">—</strong></article>
+      </section>
+
+      <div class="notice" id="notice" role="status" hidden></div>
+
+      <section class="view-panel is-active" data-view-panel="records">
+        <div class="section-head">
+          <div><p class="eyebrow">RECORDS</p><h2>已有黑名单与新增记录</h2><p>检索、编辑、删除已有记录，或直接创建新记录。</p></div>
+          <button class="button primary" id="newRecord" type="button">＋ 新增黑名单</button>
+        </div>
+        <div class="records-layout">
+          <aside class="record-library">
+            <label class="search-box"><span class="sr-only">搜索已有记录</span><input id="recordSearch" type="search" placeholder="搜索品牌、事件或 ID"></label>
+            <div class="record-list" id="recordList"></div>
+          </aside>
+
+          <form class="record-editor" id="recordForm">
+            <div class="editor-head">
+              <div><span class="status-chip" id="editMode">新增模式</span><h3 id="editorTitle">新建品牌记录</h3></div>
+              <button class="button danger ghost" id="deleteRecord" type="button" hidden>删除此记录</button>
+            </div>
+
+            <fieldset>
+              <legend>品牌信息</legend>
+              <div class="form-grid">
+                <label class="span-2">品牌名称<input name="name" required autocomplete="off"></label>
+                <label>记录 ID<input name="id" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="lowercase-slug"></label>
+                <label>所属国家或地区<input name="country" required value="中国"></label>
+                <label class="span-2">品牌别名<input name="aliases" placeholder="多个别名用逗号分隔"></label>
+                <label>入黑日期<input name="listedAt" type="date" required></label>
+                <label>事件日期<input name="eventDate" type="date" required></label>
+                <label>品牌一级分类<select name="categoryPrimary" id="categoryPrimary" required></select></label>
+                <label>品牌二级分类<select name="categorySecondary" id="categorySecondary" required></select></label>
+                <label>原因一级分类<select name="reasonPrimary" id="reasonPrimary" required></select></label>
+                <label>原因二级分类<select name="reasonSecondary" id="reasonSecondary" required></select></label>
+                <label class="check-label span-2"><input name="isDemo" type="checkbox">标记为非真实演示记录</label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>事件内容</legend>
+              <div class="form-grid">
+                <label class="span-2">事件标题<input name="eventTitle" required></label>
+                <label class="span-2">摘要<textarea name="summary" rows="3" required></textarea></label>
+                <label class="span-2">详细经过<textarea name="details" rows="6" required placeholder="每段一行"></textarea><small>每个非空行会保存为一个段落。</small></label>
+                <label class="span-2">当前处理结果<textarea name="resolution" rows="3" required></textarea></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>时间线与来源</legend>
+              <div class="form-grid">
+                <label class="span-2">事件时间线<textarea name="timeline" rows="5" placeholder="每行：YYYY-MM-DD | 节点标题 | 节点说明"></textarea></label>
+                <label class="span-2">信息来源<textarea name="sources" rows="4" placeholder="每行：来源名称 | https://example.com/page"></textarea></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>事件图片</legend>
+              <p class="fieldset-copy">上传文件和网络图片都会先重命名并保存到 <code>brand-blacklist/assert</code>，数据库只记录本地相对路径。</p>
+              <div class="asset-actions">
+                <label class="button" for="recordImageUpload">上传图片</label>
+                <input id="recordImageUpload" type="file" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
+                <input id="recordImageUrl" type="url" placeholder="粘贴网络图片地址">
+                <button class="button" id="fetchRecordImage" type="button">拉取并加入</button>
+              </div>
+              <div class="asset-actions attach-row">
+                <select id="assetPicker" aria-label="选择已有本地图片"><option value="">选择 assert 中的已有图片</option></select>
+                <button class="button" id="attachAsset" type="button">加入当前记录</button>
+              </div>
+              <div class="record-images" id="recordImages"></div>
+            </fieldset>
+
+            <div class="sticky-actions">
+              <span>保存后直接更新 JSON 数据库，无需生成中间 JS 文件。</span>
+              <button class="button primary" type="submit">保存记录</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="view-panel" data-view-panel="categories">
+        <div class="section-head">
+          <div><p class="eyebrow">TAXONOMY</p><h2>分类管理</h2><p>品牌分类和原因分类可新增、改名、删除；改名会同步更新所有关联记录。</p></div>
+        </div>
+        <div class="category-layout">
+          <article class="category-panel">
+            <div class="category-title"><div><span>BRAND</span><h3>品牌分类</h3></div><strong id="brandCategoryCount">0</strong></div>
+            <div class="category-groups" id="brandCategories"></div>
+            <div class="category-add">
+              <input id="newBrandPrimary" placeholder="新一级分类">
+              <input id="newBrandSecondary" placeholder="首个二级分类">
+              <button class="button primary" data-add-category="brand" type="button">新增分类</button>
+            </div>
+          </article>
+          <article class="category-panel">
+            <div class="category-title"><div><span>REASON</span><h3>原因分类</h3></div><strong id="reasonCategoryCount">0</strong></div>
+            <div class="category-groups" id="reasonCategories"></div>
+            <div class="category-add">
+              <input id="newReasonPrimary" placeholder="新一级分类">
+              <input id="newReasonSecondary" placeholder="首个二级分类">
+              <button class="button primary" data-add-category="reason" type="button">新增分类</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view-panel" data-view-panel="assets">
+        <div class="section-head">
+          <div><p class="eyebrow">ASSERT LIBRARY</p><h2>本地图片资源</h2><p>集中查看 assert 文件夹；只有未被任何记录引用的图片才能删除。</p></div>
+        </div>
+        <div class="asset-console">
+          <label class="button" for="libraryUpload">上传并重命名</label>
+          <input id="libraryUpload" type="file" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden>
+          <input id="libraryUrl" type="url" placeholder="输入网络图片地址，拉取到本地">
+          <button class="button primary" id="fetchLibraryImage" type="button">拉取图片</button>
+        </div>
+        <div class="asset-library" id="assetLibrary"></div>
+        <div class="empty-state" id="assetEmpty" hidden><strong>assert 文件夹中还没有图片</strong><span>上传文件或拉取网络图片后会显示在这里。</span></div>
+      </section>
+    </main>
+  </div>
+  <script src="/editor.js"></script>
+</body>
+</html>
