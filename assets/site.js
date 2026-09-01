@@ -18,20 +18,8 @@ function initSiteSidebar() {
   }
   document.body.classList.add('has-site-sidebar');
   const currentPage = location.pathname.split('/').pop() || 'index.html';
-  const currentPath = decodeURIComponent(location.pathname).replace(/\\/g, '/');
   const script = document.currentScript || document.querySelector('script[src*="assets/site.js"]');
   const root = new URL('../', script && script.src ? script.src : location.href).href;
-  const isGamePage = currentPage === 'games.html' || /\/games\//i.test(currentPath);
-  const gameNavigation = isGamePage ? `
-      <div class="nav-section nav-section--secondary">
-        <span class="nav-section-label">游戏分类</span>
-        <a class="nav-link nav-link--sub" href="${root}games/board/chinese-chess.html"><span class="nav-symbol">将</span><span>中国象棋</span></a>
-        <a class="nav-link nav-link--sub" href="${root}games/arcade/tetris.html"><span class="nav-symbol">田</span><span>俄罗斯方块</span></a>
-        <a class="nav-link nav-link--sub" href="${root}games/arcade/fruit-ninja/index.html"><span class="nav-symbol">切</span><span>水果忍者</span></a>
-        <a class="nav-link nav-link--sub" href="${root}games/arcade/submarine-battle/index.html"><span class="nav-symbol">潜</span><span>潜艇大战</span></a>
-        <a class="nav-link nav-link--sub" href="${root}games/puzzle/parking-pulse/index.html"><span class="nav-symbol">泊</span><span>Parking Pulse</span></a>
-        <a class="nav-link nav-link--sub" href="${root}games/puzzle/sand-sort/index.html"><span class="nav-symbol">沙</span><span>沙子分类</span></a>
-      </div>` : '';
   document.body.classList.add(currentPage === 'index.html' ? 'is-home-page' : 'is-sub-page');
   header.innerHTML = `
     <a class="brand" href="${root}index.html" aria-label="返回首页">
@@ -58,7 +46,6 @@ function initSiteSidebar() {
         <a class="nav-link" href="${root}ai-radar.html"><span class="nav-symbol">◎</span><span>AI 雷达</span></a>
         <a class="nav-link" href="${root}brand-blacklist/index.html"><span class="nav-symbol">!</span><span>品牌黑名单</span></a>
       </div>
-      ${gameNavigation}
     </nav>
     <div class="sidebar-meta"><span>PHDSX · 2026</span><small>持续整理与更新</small></div>
   `;
