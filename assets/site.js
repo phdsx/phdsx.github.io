@@ -1,6 +1,15 @@
 function normalizeText(value) {
   return (value || '').toString().trim().toLowerCase();
 }
+function siteText(key, fallback, variables) {
+  return window.PHDSXI18n ? window.PHDSXI18n.t(key, fallback, variables) : fallback;
+}
+function siteTranslate(value, language) {
+  return window.PHDSXI18n ? window.PHDSXI18n.translateValue(value, language) : value;
+}
+function siteOnLanguageChange(listener) {
+  return window.PHDSXI18n ? window.PHDSXI18n.onChange(listener) : null;
+}
 function getSiteCatalog() {
   return Array.isArray(window.PHDSX_SEARCH_INDEX) ? window.PHDSX_SEARCH_INDEX : [];
 }
@@ -13,7 +22,7 @@ function initSiteSidebar() {
     const skip = document.createElement('a');
     skip.className = 'skip-link';
     skip.href = '#main-content';
-    skip.textContent = '跳到主要内容';
+    skip.textContent = siteText('common.skip', '跳到主要内容');
     document.body.insertBefore(skip, header);
   }
   document.body.classList.add('has-site-sidebar');
@@ -22,32 +31,33 @@ function initSiteSidebar() {
   const root = new URL('../', script && script.src ? script.src : location.href).href;
   document.body.classList.add(currentPage === 'index.html' ? 'is-home-page' : 'is-sub-page');
   header.innerHTML = `
-    <a class="brand" href="${root}index.html" aria-label="返回首页">
+    <a class="brand" href="${root}index.html" aria-label="${siteText('common.backHome', '返回首页')}">
       <span class="brand-mark">P</span>
       <span class="brand-copy"><strong>PHDSX</strong><small>PERSONAL HUB</small></span>
     </a>
-    <button class="site-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="展开站点导航"><span></span><span></span><span></span></button>
-    <nav class="site-nav" id="site-navigation" aria-label="主导航">
+    <button class="site-nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="${siteText('common.expandNav', '展开站点导航')}"><span></span><span></span><span></span></button>
+    <nav class="site-nav" id="site-navigation" aria-label="${siteText('common.mainNav', '主导航')}">
       <div class="nav-section">
-        <span class="nav-section-label">站点</span>
-        <a class="nav-link" href="${root}index.html"><span class="nav-symbol">⌂</span><span>首页</span></a>
-        <a class="nav-link" href="${root}tools.html"><span class="nav-symbol">⌘</span><span>工具</span></a>
-        <a class="nav-link" href="${root}games.html"><span class="nav-symbol">◇</span><span>游戏</span></a>
-        <a class="nav-link" href="${root}blog.html"><span class="nav-symbol">▤</span><span>博客</span></a>
-        <a class="nav-link" href="${root}directory.html"><span class="nav-symbol">☷</span><span>黄页</span></a>
+        <span class="nav-section-label">${siteText('common.site', '站点')}</span>
+        <a class="nav-link" href="${root}index.html"><span class="nav-symbol">⌂</span><span>${siteText('common.home', '首页')}</span></a>
+        <a class="nav-link" href="${root}tools.html"><span class="nav-symbol">⌘</span><span>${siteText('common.tools', '工具')}</span></a>
+        <a class="nav-link" href="${root}games.html"><span class="nav-symbol">◇</span><span>${siteText('common.games', '游戏')}</span></a>
+        <a class="nav-link" href="${root}blog.html"><span class="nav-symbol">▤</span><span>${siteText('common.blog', '博客')}</span></a>
+        <a class="nav-link" href="${root}directory.html"><span class="nav-symbol">☷</span><span>${siteText('common.directory', '黄页')}</span></a>
       </div>
       <div class="nav-section">
-        <span class="nav-section-label">阅读</span>
-        <a class="nav-link" href="${root}novels/index.html"><span class="nav-symbol">▥</span><span>小说</span></a>
+        <span class="nav-section-label">${siteText('common.reading', '阅读')}</span>
+        <a class="nav-link" href="${root}novels/index.html"><span class="nav-symbol">▥</span><span>${siteText('common.novels', '小说')}</span></a>
       </div>
       <div class="nav-section">
-        <span class="nav-section-label">发布与记录</span>
-        <a class="nav-link" href="${root}software.html"><span class="nav-symbol">▣</span><span>软件作品</span></a>
-        <a class="nav-link" href="${root}ai-radar.html"><span class="nav-symbol">◎</span><span>AI 雷达</span></a>
-        <a class="nav-link" href="${root}brand-blacklist/index.html"><span class="nav-symbol">!</span><span>品牌黑名单</span></a>
+        <span class="nav-section-label">${siteText('common.publishing', '发布与记录')}</span>
+        <a class="nav-link" href="${root}software.html"><span class="nav-symbol">▣</span><span>${siteText('common.software', '软件作品')}</span></a>
+        <a class="nav-link" href="${root}ai-radar.html"><span class="nav-symbol">◎</span><span>${siteText('common.radar', 'AI 雷达')}</span></a>
+        <a class="nav-link" href="${root}brand-blacklist/index.html"><span class="nav-symbol">!</span><span>${siteText('common.blacklist', '品牌黑名单')}</span></a>
       </div>
     </nav>
-    <div class="sidebar-meta"><span>PHDSX · 2026</span><small>持续整理与更新</small></div>
+    <button class="site-language-toggle" type="button" data-i18n-toggle>EN</button>
+    <div class="sidebar-meta"><span>PHDSX · 2026</span><small>${siteText('common.keepUpdating', '持续整理与更新')}</small></div>
   `;
 
   const toggle = header.querySelector('.site-nav-toggle');
@@ -55,14 +65,14 @@ function initSiteSidebar() {
     header.classList.remove('is-open');
     document.body.classList.remove('site-nav-open');
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', '展开站点导航');
+    toggle.setAttribute('aria-label', siteText('common.expandNav', '展开站点导航'));
     if (restoreFocus) toggle.focus();
   };
   toggle.addEventListener('click', () => {
     const open = header.classList.toggle('is-open');
     document.body.classList.toggle('site-nav-open', open);
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? '收起站点导航' : '展开站点导航');
+    toggle.setAttribute('aria-label', open ? siteText('common.collapseNav', '收起站点导航') : siteText('common.expandNav', '展开站点导航'));
   });
   header.querySelectorAll('.nav-link').forEach((link) => link.addEventListener('click', () => closeNavigation(false)));
   document.addEventListener('click', (event) => {
@@ -119,10 +129,11 @@ function initCardSearch(inputSelector, cardSelector) {
       group.hidden = ![...group.querySelectorAll(cardSelector)].some((card) => !card.hidden);
     });
     empty.hidden = !query || visibleCount > 0;
-    empty.textContent = query && visibleCount === 0 ? `没有找到与“${input.value.trim()}”匹配的内容。` : '';
+    empty.textContent = query && visibleCount === 0 ? siteText('search.noMatch', '没有找到与“{query}”匹配的内容。', { query: input.value.trim() }) : '';
   };
   input.addEventListener('input', apply);
   apply();
+  siteOnLanguageChange(apply);
 }
 function initToolTabs() {
   const container = document.querySelector('[data-tool-tabs]');
@@ -146,7 +157,7 @@ function initToolTabs() {
     const panel = panels.find((item) => item.dataset.toolPanel === category);
     const heading = panel?.querySelector('h2')?.textContent.trim() || '当前';
     const count = panel?.querySelectorAll('.link-card').length || 0;
-    if (status) status.textContent = `正在显示${heading}分类，共 ${count} ${itemName === '游戏' ? '款' : '项'}${itemName}。`;
+    if (status) status.textContent = siteText('catalog.showing', '正在显示{heading}分类，共 {count} {unit}。', { heading: siteTranslate(heading), count, unit: itemName === '游戏' ? siteText('catalog.gameItem', '款游戏') : siteText('catalog.toolUnit', '项工具') });
   };
 
   tabs.forEach((tab, index) => {
@@ -165,6 +176,7 @@ function initToolTabs() {
   });
 
   activate(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]);
+  siteOnLanguageChange(() => activate(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]));
 }
 function initToolSubtabs() {
   document.querySelectorAll('[data-tool-subtabs]').forEach((container) => {
@@ -187,7 +199,7 @@ function initToolSubtabs() {
       const panel = panels.find((item) => item.dataset.toolSubpanel === subcategory);
       const label = tab.querySelector(':scope > span:first-child')?.textContent.trim() || '当前';
       const count = panel?.querySelectorAll('.link-card').length || 0;
-      if (status) status.textContent = `正在显示${label}子分类，共 ${count} ${itemName === '游戏' ? '款' : '项'}${itemName}。`;
+      if (status) status.textContent = siteText('catalog.subShowing', '正在显示{label}子分类，共 {count} {unit}。', { label: siteTranslate(label), count, unit: itemName === '游戏' ? siteText('catalog.gameItem', '款游戏') : siteText('catalog.toolUnit', '项工具') });
     };
 
     tabs.forEach((tab, index) => {
@@ -206,6 +218,7 @@ function initToolSubtabs() {
     });
 
     activate(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]);
+    siteOnLanguageChange(() => activate(tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0]));
   });
 }
 function initHomeWorkspace() {
@@ -231,7 +244,7 @@ function initHomeWorkspace() {
     const catalog = [...indexedCatalog, ...pageCatalog].filter((item) => {
       if (!item.href || seen.has(item.href)) return false;
       seen.add(item.href);
-      item.keywords = normalizeText(`${item.label} ${item.keywords || ''} ${item.href}`);
+      item.keywords = normalizeText(`${item.label} ${siteTranslate(item.label, 'zh')} ${siteTranslate(item.label, 'en')} ${item.keywords || ''} ${item.href}`);
       return true;
     });
     let activeIndex = -1;
@@ -268,8 +281,8 @@ function initHomeWorkspace() {
         resultList.appendChild(link);
       });
       if (status) {
-        const scope = activeCategory === '全部' ? '全部分类' : activeCategory;
-        status.textContent = matches.length ? `${scope} · 找到 ${matches.length} 个相关入口` : `${scope} · 没有找到相关入口`;
+        const scope = activeCategory === '全部' ? siteText('search.allCategories', '全部分类') : siteTranslate(activeCategory);
+        status.textContent = matches.length ? `${scope} · ${siteText('search.found', '找到 {count} 个相关入口', { count: matches.length })}` : `${scope} · ${siteText('search.noResult', '没有找到相关入口')}`;
       }
       panel.hidden = false;
       input.setAttribute('aria-expanded', 'true');
@@ -312,7 +325,7 @@ function initHomeWorkspace() {
           item.classList.toggle('active', active);
           item.setAttribute('aria-pressed', String(active));
         });
-        input.placeholder = activeCategory === '全部' ? '搜索全部内容' : `搜索${activeCategory}`;
+        input.placeholder = activeCategory === '全部' ? siteText('search.allPlaceholder', '搜索全部内容') : siteText('search.categoryPlaceholder', '搜索{category}', { category: siteTranslate(activeCategory) });
         render();
         input.focus();
       });
@@ -325,7 +338,7 @@ function initHomeWorkspace() {
           item.classList.toggle('active', active);
           item.setAttribute('aria-pressed', String(active));
         });
-        input.placeholder = '搜索全部内容';
+        input.placeholder = siteText('search.allPlaceholder', '搜索全部内容');
         input.value = button.dataset.searchSuggestion || button.textContent;
         render();
         input.focus();
@@ -351,6 +364,10 @@ function initHomeWorkspace() {
       }
     });
     categoryButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.classList.contains('active'))));
+    siteOnLanguageChange(() => {
+      input.placeholder = activeCategory === '全部' ? siteText('search.allPlaceholder', '搜索全部内容') : siteText('search.categoryPlaceholder', '搜索{category}', { category: siteTranslate(activeCategory) });
+      render();
+    });
   }
 
   const clock = document.querySelector('[data-home-clock]');
@@ -358,8 +375,9 @@ function initHomeWorkspace() {
   if (clock && date) {
     const update = () => {
       const now = new Date();
-      clock.textContent = now.toLocaleTimeString('zh-CN', { hour12: false });
-      date.textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+      const locale = window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN';
+      clock.textContent = now.toLocaleTimeString(locale, { hour12: false });
+      date.textContent = now.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
     };
     update();
     setInterval(update, 1000);
@@ -420,7 +438,7 @@ function initBlogFilters() {
     });
     const visibleCount = cards.filter((card) => !card.hidden).length;
     empty.hidden = visibleCount > 0;
-    empty.textContent = visibleCount ? '' : '没有找到符合当前筛选条件的文章。';
+    empty.textContent = visibleCount ? '' : siteText('blog.noMatch', '没有找到符合当前筛选条件的文章。');
     const sorted = cards.sort((a, b) => {
       const mode = sort ? sort.value : 'date-desc';
       if (mode === 'date-asc') return a.dataset.date.localeCompare(b.dataset.date);
@@ -442,17 +460,21 @@ function initBlogFilters() {
   if (sort) sort.addEventListener('change', apply);
   chips.forEach((chip) => chip.setAttribute('aria-pressed', String(chip.classList.contains('active'))));
   apply();
+  siteOnLanguageChange(apply);
 }
 function initNovelProgress() {
-  document.querySelectorAll('[data-novel-continue]').forEach((link) => {
+  const update = (link) => {
     const novelId = link.dataset.novelId;
     let storedProgress = '1';
     try { storedProgress = localStorage.getItem(`phdsx-novel-progress-${novelId}`) || '1'; } catch (error) { /* Storage can be unavailable in privacy modes. */ }
     const progress = Number.parseInt(storedProgress, 10);
     const chapter = Number.isFinite(progress) && progress > 0 ? progress : 1;
     link.href = `reader.html?id=${encodeURIComponent(novelId)}&chapter=${chapter}`;
-    link.textContent = chapter > 1 ? `继续阅读第 ${chapter} 章` : '开始阅读';
-  });
+    link.textContent = chapter > 1 ? siteText('novel.continueReading', '继续阅读第 {chapter} 章', { chapter }) : siteText('novel.startReading', '开始阅读');
+  };
+  const updateAll = () => document.querySelectorAll('[data-novel-continue]').forEach(update);
+  updateAll();
+  siteOnLanguageChange(updateAll);
 }
 function initLicenseLinks() {
   document.querySelectorAll('.site-footer').forEach((footer) => {
@@ -461,11 +483,11 @@ function initLicenseLinks() {
     licenseLink.href = '/LICENSE';
     licenseLink.dataset.siteLicense = '';
     licenseLink.textContent = 'AGPL-3.0-or-later';
-    licenseLink.setAttribute('aria-label', '查看 AGPL-3.0-or-later 许可证');
+    licenseLink.setAttribute('aria-label', siteText('common.viewLicense', '查看 AGPL-3.0-or-later 许可证'));
     const sourceLink = document.createElement('a');
     sourceLink.href = 'https://github.com/phdsx/phdsx.github.io';
-    sourceLink.textContent = '获取源代码';
-    sourceLink.setAttribute('aria-label', '在 GitHub 获取本站对应源代码');
+    sourceLink.textContent = siteText('common.sourceCode', '获取源代码');
+    sourceLink.setAttribute('aria-label', siteText('common.sourceCode', '获取源代码'));
     footer.append(licenseLink, sourceLink);
   });
 }

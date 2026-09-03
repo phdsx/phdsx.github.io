@@ -1,11 +1,15 @@
 (function () {
   const SOFTWARE_URL = 'https://codexradar.com/data/intelligence-efficiency.json';
-  const VISUAL_URL = 'http://codexradar.com/api/visual-spatial-reasoning';
+  const VISUAL_URL = 'https://codexradar.com/api/visual-spatial-reasoning';
   const CODEX_FORECAST_URL = 'https://codex-reset.com/api/forecast';
   const CODEX_FEED_URL = 'https://codex-reset.com/api/feed';
-  const WILL_RESET_URL = 'http://willcodexreset.com/api/reset-radar';
+  const WILL_RESET_URL = 'https://willcodexreset.com/api/reset-radar';
   const JINA_BASE = 'https://r.jina.ai/';
-  const state = { scoreRows: [] };
+  const state = { scoreRows: [], forecast: null, willPayload: null, codexFeed: null };
+
+  function radarText(key, fallback, variables) {
+    return window.PHDSXI18n ? window.PHDSXI18n.t(key, fallback, variables) : fallback;
+  }
 
   function get(selector, root) {
     return (root || document).querySelector(selector);
@@ -34,7 +38,8 @@
     if (!value) return '--';
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return String(value);
-    return date.toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false });
+    const locale = window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN';
+    return date.toLocaleString(locale, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false });
   }
 
   function formatScore(value) {
@@ -101,7 +106,7 @@
     const label = get(`[data-ai-best-label="${kind}"]`);
     if (!value || !label) return;
     value.textContent = row ? formatScore(score) : '--';
-    label.textContent = row ? `${formatModel(row.model)} · ${row.effort}` : '暂无可用数据';
+    label.textContent = row ? `${formatModel(row.model)} · ${row.effort}` : radarText('radar.noData', '暂无可用数据');
   }
 
   function renderScoreRows() {
@@ -110,7 +115,7 @@
     const query = String(get('[data-ai-score-search]')?.value || '').trim().toLowerCase();
     const rows = state.scoreRows.filter((row) => `${formatModel(row.model)} ${row.model} ${row.effort}`.toLowerCase().includes(query));
     if (!rows.length) {
-      list.innerHTML = `<tr><td colspan="5" class="ai-loading-cell">${state.scoreRows.length ? '没有匹配的模型档位。' : '暂时没有可合并的评分数据。'}</td></tr>`;
+      list.innerHTML = `<tr><td colspan="5" class="ai-loading-cell">${state.scoreRows.length ? radarText('radar.noMatchingModels', '没有匹配的模型档位。') : radarText('radar.noMergedScores', '暂时没有可合并的评分数据。')}</td></tr>`;
     } else {
       list.innerHTML = rows.map((row) => `
         <tr>
@@ -121,11 +126,11 @@
           <td><span class="ai-score-value" style="--score:${row.visual.toFixed(2)}">${formatScore(row.visual)}</span></td>
         </tr>`).join('');
     }
-    count.textContent = `显示 ${rows.length} / ${state.scoreRows.length} 个共同有效档位`;
+    count.textContent = radarText('radar.sharedTiers', '显示 {shown} / {total} 个共同有效档位', { shown: rows.length, total: state.scoreRows.length });
   }
 
   async function loadScores() {
-    sourceState('codexradar', 'loading', '正在读取');
+    sourceState('codexradar', 'loading', radarText('radar.reading', '正在读取'));
     const stamp = Date.now();
     const [softwarePayload, visualPayload] = await Promise.all([
       fetchJson(`${SOFTWARE_URL}?v=${stamp}`),
@@ -157,7 +162,7 @@
     renderScoreRows();
     const sourceTime = [softwarePayload.source_updated_at, visualPayload.source_updated_at].filter(Boolean).sort().pop();
     get('[data-ai-source-time="codexradar"]').textContent = formatDateTime(sourceTime);
-    sourceState('codexradar', 'live', '实时');
+    sourceState('codexradar', 'live', radarText('radar.live', '实时'));
   }
 
   function setProbability(key, value) {
@@ -172,7 +177,7 @@
     const list = get('[data-ai-codex-evidence]');
     const evidence = Array.isArray(items) ? items.slice(0, 4) : [];
     if (!evidence.length) {
-      list.innerHTML = '<li class="ai-feed-empty">当前没有公开预测依据。</li>';
+      list.innerHTML = `<li class="ai-feed-empty">${radarText('radar.noEvidence', '当前没有公开预测依据。')}</li>`;
       return;
     }
     list.innerHTML = evidence.map((item) => {
@@ -186,70 +191,73 @@
     const root = get('[data-ai-codex-feed]');
     const tweets = (Array.isArray(payload.tweets) ? payload.tweets : []).filter((item) => item.tibo_lane === 'reset_related' || item.explicit_reset_claim || item.kind === 'candidate').slice(0, 4);
     if (!tweets.length) {
-      root.innerHTML = '<p class="ai-feed-empty">当前没有可展示的雷达动态。</p>';
+      root.innerHTML = `<p class="ai-feed-empty">${radarText('radar.noRadarFeed', '当前没有可展示的雷达动态。')}</p>`;
       return;
     }
     root.innerHTML = tweets.map((item) => {
       const url = safeUrl(item.url, 'https://x.com');
       const text = String(item.text || '').replace(/\s+/g, ' ').trim();
-      return `<a class="ai-signal-item" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer"><span class="ai-signal-meta"><strong>${item.explicit_reset_claim ? '明确重置信号' : 'Tibo 动态'}</strong><time datetime="${escapeHtml(item.at)}">${formatDateTime(item.at)}</time></span><p>${escapeHtml(text.length > 180 ? `${text.slice(0, 180)}…` : text)}</p></a>`;
+      return `<a class="ai-signal-item" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer"><span class="ai-signal-meta"><strong>${item.explicit_reset_claim ? radarText('radar.explicitReset', '明确重置信号') : radarText('radar.tiboSignal', 'Tibo 动态')}</strong><time datetime="${escapeHtml(item.at)}">${formatDateTime(item.at)}</time></span><p>${escapeHtml(text.length > 180 ? `${text.slice(0, 180)}…` : text)}</p></a>`;
     }).join('');
   }
 
   async function loadCodexReset() {
-    sourceState('codex-reset', 'loading', '正在读取');
+    sourceState('codex-reset', 'loading', radarText('radar.reading', '正在读取'));
     const stamp = Date.now();
     const [forecast, feed] = await Promise.all([
       fetchJson(`${CODEX_FORECAST_URL}?_=${stamp}`),
       fetchJson(`${CODEX_FEED_URL}?_=${stamp}`)
     ]);
+    state.forecast = forecast;
+    state.codexFeed = feed;
     setProbability('codex-24', forecast.probabilities && forecast.probabilities.rounded_24h);
     setProbability('codex-48', forecast.probabilities && forecast.probabilities.rounded_48h);
-    const confidenceLabels = { low: '低', medium: '中', high: '高' };
+    const confidenceLabels = { low: radarText('radar.lowConfidence', '低'), medium: radarText('radar.mediumConfidence', '中'), high: radarText('radar.highConfidence', '高') };
     get('[data-ai-codex-confidence]').textContent = confidenceLabels[forecast.confidence] || forecast.confidence || '--';
-    get('[data-ai-codex-age]').textContent = Number.isFinite(Number(forecast.age_days)) ? `${Number(forecast.age_days).toFixed(1)} 天` : '--';
+    get('[data-ai-codex-age]').textContent = Number.isFinite(Number(forecast.age_days)) ? `${Number(forecast.age_days).toFixed(1)} ${radarText('radar.days', '天')}` : '--';
     get('[data-ai-codex-window]').textContent = forecast.time_window ? `${forecast.time_window.label} ${forecast.time_window.timezone}` : '--';
     renderCodexEvidence(forecast.evidence);
     renderCodexFeed(feed);
     get('[data-ai-source-time="codex-reset"]').textContent = formatDateTime(forecast.updated_at || feed.fetched_at);
-    sourceState('codex-reset', 'live', '实时');
+    sourceState('codex-reset', 'live', radarText('radar.live', '实时'));
   }
 
   function willVerdict(value) {
     return {
-      elevated: '高信号 · 保持关注',
-      watch: '观察信号 · 持续跟踪',
-      low: '低信号 · 保持克制',
-      quiet: '暂无明显信号'
-    }[value] || '预测信号已更新';
+      elevated: radarText('radar.verdictElevated', '高信号 · 保持关注'),
+      watch: radarText('radar.verdictWatch', '观察信号 · 持续跟踪'),
+      low: radarText('radar.verdictLow', '低信号 · 保持克制'),
+      quiet: radarText('radar.verdictQuiet', '暂无明显信号')
+    }[value] || radarText('radar.verdictUpdated', '预测信号已更新');
   }
 
   function renderWillPulse(payload) {
     const root = get('[data-ai-will-pulse]');
     const events = (Array.isArray(payload.events) ? payload.events : []).filter((item) => Number(item.impact) > 0 || item.kind === 'reset' || item.kind === 'incident').slice(0, 5);
     if (!events.length) {
-      root.innerHTML = '<p class="ai-feed-empty">Forecast pulse 当前没有重要信号事件。</p>';
+      root.innerHTML = `<p class="ai-feed-empty">${radarText('radar.noPulse', 'Forecast pulse 当前没有重要信号事件。')}</p>`;
       return;
     }
     root.innerHTML = events.map((item) => {
       const url = safeUrl(item.url, 'https://willcodexreset.com');
-      const tag = item.kind === 'reset' ? '已确认重置' : item.kind === 'incident' ? '服务事件' : `影响 +${Number(item.impact) || 0}`;
-      const body = `<span class="ai-signal-meta"><strong>${escapeHtml(item.title || '信号事件')}</strong><time datetime="${escapeHtml(item.occurredAt)}">${formatDateTime(item.occurredAt)}</time></span><p>${escapeHtml(String(item.detail || '').replace(/\s+/g, ' ').slice(0, 190))}</p><span class="ai-signal-impact">${escapeHtml(tag)}</span>`;
+      const tag = item.kind === 'reset' ? radarText('radar.resetConfirmed', '已确认重置') : item.kind === 'incident' ? radarText('radar.serviceEvent', '服务事件') : radarText('radar.impact', '影响 +{impact}', { impact: Number(item.impact) || 0 });
+      const body = `<span class="ai-signal-meta"><strong>${escapeHtml(item.title || radarText('radar.signalEvent', '信号事件'))}</strong><time datetime="${escapeHtml(item.occurredAt)}">${formatDateTime(item.occurredAt)}</time></span><p>${escapeHtml(String(item.detail || '').replace(/\s+/g, ' ').slice(0, 190))}</p><span class="ai-signal-impact">${escapeHtml(tag)}</span>`;
       return url ? `<a class="ai-signal-item" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${body}</a>` : `<div class="ai-signal-item">${body}</div>`;
     }).join('');
   }
 
   async function loadWillReset() {
-    sourceState('will-reset', 'loading', '正在读取');
+    sourceState('will-reset', 'loading', radarText('radar.reading', '正在读取'));
     const response = await fetchJinaJson(WILL_RESET_URL);
     const payload = response && response.code === 0 ? response.data : response;
     if (!payload || typeof payload !== 'object') throw new Error('预测数据格式不正确');
+    state.willPayload = payload;
     get('[data-ai-will-24]').textContent = `${Number(payload.probability24h) || 0}%`;
     get('[data-ai-will-48]').textContent = `${Number(payload.probability48h) || 0}%`;
     get('[data-ai-will-verdict]').textContent = willVerdict(payload.verdict);
     renderWillPulse(payload);
     get('[data-ai-source-time="will-reset"]').textContent = formatDateTime(payload.updatedAt);
-    sourceState('will-reset', 'live', '实时');
+    sourceState('will-reset', 'live', radarText('radar.live', '实时'));
   }
 
   const loaders = {
@@ -267,7 +275,7 @@
       return true;
     } catch (error) {
       console.warn(`AI Radar source failed: ${source}`, error);
-      sourceState(source, 'error', '读取失败');
+      sourceState(source, 'error', radarText('radar.failed', '读取失败'));
       return false;
     } finally {
       setSourceBusy(source, false);
@@ -279,24 +287,47 @@
     const status = get('[data-ai-refresh-status]');
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
-    status.textContent = '正在同步三个来源…';
+    status.textContent = radarText('radar.syncing', '正在同步三个来源…');
     const results = await Promise.all(Object.keys(loaders).map(runSource));
     const successCount = results.filter(Boolean).length;
     status.textContent = successCount === results.length
-      ? `全部已更新 · ${new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false })}`
-      : `已更新 ${successCount} / ${results.length} 个来源，失败项可单独重试`;
+      ? radarText('radar.updated', '全部已更新 · {time}', { time: new Date().toLocaleTimeString(window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }) })
+      : radarText('radar.partialUpdated', '已更新 {success} / {total} 个来源，失败项可单独重试', { success: successCount, total: results.length });
     button.disabled = false;
     button.setAttribute('aria-busy', 'false');
   }
+
+  function refreshLocalizedData() {
+    const bestCombined = state.scoreRows[0];
+    const bestSoftware = [...state.scoreRows].sort((left, right) => right.software - left.software)[0];
+    const bestVisual = [...state.scoreRows].sort((left, right) => right.visual - left.visual)[0];
+    renderBest('combined', bestCombined, bestCombined && bestCombined.combined);
+    renderBest('software', bestSoftware, bestSoftware && bestSoftware.software);
+    renderBest('visual', bestVisual, bestVisual && bestVisual.visual);
+    renderScoreRows();
+    if (state.forecast) {
+      const confidenceLabels = { low: radarText('radar.lowConfidence', '低'), medium: radarText('radar.mediumConfidence', '中'), high: radarText('radar.highConfidence', '高') };
+      get('[data-ai-codex-confidence]').textContent = confidenceLabels[state.forecast.confidence] || state.forecast.confidence || '--';
+      get('[data-ai-codex-age]').textContent = Number.isFinite(Number(state.forecast.age_days)) ? `${Number(state.forecast.age_days).toFixed(1)} ${radarText('radar.days', '天')}` : '--';
+      renderCodexEvidence(state.forecast.evidence);
+      renderCodexFeed(state.codexFeed || {});
+    }
+    if (state.willPayload) {
+      get('[data-ai-will-verdict]').textContent = willVerdict(state.willPayload.verdict);
+      renderWillPulse(state.willPayload);
+    }
+  }
+
+  window.PHDSXI18n?.onChange(refreshLocalizedData);
 
   get('[data-ai-score-search]')?.addEventListener('input', renderScoreRows);
   get('[data-ai-refresh-all]')?.addEventListener('click', refreshAll);
   getAll('[data-ai-refresh-source]').forEach((button) => button.addEventListener('click', async () => {
     const source = button.dataset.aiRefreshSource;
     const status = get('[data-ai-refresh-status]');
-    status.textContent = `正在刷新 ${source}…`;
+    status.textContent = radarText('radar.refreshing', '正在刷新 {source}…', { source });
     const success = await runSource(source);
-    status.textContent = success ? `该来源已更新 · ${new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false })}` : '刷新失败，请稍后重试或打开来源站查看';
+    status.textContent = success ? radarText('radar.sourceUpdated', '该来源已更新 · {time}', { time: new Date().toLocaleTimeString(window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }) }) : radarText('radar.retry', '刷新失败，请稍后重试或打开来源站查看');
   }));
   refreshAll();
 }());
