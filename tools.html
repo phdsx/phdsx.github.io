@@ -11,159 +11,235 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0f172a">
-  <meta name="description" content="按一级分类与二级标签浏览和切换 PHDSX 在线工具。">
+  <meta name="description" content="搜索、筛选和收藏实用在线工具。">
   <title>工具 - PHDSX</title>
-  <link rel="stylesheet" href="assets/site.css?v=20260830c">
+  <link rel="stylesheet" href="assets/site.css?v=20260918b">
+  <link rel="stylesheet" href="assets/workspace.css?v=20260918b">
 </head>
-<body>
-  <header class="site-header"></header>
-  <main>
-    <section class="section tool-tabs-page">
-      <div class="section-head">
-        <div>
-          <h1>工具</h1>
-          <p class="section-lede">先选择一级分类，再通过二级标签切换具体工具场景。</p>
-        </div>
-        <span class="catalog-total">6 个一级分类 · 14 个二级分类 · 17 项工具</span>
-      </div>
-
-      <div class="tool-tabs" data-tool-tabs>
-        <div class="tool-tab-list" role="tablist" aria-label="工具分类">
-          <button class="tool-tab" id="tool-tab-document" type="button" role="tab" aria-selected="true" aria-controls="tool-panel-document" data-tool-tab="document">文档办公<span class="tool-tab-count">2</span></button>
-          <button class="tool-tab" id="tool-tab-time" type="button" role="tab" aria-selected="false" aria-controls="tool-panel-time" data-tool-tab="time" tabindex="-1">时间<span class="tool-tab-count">2</span></button>
-          <button class="tool-tab" id="tool-tab-image" type="button" role="tab" aria-selected="false" aria-controls="tool-panel-image" data-tool-tab="image" tabindex="-1">图片<span class="tool-tab-count">4</span></button>
-          <button class="tool-tab" id="tool-tab-text" type="button" role="tab" aria-selected="false" aria-controls="tool-panel-text" data-tool-tab="text" tabindex="-1">文本与编码<span class="tool-tab-count">5</span></button>
-          <button class="tool-tab" id="tool-tab-lifestyle" type="button" role="tab" aria-selected="false" aria-controls="tool-panel-lifestyle" data-tool-tab="lifestyle" tabindex="-1">生活与趣味<span class="tool-tab-count">3</span></button>
-          <button class="tool-tab" id="tool-tab-media" type="button" role="tab" aria-selected="false" aria-controls="tool-panel-media" data-tool-tab="media" tabindex="-1">媒体<span class="tool-tab-count">1</span></button>
-        </div>
-        <span class="sr-only" data-tool-tab-status aria-live="polite">正在显示文档办公分类，共 2 项工具。</span>
-
-        <section class="tool-tab-panel" id="tool-panel-document" role="tabpanel" aria-labelledby="tool-tab-document" data-tool-panel="document">
-          <div class="tool-tab-panel-head"><div><h2>文档办公</h2><p>面向 Word 文档与演示场景的办公辅助工具。</p></div><span>2 项</span></div>
-          <div class="tool-subtabs" data-tool-subtabs>
-            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="文档办公二级分类">
-              <button class="tool-subtab" id="tool-subtab-document-word" type="button" role="tab" aria-selected="true" aria-controls="tool-subpanel-document-word" data-tool-subtab="document-word"><span>Word 辅助</span><span class="tool-subtab-count">1</span></button>
-              <button class="tool-subtab" id="tool-subtab-document-presentation" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-document-presentation" data-tool-subtab="document-presentation" tabindex="-1"><span>演示辅助</span><span class="tool-subtab-count">1</span></button>
-            </div></div>
-            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示 Word 辅助子分类，共 1 项工具。</span>
-            <section class="tool-subtab-panel" id="tool-subpanel-document-word" role="tabpanel" aria-labelledby="tool-subtab-document-word" data-tool-subpanel="document-word">
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/text-format.webp" alt=""><div><span class="tag">Word 辅助</span><h3>EQ 单字拼音域代码生成器</h3><p>逐字生成并校验 Word 拼音 EQ 域代码。</p></div><a class="card-action" href="tools/document/eq-pinyin-code.html">打开</a></article></div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-document-presentation" role="tabpanel" aria-labelledby="tool-subtab-document-presentation" data-tool-subpanel="document-presentation" hidden>
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/ppt-countdown.webp" alt=""><div><span class="tag">演示辅助</span><h3>PPT 放映悬浮倒计时</h3><p>适合 PPT 放映时悬浮显示倒计时。</p></div><a class="card-action" href="tools/document/ppt-countdown.html">打开</a></article></div>
-            </section>
-          </div>
-        </section>
-
-        <section class="tool-tab-panel" id="tool-panel-time" role="tabpanel" aria-labelledby="tool-tab-time" data-tool-panel="time" hidden>
-          <div class="tool-tab-panel-head"><div><h2>时间</h2><p>工作时间与通用倒计时工具。</p></div><span>2 项</span></div>
-          <div class="tool-subtabs" data-tool-subtabs>
-            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="时间二级分类">
-              <button class="tool-subtab" id="tool-subtab-time-work" type="button" role="tab" aria-selected="true" aria-controls="tool-subpanel-time-work" data-tool-subtab="time-work"><span>工作计时</span><span class="tool-subtab-count">1</span></button>
-              <button class="tool-subtab" id="tool-subtab-time-countdown" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-time-countdown" data-tool-subtab="time-countdown" tabindex="-1"><span>通用计时</span><span class="tool-subtab-count">1</span></button>
-            </div></div>
-            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示工作计时子分类，共 1 项工具。</span>
-            <section class="tool-subtab-panel" id="tool-subpanel-time-work" role="tabpanel" aria-labelledby="tool-subtab-time-work" data-tool-subpanel="time-work">
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/work-countdown.webp" alt=""><div><span class="tag">工作计时</span><h3>下班倒计时</h3><p>根据上下班时间显示剩余工作时长。</p></div><a class="card-action" href="tools/time/work-countdown.html">打开</a></article></div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-time-countdown" role="tabpanel" aria-labelledby="tool-subtab-time-countdown" data-tool-subpanel="time-countdown" hidden>
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/date-countdown.webp" alt=""><div><span class="tag">通用计时</span><h3>自定义倒计时</h3><p>按小时、分钟和秒设置一段倒计时。</p></div><a class="card-action" href="tools/time/countdown.html">打开</a></article></div>
-            </section>
-          </div>
-        </section>
-
-        <section class="tool-tab-panel" id="tool-panel-image" role="tabpanel" aria-labelledby="tool-tab-image" data-tool-panel="image" hidden>
-          <div class="tool-tab-panel-head"><div><h2>图片</h2><p>压缩、裁剪、批处理和水印编辑。</p></div><span>4 项</span></div>
-          <div class="tool-subtabs" data-tool-subtabs>
-            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="图片二级分类">
-              <button class="tool-subtab" id="tool-subtab-image-optimize" type="button" role="tab" aria-selected="true" aria-controls="tool-subpanel-image-optimize" data-tool-subtab="image-optimize"><span>图片压缩</span><span class="tool-subtab-count">1</span></button>
-              <button class="tool-subtab" id="tool-subtab-image-crop" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-image-crop" data-tool-subtab="image-crop" tabindex="-1"><span>裁剪处理</span><span class="tool-subtab-count">2</span></button>
-              <button class="tool-subtab" id="tool-subtab-image-metadata" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-image-metadata" data-tool-subtab="image-metadata" tabindex="-1"><span>水印与元数据</span><span class="tool-subtab-count">1</span></button>
-            </div></div>
-            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示图片压缩子分类，共 1 项工具。</span>
-            <section class="tool-subtab-panel" id="tool-subpanel-image-optimize" role="tabpanel" aria-labelledby="tool-subtab-image-optimize" data-tool-subpanel="image-optimize">
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/image-compress.webp" alt=""><div><span class="tag">图片压缩</span><h3>图片压缩</h3><p>快速减小图片体积。</p></div><a class="card-action" href="tools/image/image-compressor.html">打开</a></article></div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-image-crop" role="tabpanel" aria-labelledby="tool-subtab-image-crop" data-tool-subpanel="image-crop" hidden>
-              <div class="card-grid">
-                <article class="link-card"><img class="card-icon" src="assets/icons/image-crop.webp" alt=""><div><span class="tag">裁剪处理</span><h3>图片裁剪</h3><p>上传多张图片并逐张调整裁剪区域。</p></div><a class="card-action" href="tools/image/image-cropper.html">打开</a></article>
-                <article class="link-card"><img class="card-icon" src="assets/icons/image-crop.webp" alt=""><div><span class="tag">裁剪处理</span><h3>批量图片裁剪</h3><p>将同一裁剪设置批量应用到多张图片。</p></div><a class="card-action" href="tools/image/batch-image-cropper.html">打开</a></article>
-              </div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-image-metadata" role="tabpanel" aria-labelledby="tool-subtab-image-metadata" data-tool-subpanel="image-metadata" hidden>
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/image-watermark.webp" alt=""><div><span class="tag">水印与元数据</span><h3>图片水印与 EXIF 编辑器</h3><p>添加文字、图片或 EXIF 水印，并支持裁剪。</p></div><a class="card-action" href="tools/image/image-watermark-editor.html">打开</a></article></div>
-            </section>
-          </div>
-        </section>
-
-        <section class="tool-tab-panel" id="tool-panel-text" role="tabpanel" aria-labelledby="tool-tab-text" data-tool-panel="text" hidden>
-          <div class="tool-tab-panel-head"><div><h2>文本与编码</h2><p>转换、清理、统计文本，并生成二维码。</p></div><span>5 项</span></div>
-          <div class="tool-subtabs" data-tool-subtabs>
-            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="文本与编码二级分类">
-              <button class="tool-subtab" id="tool-subtab-text-transform" type="button" role="tab" aria-selected="true" aria-controls="tool-subpanel-text-transform" data-tool-subtab="text-transform"><span>字符转换</span><span class="tool-subtab-count">1</span></button>
-              <button class="tool-subtab" id="tool-subtab-text-cleanup" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-text-cleanup" data-tool-subtab="text-cleanup" tabindex="-1"><span>清理与排版</span><span class="tool-subtab-count">2</span></button>
-              <button class="tool-subtab" id="tool-subtab-text-statistics" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-text-statistics" data-tool-subtab="text-statistics" tabindex="-1"><span>文本统计</span><span class="tool-subtab-count">1</span></button>
-              <button class="tool-subtab" id="tool-subtab-text-qrcode" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-text-qrcode" data-tool-subtab="text-qrcode" tabindex="-1"><span>二维码编码</span><span class="tool-subtab-count">1</span></button>
-            </div></div>
-            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示字符转换子分类，共 1 项工具。</span>
-            <section class="tool-subtab-panel" id="tool-subpanel-text-transform" role="tabpanel" aria-labelledby="tool-subtab-text-transform" data-tool-subpanel="text-transform">
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/case-convert.webp" alt=""><div><span class="tag">字符转换</span><h3>大小写转换</h3><p>快速切换英文大小写。</p></div><a class="card-action" href="tools/text/case-converter.html">打开</a></article></div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-text-cleanup" role="tabpanel" aria-labelledby="tool-subtab-text-cleanup" data-tool-subpanel="text-cleanup" hidden>
-              <div class="card-grid">
-                <article class="link-card"><img class="card-icon" src="assets/icons/text-dedupe.webp" alt=""><div><span class="tag">文本清理</span><h3>文本去重</h3><p>清理重复行和重复内容。</p></div><a class="card-action" href="tools/text/text-deduplicator.html">打开</a></article>
-                <article class="link-card"><img class="card-icon" src="assets/icons/text-format.webp" alt=""><div><span class="tag">文本排版</span><h3>文本格式化</h3><p>整理空白与格式，让文本更易读。</p></div><a class="card-action" href="tools/text/text-formatter.html">打开</a></article>
-              </div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-text-statistics" role="tabpanel" aria-labelledby="tool-subtab-text-statistics" data-tool-subpanel="text-statistics" hidden>
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/word-count.webp" alt=""><div><span class="tag">文本统计</span><h3>字数统计</h3><p>统计字数、字符和段落。</p></div><a class="card-action" href="tools/text/word-counter.html">打开</a></article></div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-text-qrcode" role="tabpanel" aria-labelledby="tool-subtab-text-qrcode" data-tool-subpanel="text-qrcode" hidden>
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/qr-generator.webp" alt=""><div><span class="tag">二维码编码</span><h3>二维码生成</h3><p>将文字、网址和小型文件转换为二维码。</p></div><a class="card-action" href="tools/utility/qr-generator.html">打开</a></article></div>
-            </section>
-          </div>
-        </section>
-
-        <section class="tool-tab-panel" id="tool-panel-lifestyle" role="tabpanel" aria-labelledby="tool-tab-lifestyle" data-tool-panel="lifestyle" hidden>
-          <div class="tool-tab-panel-head"><div><h2>生活与趣味</h2><p>日常选择和仅供娱乐的趣味模拟。</p></div><span>3 项</span></div>
-          <div class="tool-subtabs" data-tool-subtabs>
-            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="生活与趣味二级分类">
-              <button class="tool-subtab" id="tool-subtab-lifestyle-helper" type="button" role="tab" aria-selected="true" aria-controls="tool-subpanel-lifestyle-helper" data-tool-subtab="lifestyle-helper"><span>饮食决策</span><span class="tool-subtab-count">1</span></button>
-              <button class="tool-subtab" id="tool-subtab-lifestyle-fun" type="button" role="tab" aria-selected="false" aria-controls="tool-subpanel-lifestyle-fun" data-tool-subtab="lifestyle-fun" tabindex="-1"><span>趣味模拟</span><span class="tool-subtab-count">2</span></button>
-            </div></div>
-            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示饮食决策子分类，共 1 项工具。</span>
-            <section class="tool-subtab-panel" id="tool-subpanel-lifestyle-helper" role="tabpanel" aria-labelledby="tool-subtab-lifestyle-helper" data-tool-subpanel="lifestyle-helper">
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/meal-randomizer.webp" alt=""><div><span class="tag">饮食决策</span><h3>吃啥饭</h3><p>随机组合主食、菜品与饮料。</p></div><a class="card-action" href="tools/lifestyle/meal-randomizer.html">打开</a></article></div>
-            </section>
-            <section class="tool-subtab-panel" id="tool-subpanel-lifestyle-fun" role="tabpanel" aria-labelledby="tool-subtab-lifestyle-fun" data-tool-subpanel="lifestyle-fun" hidden>
-              <div class="card-grid">
-                <article class="link-card"><img class="card-icon" src="assets/icons/family-calculator.webp" alt=""><div><span class="tag">趣味模拟</span><h3>子女性别娱乐模拟器</h3><p>生成不具有预测意义的随机模拟结果。</p></div><a class="card-action" href="tools/fun/child-gender-simulator.html">打开</a></article>
-                <article class="link-card"><img class="card-icon" src="assets/icons/lightning-calculator.webp" alt=""><div><span class="tag">趣味模拟</span><h3>雷击概率娱乐计算器</h3><p>根据简单选项生成娱乐结果。</p></div><a class="card-action" href="tools/fun/lightning-calculator.html">打开</a></article>
-              </div>
-            </section>
-          </div>
-        </section>
-
-        <section class="tool-tab-panel" id="tool-panel-media" role="tabpanel" aria-labelledby="tool-tab-media" data-tool-panel="media" hidden>
-          <div class="tool-tab-panel-head"><div><h2>媒体</h2><p>视频播放相关的便捷入口。</p></div><span>1 项</span></div>
-          <div class="tool-subtabs" data-tool-subtabs>
-            <div class="tool-subtab-nav"><span class="tool-subtab-nav-label">二级分类</span><div class="tool-subtab-list" role="tablist" aria-label="媒体二级分类">
-              <button class="tool-subtab" id="tool-subtab-media-video" type="button" role="tab" aria-selected="true" aria-controls="tool-subpanel-media-video" data-tool-subtab="media-video"><span>视频解析</span><span class="tool-subtab-count">1</span></button>
-            </div></div>
-            <span class="sr-only" data-tool-subtab-status aria-live="polite">正在显示视频解析子分类，共 1 项工具。</span>
-            <section class="tool-subtab-panel" id="tool-subpanel-media-video" role="tabpanel" aria-labelledby="tool-subtab-media-video" data-tool-subpanel="media-video">
-              <div class="card-grid"><article class="link-card"><img class="card-icon" src="assets/icons/video-player.webp" alt=""><div><span class="tag">视频解析</span><h3>VIP 视频解析</h3><p>输入视频地址并选择解析线路。</p></div><a class="card-action" href="tools/media/vip-video-parser.html">打开</a></article></div>
-            </section>
-          </div>
-        </section>
-      </div>
-    </section>
-  </main>
-  <footer class="site-footer">
-    <span>PHDSX 个人主页</span>
-    <span>工具 · 游戏 · 博客 · 小说 · 黄页</span>
-  </footer>
-  <script src="assets/i18n.js?v=20260903a"></script>
-  <script src="assets/site.js?v=20260830d"></script>
+<body class="workspace-page">
+<header class="site-header">
+</header>
+<main class="workspace-main" data-tool-directory>
+<div class="workspace-topline">
+<span>PHDSX / 工具箱</span>
+<a href="index.html">返回首页</a>
+</div>
+<header class="workspace-heading">
+<p class="workspace-eyebrow">少一点重复，多一点效率</p>
+<h1>顺手的工具，都在这里。</h1>
+<p>处理图片、整理文字、专注工作。找到需要的，直接开始。</p>
+</header>
+<div class="directory-search">
+<label class="sr-only" for="directory-search">搜索工具</label>
+<input id="directory-search" type="search" placeholder="搜索工具名称或用途，例如：压缩、二维码、Word" autocomplete="off">
+<span>17 项工具</span>
+</div>
+<div class="workspace-filters" role="group" aria-label="工具分类">
+<button type="button" data-workspace-filter="all" aria-pressed="true">全部</button>
+<button type="button" data-workspace-filter="image" aria-pressed="false">图片处理</button>
+<button type="button" data-workspace-filter="text" aria-pressed="false">文本与编码</button>
+<button type="button" data-workspace-filter="document" aria-pressed="false">文档办公</button>
+<button type="button" data-workspace-filter="time" aria-pressed="false">时间</button>
+<button type="button" data-workspace-filter="lifestyle" aria-pressed="false">生活与趣味</button>
+<button type="button" data-workspace-filter="media" aria-pressed="false">媒体</button>
+<button type="button" data-workspace-filter="saved" aria-pressed="false">我的收藏</button>
+</div>
+<p class="workspace-results" data-directory-status role="status">全部工具 · 17 项</p>
+<div class="workspace-grid" data-directory-grid>
+<article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/eq-pinyin-code.html">
+<a class="workspace-card-link" href="tools/document/eq-pinyin-code.html">
+<img src="assets/icons/text-format.webp" alt="" width="40" height="40">
+<div>
+<h3>EQ 单字拼音域代码生成器</h3>
+<p>逐字生成并校验 Word 拼音 EQ 域代码。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/document/eq-pinyin-code.html" aria-label="收藏EQ 单字拼音域代码生成器" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/ppt-countdown.html">
+<a class="workspace-card-link" href="tools/document/ppt-countdown.html">
+<img src="assets/icons/ppt-countdown.webp" alt="" width="40" height="40">
+<div>
+<h3>PPT 放映悬浮倒计时</h3>
+<p>适合 PPT 放映时悬浮显示倒计时。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/document/ppt-countdown.html" aria-label="收藏PPT 放映悬浮倒计时" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="time" data-tool-href="tools/time/work-countdown.html">
+<a class="workspace-card-link" href="tools/time/work-countdown.html">
+<img src="assets/icons/work-countdown.webp" alt="" width="40" height="40">
+<div>
+<h3>下班倒计时</h3>
+<p>根据上下班时间显示剩余工作时长。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/time/work-countdown.html" aria-label="收藏下班倒计时" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="time" data-tool-href="tools/time/countdown.html">
+<a class="workspace-card-link" href="tools/time/countdown.html">
+<img src="assets/icons/date-countdown.webp" alt="" width="40" height="40">
+<div>
+<h3>自定义倒计时</h3>
+<p>按小时、分钟和秒设置一段倒计时。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/time/countdown.html" aria-label="收藏自定义倒计时" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-compressor.html">
+<a class="workspace-card-link" href="tools/image/image-compressor.html">
+<img src="assets/icons/image-compress.webp" alt="" width="40" height="40">
+<div>
+<h3>图片压缩</h3>
+<p>快速减小图片体积。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/image/image-compressor.html" aria-label="收藏图片压缩" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-cropper.html">
+<a class="workspace-card-link" href="tools/image/image-cropper.html">
+<img src="assets/icons/image-crop.webp" alt="" width="40" height="40">
+<div>
+<h3>图片裁剪</h3>
+<p>上传多张图片并逐张调整裁剪区域。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/image/image-cropper.html" aria-label="收藏图片裁剪" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/batch-image-cropper.html">
+<a class="workspace-card-link" href="tools/image/batch-image-cropper.html">
+<img src="assets/icons/image-crop.webp" alt="" width="40" height="40">
+<div>
+<h3>批量图片裁剪</h3>
+<p>将同一裁剪设置批量应用到多张图片。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/image/batch-image-cropper.html" aria-label="收藏批量图片裁剪" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-watermark-editor.html">
+<a class="workspace-card-link" href="tools/image/image-watermark-editor.html">
+<img src="assets/icons/image-watermark.webp" alt="" width="40" height="40">
+<div>
+<h3>图片水印与 EXIF 编辑器</h3>
+<p>添加文字、图片或 EXIF 水印，并支持裁剪。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/image/image-watermark-editor.html" aria-label="收藏图片水印与 EXIF 编辑器" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/case-converter.html">
+<a class="workspace-card-link" href="tools/text/case-converter.html">
+<img src="assets/icons/case-convert.webp" alt="" width="40" height="40">
+<div>
+<h3>大小写转换</h3>
+<p>快速切换英文大小写。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/text/case-converter.html" aria-label="收藏大小写转换" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/text-deduplicator.html">
+<a class="workspace-card-link" href="tools/text/text-deduplicator.html">
+<img src="assets/icons/text-dedupe.webp" alt="" width="40" height="40">
+<div>
+<h3>文本去重</h3>
+<p>清理重复行和重复内容。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/text/text-deduplicator.html" aria-label="收藏文本去重" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/text-formatter.html">
+<a class="workspace-card-link" href="tools/text/text-formatter.html">
+<img src="assets/icons/text-format.webp" alt="" width="40" height="40">
+<div>
+<h3>文本格式化</h3>
+<p>整理空白与格式，让文本更易读。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/text/text-formatter.html" aria-label="收藏文本格式化" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/word-counter.html">
+<a class="workspace-card-link" href="tools/text/word-counter.html">
+<img src="assets/icons/word-count.webp" alt="" width="40" height="40">
+<div>
+<h3>字数统计</h3>
+<p>统计字数、字符和段落。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/text/word-counter.html" aria-label="收藏字数统计" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="text" data-tool-href="tools/utility/qr-generator.html">
+<a class="workspace-card-link" href="tools/utility/qr-generator.html">
+<img src="assets/icons/qr-generator.webp" alt="" width="40" height="40">
+<div>
+<h3>二维码生成</h3>
+<p>将文字、网址和小型文件转换为二维码。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/utility/qr-generator.html" aria-label="收藏二维码生成" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/lifestyle/meal-randomizer.html">
+<a class="workspace-card-link" href="tools/lifestyle/meal-randomizer.html">
+<img src="assets/icons/meal-randomizer.webp" alt="" width="40" height="40">
+<div>
+<h3>吃啥饭</h3>
+<p>随机组合主食、菜品与饮料。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/lifestyle/meal-randomizer.html" aria-label="收藏吃啥饭" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/fun/child-gender-simulator.html">
+<a class="workspace-card-link" href="tools/fun/child-gender-simulator.html">
+<img src="assets/icons/family-calculator.webp" alt="" width="40" height="40">
+<div>
+<h3>子女性别娱乐模拟器</h3>
+<p>生成不具有预测意义的随机模拟结果。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/fun/child-gender-simulator.html" aria-label="收藏子女性别娱乐模拟器" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/fun/lightning-calculator.html">
+<a class="workspace-card-link" href="tools/fun/lightning-calculator.html">
+<img src="assets/icons/lightning-calculator.webp" alt="" width="40" height="40">
+<div>
+<h3>雷击概率娱乐计算器</h3>
+<p>根据简单选项生成娱乐结果。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/fun/lightning-calculator.html" aria-label="收藏雷击概率娱乐计算器" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="media" data-tool-href="tools/media/vip-video-parser.html">
+<a class="workspace-card-link" href="tools/media/vip-video-parser.html">
+<img src="assets/icons/video-player.webp" alt="" width="40" height="40">
+<div>
+<h3>VIP 视频解析</h3>
+<p>输入视频地址并选择解析线路。</p>
+</div>
+</a>
+<button class="pin-tool" type="button" data-pin="tools/media/vip-video-parser.html" aria-label="收藏VIP 视频解析" aria-pressed="false" hidden>收藏</button>
+</article>
+</div>
+<div class="workspace-empty" data-directory-empty hidden>
+<h2>没有找到合适的工具</h2>
+<p>换个关键词，或查看全部工具。</p>
+<button type="button" data-clear-filters>重置筛选</button>
+</div>
+<noscript>
+<p>启用 JavaScript 后可使用搜索、筛选与收藏；也可以直接打开上方工具。</p>
+</noscript>
+</main>
+<footer class="site-footer">
+<span>PHDSX · 让小事更简单</span>
+<a href="tools.html">全部工具</a>
+<a href="blog.html">更新记录</a>
+</footer>
+<script src="assets/catalog.js?v=20260830e">
+</script>
+<script src="assets/workspace-data.js?v=20260918b">
+</script>
+<script src="assets/i18n.js?v=20260918b">
+</script>
+<script src="assets/site.js?v=20260918b">
+</script>
+<script src="assets/workspace.js?v=20260918b">
+</script>
 </body>
 </html>

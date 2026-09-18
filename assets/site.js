@@ -29,7 +29,7 @@ function initSiteSidebar() {
   const currentPage = location.pathname.split('/').pop() || 'index.html';
   const script = document.currentScript || document.querySelector('script[src*="assets/site.js"]');
   const root = new URL('../', script && script.src ? script.src : location.href).href;
-  document.body.classList.add(currentPage === 'index.html' ? 'is-home-page' : 'is-sub-page');
+  document.body.classList.add(location.pathname === new URL('index.html', root).pathname || location.pathname === new URL(root).pathname ? 'is-home-page' : 'is-sub-page');
   header.innerHTML = `
     <a class="brand" href="${root}index.html" aria-label="${siteText('common.backHome', '返回首页')}">
       <span class="brand-mark">P</span>
@@ -42,15 +42,15 @@ function initSiteSidebar() {
         <a class="nav-link" href="${root}index.html"><span class="nav-symbol">⌂</span><span>${siteText('common.home', '首页')}</span></a>
         <a class="nav-link" href="${root}tools.html"><span class="nav-symbol">⌘</span><span>${siteText('common.tools', '工具')}</span></a>
         <a class="nav-link" href="${root}games.html"><span class="nav-symbol">◇</span><span>${siteText('common.games', '游戏')}</span></a>
-        <a class="nav-link" href="${root}blog.html"><span class="nav-symbol">▤</span><span>${siteText('common.blog', '博客')}</span></a>
-        <a class="nav-link" href="${root}directory.html"><span class="nav-symbol">☷</span><span>${siteText('common.directory', '黄页')}</span></a>
       </div>
       <div class="nav-section">
         <span class="nav-section-label">${siteText('common.reading', '阅读')}</span>
+        <a class="nav-link" href="${root}blog.html"><span class="nav-symbol">▤</span><span>${siteText('common.blog', '博客')}</span></a>
         <a class="nav-link" href="${root}novels/index.html"><span class="nav-symbol">▥</span><span>${siteText('common.novels', '小说')}</span></a>
       </div>
       <div class="nav-section">
         <span class="nav-section-label">${siteText('common.publishing', '发布与记录')}</span>
+        <a class="nav-link" href="${root}directory.html"><span class="nav-symbol">☷</span><span>${siteText('common.directory', '黄页')}</span></a>
         <a class="nav-link" href="${root}software.html"><span class="nav-symbol">▣</span><span>${siteText('common.software', '软件作品')}</span></a>
         <a class="nav-link" href="${root}ai-radar.html"><span class="nav-symbol">◎</span><span>${siteText('common.radar', 'AI 雷达')}</span></a>
         <a class="nav-link" href="${root}brand-blacklist/index.html"><span class="nav-symbol">!</span><span>${siteText('common.blacklist', '品牌黑名单')}</span></a>
@@ -86,22 +86,20 @@ function initSiteSidebar() {
   });
 }
 function initSiteNavigation() {
-  const current = location.pathname.split('/').pop() || 'index.html';
-  const detailSections = { 'blog-post.html': 'blog.html', 'reader.html': 'index.html', 'detail.html': 'index.html' };
-  const currentPath = decodeURIComponent(location.pathname).replace(/\\/g, '/');
-  const isGamePage = current === 'games.html' || /\/games\//i.test(currentPath);
+  const script = document.querySelector('script[src*="assets/site.js"]');
+  const root = new URL('../', script.src);
+  const relativePath = decodeURIComponent(location.pathname).slice(decodeURIComponent(root.pathname).length);
+  let section = relativePath || 'index.html';
+  if (section.startsWith('tools/')) section = 'tools.html';
+  else if (section.startsWith('games/')) section = 'games.html';
+  else if (section.startsWith('novels/')) section = 'novels/index.html';
+  else if (section.startsWith('brand-blacklist/')) section = 'brand-blacklist/index.html';
+  else if (section === 'blog-post.html') section = 'blog.html';
   document.querySelectorAll('.site-nav .nav-link').forEach((link) => {
     const label = link.querySelector(':scope > span:last-child')?.textContent.trim() || link.textContent.trim();
-    if (label) {
-      link.dataset.label = label;
-      link.title = label;
-      link.setAttribute('aria-label', label);
-    }
-    const target = new URL(link.href, location.href).pathname.split('/').pop() || 'index.html';
-    const isGameIndex = target === 'games.html' && isGamePage;
-    const inNovelSection = /\/novels\/(?:index|reader)\.html$/i.test(currentPath) && /\/novels\//i.test(link.href);
-    const inBlacklistSection = /\/brand-blacklist\/(?:index|detail)\.html$/i.test(currentPath) && /\/brand-blacklist\//i.test(link.href);
-    const active = target === current || isGameIndex || detailSections[current] === target || inNovelSection || inBlacklistSection;
+    link.title = label;
+    link.setAttribute('aria-label', label);
+    const active = new URL(link.href).pathname === new URL(section, root).pathname;
     link.classList.toggle('active', active);
     if (active) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
