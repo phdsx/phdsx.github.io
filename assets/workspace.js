@@ -18,6 +18,16 @@
     feedback.setAttribute('role', 'status');
     document.querySelector('[data-directory-grid]')?.before(feedback);
   }
+  const iconNames = {'image-compressor':['image','blue'],'image-cropper':['crop','purple'],'text-deduplicator':['file-text-fill','green'],'word-counter':['bar-chart-fill','peach'],'qr-generator':['qr-code','sky'],'ppt-countdown':['clock-fill','pink']};
+  const decorateIcon = (img, href) => {
+    const key = href.split('/').pop().replace('.html','');
+    const icon = iconNames[key];
+    if (!icon || !document.body.classList.contains('porcelain-page')) return;
+    const tile = document.createElement('span'); tile.className = 'porcelain-icon icon-' + icon[1];
+    img.src = 'assets/porcelain/icons/' + icon[0] + '.svg'; img.width = 48; img.height = 48;
+    img.replaceWith(tile); tile.append(img);
+  };
+  document.querySelectorAll('[data-tool-href]').forEach(card => decorateIcon(card.querySelector('img'), card.dataset.toolHref));
   const makeCard = (tool) => {
     const article = document.createElement('article');
     article.className = 'workspace-card';
@@ -33,6 +43,7 @@
     copy.append(title, desc); link.append(img, copy);
     const button = document.createElement('button'); button.type = 'button'; button.className = 'pin-tool'; button.dataset.pin = tool.href;
     article.append(link, button);
+    decorateIcon(img, tool.href);
     return article;
   };
   const syncButtons = () => document.querySelectorAll('[data-pin]').forEach(button => {
@@ -46,11 +57,11 @@
   const renderHome = () => {
     const grid = document.querySelector('[data-shortcuts]');
     if (grid) {
-      const defaults = ['image-compressor','image-cropper','text-deduplicator','word-counter','qr-generator','eq-pinyin-code','ppt-countdown','work-countdown'];
+      const defaults = ['image-compressor','image-cropper','text-deduplicator','word-counter','qr-generator','ppt-countdown'];
       const selected = favorites.length ? favorites.map(href => tools.find(tool => tool.href === href)) : defaults.map(name => tools.find(tool => tool.href.endsWith('/' + name + '.html')));
       grid.replaceChildren(...selected.map(makeCard));
       document.querySelector('[data-shortcuts-title]').textContent = favorites.length ? t('我的收藏', 'My favorites') : t('常用工具', 'Everyday tools');
-      document.querySelector('[data-shortcuts-note]').textContent = favorites.length ? t('你的专属快捷入口，可在工具箱中继续添加。', 'Your shortcuts. Add more from the toolbox.') : t('精选常用入口，点击收藏即可固定在这里。', 'Useful shortcuts. Save a tool to pin it here.');
+      document.querySelector('[data-shortcuts-note]').textContent = favorites.length ? t('你的专属快捷入口，可在工具箱中继续添加。', 'Your shortcuts. Add more from the toolbox.') : t('高效、简洁、好用的在线工具。', 'Simple tools. Everyday possibilities.');
     }
     const recent = document.querySelector('[data-recent-tools]');
     if (recent) {
@@ -107,5 +118,14 @@
   window.addEventListener('pageshow', () => { favorites = read(favoritesKey); renderHome(); filterDirectory(); });
   window.addEventListener('storage', event => { if ([favoritesKey, recentKey].includes(event.key)) { favorites = read(favoritesKey); renderHome(); filterDirectory(); } });
   siteOnLanguageChange(() => { renderHome(); filterDirectory(); });
+  document.querySelectorAll('.porcelain-nav details').forEach(menu => menu.addEventListener('toggle', () => {
+    if (menu.open) document.querySelectorAll('.porcelain-nav details').forEach(other => { if (other !== menu) other.open = false; });
+  }));
+  document.addEventListener('click', event => {
+    document.querySelectorAll('.porcelain-nav details[open]').forEach(menu => { if (!menu.contains(event.target)) menu.open = false; });
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') document.querySelectorAll('.porcelain-nav details[open]').forEach(menu => { menu.open = false; menu.querySelector('summary').focus(); });
+  });
   renderHome(); filterDirectory();
 })();

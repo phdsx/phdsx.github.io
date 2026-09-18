@@ -10,28 +10,31 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#fafbfe">
   <meta name="description" content="搜索、筛选和收藏实用在线工具。">
   <title>PHDSX · 个人工作台</title>
-  <link rel="stylesheet" href="assets/site.css?v=20260918b">
-  <link rel="stylesheet" href="assets/workspace.css?v=20260918b">
+  <link rel="stylesheet" href="assets/site.css?v=20260919a">
+  <link rel="stylesheet" href="assets/workspace.css?v=20260919a">
+<link rel="stylesheet" href="assets/porcelain.css?v=20260919a">
 </head>
-<body class="workspace-page">
-<header class="site-header">
-</header>
+<body class="workspace-page porcelain-page">
+<header class="site-header porcelain-header" data-porcelain-header>
+<a class="porcelain-brand" href="index.html" aria-label="返回首页">PHDSX</a>
+<nav class="porcelain-nav" aria-label="主导航">
+<a href="tools.html" class="porcelain-current">工具</a><a href="games.html">游戏</a>
+<details><summary>阅读</summary><div class="porcelain-menu"><a href="blog.html">博客笔记</a><a href="novels/index.html">小说连载</a></div></details>
+<details><summary>探索</summary><div class="porcelain-menu"><a href="software.html">软件作品</a><a href="ai-radar.html">AI 雷达</a><a href="directory.html">电话黄页</a><a href="brand-blacklist/index.html">品牌黑名单</a></div></details>
+</nav><div class="porcelain-header-end"><a class="header-search" href="#home-search" aria-label="搜索站内内容"><img src="assets/porcelain/icons/search.svg" alt="" width="19" height="19"></a><span>让小事更简单</span><button type="button" class="porcelain-language" data-i18n-toggle>EN</button></div></header>
 <main class="workspace-main" data-workspace-home>
-<div class="workspace-topline">
-<span>你的日常，从这里开始</span>
-<a href="software.html">探索我的作品</a>
-</div>
+
 <section class="workspace-heading portal-search" aria-labelledby="home-title">
-<p class="workspace-eyebrow">PHDSX · 个人工作台</p>
-<h1 id="home-title">把时间留给更重要的事。</h1>
-<p>实用工具、阅读与灵感，一个顺手的起点。</p>
+
+<h1 id="home-title">好工具，让日常更轻松。</h1>
+<p>工具、阅读与灵感，一个顺手的起点。</p>
 <div class="command-search">
 <label class="sr-only" for="home-search">搜索站内内容</label>
-<input id="home-search" type="search" data-home-search placeholder="搜索工具、游戏、文章…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="home-search-results">
-<button class="portal-search-button" type="button" data-search-submit aria-label="搜索">搜索</button>
+<input id="home-search" type="search" data-home-search placeholder="搜索你需要的工具" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="home-search-results">
+<button class="porcelain-search-submit" type="button" data-search-submit aria-label="搜索"><img src="assets/porcelain/icons/search.svg" alt="" width="22" height="22"></button>
 <span class="command-key" aria-hidden="true">Ctrl K</span>
 <div class="home-search-panel" data-home-search-panel hidden>
 <p class="home-search-status" data-home-search-status aria-live="polite">
@@ -100,16 +103,7 @@
 </a>
 <button class="pin-tool" type="button" data-pin="tools/utility/qr-generator.html" aria-label="收藏二维码生成" aria-pressed="false" hidden>收藏</button>
 </article>
-<article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/eq-pinyin-code.html">
-<a class="workspace-card-link" href="tools/document/eq-pinyin-code.html">
-<img src="assets/icons/text-format.webp" alt="" width="40" height="40">
-<div>
-<h3>EQ 单字拼音域代码生成器</h3>
-<p>逐字生成并校验 Word 拼音 EQ 域代码。</p>
-</div>
-</a>
-<button class="pin-tool" type="button" data-pin="tools/document/eq-pinyin-code.html" aria-label="收藏EQ 单字拼音域代码生成器" aria-pressed="false" hidden>收藏</button>
-</article>
+
 <article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/ppt-countdown.html">
 <a class="workspace-card-link" href="tools/document/ppt-countdown.html">
 <img src="assets/icons/ppt-countdown.webp" alt="" width="40" height="40">
@@ -120,20 +114,15 @@
 </a>
 <button class="pin-tool" type="button" data-pin="tools/document/ppt-countdown.html" aria-label="收藏PPT 放映悬浮倒计时" aria-pressed="false" hidden>收藏</button>
 </article>
-<article class="workspace-card" data-tool-category="time" data-tool-href="tools/time/work-countdown.html">
-<a class="workspace-card-link" href="tools/time/work-countdown.html">
-<img src="assets/icons/work-countdown.webp" alt="" width="40" height="40">
-<div>
-<h3>下班倒计时</h3>
-<p>根据上下班时间显示剩余工作时长。</p>
-</div>
-</a>
-<button class="pin-tool" type="button" data-pin="tools/time/work-countdown.html" aria-label="收藏下班倒计时" aria-pressed="false" hidden>收藏</button>
-</article>
+
 </div>
 <p class="workspace-feedback" data-workspace-feedback role="status">
 </p>
 </section>
+
+<section class="porcelain-stories" aria-label="阅读与游戏">
+<a class="porcelain-story porcelain-reading" href="novels/index.html"><span class="story-kicker">阅读 / 连载小说</span><h2>零号回声</h2><p>走进故事，继续探索未知。</p><span class="story-action">开始阅读 →</span></a>
+<a class="porcelain-story porcelain-gaming" href="games.html"><span class="story-kicker">休息 / 游戏厅</span><h2>来一局，放松一下</h2><p>象棋、方块、益智小游戏。</p><span class="story-action">进入游戏厅 →</span></a></section>
 <section class="workspace-section" data-recent-section hidden aria-labelledby="recent-title">
 <div class="workspace-section-head">
 <h2 id="recent-title">最近使用</h2>
@@ -141,54 +130,17 @@
 <div class="recent-tools" data-recent-tools>
 </div>
 </section>
-<section class="workspace-section" aria-labelledby="discover-title">
-<div class="workspace-section-head">
-<div>
-<h2 id="discover-title">工作之外，换个频道</h2>
-<p>读一点新内容，也给自己一点放松的时间。</p>
-</div>
-</div>
-<div class="discovery-grid">
-<a class="discovery-card reading-card" href="novels/index.html">
-<span class="discovery-kicker">阅读 / 连载小说</span>
-<h3>零号回声</h3>
-<p>走进故事，继续探索未知。</p>
-<span class="discovery-action">开始阅读 →</span>
-</a>
-<a class="discovery-card" href="blog-post.html?src=content%2Fblog%2Fpython%2Fpython-tutorial.md">
-<span class="discovery-kicker">学习 / 博客笔记</span>
-<h3>Python 教程笔记</h3>
-<p>记录学习中的方法与实践。</p>
-<span class="discovery-action">阅读笔记 →</span>
-</a>
-<a class="discovery-card" href="games.html">
-<span class="discovery-kicker">休息 / 游戏厅</span>
-<h3>来一局，放松一下</h3>
-<p>象棋、方块、益智小游戏。</p>
-<div class="game-miniatures">
-<img src="assets/icons/game-chess.webp" alt="" width="36" height="36">
-<img src="assets/icons/game-tetris.webp" alt="" width="36" height="36">
-<img src="assets/icons/game-fruit.webp" alt="" width="36" height="36">
-</div>
-<span class="discovery-action">进入游戏厅 →</span>
-</a>
-</div>
-</section>
 </main>
-<footer class="site-footer">
-<span>PHDSX · 让小事更简单</span>
-<a href="tools.html">全部工具</a>
-<a href="blog.html">更新记录</a>
-</footer>
+<footer class="site-footer"><span>PHDSX © 2026 · 让小事更简单</span><nav aria-label="页脚导航"><a href="software.html">作品</a><a href="blog.html">更新记录</a></nav></footer>
 <script src="assets/catalog.js?v=20260830e">
 </script>
-<script src="assets/workspace-data.js?v=20260918b">
+<script src="assets/workspace-data.js?v=20260919a">
 </script>
-<script src="assets/i18n.js?v=20260918b">
+<script src="assets/i18n.js?v=20260919a">
 </script>
-<script src="assets/site.js?v=20260918b">
+<script src="assets/site.js?v=20260919a">
 </script>
-<script src="assets/workspace.js?v=20260918b">
+<script src="assets/workspace.js?v=20260919a">
 </script>
 </body>
 </html>

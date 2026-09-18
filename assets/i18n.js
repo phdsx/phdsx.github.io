@@ -4,6 +4,15 @@
   const languages = { zh: 'zh-CN', en: 'en' };
   const languageAliases = { zh: 'zh', 'zh-cn': 'zh', chinese: 'zh', en: 'en', 'en-us': 'en', english: 'en' };
   const messages = {
+    "porcelain.0": ["好工具，让日常更轻松。", "Good tools. Easier days."],
+    "porcelain.1": ["工具、阅读与灵感，一个顺手的起点。", "Tools, reading and inspiration. Your everyday starting point."],
+    "porcelain.2": ["搜索你需要的工具", "Find the tool you need"],
+    "porcelain.3": ["让小事更简单", "Make everyday tasks easier"],
+    "porcelain.4": ["博客笔记", "Blog & notes"],
+    "porcelain.5": ["小说连载", "Serial fiction"],
+    "porcelain.6": ["电话黄页", "Phone directory"],
+    "porcelain.7": ["PHDSX © 2026 · 让小事更简单", "PHDSX © 2026 · Make everyday tasks easier"],
+
     "workspace.tool.0": ["PPT 放映悬浮倒计时", "PPT presentation countdown"],
     "workspace.tool.1": ["图片水印与 EXIF 编辑器", "Image watermark & EXIF editor"],
     "workspace.tool.2": ["逐字生成并校验 Word 拼音 EQ 域代码。", "Generate and validate Pinyin EQ field codes for Word."],
