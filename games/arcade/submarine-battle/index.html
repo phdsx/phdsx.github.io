@@ -187,6 +187,8 @@
 <link rel="stylesheet" href="../../../assets/standalone.css?v=20260824a">
   <script src="../../../assets/i18n.js?v=20260903a"></script>
   <script defer src="../../../assets/standalone.js?v=20260829b" data-home="../../../index.html" data-return="../../../games.html" data-return-label="Games"></script>
+<link rel="stylesheet" href="../../../assets/design-system.css?v=20260920a">
+<script defer src="../../../assets/design-system.js?v=20260920a"></script>
 </head>
 <body>
 
@@ -306,6 +308,7 @@
         }
 
         function gameViewportOffset() {
+            if (document.body.classList.contains('unified-game')) return 0;
             if (!document.body.classList.contains('phdsx-game-page')) return 0;
             return window.innerWidth <= 820 ? 64 : 208;
         }
@@ -356,7 +359,7 @@
 
             resize() {
                 this.width = Math.max(320, window.innerWidth - gameViewportOffset());
-                this.height = window.innerHeight;
+                this.height = window.innerHeight - (document.querySelector('.unified-header')?.offsetHeight || 0);
                 CONFIG.waterLevel = Math.max(110, Math.min(180, Math.round(this.height * 0.2)));
                 this.canvas.width = this.width;
                 this.canvas.height = this.height;

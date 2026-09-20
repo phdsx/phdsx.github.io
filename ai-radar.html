@@ -14,7 +14,9 @@
   <meta name="description" content="AI 雷达聚合 CodexRadar 模型能力评分、Codex Reset 预测与雷达动态，以及 Will Codex Reset 的未来 48 小时预测。">
   <title>AI 雷达 - PHDSX</title>
   <link rel="stylesheet" href="assets/site.css?v=20260829b">
-  <link rel="stylesheet" href="assets/ai-radar.css?v=20260829b">
+  <link rel="stylesheet" href="assets/ai-radar.css?v=20260920b">
+<link rel="stylesheet" href="assets/design-system.css?v=20260920a">
+<script defer src="assets/design-system.js?v=20260920a"></script>
 </head>
 <body>
   <header class="site-header"></header>
@@ -48,17 +50,22 @@
           <div><span>软件工程最高</span><strong data-ai-best="software">--</strong><small data-ai-best-label="software">等待数据</small></div>
           <div><span>视觉推理最高</span><strong data-ai-best="visual">--</strong><small data-ai-best-label="visual">等待数据</small></div>
         </div>
-        <div class="ai-score-tools">
-          <label class="sr-only" for="ai-score-search">搜索模型或推理档位</label>
-          <input class="search-input" id="ai-score-search" data-ai-score-search type="search" placeholder="搜索模型或档位，例如 Sol / xhigh" autocomplete="off">
-          <span data-ai-score-count aria-live="polite">等待评分数据</span>
-        </div>
-        <div class="ai-score-table-wrap">
-          <table class="ai-score-table">
-            <thead><tr><th scope="col">排名</th><th scope="col">模型 / 档位</th><th scope="col">综合智能</th><th scope="col">软件工程能力</th><th scope="col">视觉推理能力</th></tr></thead>
-            <tbody data-ai-score-list><tr><td colspan="5" class="ai-loading-cell">正在合并两个能力维度…</td></tr></tbody>
-          </table>
-        </div>
+        <details class="ai-source-details">
+          <summary><span data-i18n="radar.viewDetails">查看详细内容</span></summary>
+          <div class="ai-source-details-content">
+            <div class="ai-score-tools">
+              <label class="sr-only" for="ai-score-search">搜索模型或推理档位</label>
+              <input class="search-input" id="ai-score-search" data-ai-score-search type="search" placeholder="搜索模型或档位，例如 Sol / xhigh" autocomplete="off">
+              <span data-ai-score-count aria-live="polite">等待评分数据</span>
+            </div>
+            <div class="ai-score-table-wrap">
+              <table class="ai-score-table">
+                <thead><tr><th scope="col">排名</th><th scope="col">模型 / 档位</th><th scope="col">综合智能</th><th scope="col">软件工程能力</th><th scope="col">视觉推理能力</th></tr></thead>
+                <tbody data-ai-score-list><tr><td colspan="5" class="ai-loading-cell">正在合并两个能力维度…</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </details>
         <footer class="ai-source-foot"><span>数据更新时间：<time data-ai-source-time="codexradar">--</time></span><span>视觉数据经只读镜像获取</span></footer>
       </article>
 
@@ -73,8 +80,13 @@
             <div class="ai-probability" data-ai-probability-card="codex-48" style="--probability:0"><span>48 小时内</span><strong data-ai-probability="codex-48">--%</strong></div>
             <dl class="ai-reset-facts"><div><dt>模型置信度</dt><dd data-ai-codex-confidence>--</dd></div><div><dt>距上次重置</dt><dd data-ai-codex-age>--</dd></div><div><dt>历史高发时段</dt><dd data-ai-codex-window>--</dd></div></dl>
           </div>
-          <section class="ai-radar-feed"><div class="ai-subhead"><h3>预测依据</h3><span>Forecast evidence</span></div><ul data-ai-codex-evidence><li class="ai-feed-empty">正在读取预测依据…</li></ul></section>
-          <section class="ai-radar-feed"><div class="ai-subhead"><h3>雷达动态</h3><span>Tibo radar</span></div><div class="ai-signal-list" data-ai-codex-feed><p class="ai-feed-empty">正在读取雷达内容…</p></div></section>
+          <details class="ai-source-details">
+            <summary><span data-i18n="radar.viewDetails">查看详细内容</span></summary>
+            <div class="ai-source-details-content">
+              <section class="ai-radar-feed"><div class="ai-subhead"><h3>预测依据</h3><span>Forecast evidence</span></div><ul data-ai-codex-evidence><li class="ai-feed-empty">正在读取预测依据…</li></ul></section>
+              <section class="ai-radar-feed"><div class="ai-subhead"><h3>雷达动态</h3><span>Tibo radar</span></div><div class="ai-signal-list" data-ai-codex-feed><p class="ai-feed-empty">正在读取雷达内容…</p></div></section>
+            </div>
+          </details>
           <footer class="ai-source-foot"><span>来源更新时间：<time data-ai-source-time="codex-reset">--</time></span><a href="https://codex-reset.com/zh/radar" target="_blank" rel="noopener noreferrer">查看完整雷达 ↗</a></footer>
         </article>
 
@@ -87,14 +99,19 @@
             <div><p>Next 48 hours</p><strong data-ai-will-48>--%</strong><span data-ai-will-verdict>正在读取预测信号</span></div>
             <div class="ai-next-24"><span>24 小时内</span><strong data-ai-will-24>--%</strong></div>
           </section>
-          <section class="ai-radar-feed ai-pulse-feed"><div class="ai-subhead"><h3>Forecast pulse</h3><span>事件与信号记录</span></div><div class="ai-signal-list" data-ai-will-pulse><p class="ai-feed-empty">正在读取信号记录…</p></div></section>
+          <details class="ai-source-details">
+            <summary><span data-i18n="radar.viewDetails">查看详细内容</span></summary>
+            <div class="ai-source-details-content">
+              <section class="ai-radar-feed ai-pulse-feed"><div class="ai-subhead"><h3>Forecast pulse</h3><span>事件与信号记录</span></div><div class="ai-signal-list" data-ai-will-pulse><p class="ai-feed-empty">正在读取信号记录…</p></div></section>
+            </div>
+          </details>
           <footer class="ai-source-foot"><span>来源更新时间：<time data-ai-source-time="will-reset">--</time></span><span>数据经只读镜像获取</span></footer>
         </article>
       </div>
     </section>
   </main>
   <footer class="site-footer"><span>PHDSX 个人主页</span><span>AI 雷达 · 自动读取公开来源</span></footer>
-  <script src="assets/i18n.js?v=20260903a"></script>
+  <script src="assets/i18n.js?v=20260920b"></script>
   <script src="assets/site.js?v=20260829b"></script>
   <script src="assets/ai-radar.js?v=20260903a"></script>
 </body>

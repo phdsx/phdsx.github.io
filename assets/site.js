@@ -25,7 +25,7 @@ function initSiteSidebar() {
     skip.textContent = siteText('common.skip', '跳到主要内容');
     document.body.insertBefore(skip, header);
   }
-  if (header.hasAttribute('data-porcelain-header')) return;
+  if (header.hasAttribute('data-porcelain-header') || document.querySelector('script[src*="assets/design-system.js"]')) return;
   document.body.classList.add('has-site-sidebar');
   const currentPage = location.pathname.split('/').pop() || 'index.html';
   const script = document.currentScript || document.querySelector('script[src*="assets/site.js"]');

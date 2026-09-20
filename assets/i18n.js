@@ -174,6 +174,10 @@
     'home.record': ['记录', 'Record'],
     'home.realtime': ['实时', 'Live'],
     'home.reading': ['小说', 'Novel'],
+    'home.radarLinkTitle': ['AI 雷达', 'AI Radar'],
+    'home.radarLinkDescription': ['模型能力评分与 Codex 重置预测', 'Model capability scores and Codex reset forecasts'],
+    'home.radarLinkAction': ['查看雷达 →', 'View radar →'],
+    'home.radarLinkAria': ['打开 AI 雷达：模型能力评分与 Codex 重置预测', 'Open AI Radar: model capability scores and Codex reset forecasts'],
     'tools.lede': ['先选择一级分类，再通过二级标签切换具体工具场景。', 'Choose a primary category, then use the secondary tags to switch tool scenarios.'],
     'tools.categories': ['工具分类', 'Tool categories'],
     'tools.secondary': ['二级分类', 'Secondary category'],
@@ -340,7 +344,8 @@
     'radar.resetConfirmed': ['已确认重置', 'Reset confirmed'],
     'radar.serviceEvent': ['服务事件', 'Service event'],
     'radar.impact': ['影响 +{impact}', 'Impact +{impact}'],
-    'radar.allSources': ['全部已更新', 'All updated']
+    'radar.allSources': ['全部已更新', 'All updated'],
+    'radar.viewDetails': ['查看详细内容', 'View details']
   };
 
   const textPairs = [

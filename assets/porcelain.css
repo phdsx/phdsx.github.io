@@ -25,6 +25,13 @@
 .porcelain-search-submit img { opacity:.55; }
 .porcelain-page .portal-search .command-key { right:24px; border:0; background:#f3f5f9; padding:5px 9px; border-radius:7px; font-size:13px; }
 .porcelain-page .home-search-panel { border-radius:20px; top:calc(100% + 10px); }
+.porcelain-radar-link { display:flex; align-items:center; width:min(770px,100%); gap:13px; margin:14px auto 0; padding:13px 17px; border:1px solid #dce8fc; border-radius:16px; color:#27405f; background:linear-gradient(105deg,#f6f9ff,#fbfdff); text-align:left; transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease; }
+.porcelain-radar-link:hover { border-color:#9fc0f6; box-shadow:0 8px 24px #3569af12; transform:translateY(-1px); }
+.porcelain-radar-link-signal { position:relative; display:grid; place-items:center; width:32px; height:32px; flex:0 0 auto; border-radius:50%; background:#e8f1ff; }
+.porcelain-radar-link-signal::before,.porcelain-radar-link-signal::after { content:""; position:absolute; border:1px solid #9fc1fa; border-radius:50%; }
+.porcelain-radar-link-signal::before { width:20px; height:20px; }.porcelain-radar-link-signal::after { width:30px; height:30px; opacity:.55; }.porcelain-radar-link-signal span { width:7px; height:7px; border-radius:50%; background:#0061f5; box-shadow:0 0 0 4px #d6e6ff; }
+.porcelain-radar-link-copy { display:grid; min-width:0; gap:2px; }.porcelain-radar-link-copy strong { color:#143b78; font-size:14px; }.porcelain-radar-link-copy span { overflow:hidden; color:#60728e; font-size:12px; text-overflow:ellipsis; white-space:nowrap; }
+.porcelain-radar-link-action { margin-left:auto; color:#0061f5; font-size:13px; font-weight:700; white-space:nowrap; }
 .porcelain-page [aria-labelledby='shortcuts-title'] { margin:0; }
 .porcelain-page .workspace-section-head { margin:0 0 25px; }
 .porcelain-page .workspace-section-head > div { display:flex; gap:20px; align-items:baseline; }
@@ -76,6 +83,7 @@
 .porcelain-nav > a,.porcelain-nav summary { padding:9px 0; }.porcelain-nav details:last-child .porcelain-menu { left:auto; right:0; }
 .porcelain-page .workspace-main { padding:0 5%; }.porcelain-page .portal-search { padding:32px 0 40px; }.porcelain-page .portal-search h1 { font-size:32px; letter-spacing:-.055em; }.porcelain-page .portal-search > p { font-size:14px; }
 .porcelain-page .portal-search .command-search { margin-top:25px; }.porcelain-page .portal-search .command-search input { min-height:56px; padding:14px 20px 14px 52px; font-size:14px; }.porcelain-search-submit { left:7px; top:6px; }
+.porcelain-radar-link { gap:10px; margin-top:12px; padding:12px 14px; border-radius:14px; }.porcelain-radar-link-copy strong { font-size:13px; }.porcelain-radar-link-copy span { font-size:11px; }.porcelain-radar-link-action { font-size:12px; }
 .porcelain-page .workspace-section-head h2 { font-size:19px; }.porcelain-page .workspace-section-head p { display:none; }.porcelain-page .workspace-section-head > a { font-size:12px; }
 .porcelain-page [data-shortcuts] { gap:12px 6px; }.porcelain-page [data-shortcuts] .workspace-card-link { padding:7px 3px 30px; gap:12px; min-height:198px; }
 .porcelain-icon,.porcelain-page [data-shortcuts] .workspace-card-link > img { width:70px; height:70px; border-radius:21px; }.porcelain-icon img { width:35px; height:35px; }
