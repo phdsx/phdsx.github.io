@@ -27,7 +27,7 @@
   const exploring = /^(software|directory|ai-radar|brand-blacklist)/.test(path);
   header.innerHTML = `<a class="unified-brand" href="${root.href}index.html" aria-label="返回首页">PHDSX</a>
     <nav class="unified-nav" aria-label="主导航">
-      ${link('tools.html', '工具', tool || path === 'tools.html')}
+      ${document.querySelector('[data-home-tools]') ? '<a href="#home-tools">工具</a>' : link('tools.html', '工具', tool || path === 'tools.html')}
       ${link('games.html', '游戏', game || path === 'games.html')}
       <details${reading ? ' class="is-current"' : ''}><summary>阅读</summary><div class="unified-menu">${link('blog.html', '博客笔记', path.startsWith('blog'))}${link('novels/index.html', '小说连载', path.startsWith('novels/'))}</div></details>
       <details${exploring ? ' class="is-current"' : ''}><summary>探索</summary><div class="unified-menu">${link('software.html', '软件作品', path === 'software.html')}${link('ai-radar.html', 'AI 雷达', path === 'ai-radar.html')}${link('directory.html', '黄页', path === 'directory.html')}${link('brand-blacklist/index.html', '品牌黑名单', path.startsWith('brand-blacklist/'))}</div></details>

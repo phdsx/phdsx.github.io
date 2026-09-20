@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eff3ed">
+  <meta name="description" content="免费在线军棋明棋版，支持人机对战、本地双人、自定义布阵和悔棋。">
+  <title>军棋 - PHDSX</title>
+  <link rel="stylesheet" href="../../../assets/design-system.css?v=20260920a">
+  <link rel="stylesheet" href="junqi.css">
+  <script defer src="../../../assets/design-system.js?v=20260920a"></script>
+</head>
+<body>
+  <main class="junqi-page">
+    <header class="game-heading">
+      <div><p class="eyebrow">STRATEGY / 陆战棋</p><h1>军棋 <span>明棋对弈</span></h1><p class="intro">运筹方寸之间，夺取对方军旗。</p></div>
+      <a class="back-link" href="../../../games.html">← 返回游戏</a>
+    </header>
+    <div class="game-layout">
+      <section class="battlefield" aria-label="军棋对弈区">
+        <div class="army-bar blue"><span>蓝方 <small id="blue-role">电脑</small></span><span id="blue-count">25 枚</span></div>
+        <div class="board" id="board" aria-label="军棋棋盘，蓝方在上，红方在下" aria-describedby="board-help">
+          <svg class="routes" id="routes" viewBox="0 0 500 880" aria-hidden="true"></svg>
+          <span class="frontier" aria-hidden="true">前 线</span>
+          <div class="stations" id="stations"></div>
+        </div>
+        <div class="army-bar red"><span>红方 <small id="red-role">你</small></span><span id="red-count">25 枚</span></div>
+        <div class="board-legend"><span><i class="rail-key"></i>铁路</span><span><i class="camp-key"></i>行营 · 免战</span><span>▣ 大本营 · 入驻停留</span></div>
+      </section>
+      <aside class="control-panel">
+        <section class="panel status-panel">
+          <div class="panel-top"><span class="eyebrow" id="phase">准备布阵</span><span id="ply">第 0 步</span></div>
+          <h2 id="status" role="status" aria-live="polite">排兵布阵</h2>
+          <p id="message" aria-live="polite">可直接开始，也可以交换己方棋子调整阵型。</p>
+          <label class="mode-label" for="mode">对弈模式</label>
+          <select id="mode"><option value="ai">人机对战 · 你执红方</option><option value="local">本地双人 · 轮流执棋</option></select>
+          <p class="mode-note">双方棋子全程可见，红方先行。电脑为入门难度。</p>
+          <button class="primary" id="start" type="button">布阵完成，开始对弈</button>
+          <div class="button-row"><button id="shuffle" type="button">随机布阵</button><button id="undo" type="button" disabled>悔棋</button></div>
+          <button class="restart" id="restart" type="button" hidden>重新开局</button>
+        </section>
+        <section class="panel instructions">
+          <h2>行棋指南</h2>
+          <p id="board-help">点击己方棋子，再点击绿色标记的位置。键盘可用方向键选格，回车落子，Esc 取消。</p>
+          <div class="rank-list">司令 › 军长 › 师长 › 旅长 › 团长<br>› 营长 › 连长 › 排长 › 工兵</div>
+          <details><summary>完整规则与特殊棋子</summary>
+            <ul>
+              <li>每方 25 枚棋子。军旗只能放在大本营；地雷限最后两排；炸弹不能放在最前排；布阵时行营留空。</li>
+              <li>公路每次走一步，斜线只连接行营。铁路上可沿直线走任意距离，工兵还能转弯；所有棋子都不能越子。</li>
+              <li>行营中的棋子不会受到攻击。任何棋子进入大本营后都不能再移动。地雷、军旗不能移动。</li>
+              <li>大子吃小子，同级相遇同归于尽。工兵可排雷并存活；其他普通棋子碰雷阵亡，地雷保留。炸弹与任何敌子同归于尽。</li>
+              <li>夺取军旗（含用炸弹炸旗），或使对方无合法走法即可获胜；不要求先排光地雷。连续 100 步没有交战则和棋。</li>
+            </ul>
+            <p class="rule-source">采用上述双人明棋约定。<a href="https://www.junqi.app/zh/rules" target="_blank" rel="noopener noreferrer">规则参考 ↗</a></p>
+          </details>
+        </section>
+        <section class="panel history-panel"><h2>对局记录 <span id="history-count">0</span></h2><p id="empty-history">战局未启，静待落子。</p><ol id="history" reversed aria-label="最近的行棋记录"></ol></section>
+      </aside>
+    </div>
+    <noscript>请启用 JavaScript 后游玩军棋。</noscript>
+  </main>
+  <script src="../../../assets/i18n.js?v=20260921c"></script>
+  <script type="module" src="junqi.mjs"></script>
+</body>
+</html>

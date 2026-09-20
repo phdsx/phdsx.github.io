@@ -1,0 +1,24 @@
+.games-directory { max-width: 1420px; }
+.games-directory-hero { max-width: 700px; margin-bottom: 28px; padding-bottom: 25px; border-bottom: 1px solid var(--line); }
+.games-directory-hero h1 { margin: 0; }
+.games-directory-hero .section-lede { margin-bottom: 0; }
+.games-directory-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.games-directory-card { display: flex; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; color: inherit; background: #fff; box-shadow: 0 4px 20px rgba(32, 59, 100, .035); text-decoration: none; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.games-directory-card:hover { border-color: #b9cfee; box-shadow: 0 13px 30px rgba(32, 78, 137, .11); transform: translateY(-3px); }
+.games-directory-card:focus-visible { outline: 3px solid rgba(0, 97, 245, .4); outline-offset: 4px; }
+.games-directory-card-media { width: 43%; min-width: 132px; object-fit: cover; }
+.games-directory-card-media--contain { padding: 18px; background: linear-gradient(135deg, #e8f5ff, #ecf8f0); object-fit: contain; }
+.games-directory-card-body { display: flex; min-width: 0; flex: 1; flex-direction: column; align-items: flex-start; padding: 19px 18px 17px; }
+.games-directory-card-title { color: var(--ink); font-size: 19px; font-weight: 800; letter-spacing: -.025em; line-height: 1.25; }
+.games-directory-card-description { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+.games-directory-card-action { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 17px; color: var(--brand); font-size: 13px; font-weight: 800; }
+.games-directory-card-action::after { content: "→"; font-size: 16px; line-height: 1; transition: transform .16s ease; }
+.games-directory-card:hover .games-directory-card-action::after { transform: translateX(3px); }
+@media (max-width: 1120px) { .games-directory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .games-directory-hero { margin-bottom: 23px; padding-bottom: 21px; }
+  .games-directory-grid { grid-template-columns: 1fr; gap: 13px; }
+  .games-directory-card { min-height: 184px; }
+  .games-directory-card-media { width: 38%; min-width: 124px; }
+}
+@media (prefers-reduced-motion: reduce) { .games-directory-card, .games-directory-card-action::after { transition: none; } }

@@ -11,19 +11,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#fafbfe">
-  <meta name="description" content="搜索、筛选和收藏实用在线工具。">
-  <title>PHDSX · 个人工作台</title>
+  <meta name="description" content="学习笔记、个人作品与一些有趣的小东西。">
+  <title>PHDSX · 个人主页</title>
   <link rel="stylesheet" href="assets/site.css?v=20260919a">
-  <link rel="stylesheet" href="assets/workspace.css?v=20260919a">
-<link rel="stylesheet" href="assets/porcelain.css?v=20260920b">
+  <link rel="stylesheet" href="assets/workspace.css?v=20260921a">
+<link rel="stylesheet" href="assets/porcelain.css?v=20260921a">
 <link rel="stylesheet" href="assets/design-system.css?v=20260920a">
-<script defer src="assets/design-system.js?v=20260920a"></script>
+<script defer src="assets/design-system.js?v=20260921a"></script>
 </head>
 <body class="workspace-page porcelain-page">
 <header class="site-header porcelain-header" data-porcelain-header>
 <a class="porcelain-brand" href="index.html" aria-label="返回首页">PHDSX</a>
 <nav class="porcelain-nav" aria-label="主导航">
-<a href="tools.html" class="porcelain-current">工具</a><a href="games.html">游戏</a>
+<a href="#home-tools">工具</a><a href="games.html">游戏</a>
 <details><summary>阅读</summary><div class="porcelain-menu"><a href="blog.html">博客笔记</a><a href="novels/index.html">小说连载</a></div></details>
 <details><summary>探索</summary><div class="porcelain-menu"><a href="software.html">软件作品</a><a href="ai-radar.html">AI 雷达</a><a href="directory.html">电话黄页</a><a href="brand-blacklist/index.html">品牌黑名单</a></div></details>
 </nav><div class="porcelain-header-end"><a class="header-search" href="#home-search" aria-label="搜索站内内容"><img src="assets/porcelain/icons/search.svg" alt="" width="19" height="19"></a><span>让小事更简单</span><button type="button" class="porcelain-language" data-i18n-toggle>EN</button></div></header>
@@ -31,19 +31,16 @@
 
 <section class="workspace-heading portal-search" aria-labelledby="home-title">
 
-<h1 id="home-title">好工具，让日常更轻松。</h1>
-<p>工具、阅读与灵感，一个顺手的起点。</p>
+<h1 id="home-title">PHDSX 的个人主页</h1>
+<p>学习笔记、个人作品与一些有趣的小东西。</p>
+<nav class="home-personal-links" aria-label="个人内容"><a href="blog.html">博客笔记</a><a href="software.html">软件作品</a><a href="novels/index.html">小说连载</a><a href="games.html">游戏厅</a></nav>
 <div class="command-search">
 <label class="sr-only" for="home-search">搜索站内内容</label>
-<input id="home-search" type="search" data-home-search placeholder="搜索你需要的工具" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="home-search-results">
+<input id="home-search" type="search" data-home-search placeholder="搜索工具、游戏、文章…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="home-search-results">
 <button class="porcelain-search-submit" type="button" data-search-submit aria-label="搜索"><img src="assets/porcelain/icons/search.svg" alt="" width="22" height="22"></button>
 <span class="command-key" aria-hidden="true">Ctrl K</span>
-<div class="home-search-panel" data-home-search-panel hidden>
-<p class="home-search-status" data-home-search-status aria-live="polite">
-</p>
-<div class="home-search-list" id="home-search-results" data-home-search-list role="listbox">
-</div>
-</div>
+<div class="home-search-panel" data-home-search-panel hidden><p class="home-search-status" data-home-search-status aria-live="polite"></p><div class="home-search-list" id="home-search-results" data-home-search-list role="listbox"></div></div>
+
 </div>
 <a class="porcelain-radar-link" href="ai-radar.html" data-i18n-attr="aria-label:home.radarLinkAria">
 <span class="porcelain-radar-link-signal" aria-hidden="true"><span></span></span>
@@ -51,16 +48,24 @@
 <span class="porcelain-radar-link-action" data-i18n="home.radarLinkAction">查看雷达 →</span>
 </a>
 </section>
-<section class="workspace-section" aria-labelledby="shortcuts-title">
-<div class="workspace-section-head">
-<div>
-<h2 id="shortcuts-title" data-shortcuts-title>常用工具</h2>
-<p data-shortcuts-note>精选常用入口，点击收藏即可固定在这里。</p>
+<section class="porcelain-stories" aria-label="阅读与游戏">
+<a class="porcelain-story porcelain-reading" href="novels/index.html"><span class="story-kicker">阅读 / 连载小说</span><h2>零号回声</h2><p>走进故事，继续探索未知。</p><span class="story-action">开始阅读 →</span></a>
+<a class="porcelain-story porcelain-gaming" href="games.html"><span class="story-kicker">休息 / 游戏厅</span><h2>来一局，放松一下</h2><p>象棋、方块、益智小游戏。</p><span class="story-action">进入游戏厅 →</span></a></section>
+<section class="workspace-section home-tools" data-home-tools aria-labelledby="tools-title" id="home-tools">
+<div class="workspace-section-head"><div><h2 id="tools-title">在线小工具</h2><p>按用途筛选，直接打开。</p></div><span data-tool-total>17 项工具</span></div>
+<div class="home-tool-search"><label class="sr-only" for="home-tool-search">搜索工具</label><input id="home-tool-search" type="search" data-tool-search placeholder="搜索工具名称或用途，例如：压缩、二维码、Word" aria-controls="home-tool-grid" autocomplete="off"></div>
+<div class="workspace-filters" role="group" aria-label="工具分类">
+<button type="button" data-workspace-filter="common" aria-pressed="true">常用</button>
+<button type="button" data-workspace-filter="all" aria-pressed="false">全部</button>
+<button type="button" data-workspace-filter="image" aria-pressed="false">图片处理</button>
+<button type="button" data-workspace-filter="text" aria-pressed="false">文本与编码</button>
+<button type="button" data-workspace-filter="document" aria-pressed="false">文档办公</button>
+<button type="button" data-workspace-filter="time" aria-pressed="false">时间</button>
+<button type="button" data-workspace-filter="lifestyle" aria-pressed="false">生活与趣味</button>
+<button type="button" data-workspace-filter="media" aria-pressed="false">媒体</button>
 </div>
-<a href="tools.html">全部 17 项工具 →</a>
-</div>
-<div class="workspace-grid" data-shortcuts>
-<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-compressor.html">
+<p class="workspace-results" data-directory-status role="status" aria-live="polite"></p>
+<div class="workspace-grid" data-home-tool-grid id="home-tool-grid"><article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-compressor.html">
 <a class="workspace-card-link" href="tools/image/image-compressor.html">
 <img src="assets/icons/image-compress.webp" alt="" width="40" height="40">
 <div>
@@ -68,7 +73,6 @@
 <p>快速减小图片体积。</p>
 </div>
 </a>
-<button class="pin-tool" type="button" data-pin="tools/image/image-compressor.html" aria-label="收藏图片压缩" aria-pressed="false" hidden>收藏</button>
 </article>
 <article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-cropper.html">
 <a class="workspace-card-link" href="tools/image/image-cropper.html">
@@ -78,7 +82,33 @@
 <p>上传多张图片并逐张调整裁剪区域。</p>
 </div>
 </a>
-<button class="pin-tool" type="button" data-pin="tools/image/image-cropper.html" aria-label="收藏图片裁剪" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/batch-image-cropper.html">
+<a class="workspace-card-link" href="tools/image/batch-image-cropper.html">
+<img src="assets/icons/image-crop.webp" alt="" width="40" height="40">
+<div>
+<h3>批量图片裁剪</h3>
+<p>将同一裁剪设置批量应用到多张图片。</p>
+</div>
+</a>
+</article>
+<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-watermark-editor.html">
+<a class="workspace-card-link" href="tools/image/image-watermark-editor.html">
+<img src="assets/icons/image-watermark.webp" alt="" width="40" height="40">
+<div>
+<h3>图片水印与 EXIF 编辑器</h3>
+<p>添加文字、图片或 EXIF 水印，并支持裁剪。</p>
+</div>
+</a>
+</article>
+<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/case-converter.html">
+<a class="workspace-card-link" href="tools/text/case-converter.html">
+<img src="assets/icons/case-convert.webp" alt="" width="40" height="40">
+<div>
+<h3>大小写转换</h3>
+<p>快速切换英文大小写。</p>
+</div>
+</a>
 </article>
 <article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/text-deduplicator.html">
 <a class="workspace-card-link" href="tools/text/text-deduplicator.html">
@@ -88,7 +118,15 @@
 <p>清理重复行和重复内容。</p>
 </div>
 </a>
-<button class="pin-tool" type="button" data-pin="tools/text/text-deduplicator.html" aria-label="收藏文本去重" aria-pressed="false" hidden>收藏</button>
+</article>
+<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/text-formatter.html">
+<a class="workspace-card-link" href="tools/text/text-formatter.html">
+<img src="assets/icons/text-format.webp" alt="" width="40" height="40">
+<div>
+<h3>文本格式化</h3>
+<p>整理空白与格式，让文本更易读。</p>
+</div>
+</a>
 </article>
 <article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/word-counter.html">
 <a class="workspace-card-link" href="tools/text/word-counter.html">
@@ -98,7 +136,6 @@
 <p>统计字数、字符和段落。</p>
 </div>
 </a>
-<button class="pin-tool" type="button" data-pin="tools/text/word-counter.html" aria-label="收藏字数统计" aria-pressed="false" hidden>收藏</button>
 </article>
 <article class="workspace-card" data-tool-category="text" data-tool-href="tools/utility/qr-generator.html">
 <a class="workspace-card-link" href="tools/utility/qr-generator.html">
@@ -108,9 +145,16 @@
 <p>将文字、网址和小型文件转换为二维码。</p>
 </div>
 </a>
-<button class="pin-tool" type="button" data-pin="tools/utility/qr-generator.html" aria-label="收藏二维码生成" aria-pressed="false" hidden>收藏</button>
 </article>
-
+<article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/eq-pinyin-code.html">
+<a class="workspace-card-link" href="tools/document/eq-pinyin-code.html">
+<img src="assets/icons/text-format.webp" alt="" width="40" height="40">
+<div>
+<h3>EQ 单字拼音域代码生成器</h3>
+<p>逐字生成并校验 Word 拼音 EQ 域代码。</p>
+</div>
+</a>
+</article>
 <article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/ppt-countdown.html">
 <a class="workspace-card-link" href="tools/document/ppt-countdown.html">
 <img src="assets/icons/ppt-countdown.webp" alt="" width="40" height="40">
@@ -119,35 +163,81 @@
 <p>适合 PPT 放映时悬浮显示倒计时。</p>
 </div>
 </a>
-<button class="pin-tool" type="button" data-pin="tools/document/ppt-countdown.html" aria-label="收藏PPT 放映悬浮倒计时" aria-pressed="false" hidden>收藏</button>
 </article>
-
+<article class="workspace-card" data-tool-category="time" data-tool-href="tools/time/work-countdown.html">
+<a class="workspace-card-link" href="tools/time/work-countdown.html">
+<img src="assets/icons/work-countdown.webp" alt="" width="40" height="40">
+<div>
+<h3>下班倒计时</h3>
+<p>根据上下班时间显示剩余工作时长。</p>
 </div>
-<p class="workspace-feedback" data-workspace-feedback role="status">
-</p>
+</a>
+</article>
+<article class="workspace-card" data-tool-category="time" data-tool-href="tools/time/countdown.html">
+<a class="workspace-card-link" href="tools/time/countdown.html">
+<img src="assets/icons/date-countdown.webp" alt="" width="40" height="40">
+<div>
+<h3>自定义倒计时</h3>
+<p>按小时、分钟和秒设置一段倒计时。</p>
+</div>
+</a>
+</article>
+<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/lifestyle/meal-randomizer.html">
+<a class="workspace-card-link" href="tools/lifestyle/meal-randomizer.html">
+<img src="assets/icons/meal-randomizer.webp" alt="" width="40" height="40">
+<div>
+<h3>吃啥饭</h3>
+<p>随机组合主食、菜品与饮料。</p>
+</div>
+</a>
+</article>
+<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/fun/child-gender-simulator.html">
+<a class="workspace-card-link" href="tools/fun/child-gender-simulator.html">
+<img src="assets/icons/family-calculator.webp" alt="" width="40" height="40">
+<div>
+<h3>子女性别娱乐模拟器</h3>
+<p>生成不具有预测意义的随机模拟结果。</p>
+</div>
+</a>
+</article>
+<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/fun/lightning-calculator.html">
+<a class="workspace-card-link" href="tools/fun/lightning-calculator.html">
+<img src="assets/icons/lightning-calculator.webp" alt="" width="40" height="40">
+<div>
+<h3>雷击概率娱乐计算器</h3>
+<p>根据简单选项生成娱乐结果。</p>
+</div>
+</a>
+</article>
+<article class="workspace-card" data-tool-category="media" data-tool-href="tools/media/vip-video-parser.html">
+<a class="workspace-card-link" href="tools/media/vip-video-parser.html">
+<img src="assets/icons/video-player.webp" alt="" width="40" height="40">
+<div>
+<h3>VIP 视频解析</h3>
+<p>输入视频地址并选择解析线路。</p>
+</div>
+</a>
+</article></div>
+<div class="workspace-empty" data-directory-empty hidden>
+<h2>没有找到合适的工具</h2>
+<p>换个关键词，或查看全部工具。</p>
+<button type="button" data-clear-filters>重置筛选</button>
+</div>
+<noscript><p>可直接打开下方工具；启用 JavaScript 后可搜索和筛选。</p></noscript>
 </section>
 
-<section class="porcelain-stories" aria-label="阅读与游戏">
-<a class="porcelain-story porcelain-reading" href="novels/index.html"><span class="story-kicker">阅读 / 连载小说</span><h2>零号回声</h2><p>走进故事，继续探索未知。</p><span class="story-action">开始阅读 →</span></a>
-<a class="porcelain-story porcelain-gaming" href="games.html"><span class="story-kicker">休息 / 游戏厅</span><h2>来一局，放松一下</h2><p>象棋、方块、益智小游戏。</p><span class="story-action">进入游戏厅 →</span></a></section>
-<section class="workspace-section" data-recent-section hidden aria-labelledby="recent-title">
-<div class="workspace-section-head">
-<h2 id="recent-title">最近使用</h2>
-</div>
-<div class="recent-tools" data-recent-tools>
-</div>
-</section>
+
 </main>
 <footer class="site-footer"><span>PHDSX © 2026 · 让小事更简单</span><nav aria-label="页脚导航"><a href="software.html">作品</a><a href="blog.html">更新记录</a></nav></footer>
-<script src="assets/catalog.js?v=20260830e">
+<script src="assets/catalog.js?v=20260921c">
 </script>
 <script src="assets/workspace-data.js?v=20260919a">
 </script>
-<script src="assets/i18n.js?v=20260920b">
+<script src="assets/i18n.js?v=20260921a">
 </script>
 <script src="assets/site.js?v=20260919a">
 </script>
-<script src="assets/workspace.js?v=20260919a">
+<script src="assets/workspace.js?v=20260921a">
 </script>
 </body>
 </html>

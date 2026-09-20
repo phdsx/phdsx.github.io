@@ -15,6 +15,8 @@
   const compact = /ppt-countdown\.html$/i.test(location.pathname);
   const gameNavigation = section === 'games' ? `
         <span class="phdsx-shell__group-label">${shellText('games.categories', '游戏分类')}</span>
+        ${gameLink(root + 'games/board/gomoku.html', 'games/board/gomoku.html', '五', shellText('games.gomoku', '五子棋'))}
+        ${gameLink(root + 'games/board/junqi/index.html', 'games/board/junqi/index.html', '军', shellText('games.junqi', '军棋'))}
         ${gameLink(root + 'games/board/chinese-chess.html', 'games/board/chinese-chess.html', '将', shellText('games.chineseChess', '中国象棋'))}
         ${gameLink(root + 'games/arcade/tetris.html', 'games/arcade/tetris.html', '田', shellText('games.tetris', '俄罗斯方块'))}
         ${gameLink(root + 'games/arcade/fruit-ninja/index.html', 'games/arcade/fruit-ninja/index.html', '切', shellText('games.fruit', '水果忍者'))}

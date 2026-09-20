@@ -27,19 +27,11 @@
 .workspace-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .workspace-card { position: relative; min-width: 0; border: 1px solid var(--line); background: white; border-radius: 12px; transition: border-color .16s ease, box-shadow .16s ease; }
 .workspace-card:hover, .workspace-card:focus-within { border-color: #9bb4ed; box-shadow: 0 5px 18px #25385708; }
-.workspace-card-link { display: flex; align-items: flex-start; gap: 14px; min-height: 126px; padding: 20px 18px 43px; }
+.workspace-card-link { display: flex; align-items: flex-start; gap: 14px; min-height: 126px; padding: 18px; }
 .workspace-card-link img { flex-shrink: 0; border-radius: 10px; }
 .workspace-card-link div { min-width: 0; }
 .workspace-card h3 { margin: 0 0 7px; font-size: 15px; font-weight: 650; line-height: 1.5; overflow-wrap: break-word; }
 .workspace-card p { font-size: 13px; line-height: 1.6; margin: 0; color: var(--muted); }
-.pin-tool { position: absolute; right: 8px; bottom: 2px; min-height: 36px; padding: 5px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; }
-.pin-tool:hover { background: #f1f5ff; color: #285ac9; }
-.pin-tool[aria-pressed="true"] { color: #285ac9; background: #edf2ff; }
-.workspace-feedback { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
-.workspace-feedback:empty { display: none; }
-.recent-tools { display: flex; flex-wrap: wrap; gap: 10px; }
-.recent-tools a { padding: 11px 16px; font-size: 14px; border: 1px solid var(--line); background: #fff; border-radius: 8px; }
-.recent-tools a:hover { border-color: #9bb4ed; color: #285ac9; }
 .discovery-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
 .discovery-card { display: flex; flex-direction: column; align-items: flex-start; padding: 24px; min-height: 222px; border-radius: 14px; border: 1px solid var(--line); background: #fff; transition: border-color .16s ease; }
 .discovery-card:hover { border-color: #9bb4ed; }
@@ -80,8 +72,7 @@
   .workspace-section-head h2 { font-size: 19px; }
   .workspace-section-head p { max-width: 230px; }
   .workspace-grid { grid-template-columns: 1fr; gap: 10px; }
-  .workspace-card-link { min-height: 100px; padding: 17px 72px 17px 16px; }
-  .pin-tool { right: 8px; top: 28px; bottom: auto; min-height: 44px; }
+  .workspace-card-link { min-height: 100px; padding: 16px; }
   .discovery-grid { grid-template-columns: 1fr; }
   .discovery-card { min-height: 190px; }
   .directory-search span { display: none; }

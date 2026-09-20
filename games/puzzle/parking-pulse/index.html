@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#b9e7d0">
+  <meta name="theme-color" content="#edf5fa">
   <title>停车脉冲 · Parking Pulse</title>
   <style>
     :root { --ink:#26334c; --muted:#6e7a93; --cream:#fffdf7; --paper:#f7f3eb; --mint:#b9e7d0; --mint-deep:#6fbca2; --navy:#354260; --lavender:#c8c9e7; --yellow:#ffd66d; --shadow:0 14px 30px rgba(47,62,90,.16),0 4px 8px rgba(47,62,90,.1); }
@@ -104,54 +104,104 @@
     @media (max-width:640px) { .game-wrap{padding:10px 8px 20px}.topbar{margin-bottom:9px}.game-card{border-radius:23px}.game-head{padding:17px 15px 13px}.level-badge{min-width:74px;padding:9px 10px}.level-badge strong{font-size:1.1rem}.passenger-panel,.slots-panel,.board-panel{margin-left:10px;margin-right:10px}.passenger-panel{padding:12px}.slots{gap:6px;padding:7px}.slot{min-height:55px;font-size:.64rem}.slot .vehicle{min-height:43px}.board-panel{padding:11px}.board{min-height:0;grid-template-rows:repeat(6,minmax(34px,1fr));gap:4px;padding:7px}.vehicle{border-width:2px;border-radius:9px}.vehicle .arrow{font-size:1.1rem}.vehicle.horizontal{min-width:62px}.vehicle.vertical{min-height:58px}.tool-dock{gap:6px;padding:8px 10px 11px}.tool-button{min-height:56px;border-radius:13px}.tool-icon{font-size:1.2rem}.tool-name{font-size:.68rem} }
     @media (max-width:390px) { .subtitle{font-size:.82rem}.vehicle .capacity{display:none}.status-message{font-size:.76rem} }
 
-    /* Video-style full-screen mobile game composition */
-    body { overflow-x:hidden; background:#aeb9dd; }
-    .game-wrap { width:min(576px,100vw); height:100vh; height:100dvh; min-height:640px; margin:0 auto; padding:0; }
-    .topbar { position:absolute; top:12px; left:50%; z-index:30; width:min(576px,100vw); margin:0; padding:0 15px; transform:translateX(-50%); pointer-events:none; }
-    .topbar .brand,.topbar .back-link { pointer-events:auto; }
-    .topbar .brand { color:#fff; text-shadow:0 2px 0 rgba(38,51,76,.24); }
-    .topbar .brand-mark { width:42px; height:42px; border-color:#fff; border-radius:50%; background:#354260; box-shadow:0 4px 0 rgba(38,51,76,.22); }
-    .topbar .brand span:last-child { display:none; }
-    .topbar .back-link { color:#26334c; opacity:.96; text-shadow:none; }
-    .game-card { display:flex; flex-direction:column; height:100%; min-height:0; overflow:hidden; border:0; border-radius:0; background:linear-gradient(#8fd04d 0 15%,#c7d0ec 15% 100%); box-shadow:none; }
-    .game-head { position:relative; display:flex; flex:0 0 auto; justify-content:center; min-height:112px; padding:49px 18px 7px; background:#8fd04d; text-align:center; }
-    .game-head .eyebrow { display:none; }
-    .game-head h1 { color:#fff; font-size:clamp(1.8rem,6vw,2.5rem); letter-spacing:.04em; text-shadow:0 3px 0 #26334c,2px 0 0 #26334c,-2px 0 0 #26334c; }
-    .game-head .subtitle { display:none; }
-    .level-badge { position:absolute; top:23px; left:50%; min-width:auto; padding:0; border:0; color:#fff; background:transparent; box-shadow:none; transform:translateX(-50%); }
-    .level-badge strong { font-size:1.38rem; text-shadow:0 2px 0 #26334c; }
-    .level-badge span { display:none; }
-    .passenger-panel { flex:0 0 auto; margin:0; padding:7px 13px 7px; border-radius:0; background:#c7d0ec; }
-    .passenger-panel .panel-label { color:#26334c; text-shadow:none; }
-    .queue { min-height:43px; margin-top:2px; padding:1px 5px 5px; }
-    .queue-person { height:36px; }
-    .queue-person img { height:33px; }
-    .slots-panel { flex:0 0 auto; margin:0; padding:0 13px 8px; background:#c7d0ec; }
-    .slots-panel .panel-label { color:#26334c; text-shadow:none; }
-    .slots { gap:7px; padding:7px; border:0; border-radius:13px; background:rgba(91,108,160,.42); }
-    .slot { min-height:53px; border:2px dashed rgba(255,255,255,.9); color:#26334c; background:rgba(255,255,255,.24); }
-    .slot .vehicle { min-height:45px; }
-    .board-panel { display:flex; flex:1 1 auto; min-height:0; flex-direction:column; margin:0; padding:8px 12px 0; border:0; border-radius:0; background:#aeb9dd; }
-    .board-title { flex:0 0 auto; margin:0 5px 6px; color:#26334c; text-shadow:none; }
-    .board-title span { opacity:.9; }
-    .board { flex:1 1 auto; min-height:0; height:auto; padding:8px; border:3px solid rgba(255,255,255,.88); border-radius:17px; background-color:#aeb9dd; }
-    .vehicle .bus-sprite { width:151%; height:165%; }
-    .vehicle.vertical .bus-sprite { width:165%; height:151%; }
-    .status-row { flex:0 0 auto; min-height:30px; padding:6px 4px 4px; color:#26334c; }
-    .status-message { font-size:.75rem; }
-    .move-counter { font-size:.68rem; }
-    .tool-dock { grid-template-columns:repeat(3,1fr); flex:0 0 auto; gap:14px; padding:7px 28px calc(10px + env(safe-area-inset-bottom)); background:#8fa5df; }
-    .tool-button { width:min(76px,20vw); min-height:0; aspect-ratio:1; justify-self:center; padding:6px 4px; border:3px solid rgba(255,255,255,.9); border-radius:50%; color:#fff; background:radial-gradient(circle at 35% 27%,#f6a8df 0 8%,#be45d7 39%,#7b26a5 100%); box-shadow:0 5px 0 rgba(38,51,76,.23),inset 0 3px 0 rgba(255,255,255,.32); text-shadow:0 2px 0 rgba(38,51,76,.4); }
-    .tool-button:nth-child(2) { background:radial-gradient(circle at 35% 27%,#ffefb5 0 8%,#f9bd4d 39%,#e2752f 100%); }
-    .tool-button:nth-child(3) { background:radial-gradient(circle at 35% 27%,#a9f3cb 0 8%,#32c874 39%,#168b68 100%); }
-    .tool-icon { font-size:1.8rem; }
-    .tool-name { font-size:.72rem; }
-    .tool-count { color:#fff; font-size:.65rem; }
-    .tool-button:hover:not(:disabled),.tool-button:focus-visible:not(:disabled) { transform:translateY(-4px); }
-    .vehicle { transform:rotate(var(--tilt,0deg)); }
-    .vehicle:hover,.vehicle:focus-visible { transform:translateY(-3px) rotate(var(--tilt,0deg)) scale(1.04); }
-    .vehicle.is-selected { transform:translateY(-3px) rotate(var(--tilt,0deg)) scale(1.04); }
-    @media (max-height:720px) { .game-head{min-height:96px;padding-top:43px}.game-head h1{font-size:1.7rem}.queue{min-height:37px}.queue-person{height:32px}.queue-person img{height:29px}.slot{min-height:47px}.tool-button{width:min(66px,18vw)}.tool-dock{padding-top:5px;padding-bottom:7px} }
+    /* A single, quiet visual system: a soft urban tabletop around one road grid. */
+    :root { --parking-ink:#14243a; --parking-muted:#64758a; --parking-road:#294158; --parking-road-line:#648095; --parking-soft:#f1f6fb; --parking-accent:#0061f5; --parking-focus:#ffc14d; --parking-shadow:0 18px 44px rgba(24,54,83,.12); }
+    body.unified-game { overflow-x:hidden; background:linear-gradient(145deg,#edf5fa 0%,#f8fafc 55%,#eef6f4 100%); }
+    .game-wrap { width:min(1040px,100%); min-height:calc(100svh - var(--unified-header-height,0px)); height:auto; margin:0 auto; padding:clamp(18px,3vw,32px) clamp(14px,3vw,28px) 36px; }
+    .topbar { margin:0 0 14px; }
+    .topbar .brand { color:var(--parking-ink); font-size:.82rem; letter-spacing:.09em; }
+    .topbar .brand-mark { width:36px; height:36px; border:1px solid #d8e3ef; border-radius:12px; color:var(--parking-ink); background:#fff; box-shadow:none; }
+    .topbar .back-link { width:auto; min-width:88px; height:36px; padding:0 12px; border:1px solid #d8e3ef; border-radius:12px; color:var(--parking-ink); background:#fff; box-shadow:none; font-size:.77rem; font-weight:800; }
+    .topbar .back-link::after { content:"重新开始"; margin-left:4px; }
+    .topbar .back-link span { font-size:1rem; }
+    .game-card { display:grid; grid-template-columns:minmax(0,1fr) 280px; grid-template-areas:"head head" "board queue" "board slots" "tools tools"; gap:0; overflow:hidden; border:1px solid #dfe8f1; border-radius:24px; background:#fff; box-shadow:var(--parking-shadow); }
+    .game-head { grid-area:head; padding:25px 28px 20px; border-bottom:1px solid #e7eef5; background:linear-gradient(110deg,#fff 0%,#f2f8ff 70%,#eef8f5 100%); }
+    .eyebrow { color:var(--parking-accent); font-size:.68rem; letter-spacing:.16em; }
+    h1 { color:var(--parking-ink); font-size:clamp(1.7rem,3.2vw,2.35rem); letter-spacing:-.045em; }
+    .subtitle { color:var(--parking-muted); }
+    .level-badge { min-width:84px; padding:10px 12px; border:1px solid #d6e4f7; border-radius:14px; color:var(--parking-accent); background:#fff; box-shadow:none; }
+    .level-badge strong { font-size:1.2rem; }
+    .level-badge span { color:var(--parking-muted); }
+    .passenger-panel { grid-area:queue; margin:18px 18px 8px 0; padding:15px; border:1px solid #e4edf5; border-radius:17px; background:var(--parking-soft); }
+    .slots-panel { grid-area:slots; margin:8px 18px 18px 0; padding:0; }
+    .panel-label { color:var(--parking-muted); font-size:.68rem; }
+    .remaining { color:var(--parking-ink); }
+    .queue { min-height:46px; padding-bottom:6px; }
+    .queue::before { border-color:rgba(0,97,245,.26); }
+    .queue-person::before { border-color:rgba(20,36,58,.22); background:#fff; box-shadow:none; }
+    .slots-panel .panel-label { margin:0 2px 8px!important; }
+    .slots { gap:7px; padding:8px; border:1px solid #e1eaf3; border-radius:17px; background:var(--parking-soft); }
+    .slot { min-height:61px; border:1px dashed #a6b9ca; border-radius:11px; color:var(--parking-muted); background:#fff; }
+    .slot.is-filled { border-color:#84afea; background:#edf5ff; }
+    .slot .vehicle { min-height:46px; }
+    .board-panel { grid-area:board; display:flex; flex-direction:column; min-height:0; margin:18px 0 18px 18px; padding:17px; border-radius:20px; background:var(--parking-road); }
+    .board-title { margin:0 3px 12px; color:#fff; }
+    .board-title span { color:#d9e7f0; opacity:1; }
+    .board { aspect-ratio:1; grid-template-rows:repeat(6,minmax(0,1fr)); min-height:0; padding:10px; border:1px solid rgba(255,255,255,.28); border-radius:15px; background-color:#3d5970; background-image:linear-gradient(rgba(255,255,255,.17) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.17) 1px,transparent 1px); background-size:calc(100% / 6) calc(100% / 6); box-shadow:inset 0 1px 0 rgba(255,255,255,.15); }
+    .board:focus-within { border-color:var(--parking-focus); }
+    .vehicle .bus-sprite { width:122%; height:132%; filter:drop-shadow(0 4px 2px rgba(10,25,40,.32)); }
+    .vehicle.vertical .bus-sprite { width:132%; height:122%; }
+    .vehicle .arrow { width:24px; height:24px; border:0; border-radius:8px; color:var(--parking-ink); background:#fff; box-shadow:0 2px 5px rgba(10,25,40,.22); font-size:1rem; text-shadow:none; }
+    .vehicle .capacity { right:2px; bottom:2px; padding:1px 4px; border-radius:999px; color:#fff; background:rgba(20,36,58,.78); font-size:.56rem; }
+    .vehicle:hover,.vehicle:focus-visible { filter:brightness(1.05); transform:translateY(-2px) scale(1.02); outline:2px solid var(--parking-focus); outline-offset:2px; }
+    .vehicle.is-selected { outline:3px solid var(--parking-focus); outline-offset:2px; transform:translateY(-2px); }
+    .status-row { min-height:37px; padding:11px 3px 0; color:#f7fbff; }
+    .move-counter { color:#cfe0ec; opacity:1; }
+    .tool-dock { grid-area:tools; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; padding:16px 18px 18px; border-top:1px solid #e7eef5; background:#fbfdff; }
+    .tool-button { display:flex; align-items:center; justify-content:center; min-height:54px; padding:9px 12px; border:1px solid #dce7f2; border-radius:13px; color:var(--parking-ink); background:#fff; box-shadow:none; }
+    .tool-button:hover:not(:disabled),.tool-button:focus-visible:not(:disabled) { border-color:#8cb5ee; background:#f5f9ff; box-shadow:none; transform:translateY(-1px); outline:2px solid rgba(0,97,245,.22); outline-offset:2px; }
+    .tool-button.is-active { border-color:var(--parking-accent); outline:2px solid rgba(0,97,245,.22); outline-offset:2px; transform:none; }
+    .tool-icon { display:none; }
+    .tool-name { margin:0; font-size:.8rem; }
+    .tool-count { display:inline-block; margin:0 0 0 6px; padding:2px 6px; border-radius:999px; color:var(--parking-muted); background:#edf3f8; font-size:.65rem; }
+    .modal { background:rgba(16,34,52,.42); }
+    .modal-card { border:1px solid #e2ebf3; border-radius:22px; background:#fff; box-shadow:var(--parking-shadow); }
+    .primary-button { border:0; border-radius:12px; background:var(--parking-accent); box-shadow:none; }
+    .primary-button:hover,.primary-button:focus-visible { background:#0052cc; outline-color:rgba(0,97,245,.28); }
+    @media (max-width:760px) {
+      .game-wrap { padding:14px 10px 24px; }
+      .topbar { margin-bottom:10px; }
+      .game-card { display:flex; flex-direction:column; border-radius:19px; }
+      .game-head { padding:20px 17px 16px; }
+      .game-head h1 { font-size:1.75rem; }
+      .subtitle { font-size:.83rem; }
+      .level-badge { min-width:70px; padding:8px 9px; }
+      .passenger-panel { margin:12px 12px 7px; padding:12px; }
+      .slots-panel { margin:7px 12px 12px; }
+      .slot { min-height:52px; }
+      .board-panel { margin:0 12px 12px; padding:12px; border-radius:16px; }
+      .board-title { margin-bottom:8px; }
+      .board { padding:7px; border-radius:12px; }
+      .vehicle .bus-sprite { width:128%; height:138%; }
+      .vehicle.vertical .bus-sprite { width:138%; height:128%; }
+      .tool-dock { gap:7px; padding:12px; }
+      .tool-button { min-height:48px; padding:8px 5px; }
+      .tool-name { font-size:.72rem; }
+      .tool-count { margin-left:3px; padding:1px 4px; }
+    }
+    @media (max-width:390px) { .topbar .brand span:last-child { display:none; } .topbar .back-link { min-width:72px; padding:0 9px; } .topbar .back-link::after { content:"重开"; } .level-badge span { display:none; } .slot { min-height:46px; } .vehicle .capacity { display:none; } }
+    /* 3D tabletop treatment: the board becomes a raised road surface and vehicles sit above it. */
+    .board-panel { perspective:1200px; }
+    .board { position:relative; transform:rotateX(12deg) rotateZ(-.7deg) translateY(-4px); transform-origin:center bottom; transform-style:preserve-3d; box-shadow:0 18px 0 -10px #1d3548,0 28px 32px rgba(8,28,45,.28),inset 0 1px 0 rgba(255,255,255,.18); }
+    .board::before { content:""; position:absolute; left:2%; right:2%; bottom:-15px; height:16px; border-radius:0 0 12px 12px; background:linear-gradient(#20394d,#162c3e); transform:rotateX(-62deg); transform-origin:top; pointer-events:none; }
+    .board::after { content:""; position:absolute; inset:8px; border:1px solid rgba(255,255,255,.16); border-radius:10px; pointer-events:none; transform:translateZ(1px); }
+    .vehicle { transform:translateZ(10px) rotateZ(var(--tilt,0deg)); transform-style:preserve-3d; }
+    .vehicle .bus-sprite { transform:translateZ(12px) scale(1.03); transform-style:preserve-3d; }
+    .vehicle.dir-left .bus-sprite { transform:translateZ(12px) rotate(180deg) scale(1.03); }
+    .vehicle.dir-up .bus-sprite { transform:translateZ(12px) rotate(-90deg) scale(1.03); }
+    .vehicle.dir-down .bus-sprite { transform:translateZ(12px) rotate(90deg) scale(1.03); }
+    .vehicle:hover,.vehicle:focus-visible { transform:translateZ(20px) translateY(-4px) rotateZ(var(--tilt,0deg)) scale(1.04); }
+    .vehicle.is-selected { transform:translateZ(20px) translateY(-4px) rotateZ(var(--tilt,0deg)) scale(1.04); }
+    .vehicle .arrow { transform:translateZ(17px); }
+    .vehicle .capacity { transform:translateZ(18px); }
+    .slots { perspective:800px; }
+    .slot { transform:translateZ(4px); box-shadow:0 5px 0 rgba(45,76,101,.1),inset 0 1px 0 #fff; transform-style:preserve-3d; }
+    .slot.is-filled { box-shadow:0 5px 0 rgba(45,76,101,.16),inset 0 1px 0 #fff; }
+    .tool-button { transform:translateZ(2px); transform-style:preserve-3d; }
+    @media (max-width:760px) {
+      .board { transform:rotateX(9deg) rotateZ(-.45deg) translateY(-3px); }
+      .board::before { bottom:-11px; height:12px; }
+    }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
   </style>
 <link rel="stylesheet" href="../../../assets/design-system.css?v=20260920a">

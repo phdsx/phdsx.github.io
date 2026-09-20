@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+  <defs>
+    <linearGradient id="wood" x2="1" y2="1"><stop stop-color="#f7e5c5"/><stop offset="1" stop-color="#e4c08a"/></linearGradient>
+    <radialGradient id="black" cx=".32" cy=".25" r=".8"><stop stop-color="#646b78"/><stop offset=".7" stop-color="#21242b"/><stop offset="1" stop-color="#12141a"/></radialGradient>
+    <radialGradient id="white" cx=".32" cy=".25" r=".8"><stop stop-color="#fff"/><stop offset=".7" stop-color="#f6f4ef"/><stop offset="1" stop-color="#d4cec1"/></radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="1" dy="4" stdDeviation="3" flood-color="#584427" flood-opacity=".3"/></filter>
+  </defs>
+  <path fill="url(#wood)" d="M0 0h320v320H0z"/>
+  <path d="M40 0v320M80 0v320M120 0v320M160 0v320M200 0v320M240 0v320M280 0v320M0 40h320M0 80h320M0 120h320M0 160h320M0 200h320M0 240h320M0 280h320" stroke="#a78453" stroke-opacity=".65"/>
+  <circle cx="160" cy="160" r="4" fill="#896639"/>
+  <g filter="url(#shadow)"><g fill="url(#black)"><circle cx="80" cy="80" r="17"/><circle cx="120" cy="120" r="17"/><circle cx="160" cy="160" r="17"/><circle cx="200" cy="200" r="17"/><circle cx="240" cy="240" r="17"/></g><g fill="url(#white)"><circle cx="120" cy="80" r="17"/><circle cx="160" cy="120" r="17"/><circle cx="200" cy="160" r="17"/><circle cx="160" cy="200" r="17"/></g></g>
+  <circle cx="240" cy="240" r="4" fill="#448dff" stroke="#fff"/>
+</svg>

@@ -16,6 +16,8 @@ window.PHDSX_SEARCH_INDEX = [
   { label: '字数统计', href: 'tools/text/word-counter.html', type: '工具', keywords: '文字 文本 字数 字符 段落 统计' },
   { label: '文本格式化', href: 'tools/text/text-formatter.html', type: '工具', keywords: '文字 文本 美化 排版 格式' },
   { label: 'VIP 视频解析', href: 'tools/media/vip-video-parser.html', type: '工具', keywords: '媒体 VIP 视频 解析 播放' },
+  { label: '军棋', href: 'games/board/junqi/index.html', type: '游戏', keywords: '棋类 陆战棋 明棋 军旗 布阵 人机 双人 Junqi Luzhanqi' },
+  { label: '五子棋', href: 'games/board/gomoku.html', type: '游戏', keywords: '棋类 五子 连珠 黑白棋 双人 对弈 悔棋 Gomoku Five in a Row' },
   { label: '中国象棋', href: 'games/board/chinese-chess.html', type: '游戏', keywords: '棋类 传统棋类 中国 象棋 棋牌游戏 双人' },
   { label: '俄罗斯方块', href: 'games/arcade/tetris.html', type: '游戏', keywords: '益智 方块消除 俄罗斯 方块 消除 经典' },
   { label: '水果忍者', href: 'games/arcade/fruit-ninja/index.html', type: '游戏', keywords: '动作 反应挑战 水果 忍者 切水果 休闲' },
