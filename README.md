@@ -55,6 +55,8 @@
 
 ## 文件结构
 
+当前界面采用 Ubuntu 桌面风格。公共窗口与导航由 `assets/design-system.js` 管理，主题样式位于 `assets/ubuntu.css`，配图、字体和图标位于 `assets/ubuntu/`。首页保留站内搜索及六个常用工具；手机端使用可展开导航。独立工具和游戏使用紧凑窗口栏，保留原有工作区。设计对照与回归记录见 [`design-qa.md`](design-qa.md)。
+
 仓库按“公开入口、可维护内容、静态资源、维护脚本”分层：
 
 ```text
@@ -108,3 +110,5 @@ Copyright © 2020–2026 PHDSX
 Made with curiosity by **PHDSX**
 
 </div>
+
+全站导航层级由 assets/navigation.js 维护；工具/游戏分类使用 ?category= 参数，工具搜索使用 q 参数。新增或移动页面后运行 node scripts/check-navigation.mjs 和 node scripts/check-site-links.mjs。

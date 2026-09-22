@@ -8,6 +8,11 @@
 | --- | --- | --- |
 | `games/arcade/fruit-ninja/` | Apache License 2.0 | 完整许可证见 [`games/arcade/fruit-ninja/LICENSE`](games/arcade/fruit-ninja/LICENSE)。 |
 | `games/arcade/fruit-ninja/scripts/all.js` 中保留许可头的组件 | MIT License | 许可和版权声明已保留在源文件中。 |
+| `assets/ubuntu/icons/*.png` | CC BY-SA 4.0 | Ubuntu [Yaru 图标](https://github.com/ubuntu/yaru)，版权归 Yaru / Suru 贡献者；从官方仓库复制，未修改。见 `assets/ubuntu/YARU-ICONS-LICENSE`、`YARU-LICENSE-CCBYSA` 和 `YARU-AUTHORS`。 |
+| `assets/ubuntu/icons/*.svg`、`assets/porcelain/icons/*.svg` | MIT License | [Bootstrap Icons](https://github.com/twbs/icons)，版权归 The Bootstrap Authors；原始图标，未修改，许可证见 `assets/porcelain/icons/LICENSE`。 |
+| `assets/ubuntu/Ubuntu-*.ttf` | Ubuntu Font Licence 1.0 | [Ubuntu 字体](https://github.com/google/fonts/tree/main/ufl/ubuntu)，版权归 Canonical Ltd.，许可证见 `assets/ubuntu/UFL.txt`。 |
+
+Ubuntu 主题的壁纸、首页背景、阅读和游戏配图（`assets/ubuntu/*.webp`）为本次主题制作的 AI 生成素材。Ubuntu 名称及相关标志归其权利人所有，PHDSX 为独立个人网站。
 
 此清单用于帮助识别第三方许可，不取代各文件、目录或上游项目中的原始声明。如果本清单与原始声明不一致，以原始声明为准。
 

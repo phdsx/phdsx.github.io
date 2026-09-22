@@ -1,0 +1,289 @@
+@font-face{font-family:Ubuntu;src:url('ubuntu/Ubuntu-Regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:Ubuntu;src:url('ubuntu/Ubuntu-Bold.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+body.ubuntu-page{--bg:#faf9f8;--panel:#fff;--panel-soft:#f3f2f1;--ink:#171720;--muted:#777783;--line:#e5e3e1;--brand:#e95420;--brand-dark:#c63c0f;--phdsx-brand:#e95420;--phdsx-bg:#faf9f8;--phdsx-ink:#171720;--phdsx-muted:#777783;--phdsx-line:#e5e3e1;font-family:Ubuntu,'Segoe UI','Microsoft YaHei',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+body.ubuntu-desktop{margin:0;display:block;min-height:100svh;padding:78px 7% 48px 6.7%!important;background:#2c001e url('ubuntu/wallpaper.webp') center center/cover fixed no-repeat!important}
+.ubuntu-page *, .ubuntu-page *::before,.ubuntu-page *::after{box-sizing:border-box}
+.ubuntu-page [hidden]{display:none!important}
+.ubuntu-page button,.ubuntu-page input,.ubuntu-page select{font-family:inherit}
+.ubuntu-page button{cursor:pointer}
+.ubuntu-page :focus-visible{outline:3px solid #e95420;outline-offset:4px}
+.ubuntu-page .ubuntu-icon{width:20px;height:20px;object-fit:contain;flex-shrink:0;border-radius:0}
+.ubuntu-page .ubuntu-topbar{position:fixed;z-index:1300;inset:0 0 auto;height:34px;display:flex;align-items:center;gap:23px;padding:0 15px;color:#f6f5f4;background:#262424;font-size:14px}
+.ubuntu-topbar button{border:0;color:inherit;background:transparent;padding:4px 0;font-size:14px;min-height:30px}
+.ubuntu-topbar button:hover{color:#ffb190}
+.ubuntu-running-app{display:flex;align-items:center;gap:9px}
+.ubuntu-clock{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:14px}
+.ubuntu-system{margin-left:auto;display:flex;gap:20px;align-items:center}
+.ubuntu-system>span{display:flex;gap:20px;align-items:center}
+.ubuntu-system .ubuntu-icon{width:17px;height:17px;filter:invert(1)}
+.ubuntu-page .ubuntu-dock{position:fixed;z-index:1200;top:34px;bottom:0;left:0;width:70px;background:#261820d9;display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 5px}
+.ubuntu-dock>a,.ubuntu-dock>button{position:relative;display:grid;place-items:center;width:60px;min-height:58px;border:0;border-radius:7px;background:transparent;padding:4px;transition:background .15s}
+.ubuntu-dock>a:hover,.ubuntu-dock>button:hover{background:#ffffff24}
+.ubuntu-dock>[aria-current]{background:#ffffff25}
+.ubuntu-dock>[aria-current]::before{content:'';position:absolute;left:-5px;top:12px;bottom:12px;width:3px;background:#ed632d;border-radius:2px}
+.ubuntu-dock img{width:48px;height:48px;object-fit:contain}
+.ubuntu-dock .ubuntu-all-apps{margin-top:auto}
+.ubuntu-dock .ubuntu-all-apps img{width:30px;height:30px;filter:invert(1)}
+.ubuntu-radar-launcher{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#268a83;box-shadow:inset 0 1px 2px #ffffff30}
+.ubuntu-dock .ubuntu-radar-launcher img{width:32px;height:32px;filter:invert(1)}
+.ubuntu-apps{width:min(720px,calc(100% - 32px));max-height:calc(100svh - 80px);padding:26px;border:1px solid #64545e;border-radius:16px;background:#30252f;color:#fff;box-shadow:0 24px 80px #14061270}
+.ubuntu-apps::backdrop{background:#160d20b8;backdrop-filter:blur(5px)}
+.ubuntu-apps-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}
+.ubuntu-apps-heading h2{margin:0;font-size:24px;font-weight:700}
+.ubuntu-apps-heading button{display:grid;place-items:center;width:40px;height:40px;padding:8px;border:0;border-radius:50%;background:#ffffff16}
+.ubuntu-apps-heading button:hover{background:#e95420}
+.ubuntu-apps .ubuntu-icon{filter:invert(1)}
+.ubuntu-apps-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ubuntu-apps-grid a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:140px;padding:18px 10px;color:#fff;text-decoration:none;text-align:center;font-size:15px;border-radius:12px}
+.ubuntu-apps-grid a:hover{background:#ffffff12}
+.ubuntu-app-symbol{display:grid;place-items:center;width:58px;height:58px;border-radius:15px;background:#645063}
+.ubuntu-apps .ubuntu-app-symbol img{width:29px;height:29px}
+.ubuntu-apps-grid a:nth-child(3n+1) .ubuntu-app-symbol{background:#b75032}
+.ubuntu-apps-grid a:nth-child(3n+2) .ubuntu-app-symbol{background:#387d80}
+@media(max-width:500px){.ubuntu-apps{padding:18px;max-height:calc(100svh - 40px)}.ubuntu-apps-grid{gap:4px}.ubuntu-apps-grid a{min-height:117px;font-size:13px;gap:12px;padding:12px 4px}.ubuntu-app-symbol{width:48px;height:48px}}
+.ubuntu-page .ubuntu-window{display:grid;position:relative;grid-template-columns:194px minmax(0,1fr);grid-template-rows:52px minmax(0,1fr);max-width:1500px;min-height:calc(100svh - 134px);margin:0 auto;border-radius:13px;background:#fff;box-shadow:0 22px 65px #18091555;border:1px solid #ffffff18;isolation:isolate}
+.ubuntu-page .ubuntu-titlebar{grid-column:1/-1;display:flex;align-items:center;gap:20px;min-width:0;height:52px;padding:0 14px;background:#302f2f;color:#f8f7f6;border-radius:12px 12px 0 0;font-size:14px;z-index:50;position:relative}
+.ubuntu-titlebar a,.ubuntu-titlebar button{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:transparent;border:0;color:inherit;padding:8px;border-radius:6px;text-decoration:none}
+.ubuntu-titlebar a:hover,.ubuntu-titlebar button:hover{background:#ffffff18}
+.ubuntu-titlebar .ubuntu-icon{filter:invert(1);opacity:.88;width:18px;height:18px}
+.ubuntu-history{display:flex;align-items:center;gap:1px}
+.ubuntu-history button{opacity:.75}
+.ubuntu-window-title{display:flex;align-items:center;gap:15px;min-width:0;white-space:nowrap}
+.ubuntu-window-title strong{font-weight:700;letter-spacing:.03em}
+.ubuntu-page-title{font-size:12px;opacity:.6;overflow:hidden;text-overflow:ellipsis;max-width:300px}
+.ubuntu-window-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+.ubuntu-window-controls{display:flex;align-items:center;gap:9px;margin-left:20px}
+.ubuntu-window-controls [data-ubuntu-close]{background:#e95420;width:24px;height:24px;padding:2px;border-radius:50%;margin-left:4px}
+.ubuntu-window-controls [data-ubuntu-close]:hover{background:#f97849}
+.ubuntu-window-controls [data-ubuntu-close] img{width:22px;height:22px}
+.ubuntu-sidebar{display:flex;flex-direction:column;min-width:0;grid-column:1;grid-row:2;background:#f0efee;border-radius:0 0 0 12px;padding:28px 10px 24px;line-height:1.5}
+.ubuntu-sidebar .ubuntu-brand{display:block;font-size:29px;color:#171720;font-weight:700;letter-spacing:-1px;text-decoration:none;padding:0 15px}
+.ubuntu-sidebar>p{font-size:13px;color:#777783;margin:0 15px 30px}
+.ubuntu-sidebar nav{display:grid;gap:5px}
+.ubuntu-sidebar nav a,.ubuntu-sidebar nav button,.ubuntu-utility-menu a{display:flex;align-items:center;gap:16px;min-height:43px;padding:9px 15px;border:0;border-radius:5px;color:#252530;text-decoration:none;background:transparent;font-size:15px;text-align:left}
+.ubuntu-sidebar nav a:hover,.ubuntu-sidebar nav button:hover{background:#e3e1df}
+.ubuntu-sidebar nav [aria-current]{background:#e95420;color:#fff;box-shadow:0 2px 5px #c9471720}
+.ubuntu-sidebar .ubuntu-icon{opacity:.65}
+.ubuntu-sidebar [aria-current] .ubuntu-icon{filter:invert(1);opacity:1}
+.ubuntu-sidebar .ubuntu-secondary{border-top:1px solid #dcdad8;padding-top:18px;margin:28px 13px 0;gap:0}
+.ubuntu-secondary a,.ubuntu-secondary button{padding-left:2px!important;padding-right:2px!important;gap:13px!important;font-size:13px!important;min-height:36px!important;color:#676772!important}
+.ubuntu-secondary .ubuntu-icon{width:17px;height:17px}
+.ubuntu-sidebar-foot{margin: auto 19px 0;padding-top:50px;color:#8b8891;font-size:12px}
+.ubuntu-sidebar-foot p{line-height:1.9;margin:0 0 30px;font-size:13px}
+.ubuntu-sidebar-foot p::after{content:'';display:block;width:28px;height:2px;background:#e95420;margin-top:23px}
+.ubuntu-content{grid-column:2;grid-row:2;min-width:0;display:flex;flex-direction:column;border-radius:0 0 12px;background:#fff}
+.ubuntu-content>main{flex:1;min-width:0;width:100%;margin:0;max-width:none}
+.ubuntu-content .site-footer{padding:24px 28px 28px!important;display:flex;flex-wrap:wrap;align-items:center;gap:15px;font-size:11px;background:transparent;border:0;color:#8b8891}
+.ubuntu-content .site-footer nav{display:flex;gap:20px;margin-left:auto}
+.ubuntu-content .site-footer>span{margin-right:auto}
+.ubuntu-content .site-footer{justify-content:flex-start}
+.ubuntu-content .site-footer{width:100%;max-width:none;margin:0}
+.ubuntu-page .site-footer a{color:inherit}
+.ubuntu-page .tag{background:#fff0e9;color:#a5431d;border-color:#f5d6c7}
+.ubuntu-page .section{padding:36px}
+.ubuntu-page .collection-hero,.ubuntu-page .workspace-heading{color:var(--ink)}
+.ubuntu-page .workspace-filters button[aria-pressed=true]{color:#fff;background:#e95420;border-color:#e95420}
+.ubuntu-page .workspace-filters button:hover{border-color:#e95420}
+.ubuntu-page .workspace-card{border-color:var(--line)}
+.ubuntu-page .workspace-card:hover{border-color:#e95420}
+.ubuntu-page .home-search-panel{background:#fff;border:1px solid #e7d5cd;box-shadow:0 15px 40px #36211c26;z-index:80}
+.ubuntu-page .home-search-list a:hover,.ubuntu-page .home-search-list .is-active{background:#fff0e9;color:#b43a10}
+/* Selected homepage: hero, six app launchers, then two editorial promotions. */
+body.ubuntu-home .workspace-main{padding:0;display:flex;flex-direction:column;max-width:none}
+body.ubuntu-home [data-workspace-home] .portal-search{position:relative;order:0;margin:0;padding:49px 45px 25px;min-height:300px;text-align:left;background:#faf5f0 url('ubuntu/hero.webp') center right/cover no-repeat}
+body.ubuntu-home [data-workspace-home] .portal-search h1{font-size:clamp(30px,3.5vw,50px);font-weight:700;line-height:1.3;letter-spacing:-.025em;margin:0 0 12px}
+body.ubuntu-home [data-workspace-home] .portal-search>p{font-size:19px;color:#717080;line-height:1.7;margin:0}
+body.ubuntu-home .home-personal-links{display:none}
+body.ubuntu-home [data-workspace-home] .portal-search .command-search{width:min(750px,89%);margin:31px 0 0}
+body.ubuntu-home [data-workspace-home] .portal-search .command-search input{height:57px;min-height:57px;border:1px solid #dedbd8;border-radius:17px;padding:13px 119px 13px 51px;background:#fff;color:#282732;font-size:16px;box-shadow:0 9px 23px #38251e0b}
+body.ubuntu-home .command-search>.ubuntu-search-icon{position:absolute;left:18px;top:18px;width:20px;height:20px;opacity:.6;pointer-events:none}
+body.ubuntu-home .porcelain-search-submit{left:auto;right:4px;top:4px;width:99px;height:49px;border-radius:13px;background:#e95420;color:#fff;font-size:16px}
+body.ubuntu-home .porcelain-search-submit:hover{background:#c94114}
+body.ubuntu-home .command-key{display:none}
+.ubuntu-hot-links{display:flex;flex-wrap:wrap;gap:17px;margin-top:13px;font-size:12px;color:#676372;align-items:center}
+.ubuntu-hot-links a:hover{color:#d94719}
+body.ubuntu-home .porcelain-radar-link{display:none}
+body.ubuntu-home .home-tools{order:1;margin:0;padding:24px 24px 25px;scroll-margin-top:50px}
+body.ubuntu-home .home-tools .workspace-section-head{margin:0 4px 20px;align-items:center}
+body.ubuntu-home .workspace-section-head h2{font-size:22px;position:relative;padding-left:16px;font-weight:700}
+body.ubuntu-home .workspace-section-head h2::before{content:'';position:absolute;left:0;top:5px;bottom:5px;width:4px;background:#e95420;border-radius:3px}
+body.ubuntu-home .home-tools .workspace-section-head p{display:none}
+body.ubuntu-home .ubuntu-tools-link{font-size:12px;color:#777783}
+body.ubuntu-home .home-tool-search,body.ubuntu-home .home-tools .workspace-filters{display:none}
+body.ubuntu-home .home-tools .workspace-results{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);margin:0}
+body.ubuntu-home .home-tools .workspace-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+body.ubuntu-home .home-tools .workspace-card{border:0;background:transparent;box-shadow:none;border-radius:8px;min-width:0}
+body.ubuntu-home .home-tools .workspace-card:hover{background:#faf4f0;transform:translateY(-3px)}
+body.ubuntu-home .home-tools .workspace-card-link{display:flex;flex-direction:column;text-align:center;align-items:center;gap:13px;min-height:136px;padding:0 4px;text-decoration:none}
+body.ubuntu-home .home-tools .workspace-card h3{font-size:16px;line-height:1.4;margin:0 0 6px;font-weight:700;color:#171720}
+body.ubuntu-home .home-tools .workspace-card p{font-size:13px;line-height:1.5;color:#797681;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ubuntu-tool-icon{width:68px;height:68px;display:grid;place-items:center;border-radius:17px;flex-shrink:0;box-shadow:inset 0 1px 2px #ffffff30,0 3px 7px #1910220d}
+.ubuntu-tool-icon img{width:34px!important;height:34px!important;border-radius:0!important;filter:invert(1)}
+.ubuntu-tool-icon.icon-image{background:#3fb3a0}.ubuntu-tool-icon.icon-crop{background:#8862cc}.ubuntu-tool-icon.icon-text{background:#3c79d8}.ubuntu-tool-icon.icon-count{background:#ec720d}.ubuntu-tool-icon.icon-qr{background:#7c7e88}.ubuntu-tool-icon.icon-ppt{background:#e44972}
+body.ubuntu-home .porcelain-stories{order:2;margin:0 24px 4px;padding-top:17px;border-top:1px solid #e7e4e2;gap:14px}
+body.ubuntu-home .porcelain-story{min-height:198px;padding:19px 23px;border:0;border-radius:6px;background-color:#2c1921;background-position:center;background-size:cover;color:white}
+body.ubuntu-home .porcelain-reading{background-image:url('ubuntu/reading.webp')}
+body.ubuntu-home .porcelain-gaming{background-image:url('ubuntu/gaming.webp')}
+body.ubuntu-home .story-kicker{color:#e4d9d5;font-size:12px}
+body.ubuntu-home .porcelain-story h2{font-size:27px;color:#fff;margin:14px 0 8px;letter-spacing:0;text-shadow:0 1px 9px #0004}
+body.ubuntu-home .porcelain-story p{color:#f0e7e4;font-size:13px;text-shadow:0 1px 5px #000}
+body.ubuntu-home .story-action{background:#e95420;color:#fff;font-size:13px;border-radius:7px;padding:9px 14px;margin-top:19px}
+body.ubuntu-home .porcelain-story:hover .story-action{background:#f56b38}
+body.ubuntu-maximized{padding:42px 9px 9px 79px!important}
+.ubuntu-maximized .ubuntu-window{max-width:none;min-height:calc(100svh - 51px)}
+.ubuntu-desktop-launcher{display:grid;place-items:center;min-height:75svh}
+.ubuntu-desktop-launcher button{display:flex;flex-direction:column;align-items:center;gap:14px;border:1px solid #ffffff30;border-radius:14px;background:#2d1f2ad9;color:#fff;padding:35px 45px;font-size:15px;box-shadow:0 16px 45px #18071744}
+.ubuntu-settings{width:min(420px,calc(100% - 32px));border:1px solid #ddd6d2;border-radius:12px;padding:28px;color:#25212a;background:#faf9f7;box-shadow:0 20px 70px #0005}
+.ubuntu-settings::backdrop{background:#1f102c80}
+.ubuntu-settings h2{margin:0 0 5px;font-size:23px}.ubuntu-settings p{color:#777;margin:0 0 22px}
+.ubuntu-setting-row{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #ddd;padding:20px 0}
+.ubuntu-setting-row input{width:19px;height:19px;accent-color:#e95420}
+.ubuntu-setting-row button,.ubuntu-dialog-done{border:0;border-radius:6px;background:#e95420;color:#fff;padding:10px 20px;font-size:14px}
+.ubuntu-dialog-done{display:block;margin:12px 0 0 auto}
+/* Compact chrome for functional tools and games, without altering their content geometry. */
+body.ubuntu-utility>.ubuntu-titlebar.unified-header{display:flex!important;min-height:54px;height:54px;padding:0 20px;background:#302f2f;color:#fff;border-radius:0;gap:20px;font-family:Ubuntu,'Microsoft YaHei',sans-serif;z-index:1200}
+.ubuntu-utility .ubuntu-utility-menu{position:absolute;top:54px;right:10px;min-width:210px;padding:10px;background:#f8f6f4;color:#24202a;border:1px solid #ddd;border-radius:0 0 9px 9px;box-shadow:0 15px 35px #0002}
+.ubuntu-utility-menu a:hover{background:#fbe8dc}.ubuntu-utility-menu .ubuntu-icon{filter:none;opacity:.7}
+body.ubuntu-page.unified-tool:not(.unified-presentation){background:#faf9f7!important}
+.ubuntu-page .bg-primary{background:#e95420!important}
+.ubuntu-page.unified-tool:not(.unified-presentation) :is(button,[type=button],[type=submit]){border-radius:7px!important}
+.ubuntu-page.unified-tool:not(.unified-presentation) :is(.card,.panel,.upload-area,.upload-section,.result-container,.stats-container,.bg-white){border-radius:10px!important;border-color:#e4ddd8!important}
+.ubuntu-page .games-directory-card-action{color:#cf461a}
+.ubuntu-page .workspace-eyebrow{color:#bd4218!important}
+.ubuntu-titlebar [data-i18n-toggle]{width:auto;min-width:44px;white-space:nowrap}
+.ubuntu-page .button.primary{background:#e95420;border-color:#e95420;color:#fff}
+.ubuntu-page .blacklist-hero,.ubuntu-page .blacklist-detail-head{background:#faf2ec}
+@media(min-width:1750px){body.ubuntu-home [data-workspace-home] .portal-search{min-height:340px;padding-top:60px}.ubuntu-window{min-height:880px!important}body.ubuntu-home .porcelain-story{min-height:240px}}
+@media(max-width:1200px){body.ubuntu-desktop{padding:60px 24px 30px 86px!important}.ubuntu-page .ubuntu-window{grid-template-columns:175px minmax(0,1fr);min-height:calc(100svh - 90px)}.ubuntu-sidebar{padding-top:22px}.ubuntu-sidebar .ubuntu-brand{font-size:25px}.ubuntu-sidebar nav a{font-size:14px;gap:11px}body.ubuntu-home [data-workspace-home] .portal-search{padding:35px 29px 24px;min-height:275px}body.ubuntu-home [data-workspace-home] .portal-search>p{font-size:16px}body.ubuntu-home .home-tools .workspace-grid{gap:5px}body.ubuntu-home .home-tools .workspace-card h3{font-size:13px}.ubuntu-tool-icon{width:57px;height:57px;border-radius:14px}body.ubuntu-home .porcelain-story{padding:18px;min-height:192px}body.ubuntu-home .porcelain-story h2{font-size:23px}.ubuntu-clock{font-size:12px}.ubuntu-page-title{display:none}}
+@media(max-width:980px){.ubuntu-page .ubuntu-window{grid-template-columns:155px minmax(0,1fr)}.ubuntu-sidebar nav a,.ubuntu-sidebar nav button{gap:9px;padding:9px}.ubuntu-sidebar .ubuntu-secondary{margin-left:5px;margin-right:5px}.ubuntu-sidebar-foot{margin-left:9px;margin-right:9px}.ubuntu-sidebar>p{font-size:11px;margin-left:10px}.ubuntu-sidebar .ubuntu-brand{padding-left:10px}body.ubuntu-home .home-tools .workspace-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:23px 12px}body.ubuntu-home .home-tools .workspace-card h3{font-size:15px}body.ubuntu-home [data-workspace-home] .portal-search h1{font-size:31px}body.ubuntu-home .porcelain-stories{grid-template-columns:1fr}body.ubuntu-home .porcelain-story{min-height:200px}.ubuntu-window-controls{margin-left:0;gap:0}.ubuntu-window-title{gap:8px}.ubuntu-titlebar{gap:8px!important}.ubuntu-content .site-footer nav{margin-left:0}}
+@media(max-width:700px){body.ubuntu-desktop{padding:46px 10px 18px!important;background-position:60% center!important}.ubuntu-page .ubuntu-topbar{height:32px;padding:0 12px;gap:14px;font-size:12px}.ubuntu-topbar button{font-size:12px}.ubuntu-running-app{gap:5px;font-size:12px}.ubuntu-running-app img{width:18px;height:18px}.ubuntu-clock{position:static;margin-left:auto;transform:none;max-width:135px;font-size:10px;overflow:hidden;text-overflow:ellipsis}.ubuntu-system{margin-left:0;gap:10px}.ubuntu-system>span,.ubuntu-system>[data-ubuntu-desktop]{display:none}.ubuntu-page .ubuntu-dock{display:none}.ubuntu-page .ubuntu-window{display:flex;flex-direction:column;min-height:calc(100svh - 64px);border-radius:10px}.ubuntu-page .ubuntu-titlebar{height:49px;min-height:49px;padding:0 9px;border-radius:9px 9px 0 0;gap:7px}.ubuntu-history{gap:0}.ubuntu-history button{display:none}.ubuntu-window-actions{gap:0}.ubuntu-window-actions>a{display:none}.ubuntu-window-controls{gap:0;margin-left:4px}.ubuntu-window-controls [data-ubuntu-minimize]{display:none}.ubuntu-window-controls [data-ubuntu-maximize]{width:30px}.ubuntu-window-title .ubuntu-icon{display:none}.ubuntu-sidebar{display:none;position:absolute;z-index:110;top:49px;bottom:0;left:0;width:215px;border-radius:0 0 0 9px;box-shadow:15px 10px 35px #22142230}.ubuntu-nav-open .ubuntu-sidebar{display:flex}.ubuntu-sidebar-foot{padding-top:25px}.ubuntu-content{flex:1;border-radius:0 0 9px 9px}body.ubuntu-home [data-workspace-home] .portal-search{padding:32px 22px 22px;min-height:257px;background-position:57% center}body.ubuntu-home [data-workspace-home] .portal-search h1{font-size:29px;max-width:290px;line-height:1.35}body.ubuntu-home [data-workspace-home] .portal-search>p{font-size:13px;max-width:235px;line-height:1.8}body.ubuntu-home [data-workspace-home] .portal-search .command-search{margin-top:25px;width:100%}body.ubuntu-home [data-workspace-home] .portal-search .command-search input{font-size:13px;height:52px;min-height:52px;border-radius:12px;padding:12px 68px 12px 38px}body.ubuntu-home .command-search>.ubuntu-search-icon{width:17px;height:17px;left:12px;top:17px}body.ubuntu-home .porcelain-search-submit{width:58px;height:44px;font-size:13px;border-radius:9px}.ubuntu-hot-links{gap:12px;font-size:11px}.ubuntu-hot-links a:nth-last-child(-n+2){display:none}body.ubuntu-home .home-tools{padding:22px 14px}body.ubuntu-home .workspace-section-head h2{font-size:19px}body.ubuntu-home .home-tools .workspace-grid{gap:22px 7px}body.ubuntu-home .home-tools .workspace-card-link{padding:0;gap:10px;min-height:116px}.ubuntu-tool-icon{width:56px;height:56px;border-radius:14px}.ubuntu-tool-icon img{width:29px!important;height:29px!important}body.ubuntu-home .home-tools .workspace-card h3{font-size:13px}body.ubuntu-home .home-tools .workspace-card p{font-size:10px;-webkit-line-clamp:2}body.ubuntu-home .porcelain-stories{margin:0 14px 0;padding-top:15px;gap:14px}body.ubuntu-home .porcelain-story{padding:20px;min-height:200px}body.ubuntu-home .porcelain-story h2{font-size:25px}body.ubuntu-home .porcelain-story p{font-size:12px}.ubuntu-content .site-footer{padding:24px 20px!important;font-size:10px;gap:12px}.ubuntu-content .site-footer nav{margin-left:0;gap:12px}.ubuntu-page .section{padding:25px 20px}.ubuntu-page [data-tool-directory]{padding:25px 20px}body.ubuntu-maximized{padding:32px 0 0!important}.ubuntu-maximized .ubuntu-window{border-radius:0}.ubuntu-settings{padding:22px}.ubuntu-page .ubuntu-utility-menu{right:5px}body.ubuntu-utility>.ubuntu-titlebar.unified-header{padding:0 12px;flex-wrap:nowrap;height:54px;min-height:54px}.ubuntu-utility .ubuntu-window-actions>a{display:flex}}
+@media(prefers-reduced-motion:reduce){.ubuntu-page *{scroll-behavior:auto!important;transition:none!important}}
+@media(max-width:700px){
+ body.ubuntu-home [data-workspace-home] .portal-search>p{font-size:14px;max-width:270px}
+ body.ubuntu-home .home-tools .workspace-card p{font-size:12px}
+ .ubuntu-hot-links{background:#fffffff0;padding:6px 8px;border-radius:5px;gap:8px}
+}
+@media(min-width:701px){
+ .ubuntu-nav-collapsed .ubuntu-window{grid-template-columns:0 minmax(0,1fr)!important}
+ .ubuntu-nav-collapsed .ubuntu-sidebar{display:none}
+}
+@media(min-width:1201px) and (max-width:1749px){
+ body.ubuntu-desktop{padding-top:82px!important}
+ .ubuntu-page .ubuntu-window{grid-template-columns:200px minmax(0,1fr);min-height:calc(100svh - 140px)}
+ body.ubuntu-home [data-workspace-home] .portal-search{min-height:310px;padding-top:55px}
+ body.ubuntu-home [data-workspace-home] .portal-search h1{font-size:52px}
+ body.ubuntu-home [data-workspace-home] .portal-search>p{font-size:20px}
+ .ubuntu-sidebar nav a{font-size:16px}
+ .ubuntu-tool-icon{width:72px;height:72px}
+ body.ubuntu-home .home-tools .workspace-card p{font-size:14px}
+ body.ubuntu-home .porcelain-story{min-height:210px}
+ body.ubuntu-home .porcelain-story h2{font-size:28px}
+}
+
+/* Shared location bar and explicit directory levels. */
+.ubuntu-locationbar{display:flex;align-items:center;gap:16px;min-height:55px;padding:10px 28px;background:#f8f7f6;border-bottom:1px solid var(--line);font-size:13px;text-align:left}
+.ubuntu-breadcrumbs{flex:1;min-width:0}
+.ubuntu-breadcrumbs ol{display:flex;align-items:center;flex-wrap:wrap;gap:6px 0;list-style:none;padding:0;margin:0}
+.ubuntu-breadcrumbs li{display:flex;align-items:center;min-width:0;max-width:100%;margin:0}
+.ubuntu-breadcrumbs li+li::before{content:'';width:13px;height:13px;flex:none;margin:0 9px;background:url('ubuntu/icons/chevron-right.svg') center/contain no-repeat;opacity:.4}
+.ubuntu-breadcrumbs a{color:#656068;text-decoration:none;padding:5px 0}
+.ubuntu-breadcrumbs a:hover{color:#c34113;text-decoration:underline}
+.ubuntu-breadcrumbs [aria-current]{color:#262128;font-weight:700;overflow-wrap:anywhere}
+.ubuntu-parent{display:flex;align-items:center;gap:5px;flex:none;min-height:32px;padding:5px 9px;border:1px solid #ddd8d5;border-radius:6px;color:#625d64;background:#fff;text-decoration:none;white-space:nowrap;font-size:12px}
+.ubuntu-parent .ubuntu-icon{width:13px;height:13px}
+.ubuntu-parent:hover{border-color:#e95420;color:#b73d12}
+.ubuntu-sidebar nav.ubuntu-context-nav,.ubuntu-utility-menu nav.ubuntu-context-nav{gap:2px;margin:0 0 10px 24px;padding:4px 0 4px 12px;border-left:1px solid #d6d0cb}
+.ubuntu-sidebar .ubuntu-context-nav a,.ubuntu-utility-menu .ubuntu-context-nav a{font-size:12px;min-height:33px;padding:6px 9px;color:#6c656a}
+.ubuntu-sidebar .ubuntu-context-nav a[aria-current],.ubuntu-utility-menu .ubuntu-context-nav a[aria-current]{background:#f9e3d9;color:#a4320b;box-shadow:none;font-weight:700}
+.ubuntu-sidebar .ubuntu-secondary a[aria-current]{background:#e95420;color:white!important;padding-left:8px!important}
+.ubuntu-sidebar-foot{padding-top:28px}
+.ubuntu-sidebar-foot p{margin-bottom:16px}
+.ubuntu-sidebar>p{margin-bottom:20px}
+.ubuntu-sidebar .ubuntu-secondary{margin-top:18px;padding-top:12px}
+.ubuntu-content .workspace-topline{display:none}
+.ubuntu-page .ubuntu-sidebar{overflow-y:auto}
+body.ubuntu-utility>.ubuntu-titlebar.unified-header{height:auto;min-height:54px;flex-wrap:wrap;gap:0 20px;padding-top:6px}
+.ubuntu-utility .ubuntu-locationbar{flex-basis:calc(100% + 40px);margin:6px -20px 0;padding:8px 20px;min-height:44px;background:#f2efed;color:#242129}
+.ubuntu-utility .ubuntu-locationbar a{width:auto;height:auto;filter:none}
+.ubuntu-utility .ubuntu-breadcrumbs a{padding:3px 0;display:inline}
+.ubuntu-utility .ubuntu-locationbar .ubuntu-icon{filter:none}
+.ubuntu-utility .ubuntu-parent{padding:4px 8px;background:white;border:1px solid #d6d0cb}
+.ubuntu-utility .ubuntu-utility-menu{top:100%;max-height:calc(100svh - 120px);overflow-y:auto}
+.ubuntu-utility-menu>a[aria-current]{background:#e95420;color:white}
+.ubuntu-utility-menu>a[aria-current] img{filter:invert(1)}
+.ubuntu-game-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.ubuntu-game-filters button{padding:9px 15px;border:1px solid var(--line);border-radius:7px;background:#fff;color:#5f5961;font-size:14px}
+.ubuntu-directory-status{font-size:13px;color:var(--muted);margin:0 0 20px}
+
+/* Consistent warm surfaces, orange actions and compact Ubuntu controls on every content page. */
+body.ubuntu-page{--accent:#e95420;--primary:#e95420;--shadow-sm:0 5px 18px #3020200b;--phdsx-cyan:#9e4729;text-align:left}
+.ubuntu-page :is(.link-card,.contact-row,.article-body,.novel-card,.software-release,.collection-stat,.ai-source,.blacklist-record,.blacklist-event-card,.blacklist-detail-side section,.chess-panel,.games-directory-card){border-color:var(--line);border-radius:10px;box-shadow:0 3px 12px #30202006}
+.ubuntu-page :is(.button,.card-action,.tool-tab,.tool-subtab,.search-input,.select-input,.reader-toolbar,.ai-radar-note,.ai-score-highlights>div,.ai-score-table-wrap){border-radius:7px}
+.ubuntu-page .button.primary,.ubuntu-page .card-action{background:#e95420;border-color:#e95420;color:#fff}
+.ubuntu-page .button.primary:hover{background:#c94213;border-color:#c94213}
+.ubuntu-page :is(.link-card,.games-directory-card):hover{border-color:#e95420;box-shadow:0 5px 18px #482c1610}
+.ubuntu-page :is(.blacklist-hero,.blacklist-detail-head){background:#f7f1ec;border-color:#e5ddd6;border-radius:10px}
+.ubuntu-page :is(.blacklist-metrics article,.blacklist-filter-panel,.blacklist-facts,.blacklist-notice,.blacklist-detail-stamp){border-radius:8px;border-color:var(--line)}
+.ubuntu-page .blacklist-filter-panel-head,.ubuntu-page .tool-tab-list{background:#f3efec}
+.ubuntu-page .novel-cover{background:#5e344f;color:#f0d8e9}
+.ubuntu-page .novel-cover strong{color:#fff}.ubuntu-page .novel-cover span{color:#e6cddd}
+.ubuntu-page .games-directory-card-media--contain{background:#f2eae4}
+.ubuntu-page .workspace-heading h1,.ubuntu-page .collection-hero h1,.ubuntu-page .section-head h1,.ubuntu-page .ai-radar-hero h1{font-size:clamp(27px,3vw,38px);letter-spacing:-.025em}
+.ubuntu-page .workspace-card,.ubuntu-page .workspace-filters button{border-radius:8px}
+.ubuntu-page [data-tool-directory] .ubuntu-tool-icon{width:44px;height:44px;border-radius:10px}
+.ubuntu-page [data-tool-directory] .ubuntu-tool-icon img{width:23px!important;height:23px!important}
+body.ubuntu-page.ubuntu-desktop.unified-tool{height:auto;overflow:auto;background:#2c001e url('ubuntu/wallpaper.webp') center/cover fixed no-repeat!important}
+.ubuntu-desktop.unified-tool .ubuntu-content>main{padding:28px;min-height:540px;max-width:none;width:100%;margin:0;background:#faf9f8}
+.ubuntu-desktop.unified-tool .ubuntu-content>main>header{background:transparent;box-shadow:none;border:0;padding:0 0 22px;margin:0}
+.ubuntu-desktop.unified-tool .ubuntu-content>main>.ubuntu-tool-heading{position:static!important;width:auto!important;inset:auto!important;z-index:auto!important;transform:none!important}
+.ubuntu-tool-heading>div{padding:0;max-width:none}
+.ubuntu-tool-heading a[href$="index.html"]{display:none}
+.ubuntu-tool-toolbar{padding:0 0 12px;max-width:none}
+.ubuntu-tool-toolbar #homeBtn{display:none}
+.ubuntu-desktop.unified-tool :is(#themeToggle,#theme-toggle){display:none}
+.ubuntu-desktop.unified-tool .ubuntu-content main .bg-primary h1{color:#fff}
+.ubuntu-page main [id$="modal"],.ubuntu-page main #helpModal{z-index:1500}
+.ubuntu-page>div[id$="modal"],.ubuntu-page>#helpModal{z-index:1500}
+.ubuntu-desktop.unified-tool .ubuntu-content>main h1{font-size:clamp(25px,2.6vw,34px);line-height:1.35;color:#28232a}
+.ubuntu-desktop.unified-tool .ubuntu-content>main :is(.card,.panel,.upload-area,.upload-section,.result-container,.stats-container,.bg-white){border-radius:9px!important;border-color:#e2dcd7!important;box-shadow:0 3px 12px #30202006!important;background-color:#fff}
+.ubuntu-desktop.unified-tool main :is(input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]),textarea,select){border:1px solid #d9d3ce!important;border-radius:6px!important;background:#fff;color:#29242c;max-width:100%}
+.ubuntu-desktop.unified-tool main textarea{padding:12px}
+.ubuntu-desktop.unified-tool main :is(button,[type=button],[type=submit]){border-radius:6px!important}
+.ubuntu-desktop.unified-tool main :is(.bg-primary,.primary,.btn-primary,.bg-blue-500,.bg-blue-600){background:#e95420!important;border-color:#e95420!important;color:#fff!important}
+.ubuntu-desktop.unified-tool main :is(.text-primary,.text-blue-600){color:#bc3c12!important}
+.ubuntu-desktop.unified-tool main :is(.bg-blue-50,.bg-gray-50){background:#f6f2ef!important}
+.ubuntu-desktop.unified-tool input[type=checkbox],.ubuntu-desktop.unified-tool input[type=radio],.ubuntu-page input[type=range]{accent-color:#e95420}
+.ubuntu-desktop.unified-tool .phdsx-page-footer{display:none}
+.ubuntu-desktop.unified-tool .ubuntu-tool-main>.max-w-md{margin:auto}
+.ubuntu-desktop.unified-tool .ubuntu-tool-main>.app{min-height:650px;--muted:#716972;--glass:#eeebe9;color:#29242c}
+.ubuntu-tool-main .app :is(.panel h3,textarea,.exif-field input[type=text]){color:#29242c}
+.ubuntu-tool-main .app .preview-wrap{flex:none;height:360px;min-height:240px;background:#eae7e4}
+.ubuntu-tool-main .app .preview-wrap canvas{max-height:100%;width:auto;max-width:100%;object-fit:contain}
+.ubuntu-tool-main .app .controls{flex-wrap:wrap}
+.ubuntu-tool-main .app .panel{flex:1;min-width:min(280px,100%);max-width:100%}
+.ubuntu-tool-main .app .topbar{flex-wrap:wrap}
+.ubuntu-tool-main:has(#hoursInput){text-align:center}
+.ubuntu-tool-main #hoursInput,.ubuntu-tool-main #minutesInput,.ubuntu-tool-main #secondsInput{width:84px;padding:10px;margin:20px 8px 20px 0}
+.ubuntu-tool-main:has(#hoursInput)>label{display:inline-block}
+.ubuntu-tool-main #startButton{display:block;margin:10px auto;padding:11px 22px;color:#fff;background:#e95420;border:0}
+.ubuntu-tool-main #progressBar{width:min(480px,90%);border-radius:6px;overflow:hidden}
+.ubuntu-tool-main #progress{background:#e95420}
+body.ubuntu-presentation,body.unified-presentation{background:#2c001e url('ubuntu/wallpaper.webp') center/cover fixed!important}
+.unified-presentation .floating-timer{top:126px;background:#302a30;border-color:#66525f;border-radius:10px}
+.unified-presentation .settings-panel{background:#faf8f6;color:#29242c;border-radius:10px}
+.unified-presentation .start-btn,.unified-presentation .save-btn{background:#e95420;color:white}
+@media(max-width:1100px){.ubuntu-page .workspace-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+ .ubuntu-locationbar{padding:10px 14px;gap:10px;align-items:flex-start;font-size:12px}
+ .ubuntu-parent{font-size:11px;padding:4px 6px;min-height:30px}
+ .ubuntu-breadcrumbs li+li::before{margin:0 5px;width:10px}
+ .ubuntu-sidebar{max-height:calc(100svh - 110px);bottom:auto}
+ .ubuntu-sidebar-foot{display:none}
+ .ubuntu-desktop.unified-tool .ubuntu-content>main{padding:22px 16px;min-height:500px}
+ .ubuntu-page .workspace-grid{grid-template-columns:1fr}
+ body.ubuntu-utility>.ubuntu-titlebar.unified-header{height:auto;flex-wrap:wrap;padding-top:6px}
+ .ubuntu-utility .ubuntu-locationbar{flex-basis:calc(100% + 24px);margin:6px -12px 0;padding:8px 12px}
+ .ubuntu-utility .ubuntu-page-title{max-width:130px}
+ .ubuntu-utility .ubuntu-history{display:none}
+ .unified-presentation .floating-timer{top:142px;right:12px}
+}

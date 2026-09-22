@@ -17,7 +17,9 @@
   <link rel="stylesheet" href="assets/workspace.css?v=20260921a">
 <link rel="stylesheet" href="assets/porcelain.css?v=20260921a">
 <link rel="stylesheet" href="assets/design-system.css?v=20260920a">
-<script defer src="assets/design-system.js?v=20260921a"></script>
+<link rel="stylesheet" href="assets/ubuntu.css?v=20260923u5">
+<script src="assets/navigation.js?v=20260923u5"></script>
+<script defer src="assets/design-system.js?v=20260923u5"></script>
 </head>
 <body class="workspace-page porcelain-page">
 <header class="site-header porcelain-header" data-porcelain-header>
@@ -37,22 +39,16 @@
 <div class="command-search">
 <label class="sr-only" for="home-search">搜索站内内容</label>
 <input id="home-search" type="search" data-home-search placeholder="搜索工具、游戏、文章…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="home-search-results">
-<button class="porcelain-search-submit" type="button" data-search-submit aria-label="搜索"><img src="assets/porcelain/icons/search.svg" alt="" width="22" height="22"></button>
+<img class="ubuntu-search-icon" src="assets/porcelain/icons/search.svg" alt="" width="20" height="20"><button class="porcelain-search-submit" type="button" data-search-submit aria-label="搜索">搜索</button>
 <span class="command-key" aria-hidden="true">Ctrl K</span>
 <div class="home-search-panel" data-home-search-panel hidden><p class="home-search-status" data-home-search-status aria-live="polite"></p><div class="home-search-list" id="home-search-results" data-home-search-list role="listbox"></div></div>
 
 </div>
-<a class="porcelain-radar-link" href="ai-radar.html" data-i18n-attr="aria-label:home.radarLinkAria">
-<span class="porcelain-radar-link-signal" aria-hidden="true"><span></span></span>
-<span class="porcelain-radar-link-copy"><strong data-i18n="home.radarLinkTitle">AI 雷达</strong><span data-i18n="home.radarLinkDescription">模型能力评分与 Codex 重置预测</span></span>
-<span class="porcelain-radar-link-action" data-i18n="home.radarLinkAction">查看雷达 →</span>
-</a>
+<nav class="ubuntu-hot-links" aria-label="热门入口"><span>热门：</span><a href="tools.html">图片处理</a><a href="tools/utility/qr-generator.html">二维码</a><a href="tools/text/text-deduplicator.html">文本工具</a><a href="games.html">游戏</a><a href="ai-radar.html">AI 雷达</a></nav>
 </section>
-<section class="porcelain-stories" aria-label="阅读与游戏">
-<a class="porcelain-story porcelain-reading" href="novels/index.html"><span class="story-kicker">阅读 / 连载小说</span><h2>零号回声</h2><p>走进故事，继续探索未知。</p><span class="story-action">开始阅读 →</span></a>
-<a class="porcelain-story porcelain-gaming" href="games.html"><span class="story-kicker">休息 / 游戏厅</span><h2>来一局，放松一下</h2><p>象棋、方块、益智小游戏。</p><span class="story-action">进入游戏厅 →</span></a></section>
+
 <section class="workspace-section home-tools" data-home-tools aria-labelledby="tools-title" id="home-tools">
-<div class="workspace-section-head"><div><h2 id="tools-title">在线小工具</h2><p>按用途筛选，直接打开。</p></div><span data-tool-total>17 项工具</span></div>
+<div class="workspace-section-head"><div><h2 id="tools-title">常用工具</h2><p>按用途筛选，直接打开。</p></div><a class="ubuntu-tools-link" href="tools.html">全部工具 →</a><span data-tool-total hidden>17 项工具</span></div>
 <div class="home-tool-search"><label class="sr-only" for="home-tool-search">搜索工具</label><input id="home-tool-search" type="search" data-tool-search placeholder="搜索工具名称或用途，例如：压缩、二维码、Word" aria-controls="home-tool-grid" autocomplete="off"></div>
 <div class="workspace-filters" role="group" aria-label="工具分类">
 <button type="button" data-workspace-filter="common" aria-pressed="true">常用</button>
@@ -227,17 +223,20 @@
 </section>
 
 
+<section class="porcelain-stories" aria-label="阅读与游戏">
+<a class="porcelain-story porcelain-reading" href="novels/index.html"><span class="story-kicker">阅读 / 连载小说</span><h2>零号回声</h2><p>走进故事，继续探索未知。</p><span class="story-action">开始阅读 →</span></a>
+<a class="porcelain-story porcelain-gaming" href="games.html"><span class="story-kicker">休息 / 游戏厅</span><h2>来一局，放松一下</h2><p>象棋、方块、益智小游戏。</p><span class="story-action">进入游戏厅 →</span></a></section>
 </main>
 <footer class="site-footer"><span>PHDSX © 2026 · 让小事更简单</span><nav aria-label="页脚导航"><a href="software.html">作品</a><a href="blog.html">更新记录</a></nav></footer>
 <script src="assets/catalog.js?v=20260921c">
 </script>
 <script src="assets/workspace-data.js?v=20260919a">
 </script>
-<script src="assets/i18n.js?v=20260921a">
+<script src="assets/i18n.js?v=20260923u5">
 </script>
 <script src="assets/site.js?v=20260919a">
 </script>
-<script src="assets/workspace.js?v=20260921a">
+<script src="assets/workspace.js?v=20260923u5">
 </script>
 </body>
 </html>

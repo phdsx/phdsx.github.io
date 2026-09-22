@@ -1,0 +1,427 @@
+{
+  "desktop": [
+    {
+      "breadcrumb": "首页\n在线工具\n时间管理\n自定义倒计时",
+      "externalContent": [],
+      "overflow": false,
+      "path": "/tools/time/countdown.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n时间管理\n下班倒计时",
+      "externalContent": [],
+      "overflow": false,
+      "path": "/tools/time/work-countdown.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n图片处理\n图片水印与 EXIF 编辑器",
+      "externalContent": [],
+      "overflow": false,
+      "path": "/tools/image/image-watermark-editor.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n文本与编码\n大小写转换工具",
+      "externalContent": [
+        "DIV.container mx-auto px-4 pb-8 max-w-5xl"
+      ],
+      "overflow": false,
+      "path": "/tools/text/case-converter.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n图片处理\n图片裁剪工具",
+      "externalContent": [
+        "DIV.container mx-auto px-4 pb-8 max-w-6xl"
+      ],
+      "overflow": false,
+      "path": "/tools/image/image-cropper.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n文档办公\nPPT放映悬浮倒计时工具",
+      "externalContent": [],
+      "overflow": false,
+      "path": "/tools/document/ppt-countdown.html"
+    },
+    {
+      "main": true,
+      "overflow": false,
+      "path": "/index.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅",
+      "main": true,
+      "overflow": false,
+      "path": "/games.html"
+    },
+    {
+      "breadcrumb": "首页\n博客笔记",
+      "main": true,
+      "overflow": false,
+      "path": "/blog.html"
+    },
+    {
+      "breadcrumb": "首页\n博客笔记\n站点更新记录",
+      "main": true,
+      "overflow": false,
+      "path": "/blog-post.html"
+    },
+    {
+      "breadcrumb": "首页\n小说连载",
+      "main": true,
+      "overflow": false,
+      "path": "/novels/index.html"
+    },
+    {
+      "breadcrumb": "首页\n小说连载\n第二章 失效的时间戳",
+      "main": true,
+      "overflow": false,
+      "path": "/novels/reader.html"
+    },
+    {
+      "breadcrumb": "首页\n软件作品",
+      "main": true,
+      "overflow": false,
+      "path": "/software.html"
+    },
+    {
+      "breadcrumb": "首页\nAI 雷达",
+      "main": true,
+      "overflow": false,
+      "path": "/ai-radar.html"
+    },
+    {
+      "breadcrumb": "首页\n电话黄页",
+      "main": true,
+      "overflow": false,
+      "path": "/directory.html"
+    },
+    {
+      "breadcrumb": "首页\n品牌黑名单",
+      "main": true,
+      "overflow": false,
+      "path": "/brand-blacklist/index.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n文档办公\nEQ 单字拼音域代码生成器",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/document/eq-pinyin-code.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n图片处理\n高效压缩你的照片",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/image/image-compressor.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n图片处理\n批量图片裁剪工具",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/image/batch-image-cropper.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n文本与编码\n文本格式化工具",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/text/text-formatter.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n文本与编码\n字数统计工具",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/text/word-counter.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n文本与编码\n二维码生成",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/utility/qr-generator.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n生活与趣味\n干饭抽签决定器",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/lifestyle/meal-randomizer.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n生活与趣味\n子女性别娱乐模拟器",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/fun/child-gender-simulator.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n生活与趣味\n雷劈计算器",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/fun/lightning-calculator.html"
+    },
+    {
+      "breadcrumb": "首页\n在线工具\n媒体工具\nVIP 视频解析",
+      "main": true,
+      "overflow": false,
+      "path": "/tools/media/vip-video-parser.html"
+    },
+    {
+      "breadcrumb": "首页\n品牌黑名单\n示例品牌（非真实记录）",
+      "main": true,
+      "overflow": false,
+      "path": "/brand-blacklist/detail.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n棋类对弈\n五子棋",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/board/gomoku.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n棋类对弈\n中国象棋",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/board/chinese-chess.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n棋类对弈\n军棋 明棋对弈",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/board/junqi/index.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n动作街机\n响应式俄罗斯方块",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/arcade/tetris.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n动作街机\n水果忍者",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/arcade/fruit-ninja/index.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n动作街机\n潜艇大战 (Deep Sea Hunter)",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/arcade/submarine-battle/index.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n益智休闲\n停车脉冲",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/puzzle/parking-pulse/index.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n益智休闲\n点击瓶子开始分类",
+      "headerHeight": 105,
+      "overflow": false,
+      "path": "/games/puzzle/sand-sort/index.html"
+    },
+    {
+      "breadcrumb": "首页\n游戏厅\n动作街机\n潜艇大战 (Deep Sea Hunter)",
+      "headerHeight": 97,
+      "overflow": false,
+      "path": "/games/arcade/submarine-battle/index.html"
+    }
+  ],
+  "mobile": [
+    {
+      "path": "/index.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n在线工具\n图片处理",
+      "path": "/tools.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n游戏厅\n棋类对弈",
+      "path": "/games.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n博客笔记",
+      "path": "/blog.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n博客笔记\n站点更新记录",
+      "path": "/blog-post.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n小说连载",
+      "path": "/novels/index.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n小说连载\n零号回声\n第二章 失效的时间戳",
+      "path": "/novels/reader.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n软件作品",
+      "path": "/software.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\nAI 雷达",
+      "path": "/ai-radar.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n电话黄页",
+      "path": "/directory.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n品牌黑名单",
+      "path": "/brand-blacklist/index.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n品牌黑名单\n示例品牌（非真实记录）",
+      "path": "/brand-blacklist/detail.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n在线工具\n文本与编码\n文本去重",
+      "path": "/tools/text/text-deduplicator.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n在线工具\n文本与编码\n大小写转换",
+      "path": "/tools/text/case-converter.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n在线工具\n图片处理\n图片水印与 EXIF 编辑器",
+      "path": "/tools/image/image-watermark-editor.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n在线工具\n时间管理\n自定义倒计时",
+      "path": "/tools/time/countdown.html",
+      "scrollWidth": 390,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n在线工具\n时间管理\n下班倒计时",
+      "path": "/tools/time/work-countdown.html",
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "crumb": "首页\n在线工具\n文档办公\nPPT 放映悬浮倒计时",
+      "path": "/tools/document/ppt-countdown.html",
+      "scrollWidth": 390,
+      "width": 390
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/document/eq-pinyin-code.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/image/image-compressor.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/image/image-cropper.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/image/batch-image-cropper.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/text/text-formatter.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/text/word-counter.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/utility/qr-generator.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/lifestyle/meal-randomizer.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/fun/child-gender-simulator.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/fun/lightning-calculator.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/tools/media/vip-video-parser.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/board/gomoku.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/board/chinese-chess.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/board/junqi/index.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/arcade/tetris.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/arcade/fruit-ninja/index.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/arcade/submarine-battle/index.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/puzzle/parking-pulse/index.html"
+    },
+    {
+      "breadcrumb": true,
+      "overflow": false,
+      "path": "/games/puzzle/sand-sort/index.html"
+    }
+  ]
+}

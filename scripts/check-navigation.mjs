@@ -1,0 +1,19 @@
+import assert from 'node:assert/strict';
+import {readFile, access} from 'node:fs/promises';
+import vm from 'node:vm';
+
+const context = {window:{}, URLSearchParams};
+vm.runInNewContext(await readFile(new URL('../assets/navigation.js',import.meta.url),'utf8'),context);
+const {resolve,categories,sections} = context.window.PHDSXNavigation;
+assert.equal(resolve('tools/utility/qr-generator.html').parent.href,'tools.html?category=text');
+assert.equal(resolve('tools/fun/lightning-calculator.html').parent.href,'tools.html?category=lifestyle');
+assert.equal(resolve('games/board/junqi/index.html').parent.href,'games.html?category=board');
+assert.equal(resolve('tools.html','?category=image').parent.href,'tools.html');
+assert.equal(resolve('tools.html','?category=__proto__').category,null);
+assert.equal(resolve('games.html','?category=unknown').crumbs.length,2);
+assert.equal(resolve('novels/reader.html','?id=zero-echo&chapter=2','第二章').parent.href,'novels/index.html#zero-echo');
+assert.equal(resolve('blog-post.html','?src=content/blog/site/site-update.md','站点更新记录').crumbs.at(-1).zh,'站点更新记录');
+assert.equal(resolve('').parent,null);
+for (const section of Object.keys(sections)) await access(new URL('../'+section,import.meta.url));
+for (const family of Object.keys(categories)) await access(new URL('../'+family+'.html',import.meta.url));
+console.log('Navigation checks passed: root, categories, deep links, aliases, invalid queries, article and chapter parents.');

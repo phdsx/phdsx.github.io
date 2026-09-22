@@ -6,7 +6,31 @@
   const search = document.querySelector('[data-tool-search], #directory-search');
   const t = (zh, en) => window.PHDSXI18n?.getLocale() === 'en' ? en : zh;
   const common = new Set(['image-compressor', 'image-cropper', 'text-deduplicator', 'word-counter', 'qr-generator', 'ppt-countdown']);
+  const ubuntuIcons = {
+    'image-compressor': ['image', 'image'],
+    'image-cropper': ['crop', 'crop'],
+    'text-deduplicator': ['file-text-fill', 'text'],
+    'word-counter': ['bar-chart-fill', 'count'],
+    'qr-generator': ['qr-code', 'qr'],
+    'ppt-countdown': ['display', 'ppt']
+  };
   let category = home ? 'common' : 'all';
+  const readLocation = () => {
+    if (!directory) return;
+    const params = new URLSearchParams(location.search);
+    const value = params.get('category');
+    category = tools.some(tool => tool.category === value) ? value : 'all';
+    search.value = params.get('q') || '';
+  };
+  const saveLocation = (push = false) => {
+    if (!directory) return;
+    const next = new URL(location.href);
+    if (category === 'all') next.searchParams.delete('category'); else next.searchParams.set('category',category);
+    if (search.value.trim()) next.searchParams.set('q',search.value); else next.searchParams.delete('q');
+    if (next.href !== location.href) history[push ? 'pushState' : 'replaceState'](null,'',next);
+    window.dispatchEvent(new Event('phdsx:location'));
+  };
+  readLocation();
   const catalog = new Map(getSiteCatalog().map(item => [item.href, item]));
   const makeCard = (tool) => {
     const article = document.createElement('article');
@@ -17,13 +41,22 @@
     link.className = 'workspace-card-link';
     link.href = tool.href;
     const img = document.createElement('img');
-    img.src = tool.icon; img.alt = ''; img.width = 40; img.height = 40;
+    const id = tool.href.split('/').pop().replace('.html', '');
+    const categoryIcons = {image:['image','image'],text:['file-text-fill','text'],document:['display','ppt'],time:['clock-fill','count'],lifestyle:['bar-chart-fill','crop'],media:['display','qr']};
+    const appIcon = ubuntuIcons[id] || categoryIcons[tool.category];
+    img.src = appIcon ? `assets/${appIcon[0] === 'display' ? 'ubuntu' : 'porcelain'}/icons/${appIcon[0]}.svg` : tool.icon;
+    img.alt = ''; img.width = 40; img.height = 40;
     const copy = document.createElement('div');
     const title = document.createElement('h3');
-    title.textContent = siteTranslate(tool.label);
+    title.textContent = home && id === 'ppt-countdown' ? t('PPT 倒计时', 'PPT timer') : siteTranslate(tool.label);
     const desc = document.createElement('p');
     desc.textContent = siteTranslate(tool.description);
-    copy.append(title, desc); link.append(img, copy); article.append(link);
+    copy.append(title, desc);
+    if (appIcon) {
+      const tile = document.createElement('span'); tile.className = `ubuntu-tool-icon icon-${appIcon[1]}`;
+      tile.append(img); link.append(tile, copy);
+    } else link.append(img, copy);
+    article.append(link);
     return article;
   };
   const filterTools = () => {
@@ -50,7 +83,12 @@
   const renderTools = () => {
     if (!surface) return;
     if (home) {
-      home.querySelector('[data-home-tool-grid]').replaceChildren(...tools.map(makeCard));
+      const order = [...common];
+      const sorted = [...tools].sort((a, b) => {
+        const rank = item => { const index = order.indexOf(item.href.split('/').pop().replace('.html', '')); return index < 0 ? 100 : index; };
+        return rank(a) - rank(b);
+      });
+      home.querySelector('[data-home-tool-grid]').replaceChildren(...sorted.map(makeCard));
       home.querySelector('[data-tool-total]').textContent = t(`${tools.length} 项工具`, `${tools.length} tools`);
     } else {
       directory.querySelector('[data-directory-grid]').replaceChildren(...tools.map(makeCard));
@@ -59,17 +97,19 @@
     filterTools();
   };
   surface?.querySelectorAll('[data-workspace-filter]').forEach(button => {
-    button.addEventListener('click', () => { category = button.dataset.workspaceFilter; filterTools(); });
+    button.addEventListener('click', () => { category = button.dataset.workspaceFilter; filterTools(); saveLocation(true); });
   });
   search?.addEventListener('input', () => {
     // A new query searches every tool, including ones outside the default six.
     if (category === 'common' && search.value.trim()) category = 'all';
     filterTools();
+    saveLocation();
   });
   surface?.querySelector('[data-clear-filters]')?.addEventListener('click', () => {
-    category = 'all'; search.value = ''; filterTools(); search.focus();
+    category = 'all'; search.value = ''; filterTools(); saveLocation(true); search.focus();
   });
   window.addEventListener('pageshow', filterTools);
+  window.addEventListener('popstate', () => { readLocation(); filterTools(); });
   siteOnLanguageChange(renderTools);
   document.querySelectorAll('.porcelain-nav details').forEach(menu => menu.addEventListener('toggle', () => {
     if (menu.open) document.querySelectorAll('.porcelain-nav details').forEach(other => { if (other !== menu) other.open = false; });
