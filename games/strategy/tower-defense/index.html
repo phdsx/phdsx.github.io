@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="原创 HTML5 塔防游戏：布置炮塔、升级火力，守住八波机械虫群。">
+  <title>星环塔防 - PHDSX</title>
+  <link rel="stylesheet" href="../shared.css?v=20260923a">
+  <link rel="stylesheet" href="../../../assets/standalone.css?v=20260824a">
+  <script src="../../../assets/i18n.js?v=20260923u5"></script>
+  <script defer src="../../../assets/standalone.js?v=20260829b" data-home="../../../index.html" data-return="../../../games.html" data-return-label="Games"></script>
+</head>
+<body>
+  <main class="strategy-game" style="--game-bg:#080d18;--panel:#101827;--panel-2:#17233a;--line:rgba(170,205,255,.16);--accent:#72a7ff">
+    <header class="game-topbar">
+      <div class="game-brand"><span class="game-kicker">PHDSX // TOWER DEFENSE</span><h1 class="game-title">星环塔防</h1></div>
+      <div class="game-stats" aria-live="polite">
+        <div class="stat-chip"><span>能量</span><strong id="credits">420</strong></div>
+        <div class="stat-chip"><span>核心</span><strong id="lives">20</strong></div>
+        <div class="stat-chip"><span>波次</span><strong id="wave">0 / 8</strong></div>
+      </div>
+      <button class="game-button" id="pauseButton" type="button">暂停</button>
+    </header>
+    <div class="game-main">
+      <section class="canvas-wrap" aria-label="塔防战场">
+        <canvas class="game-canvas" id="gameCanvas" width="960" height="600"></canvas>
+        <div class="toast" id="toast" role="status"></div>
+        <div class="overlay" id="introOverlay"><div class="overlay-card"><span class="eyebrow">原创 HTML5 塔防</span><h2>星环塔防</h2><p>选择炮塔后点击发光基座建造。脉冲塔射速快，棱镜塔射程远，霜冻塔可减速。守住全部八波机械虫群。</p><button class="game-button game-button--primary" id="startButton" type="button">进入防线</button></div></div>
+        <div class="overlay" id="endOverlay" hidden><div class="overlay-card"><span class="eyebrow" id="endEyebrow">防线报告</span><h2 id="endTitle">守卫成功</h2><p id="endText"></p><button class="game-button game-button--primary" id="restartButton" type="button">重新布防</button></div></div>
+      </section>
+      <aside class="game-sidebar" aria-label="防御控制台">
+        <section class="panel panel--wide"><h2>建造炮塔</h2><div class="build-list">
+          <button class="build-card" type="button" data-build="pulse"><span class="build-icon">•</span><span class="build-copy"><strong>脉冲塔</strong><small>高速 · 均衡</small></span><span class="build-cost">$90</span></button>
+          <button class="build-card" type="button" data-build="prism"><span class="build-icon">△</span><span class="build-copy"><strong>棱镜塔</strong><small>远程 · 高伤</small></span><span class="build-cost">$150</span></button>
+          <button class="build-card" type="button" data-build="frost"><span class="build-icon">✦</span><span class="build-copy"><strong>霜冻塔</strong><small>减速 · 控场</small></span><span class="build-cost">$130</span></button>
+        </div></section>
+        <section class="panel"><h2>波次控制</h2><div class="side-actions"><button class="game-button game-button--primary" id="waveButton" type="button">开始下一波</button><button class="game-button" id="speedButton" type="button">速度 ×1</button></div></section>
+        <section class="panel"><h2>选中炮塔</h2><p id="towerInfo">点击已建造的炮塔查看属性。</p><div class="side-actions" style="margin-top:9px"><button class="game-button" id="upgradeButton" type="button" disabled>升级</button><button class="game-button game-button--danger" id="sellButton" type="button" disabled>回收</button></div></section>
+        <section class="panel mobile-hide"><h2>战术提示</h2><p>炮塔只能建在六边形基座上。消灭敌人获得能量；清除整波还会获得整备奖励。</p></section>
+        <div class="status-line panel--wide" id="statusLine">选择炮塔，点击基座建造。</div>
+      </aside>
+    </div>
+  </main>
+  <script type="module" src="game.js?v=20260923a"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#171812">
+  <meta name="description" content="在浏览器中游玩步步高电子词典经典策略游戏《三国霸业》词典原版，支持键盘、触屏按键和本地自动存档。">
+  <title>三国霸业 · 词典原版 - PHDSX</title>
+  <link rel="stylesheet" href="../../../assets/site.css?v=20260830c">
+  <link rel="stylesheet" href="../../../assets/design-system.css?v=20260920a">
+  <link rel="stylesheet" href="game.css?v=20260923a">
+  <link rel="stylesheet" href="../../../assets/ubuntu.css?v=20260923u5">
+  <script src="../../../assets/navigation.js?v=20260923u5"></script>
+  <script defer src="../../../assets/design-system.js?v=20260923u5"></script>
+</head>
+<body data-baye-state="loading">
+  <header class="site-header"></header>
+  <main class="baye-page">
+    <section class="baye-hero" aria-labelledby="game-title">
+      <div>
+        <p class="baye-kicker">BBK DICTIONARY CLASSIC · 160 × 96</p>
+        <h1 id="game-title">三国霸业</h1>
+        <p class="baye-lede">词典原版完整移植。选择君主、招募武将、经营城池，在黑白电子词典屏幕上重走统一之路。</p>
+      </div>
+      <a class="baye-back" href="../../../games.html">返回游戏厅</a>
+    </section>
+
+    <div class="baye-layout">
+      <section class="baye-machine" id="game-machine" aria-label="三国霸业游戏机">
+        <div class="baye-machine-topline">
+          <span>文曲星兼容模式</span>
+          <span class="baye-runtime-status" id="runtime-status" role="status" aria-live="polite">正在装载引擎…</span>
+        </div>
+
+        <div class="baye-screen-frame">
+          <div class="baye-screen-label"><span>LCD</span><strong>160 × 96 DOT MATRIX</strong></div>
+          <div class="baye-screen">
+            <canvas id="lcd" width="160" height="96" tabindex="0" aria-label="三国霸业游戏画面">当前浏览器不支持 HTML5 Canvas。</canvas>
+            <div class="baye-loading" id="loading-panel">
+              <span class="baye-loading-mark" aria-hidden="true">漢</span>
+              <strong>正在读取词典原版</strong>
+              <small>首次载入约需数秒</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="baye-controls" aria-label="电子词典游戏按键">
+          <div class="baye-dpad" aria-label="方向键">
+            <button class="baye-key baye-key--up" type="button" data-baye-key="VK_UP" aria-label="上">▲</button>
+            <button class="baye-key baye-key--left" type="button" data-baye-key="VK_LEFT" aria-label="左">◀</button>
+            <span class="baye-key-center" aria-hidden="true"></span>
+            <button class="baye-key baye-key--right" type="button" data-baye-key="VK_RIGHT" aria-label="右">▶</button>
+            <button class="baye-key baye-key--down" type="button" data-baye-key="VK_DOWN" aria-label="下">▼</button>
+          </div>
+
+          <div class="baye-action-keys">
+            <button class="baye-key baye-key--function" type="button" data-baye-key="VK_HELP"><span>H</span><small>帮助</small></button>
+            <button class="baye-key baye-key--function" type="button" data-baye-key="VK_SEARCH"><span>S</span><small>查找</small></button>
+            <button class="baye-key baye-key--back" type="button" data-baye-key="VK_EXIT"><span>空格</span><small>返回</small></button>
+            <button class="baye-key baye-key--enter" type="button" data-baye-key="VK_ENTER"><span>ENTER</span><small>输入</small></button>
+          </div>
+        </div>
+
+        <div class="baye-machine-actions">
+          <button type="button" id="focus-game">聚焦游戏</button>
+          <button type="button" id="fullscreen-game">全屏游玩</button>
+          <button type="button" id="reload-game">重新载入</button>
+        </div>
+      </section>
+
+      <aside class="baye-sidebar">
+        <section class="baye-panel baye-panel--save">
+          <span class="baye-panel-icon" aria-hidden="true">✓</span>
+          <div><h2>本地自动存档</h2><p>游戏存档保存在当前浏览器中。刷新或下次打开仍可继续。</p></div>
+        </section>
+
+        <section class="baye-panel">
+          <p class="baye-panel-eyebrow">键盘操作</p>
+          <h2>沿用电子词典按键</h2>
+          <dl class="baye-key-list">
+            <div><dt>↑ ↓ ← →</dt><dd>移动与选择</dd></div>
+            <div><dt>Enter</dt><dd>确认 / 输入</dd></div>
+            <div><dt>Space</dt><dd>返回上一级</dd></div>
+            <div><dt>H</dt><dd>打开帮助</dd></div>
+            <div><dt>S</dt><dd>查找</dd></div>
+          </dl>
+        </section>
+
+        <section class="baye-panel">
+          <p class="baye-panel-eyebrow">游玩提示</p>
+          <h2>从选择君主开始</h2>
+          <p>方向键移动光标，Enter 确认。手机和平板可直接使用画面下方的虚拟按键。</p>
+          <p>若键盘没有响应，点击一次游戏画面或“聚焦游戏”。</p>
+        </section>
+
+        <details class="baye-panel baye-about">
+          <summary>移植与许可证</summary>
+          <p>本页在项目内独立运行，使用 MIT 许可的 iBaye C/WebAssembly 引擎。游戏资源与原作相关权利归其原权利人所有。</p>
+          <a href="LICENSE.iBaye.txt">查看 iBaye 许可证</a>
+        </details>
+      </aside>
+    </div>
+
+    <noscript>请启用 JavaScript 后游玩《三国霸业》。</noscript>
+  </main>
+
+  <script src="vendor/jquery.min.js"></script>
+  <script src="vendor/encoding-indexes.js"></script>
+  <script src="vendor/encoding.js"></script>
+  <script src="vendor/sprintf.js"></script>
+  <script src="vendor/idbkvstore.min.js"></script>
+  <script src="engine/bridge.js"></script>
+  <script src="engine/lcd.js"></script>
+  <script src="game.js?v=20260923a"></script>
+  <script src="engine/baye.js"></script>
+  <script src="../../../assets/i18n.js?v=20260923u5"></script>
+  <script src="../../../assets/site.js?v=20260830e"></script>
+</body>
+</html>

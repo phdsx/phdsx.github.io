@@ -18,11 +18,14 @@
         ${gameLink(root + 'games/board/gomoku.html', 'games/board/gomoku.html', '五', shellText('games.gomoku', '五子棋'))}
         ${gameLink(root + 'games/board/junqi/index.html', 'games/board/junqi/index.html', '军', shellText('games.junqi', '军棋'))}
         ${gameLink(root + 'games/board/chinese-chess.html', 'games/board/chinese-chess.html', '将', shellText('games.chineseChess', '中国象棋'))}
+        ${gameLink(root + 'games/strategy/frontline-command/index.html', 'games/strategy/frontline-command/index.html', '征', shellText('games.frontline', '前线指挥'))}
+        ${gameLink(root + 'games/strategy/tower-defense/index.html', 'games/strategy/tower-defense/index.html', '塔', shellText('games.starDefense', '星环塔防'))}
         ${gameLink(root + 'games/arcade/tetris.html', 'games/arcade/tetris.html', '田', shellText('games.tetris', '俄罗斯方块'))}
         ${gameLink(root + 'games/arcade/fruit-ninja/index.html', 'games/arcade/fruit-ninja/index.html', '切', shellText('games.fruit', '水果忍者'))}
         ${gameLink(root + 'games/arcade/submarine-battle/index.html', 'games/arcade/submarine-battle/index.html', '潜', shellText('games.submarine', '潜艇大战'))}
         ${gameLink(root + 'games/puzzle/parking-pulse/index.html', 'games/puzzle/parking-pulse/index.html', '泊', 'Parking Pulse')}
-        ${gameLink(root + 'games/puzzle/sand-sort/index.html', 'games/puzzle/sand-sort/index.html', '沙', shellText('games.sortingGame', '沙子分类'))}` : '';
+        ${gameLink(root + 'games/puzzle/sand-sort/index.html', 'games/puzzle/sand-sort/index.html', '沙', shellText('games.sortingGame', '沙子分类'))}
+        ${gameLink(root + 'games/strategy/three-kingdoms-baye/index.html', 'games/strategy/three-kingdoms-baye/index.html', '霸', shellText('games.threeKingdomsBaye', '三国霸业'))}` : '';
 
   document.documentElement.classList.add('phdsx-themed');
   document.body.classList.add('phdsx-has-shell');

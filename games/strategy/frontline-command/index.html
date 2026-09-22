@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07100f">
+  <meta name="description" content="原创 HTML5 即时战略游戏：采集晶矿、生产装甲单位并摧毁敌方指挥部。">
+  <title>前线指挥 - PHDSX</title>
+  <link rel="stylesheet" href="../shared.css?v=20260923a">
+  <link rel="stylesheet" href="../../../assets/standalone.css?v=20260824a">
+  <script src="../../../assets/i18n.js?v=20260923u5"></script>
+  <script defer src="../../../assets/standalone.js?v=20260829b" data-home="../../../index.html" data-return="../../../games.html" data-return-label="Games"></script>
+</head>
+<body>
+  <main class="strategy-game">
+    <header class="game-topbar">
+      <div class="game-brand"><span class="game-kicker">PHDSX // RTS</span><h1 class="game-title">前线指挥</h1></div>
+      <div class="game-stats" aria-live="polite">
+        <div class="stat-chip"><span>资金</span><strong id="credits">800</strong></div>
+        <div class="stat-chip"><span>我方基地</span><strong id="baseHealth">100%</strong></div>
+        <div class="stat-chip"><span>敌方基地</span><strong id="enemyHealth">100%</strong></div>
+      </div>
+      <button class="game-button" id="pauseButton" type="button">暂停</button>
+    </header>
+    <div class="game-main">
+      <section class="canvas-wrap" aria-label="即时战略战场">
+        <canvas class="game-canvas" id="gameCanvas" width="960" height="600"></canvas>
+        <div class="toast" id="toast" role="status"></div>
+        <div class="overlay" id="introOverlay">
+          <div class="overlay-card">
+            <span class="eyebrow">原创 HTML5 即时战略</span>
+            <h2>前线指挥</h2>
+            <p>采集蓝晶获取资金，生产侦察车、主战坦克和采矿车。框选或点击部队，再点击地面移动、点击敌军集火。摧毁东侧敌方指挥部即可获胜。</p>
+            <button class="game-button game-button--primary" id="startButton" type="button">开始作战</button>
+          </div>
+        </div>
+        <div class="overlay" id="endOverlay" hidden>
+          <div class="overlay-card"><span class="eyebrow" id="endEyebrow">任务完成</span><h2 id="endTitle">胜利</h2><p id="endText"></p><button class="game-button game-button--primary" id="restartButton" type="button">重新部署</button></div>
+        </div>
+      </section>
+      <aside class="game-sidebar" aria-label="作战控制台">
+        <section class="panel panel--wide">
+          <h2>生产单位</h2>
+          <div class="build-list">
+            <button class="build-card" type="button" data-build="scout"><span class="build-icon">›</span><span class="build-copy"><strong>侦察车</strong><small>快速 · 轻装</small></span><span class="build-cost">$120</span></button>
+            <button class="build-card" type="button" data-build="tank"><span class="build-icon">◆</span><span class="build-copy"><strong>主战坦克</strong><small>强火力 · 厚甲</small></span><span class="build-cost">$220</span></button>
+            <button class="build-card" type="button" data-build="harvester"><span class="build-icon">⬡</span><span class="build-copy"><strong>采矿车</strong><small>自动采集蓝晶</small></span><span class="build-cost">$300</span></button>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>部队指令</h2>
+          <div class="side-actions"><button class="game-button" id="selectAllButton" type="button">全选战斗单位</button><button class="game-button game-button--danger" id="stopButton" type="button">停止</button></div>
+        </section>
+        <section class="panel mobile-hide">
+          <h2>战术提示</h2>
+          <p>鼠标拖拽框选，或点击单位选择。选中后点击地面移动，点击敌方单位攻击。</p>
+          <p>移动端可直接点选我军，再点目标位置或敌军。</p>
+        </section>
+        <div class="status-line panel--wide" id="statusLine">等待部署。</div>
+        <section class="panel mobile-hide"><div class="legend"><span style="color:#63e6be"><i></i>我方</span><span style="color:#ff7b72"><i></i>敌方</span><span style="color:#69b7ff"><i></i>蓝晶</span><span style="color:#ffc857"><i></i>选中</span></div></section>
+      </aside>
+    </div>
+  </main>
+  <script type="module" src="game.js?v=20260923a"></script>
+</body>
+</html>
