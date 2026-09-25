@@ -14,8 +14,16 @@
     if (state === 'error') {
       loadingPanel.querySelector('strong').textContent = '游戏载入失败';
       loadingPanel.querySelector('small').textContent = message;
+    } else if (state === 'loading') {
+      loadingPanel.querySelector('strong').textContent = message;
     }
   }
+
+  window.bayeLoadFailed = message => setState('error', message);
+  window.bayeLoadStep = message => setState('loading', message);
+  window.bayeFrameRendered = () => {
+    if (body.dataset.bayeState !== 'ready') setState('ready', '引擎已就绪 · 自动存档开启');
+  };
 
   try {
     localStorage.setItem('baye/libname', '三国霸业-词典原版');
@@ -46,6 +54,7 @@
     try {
       setState('loading', '正在读取词典原版…');
       lcdInit();
+      setState('loading', '显示已初始化，正在载入词典…');
       bayeMain();
     } catch (error) {
       console.error(error);

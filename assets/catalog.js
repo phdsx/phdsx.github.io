@@ -21,6 +21,7 @@ window.PHDSX_SEARCH_INDEX = [
   { label: '中国象棋', href: 'games/board/chinese-chess.html', type: '游戏', keywords: '棋类 传统棋类 中国 象棋 棋牌游戏 双人' },
   { label: '前线指挥', href: 'games/strategy/frontline-command/index.html', type: '游戏', keywords: '策略 即时战略 RTS 采矿 坦克 基地 指挥 Command Conquer' },
   { label: '星环塔防', href: 'games/strategy/tower-defense/index.html', type: '游戏', keywords: '策略 塔防 炮塔 防御 波次 Tower Defense TD' },
+  { label: '风暴攻城', href: 'games/strategy/storm-siege/index.html', type: '游戏', keywords: '策略 攻城 城堡 炮弹 风向 角度 引信 3D Storm Siege' },
   { label: '三国霸业', href: 'games/strategy/three-kingdoms-baye/index.html', type: '游戏', keywords: '策略 三国 霸业 步步高 电子词典 文曲星 怀旧 WebAssembly iBaye' },
   { label: '俄罗斯方块', href: 'games/arcade/tetris.html', type: '游戏', keywords: '益智 方块消除 俄罗斯 方块 消除 经典' },
   { label: '水果忍者', href: 'games/arcade/fruit-ninja/index.html', type: '游戏', keywords: '动作 反应挑战 水果 忍者 切水果 休闲' },

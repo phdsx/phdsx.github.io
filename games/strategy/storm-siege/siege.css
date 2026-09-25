@@ -1,0 +1,99 @@
+:root {
+  color-scheme: dark;
+  --ink: #fff7f1;
+  --muted: #cbbfba;
+  --panel: #2c2531e8;
+  --line: #f4d8ca32;
+  --gold: #ffb36e;
+  --blue: #73d6cf;
+  --red: #ff887c;
+}
+
+html,
+body {
+  background: #171622;
+  font-family: Ubuntu, "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+}
+
+#game { background: #1b1a29; }
+.vignette { background: radial-gradient(ellipse at center, transparent 38%, #17111f9c 100%); }
+.top { top: 104px; }
+.eyebrow,
+.modal-kicker { color: #ffb36e; }
+.brand h1 { letter-spacing: .025em; }
+.health,
+.round,
+.menu-btn,
+.weather,
+.status,
+.controls {
+  border-color: #ffd8c238;
+  background: #292332e3;
+}
+.health,
+.round,
+.menu-btn,
+.weather,
+.status { border-radius: 10px; }
+.health .bar i { background: linear-gradient(90deg, #269f9a, #73d6cf); }
+.health.enemy .bar i { background: linear-gradient(90deg, #e95420, #ff887c); }
+.controls { border-radius: 14px; }
+.menu-btn:hover,
+.ghost:hover { color: #ffb36e; border-color: #ffb36e; }
+.weather { top: 198px; }
+.status { top: 200px; }
+.fuse-picker button.active { border-color: #ffb36e; background: #e9542030; }
+.fire,
+.primary {
+  background: linear-gradient(145deg, #ff9d63, #e95420);
+  color: #22121b;
+}
+.fire { box-shadow: 0 5px 0 #96300f, 0 12px 25px #0006; }
+.fire:active { box-shadow: 0 2px 0 #96300f; }
+.overlay { padding-top: 110px; background: #17121dd4; }
+.modal {
+  max-height: calc(100dvh - 130px);
+  overflow-y: auto;
+  border-color: #ffac765e;
+  border-radius: 16px;
+  background: linear-gradient(155deg, #302538, #1c1a29);
+}
+.modal-kicker { display: block; margin-top: 8px; font-size: 11px; font-weight: 800; letter-spacing: .16em; }
+.modal h2 { margin-top: 8px; }
+.stage { border-radius: 8px; }
+.stage.selected { background: #e9542029; }
+.primary,
+.ghost { border-radius: 8px; }
+button:focus-visible,
+input:focus-visible { outline: 3px solid #ffb36e; outline-offset: 2px; }
+
+@media (max-width: 780px) {
+  .top {
+    top: 104px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 12px;
+  }
+  .brand { grid-column: 1; grid-row: 1; }
+  .menu-btn { grid-column: 2; grid-row: 1; }
+  .hud { grid-column: 1 / -1; grid-row: 2; max-width: none; width: 100%; }
+  .weather { top: 198px; }
+  .status { top: 198px; max-width: 50%; }
+  .controls { gap: 8px; padding: 10px; }
+  .overlay { padding: 112px 12px 12px; }
+  .modal { max-height: calc(100dvh - 125px); }
+}
+
+@media (max-width: 430px) {
+  .brand h1 { font-size: 16px; }
+  .health { min-width: 0; }
+  .round { min-width: 58px; }
+  .weather { top: 200px; font-size: 10px; }
+  .status { top: 228px; left: 12px; transform: none; max-width: calc(100% - 24px); }
+  .controls { grid-template-columns: 1fr 1fr; }
+  .fire { height: 47px; }
+  .modal { padding: 18px; }
+  .stage { min-height: 72px; padding: 9px; }
+}

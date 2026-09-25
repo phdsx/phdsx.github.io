@@ -8,6 +8,8 @@ const {resolve,categories,sections} = context.window.PHDSXNavigation;
 assert.equal(resolve('tools/utility/qr-generator.html').parent.href,'tools.html?category=text');
 assert.equal(resolve('tools/fun/lightning-calculator.html').parent.href,'tools.html?category=lifestyle');
 assert.equal(resolve('games/board/junqi/index.html').parent.href,'games.html?category=board');
+assert.equal(resolve('games/strategy/storm-siege/index.html').parent.href,'games.html?category=strategy');
+assert.equal(resolve('games/strategy/storm-siege/index.html').crumbs.at(-1).zh,'风暴攻城');
 assert.equal(resolve('tools.html','?category=image').parent.href,'tools.html');
 assert.equal(resolve('tools.html','?category=__proto__').category,null);
 assert.equal(resolve('games.html','?category=unknown').crumbs.length,2);

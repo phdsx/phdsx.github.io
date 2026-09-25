@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">风暴攻城</title>
+  <desc id="desc">风暴天空下，两座城堡隔着山谷发射炮弹</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#241d35"/><stop offset="1" stop-color="#574159"/></linearGradient>
+    <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#dab69f"/><stop offset="1" stop-color="#806b76"/></linearGradient>
+    <radialGradient id="flare"><stop stop-color="#fff2ca"/><stop offset=".35" stop-color="#ffae61"/><stop offset="1" stop-color="#e95420" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="640" height="420" fill="url(#sky)"/>
+  <path d="M0 79c94-83 173 15 268-45 110-69 229 24 372-8v101c-99 44-204-35-318 20C172 220 83 93 0 165z" fill="#91809e" opacity=".26"/>
+  <path d="M0 281c100-77 170-67 264-21 91 44 176-15 250-44 51-18 93-11 126 9v195H0z" fill="#403a48"/>
+  <path d="M0 367c110-51 217-21 306-49 123-40 209-36 334 3v99H0z" fill="#292939"/>
+  <g fill="url(#wall)" stroke="#302939" stroke-width="5">
+    <path d="M32 291h38v-98h24v17h16v-17h24v17h16v-17h24v98h34v77H32z"/>
+    <path d="M448 281h35v-108h25v18h17v-18h25v18h17v-18h25v108h27v87H448z"/>
+  </g>
+  <g fill="#503e4c"><rect x="104" y="241" width="21" height="50" rx="10"/><rect x="532" y="222" width="21" height="59" rx="10"/></g>
+  <path d="M155 273l85-48" stroke="#2c2933" stroke-width="17" stroke-linecap="round"/>
+  <path d="M487 264l-81-51" stroke="#2c2933" stroke-width="17" stroke-linecap="round"/>
+  <path d="M210 191c81-113 151-86 207 8" fill="none" stroke="#ffcf9a" stroke-width="4" stroke-dasharray="9 13" opacity=".85"/>
+  <circle cx="359" cy="141" r="59" fill="url(#flare)"/>
+  <circle cx="359" cy="141" r="9" fill="#fff6d9"/>
+  <path d="M423 154l30-24-8 22 25 4-31 8-11 23z" fill="#ffe3a5" opacity=".85"/>
+  <path d="M62 92l23-37h-14l25-34-7 31h16L80 92z" fill="#ffd591" opacity=".72"/>
+</svg>

@@ -15,7 +15,7 @@
     'case-converter':['大小写转换','Case converter'], 'text-deduplicator':['文本去重','Text deduplicator'], 'text-formatter':['文本格式化','Text formatter'], 'word-counter':['字数统计','Word counter'], 'qr-generator':['二维码生成','QR generator'],
     'eq-pinyin-code':['EQ 单字拼音域代码生成器','Pinyin EQ field generator'], 'ppt-countdown':['PPT 放映悬浮倒计时','Floating presentation timer'], 'work-countdown':['下班倒计时','Work countdown'], 'countdown':['自定义倒计时','Countdown'],
     'meal-randomizer':['吃啥饭','Meal picker'], 'child-gender-simulator':['子女性别娱乐模拟器','Random gender simulator'], 'lightning-calculator':['雷击概率娱乐计算器','Lightning probability game'], 'vip-video-parser':['VIP 视频解析','Video parser'],
-    'gomoku':['五子棋','Gomoku'], 'chinese-chess':['中国象棋','Chinese chess'], 'junqi':['军棋','Junqi'], 'frontline-command':['前线指挥','Frontline Command'], 'tower-defense':['星环塔防','Star Ring Defense'], 'three-kingdoms-baye':['三国霸业','Three Kingdoms: Baye'], 'tetris':['俄罗斯方块','Tetris'], 'fruit-ninja':['水果忍者','Fruit Ninja'], 'submarine-battle':['潜艇大战','Deep Sea Hunter'], 'parking-pulse':['停车脉冲','Parking Pulse'], 'sand-sort':['沙子分类','Sand Sort']
+    'gomoku':['五子棋','Gomoku'], 'chinese-chess':['中国象棋','Chinese chess'], 'junqi':['军棋','Junqi'], 'frontline-command':['前线指挥','Frontline Command'], 'tower-defense':['星环塔防','Star Ring Defense'], 'storm-siege':['风暴攻城','Storm Siege'], 'three-kingdoms-baye':['三国霸业','Three Kingdoms: Baye'], 'tetris':['俄罗斯方块','Tetris'], 'fruit-ninja':['水果忍者','Fruit Ninja'], 'submarine-battle':['潜艇大战','Deep Sea Hunter'], 'parking-pulse':['停车脉冲','Parking Pulse'], 'sand-sort':['沙子分类','Sand Sort']
   };
   function resolve(path, search = '', title = '') {
     path = path || 'index.html';

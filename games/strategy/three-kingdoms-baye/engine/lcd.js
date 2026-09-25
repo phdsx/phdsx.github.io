@@ -275,19 +275,26 @@ String.prototype.format = function(args) {
     return result;
 }
 
-function ajaxGet(path, callback) {
+function ajaxGet(path, callback, onError) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', path, true);
     xhr.responseType = 'blob';
 
     xhr.onload = function(e) {
-      if (this.status == 200) {
-        var blob = this.response;
-        callback(blob);
+      if (this.status == 200 || (this.status == 0 && this.response && this.response.size > 0)) {
+        callback(this.response);
+      } else if (onError) {
+        onError();
       }
     };
+    xhr.onerror = onError;
 
-    xhr.send();
+    try {
+      xhr.send();
+    } catch (error) {
+      if (onError) onError();
+      else throw error;
+    }
 }
 
 var dynLib = null;
@@ -320,21 +327,31 @@ function libCacheGet(ok, err) {
 }
 
 function loadLibFromUrl(url, then) {
-    console.log("trying to load from DB");
-    libCacheGet(then, () => {
+    var loadFromFile = function() {
         console.log("loading from " + url);
         ajaxGet(url, function(file){
             console.log("ajax ok");
             var reader = new FileReader();
             reader.onload = function() {
-                libCacheSet(reader.result);
+                if (window.location.protocol !== 'file:') libCacheSet(reader.result);
                 dynLib = bin2hex(reader.result);
                 console.log("read ok");
                 then();
             }
+            reader.onerror = function() {
+                if (window.bayeLoadFailed) window.bayeLoadFailed('游戏数据读取失败');
+            };
             reader.readAsBinaryString(file);
+        }, function() {
+            if (window.bayeLoadFailed) window.bayeLoadFailed('无法读取本地游戏数据');
         });
-    });
+    };
+    if (window.location.protocol === 'file:') {
+        loadFromFile();
+    } else {
+        console.log("trying to load from DB");
+        libCacheGet(then, loadFromFile);
+    }
 }
 
 function loadLib(files) {
@@ -350,10 +367,22 @@ function loadLib(files) {
 }
 
 function loadLibDefault(then) {
-    var url = window.localStorage['baye/libpath'];
-    if (!url) {
-        alert("没有选择版本");
+    if (window.location.protocol === 'file:') {
+        try {
+            if (!window.BAYE_DICTIONARY_ORIGINAL) throw new Error('missing embedded library');
+            dynLib = bin2hex(atob(window.BAYE_DICTIONARY_ORIGINAL));
+            if (window.bayeLoadStep) window.bayeLoadStep('词典已载入，正在启动游戏…');
+            then();
+        } catch (error) {
+            console.error('Failed to load local game data', error);
+            if (window.bayeLoadFailed) window.bayeLoadFailed('本地游戏数据未载入');
+        }
     } else {
+        var url = window.localStorage['baye/libpath'];
+        if (!url) {
+            alert("没有选择版本");
+            return;
+        }
         loadLibFromUrl(url, function(){
             then();
         });
