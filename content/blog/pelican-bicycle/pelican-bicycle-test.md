@@ -4,86 +4,74 @@
 
 # 成果展示
 
-以下 15 份成果按文件名中的模型分类。各项保留文件名里的分支或档位标记；点击“单独打开”可在新页面查看完整动画。
+共 15 份成果，按模型、版本排列。GPT 的 Astra、Sol、Luna 是名称；Flash、Max、Medium、High、Ultra 是模式；WorkBuddy 是工具。每份成果都可以在下方预览，也可以点击“单独打开”查看完整动画。
 
-## DeepSeek 4.1
+## DeepSeek
 
-### Flash
+### 版本 4.1
 
-:::demo content/blog/pelican-bicycle/demos/deepseek-4.1-flash.html | DeepSeek 4.1 · Flash
+:::demo content/blog/pelican-bicycle/demos/deepseek-4.1-flash.html | DeepSeek 4.1｜模式：Flash
 
-## Gemini 3.6
+## Gemini
 
-### Flash
+### 版本 3.6
 
-:::demo content/blog/pelican-bicycle/demos/gemini-3.6-flash.html | Gemini 3.6 · Flash
+:::demo content/blog/pelican-bicycle/demos/gemini-3.6-flash.html | Gemini 3.6｜模式：Flash
 
-## GLM 5.3
+## GLM
 
-### WorkBuddy
+### 版本 5.3
 
-:::demo content/blog/pelican-bicycle/demos/glm-5.3-workbuddy.html | GLM 5.3 · WorkBuddy
+:::demo content/blog/pelican-bicycle/demos/glm-5.3-workbuddy.html | GLM 5.3｜工具：WorkBuddy
 
-## GPT 6
+## GPT
 
-### Astra · Medium
+### 版本 6
 
-:::demo content/blog/pelican-bicycle/demos/gpt-6-astra-medium.html | GPT 6 · Astra · Medium
+:::demo content/blog/pelican-bicycle/demos/gpt-6-astra-medium.html | GPT 6｜名称：Astra｜模式：Medium
 
-### Luna · High
+:::demo content/blog/pelican-bicycle/demos/gpt-6-luna-high.html | GPT 6｜名称：Luna｜模式：High
 
-:::demo content/blog/pelican-bicycle/demos/gpt-6-luna-high.html | GPT 6 · Luna · High
+:::demo content/blog/pelican-bicycle/demos/gpt-6-luna-ultra.html | GPT 6｜名称：Luna｜模式：Ultra
 
-### Luna · Ultra
+:::demo content/blog/pelican-bicycle/demos/gpt-6-sol-high.html | GPT 6｜名称：Sol｜模式：High
 
-:::demo content/blog/pelican-bicycle/demos/gpt-6-luna-ultra.html | GPT 6 · Luna · Ultra
+### 版本 5.6
 
-### Sol · High
+:::demo content/blog/pelican-bicycle/demos/gpt-5.6-luna-ultra.html | GPT 5.6｜名称：Luna｜模式：Ultra
 
-:::demo content/blog/pelican-bicycle/demos/gpt-6-sol-high.html | GPT 6 · Sol · High
+## Grok
 
-## GPT-506
+### 版本 4.6
 
-### Luna · Ultra
+:::demo content/blog/pelican-bicycle/demos/grok-4.6-flash.html | Grok 4.6｜模式：Flash
 
-:::demo content/blog/pelican-bicycle/demos/gpt-506-luna-ultra.html | GPT-506 · Luna · Ultra
+## HY
 
-## Grok 4.6
+### 版本 3
 
-### Flash
+:::demo content/blog/pelican-bicycle/demos/hy3-workbuddy.html | HY 3｜工具：WorkBuddy
 
-:::demo content/blog/pelican-bicycle/demos/grok-4.6-flash.html | Grok 4.6 · Flash
+## Kimi
 
-## HY3
+### 版本 K3
 
-### WorkBuddy
+:::demo content/blog/pelican-bicycle/demos/kimi-k3-workbuddy.html | Kimi K3｜工具：WorkBuddy
 
-:::demo content/blog/pelican-bicycle/demos/hy3-workbuddy.html | HY3 · WorkBuddy
+## Qwen
 
-## Kimi K3
-
-### WorkBuddy
-
-:::demo content/blog/pelican-bicycle/demos/kimi-k3-workbuddy.html | Kimi K3 · WorkBuddy
-
-## MiniMax M3
-
-### WorkBuddy
-
-:::demo content/blog/pelican-bicycle/demos/minimax-m3-workbuddy.html | MiniMax M3 · WorkBuddy
-
-## Qwen 3.6
-
-### Flash
-
-:::demo content/blog/pelican-bicycle/demos/qwen-3.6-flash.html | Qwen 3.6 · Flash
-
-## Qwen 3.7
-
-### 原文件未标注分支
+### 版本 3.7
 
 :::demo content/blog/pelican-bicycle/demos/qwen-3.7.html | Qwen 3.7
 
-### Max
+:::demo content/blog/pelican-bicycle/demos/qwen-3.7-max.html | Qwen 3.7｜模式：Max
 
-:::demo content/blog/pelican-bicycle/demos/qwen-3.7-max.html | Qwen 3.7 · Max
+### 版本 3.6
+
+:::demo content/blog/pelican-bicycle/demos/qwen-3.6-flash.html | Qwen 3.6｜模式：Flash
+
+## MiniMax
+
+### 版本 M3
+
+:::demo content/blog/pelican-bicycle/demos/minimax-m3-workbuddy.html | MiniMax M3｜工具：WorkBuddy
