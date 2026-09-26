@@ -36,6 +36,14 @@ function renderMarkdown(md) {
     if (codeOpen) { code.push(line); return; }
     const trimmed = line.trim();
     if (!trimmed) { closeList(); return; }
+    const demo = trimmed.match(/^:::demo\s+(content\/blog\/pelican-bicycle\/demos\/[a-z0-9.-]+\.html)\s+\|\s+(.+)$/);
+    if (demo) {
+      closeList();
+      const src = escapeHtml(demo[1]);
+      const label = escapeHtml(demo[2]);
+      html.push('<div class="blog-demo"><div class="blog-demo-bar"><strong>' + label + '</strong><a href="' + src + '" target="_blank" rel="noopener noreferrer">单独打开 ↗</a></div><iframe src="' + src + '" title="' + label + ' 动画预览" sandbox="allow-scripts" loading="lazy"></iframe></div>');
+      return;
+    }
     const heading = trimmed.match(/^(#{1,4})\s+(.+)$/);
     if (heading) { closeList(); const level = heading[1].length + 1; html.push('<h' + level + '>' + inlineMarkdown(heading[2]) + '</h' + level + '>'); return; }
     const item = trimmed.match(/^[-*]\s+(.+)$/);
@@ -50,7 +58,8 @@ function renderMarkdown(md) {
 (async function initPost() {
   const posts = {
     'content/blog/python/python-tutorial.md': { title: 'Python 教程笔记', topic: 'Python', date: '2020-05-22' },
-    'content/blog/site/site-update.md': { title: '站点更新记录', topic: '站点', date: '2020-05-22' }
+    'content/blog/site/site-update.md': { title: '站点更新记录', topic: '站点', date: '2020-05-22' },
+    'content/blog/pelican-bicycle/pelican-bicycle-test.md': { title: '鹈鹕自行车测试', topic: 'AI 实验', date: '2026-09-25' }
   };
   const params = new URLSearchParams(location.search);
   const src = params.get('src');

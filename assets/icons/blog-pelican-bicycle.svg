@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="鹈鹕自行车图标">
+  <rect width="80" height="80" rx="18" fill="#d9f3f2"/>
+  <circle cx="21" cy="58" r="12" fill="none" stroke="#245969" stroke-width="3"/>
+  <circle cx="60" cy="58" r="12" fill="none" stroke="#245969" stroke-width="3"/>
+  <path d="M21 58 35 37 45 58H21m14-21 25 21-9-24h-9" fill="none" stroke="#245969" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M34 35c-5-9-3-21 6-23 7-2 11 5 11 11v14" fill="#fff9ed" stroke="#245969" stroke-width="2.5"/>
+  <path d="M50 22 68 27 51 32Z" fill="#f3a657" stroke="#245969" stroke-width="2"/>
+  <circle cx="45" cy="20" r="2" fill="#245969"/>
+</svg>
