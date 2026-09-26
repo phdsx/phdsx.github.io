@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="ubuntu-boot">
 <head>
+  <meta name="theme-color" content="#2c2929">
+  <style>html.ubuntu-boot{background:#2c001e url('../../assets/ubuntu/wallpaper.webp') center/cover fixed no-repeat}html.ubuntu-boot body{visibility:hidden}</style>
+  <script>document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.remove('ubuntu-boot'),{once:true})</script>
+  <noscript><style>html.ubuntu-boot body{visibility:visible}</style></noscript>
+
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -599,6 +604,20 @@
             }
         }
 
+        function syncCropWithSelectedImage() {
+            if (currentImageIndex === -1) return;
+            allImages[currentImageIndex].crop = { x: cropX, y: cropY, w: cropW, h: cropH };
+            updateCropBox();
+        }
+
+        function applyCropRatio() {
+            if (currentImageIndex === -1 || cropW <= 0 || cropH <= 0 || cropRatio <= 0) return;
+            const width = Math.min(cropW, mainCanvas.width - cropX, (mainCanvas.height - cropY) * cropRatio);
+            cropW = width;
+            cropH = width / cropRatio;
+            syncCropWithSelectedImage();
+        }
+
         // Pre-defined ratio buttons click handler
         ratioButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -620,16 +639,8 @@
                     showNotification(`已设置裁剪比例为 ${w}:${h}`);
                 }
                 
-                // Adjust crop box size based on the new ratio
-                if (currentImageIndex !== -1 && cropW > 0 && cropH > 0) {
-                    let newH = cropW / cropRatio;
-                    if (cropY + newH > mainCanvas.height) {
-                        newH = mainCanvas.height - cropY;
-                        cropW = newH * cropRatio;
-                    }
-                    cropH = newH;
-                    updateCropBox();
-                }
+                // Free crop keeps the current rectangle; fixed ratios update the exported crop too.
+                applyCropRatio();
             });
         });
 
@@ -647,15 +658,7 @@
                 
                 showNotification(`已设置自定义裁剪比例为 ${w}:${h}`);
                 
-                if (currentImageIndex !== -1 && cropW > 0 && cropH > 0) {
-                    let newH = cropW / cropRatio;
-                    if (cropY + newH > mainCanvas.height) {
-                        newH = mainCanvas.height - cropY;
-                        cropW = newH * cropRatio;
-                    }
-                    cropH = newH;
-                    updateCropBox();
-                }
+                applyCropRatio();
             } else {
                 showNotification('请输入有效的宽高值！');
             }
@@ -776,7 +779,7 @@
             
             const downloadLink = document.createElement('a');
             downloadLink.href = dataUrl;
-            downloadLink.download = `cropped_${originalName}`;
+            downloadLink.download = `cropped_${originalName.replace(/\.[^/.]+$/, '')}.png`;
             downloadLink.className = 'btn btn-primary text-xs px-2 py-1 flex items-center gap-1';
             downloadLink.innerHTML = '<i class="fa fa-download"></i> 下载';
 

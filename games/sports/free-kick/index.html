@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#08152b">
+  <meta name="description" content="3D 足球任意球游戏：选择击球部位、瞄准角度和力度，借助风向绕过人墙与门将。">
+  <title>弧线任意球 · PHDSX</title>
+  <link rel="stylesheet" href="../../../assets/design-system.css?v=20260920a">
+  <link rel="stylesheet" href="../../../assets/ubuntu.css?v=20260923u5">
+  <link rel="stylesheet" href="free-kick.css">
+  <script src="../../../assets/navigation.js?v=20260923u5"></script>
+  <script src="../../../assets/i18n.js?v=20260923u5"></script>
+  <script defer src="../../../assets/design-system.js?v=20260923u5"></script>
+</head>
+<body>
+  <main class="game-shell">
+    <header class="game-header">
+      <div>
+        <p class="eyebrow">PHDSX / 3D FOOTBALL</p>
+        <h1>弧线任意球</h1>
+        <p class="subtitle">找准触球点，让足球绕过人墙、越过门将。</p>
+      </div>
+      <a class="back-link" href="../../../games.html">← 返回游戏</a>
+    </header>
+
+    <div class="game-layout">
+      <section class="stadium" aria-label="3D 足球场">
+        <canvas id="gameCanvas" aria-label="足球任意球的三维比赛画面"></canvas>
+        <div class="stadium-shade"></div>
+        <div class="scoreboard" aria-label="比赛数据">
+          <div><span>进球</span><strong id="goalsValue">0</strong></div>
+          <div class="scoreboard-divider"></div>
+          <div><span>射门</span><strong id="shotsValue">0</strong></div>
+          <div class="scoreboard-divider"></div>
+          <div><span>命中率</span><strong id="accuracyValue">0%</strong></div>
+        </div>
+        <div class="wind-pill" aria-label="当前风向与风力"><span class="wind-icon" id="windArrow">→</span><span>风力 <strong id="windValue">0.0</strong> m/s</span></div>
+        <div class="view-hint">虚线为预计轨迹 · 可用方向键微调角度</div>
+        <div class="result-banner" id="resultBanner" role="status" aria-live="polite" hidden></div>
+      </section>
+
+      <aside class="control-panel" aria-label="射门控制">
+        <div class="panel-top"><span class="panel-index">01 / SHOT SETUP</span><span class="panel-live"><i></i> 准备射门</span></div>
+        <div class="control-section contact-section">
+          <div class="section-heading"><div><span>击球部位</span><h2>选择触球点</h2></div><span class="section-step">01</span></div>
+          <p class="control-copy">点击球面：左右位置决定弧线，下沿触球让球飞得更高。</p>
+          <div class="contact-picker" id="contactPicker" role="group" aria-label="选择足球触球点">
+            <div class="contact-ball" aria-hidden="true"><span class="ball-pentagon">⬟</span></div>
+            <button type="button" data-side="-1" data-height="1" aria-label="左上部位，左旋低球"></button>
+            <button type="button" data-side="0" data-height="1" aria-label="上部位，直线低球"></button>
+            <button type="button" data-side="1" data-height="1" aria-label="右上部位，右旋低球"></button>
+            <button type="button" data-side="-1" data-height="0" aria-label="左中部位，左旋中球"></button>
+            <button type="button" data-side="0" data-height="0" aria-label="中心部位，直线中球"></button>
+            <button type="button" data-side="1" data-height="0" aria-label="右中部位，右旋中球"></button>
+            <button type="button" data-side="-1" data-height="-1" aria-label="左下部位，左旋高球"></button>
+            <button type="button" data-side="0" data-height="-1" aria-label="下部位，直线高球"></button>
+            <button type="button" data-side="1" data-height="-1" aria-label="右下部位，右旋高球"></button>
+          </div>
+          <div class="contact-readout"><span>当前击球</span><strong id="contactValue">左下 · 高弧线</strong></div>
+        </div>
+
+        <div class="control-section">
+          <div class="section-heading"><div><span>瞄准方向</span><h2>调整射门角度</h2></div><span class="section-step">02</span></div>
+          <div class="slider-label"><label for="aimInput">左右瞄准</label><strong id="aimValue">-5°</strong></div>
+          <input id="aimInput" type="range" min="-10" max="10" step="0.5" value="-5">
+          <div class="range-ends"><span>← 左门角</span><span>右门角 →</span></div>
+        </div>
+
+        <div class="control-section power-section">
+          <div class="section-heading"><div><span>射门力度</span><h2>决定球速</h2></div><span class="section-step">03</span></div>
+          <div class="slider-label"><label for="powerInput">力度</label><strong id="powerValue">82%</strong></div>
+          <input id="powerInput" type="range" min="40" max="100" step="1" value="82">
+          <div class="range-ends"><span>轻推</span><span>全力抽射</span></div>
+        </div>
+
+        <div class="shot-summary" id="shotSummary">预计：球将越过人墙，飞向球门。</div>
+        <button class="shoot-button" id="shootButton" type="button"><span>⚽</span> 开始射门 <span class="button-arrow">↗</span></button>
+        <button class="next-button" id="nextButton" type="button" hidden>下一球 · 更新风向</button>
+        <div class="panel-footer"><span>空格射门 · ← → 调整角度</span><button id="resetButton" type="button">重置比分</button></div>
+      </aside>
+    </div>
+  </main>
+  <script defer src="game.bundle.js"></script>
+</body>
+</html>

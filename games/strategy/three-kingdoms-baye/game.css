@@ -78,6 +78,11 @@ body[data-baye-state="ready"] .baye-loading { opacity: 0; visibility: hidden; po
 body[data-baye-state="error"] .baye-loading { color: #561d18; background: #d9b8a4; }
 
 .baye-controls { display: grid; grid-template-columns: minmax(154px, .7fr) minmax(260px, 1.3fr); align-items: center; gap: clamp(20px, 6vw, 66px); max-width: 760px; margin: clamp(19px, 3vw, 30px) auto 8px; }
+.baye-display-settings { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; margin: 18px auto 0; color: var(--baye-ink); font-size: 12px; }
+.baye-display-settings label { font-weight: 800; }
+.baye-display-settings select { max-width: 100%; min-height: 36px; padding: 6px 28px 6px 10px; border: 1px solid #999d8c; border-radius: 8px; color: #23251e; background: #f4f2e7; font: inherit; cursor: pointer; }
+.baye-display-settings select:focus-visible { outline: 3px solid var(--baye-green); outline-offset: 2px; }
+.baye-display-settings small { color: #4f5149; font-size: 11px; }
 .baye-dpad { display: grid; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(3, 48px); justify-content: center; filter: drop-shadow(0 4px 1px rgba(44,45,39,.22)); }
 .baye-key { min-width: 0; border: 1px solid #74766d; color: #f5f4ed; background: linear-gradient(#62645b, #43453f); box-shadow: inset 0 1px rgba(255,255,255,.15), 0 3px 0 #292a26; font: 800 14px/1 system-ui, sans-serif; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
 .baye-key:hover { background: linear-gradient(#70736a, #4a4d46); }
@@ -152,3 +157,8 @@ body[data-baye-state="error"] .baye-loading { color: #561d18; background: #d9b8a
 }
 
 @media (prefers-reduced-motion: reduce) { .baye-loading-mark { animation: none; } }
+
+/* The original dictionary LCD palette is shared by both rendering modes. */
+body[data-baye-display="hd"] #lcd { image-rendering: auto; }
+.baye-key kbd { font: 700 10px/1 ui-monospace, monospace; opacity: .8; }
+.baye-dpad .baye-key { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }

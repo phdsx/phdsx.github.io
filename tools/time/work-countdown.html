@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="ubuntu-boot">
 <head>
+  <meta name="theme-color" content="#2c2929">
+  <style>html.ubuntu-boot{background:#2c001e url('../../assets/ubuntu/wallpaper.webp') center/cover fixed no-repeat}html.ubuntu-boot body{visibility:hidden}</style>
+  <script>document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.remove('ubuntu-boot'),{once:true})</script>
+  <noscript><style>html.ubuntu-boot body{visibility:visible}</style></noscript>
+
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -201,6 +206,7 @@
         let currentEndTime = DEFAULT_END_TIME;
         // 弹窗控制变量 - 标记是否已弹出过
         let hasShownCelebration = false;
+        let activeWorkStart = null;
         
         // 环形进度条配置
         const CIRCUMFERENCE = 2 * Math.PI * 45; // 2πr
@@ -224,28 +230,24 @@
             const [startHour, startMinute] = currentStartTime.split(':').map(Number);
             const [endHour, endMinute] = currentEndTime.split(':').map(Number);
             
-            // 设置今天的上下班时间
-            const startTime = new Date();
-            startTime.setHours(startHour, startMinute, 0, 0);
-            
-            const endTime = new Date();
-            endTime.setHours(endHour, endMinute, 0, 0);
-            
-            // 如果下班时间早于上班时间，说明跨天了，将下班时间设为第二天
-            if (endTime <= startTime) {
-                endTime.setDate(endTime.getDate() + 1);
+            // 夜班在午夜之后仍属于前一天开始的班次。
+            const workStart = new Date(now);
+            workStart.setHours(startHour, startMinute, 0, 0);
+            const workEnd = new Date(now);
+            workEnd.setHours(endHour, endMinute, 0, 0);
+            if (workEnd <= workStart) {
+                if (now < workStart) workStart.setDate(workStart.getDate() - 1);
+                else workEnd.setDate(workEnd.getDate() + 1);
             }
-            
-            // 如果当前时间已过今天下班时间，设置为明天的下班时间
-            if (now > endTime) {
-                const newEndTime = new Date(now);
-                newEndTime.setDate(newEndTime.getDate() + 1);
-                newEndTime.setHours(endHour, endMinute, 0, 0);
-                endTime.setTime(newEndTime.getTime());
+            if (activeWorkStart !== workStart.getTime()) {
+                activeWorkStart = workStart.getTime();
+                hasShownCelebration = false;
             }
+            const countdownEnd = new Date(workEnd);
+            if (now >= countdownEnd) countdownEnd.setDate(countdownEnd.getDate() + 1);
             
             // 计算剩余时间
-            const diff = endTime - now;
+            const diff = countdownEnd - now;
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -259,25 +261,12 @@
             
             // 计算工作进度
             let progress = 0;
-            const workStart = new Date(now);
-            workStart.setHours(startHour, startMinute, 0, 0);
-            
-            let workEnd = new Date(now);
-            workEnd.setHours(endHour, endMinute, 0, 0);
-            
-            // 如果下班时间早于上班时间，说明跨天
-            if (workEnd <= workStart) {
-                workEnd.setDate(workEnd.getDate() + 1);
-            }
-            
             // 如果当前时间在今天上班前
             if (now < workStart) {
                 progress = 0;
-                // 重置弹窗标记，新的工作日开始
-                hasShownCelebration = false;
             } 
             // 如果当前时间已过今天下班时间
-            else if (now > workEnd) {
+            else if (now >= workEnd) {
                 progress = 100;
                 // 只有未弹出过且弹窗当前是隐藏状态时才显示
                 if (!hasShownCelebration && celebrationModal.classList.contains('hidden')) {
@@ -333,6 +322,7 @@
             currentEndTime = endTimeInput.value;
             // 重置弹窗标记，时间更改后允许重新弹出
             hasShownCelebration = false;
+            activeWorkStart = null;
             
             // 更新倒计时
             updateCountdown();
@@ -356,6 +346,7 @@
             currentEndTime = DEFAULT_END_TIME;
             // 重置弹窗标记
             hasShownCelebration = false;
+            activeWorkStart = null;
             
             // 关闭可能打开的弹窗
             if (!celebrationModal.classList.contains('hidden')) {

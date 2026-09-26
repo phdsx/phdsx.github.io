@@ -1,12 +1,25 @@
 (() => {
   'use strict';
 
+  function keyAction(event) {
+    if (event.ctrlKey || event.metaKey || event.altKey || event.isComposing) return null;
+    const movement = { ArrowUp: 'VK_UP', ArrowDown: 'VK_DOWN', ArrowLeft: 'VK_LEFT', ArrowRight: 'VK_RIGHT', KeyW: 'VK_UP', KeyS: 'VK_DOWN', KeyA: 'VK_LEFT', KeyD: 'VK_RIGHT' };
+    const aliases = { w: 'KeyW', s: 'KeyS', a: 'KeyA', d: 'KeyD' };
+    const key = event.key || '';
+    const direction = movement[event.code] || movement[key] || movement[aliases[key.toLowerCase()]];
+    if (direction) return { key: direction, direction: true };
+    const action = { Enter: 'VK_ENTER', ' ': 'VK_EXIT', Escape: 'VK_EXIT', h: 'VK_HELP', f: 'VK_SEARCH' }[key.length === 1 ? key.toLowerCase() : key];
+    return action ? { key: action, direction: false } : null;
+  }
+  if (typeof module !== 'undefined' && module.exports) module.exports = { keyAction };
+  if (typeof document === 'undefined') return;
+
   const body = document.body;
   const canvas = document.getElementById('lcd');
   const machine = document.getElementById('game-machine');
   const status = document.getElementById('runtime-status');
   const loadingPanel = document.getElementById('loading-panel');
-  const gameKeys = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', ' ', 'Escape', 'h', 'H', 's', 'S', 'f', 'F']);
+  const pressedKeys = new Map();
 
   function setState(state, message) {
     body.dataset.bayeState = state;
@@ -62,15 +75,25 @@
     }
   };
 
-  function shouldHandleKeyboard(event) {
-    if (!gameKeys.has(event.key)) return false;
-    return !event.target.closest('a, button, input, textarea, select, summary');
-  }
-
   document.addEventListener('keydown', event => {
-    if (!shouldHandleKeyboard(event)) return;
+    const action = keyAction(event);
+    if (!action || event.target.closest('input, textarea, select, [contenteditable="true"], [role="textbox"]')) return;
+    const control = event.target.closest('a, button, summary');
+    if (control && (!action.direction || !machine.contains(control))) return;
     event.preventDefault();
-    onKeyDown(event);
+    const keyCode = window[action.key];
+    if (typeof keyCode === 'number') sendKey(keyCode);
+    pressedKeys.set(event.code || event.key, action.key);
+    document.querySelector(`[data-baye-key="${action.key}"]`)?.classList.add('is-pressed');
+  });
+  document.addEventListener('keyup', event => {
+    const id = event.code || event.key, key = pressedKeys.get(id);
+    pressedKeys.delete(id);
+    if (key && ![...pressedKeys.values()].includes(key)) document.querySelector(`[data-baye-key="${key}"]`)?.classList.remove('is-pressed');
+  });
+  window.addEventListener('blur', () => {
+    pressedKeys.clear();
+    document.querySelectorAll('[data-baye-key]').forEach(button => button.classList.remove('is-pressed'));
   });
 
   document.querySelectorAll('[data-baye-key]').forEach(button => {
@@ -81,6 +104,7 @@
     const release = () => button.classList.remove('is-pressed');
     button.addEventListener('pointerdown', event => {
       event.preventDefault();
+      canvas.focus({ preventScroll: true });
       button.classList.add('is-pressed');
       sendButtonKey();
     });

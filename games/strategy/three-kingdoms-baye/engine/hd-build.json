@@ -1,0 +1,77 @@
+{
+  "originalSHA256": "f65723e06946e5a824e0890cd2fe07a1b1488151f6c5abbbc0de2599f491c5a8",
+  "enhancedSHA256": "4032dafc4584207492a80f912ce9bc6e191b13a1bc50b576e82a4ee191ffa888",
+  "hooks": [
+    [
+      "SysSelectScreen",
+      1,
+      1
+    ],
+    [
+      "SysCopyScreen",
+      2,
+      1
+    ],
+    [
+      "SysSaveScreen",
+      3,
+      0
+    ],
+    [
+      "SysRestoreScreen",
+      4,
+      0
+    ],
+    [
+      "SysLcdPartClear",
+      5,
+      4
+    ],
+    [
+      "SysLcdReverse",
+      6,
+      4
+    ],
+    [
+      "SysRect",
+      7,
+      4
+    ],
+    [
+      "SysPutPixel",
+      8,
+      3
+    ],
+    [
+      "SysPictureEx",
+      9,
+      8
+    ],
+    [
+      "GamChinese",
+      10,
+      3
+    ],
+    [
+      "GamAscii",
+      11,
+      3
+    ],
+    [
+      "SysAdjustLCDBuffer",
+      12,
+      2
+    ],
+    [
+      "__memset",
+      13,
+      3
+    ],
+    [
+      "GamMovie",
+      14,
+      1
+    ]
+  ],
+  "verification": "Removing only the added import and notifications recovers the entire original WAT verbatim."
+}

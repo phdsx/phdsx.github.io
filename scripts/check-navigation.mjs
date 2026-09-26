@@ -10,6 +10,8 @@ assert.equal(resolve('tools/fun/lightning-calculator.html').parent.href,'tools.h
 assert.equal(resolve('games/board/junqi/index.html').parent.href,'games.html?category=board');
 assert.equal(resolve('games/strategy/storm-siege/index.html').parent.href,'games.html?category=strategy');
 assert.equal(resolve('games/strategy/storm-siege/index.html').crumbs.at(-1).zh,'风暴攻城');
+assert.equal(resolve('games/sports/free-kick/index.html').parent.href,'games.html?category=sports');
+assert.equal(resolve('games/sports/free-kick/index.html').crumbs.at(-1).zh,'弧线任意球');
 assert.equal(resolve('tools.html','?category=image').parent.href,'tools.html');
 assert.equal(resolve('tools.html','?category=__proto__').category,null);
 assert.equal(resolve('games.html','?category=unknown').crumbs.length,2);

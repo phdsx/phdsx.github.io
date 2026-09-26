@@ -468,7 +468,7 @@ var isFileURI = (filename) => filename.startsWith('file://');
 // include: runtime_exceptions.js
 // end include: runtime_exceptions.js
 var wasmBinaryFile;
-  wasmBinaryFile = 'baye.wasm';
+  wasmBinaryFile = 'baye-hd.wasm?v=20260926vector1';
   if (!isDataURI(wasmBinaryFile)) {
     wasmBinaryFile = locateFile(wasmBinaryFile);
   }
@@ -4654,6 +4654,7 @@ function gam_sem_wait(semid) { return Asyncify.handleSleep(function (wakeUp) { v
       var preloadedImages = {};
       var preloadedAudios = {};;
 var wasmImports = {
+  baye_hd_event: (...args) => { if (window.bayeHDDispatch) window.bayeHDDispatch(...args); },
   /** @export */
   __assert_fail: ___assert_fail,
   /** @export */
