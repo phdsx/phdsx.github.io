@@ -4,7 +4,7 @@
 
 # 成果展示
 
-共 15 份成果，按模型、版本排列。GPT 的 Astra、Sol、Luna 是名称；Flash、Max、Medium、High、Ultra 是模式；WorkBuddy 是工具。每份成果都可以在下方预览，也可以点击“单独打开”查看完整动画。
+当前共 15 份测试，按模型、版本排列。可以在下方预览，也可以点击“单独打开”查看完整动画。
 
 ## DeepSeek
 
@@ -30,11 +30,11 @@
 
 :::demo content/blog/pelican-bicycle/demos/gpt-6-astra-medium.html | GPT 6｜名称：Astra｜模式：Medium
 
+:::demo content/blog/pelican-bicycle/demos/gpt-6-sol-high.html | GPT 6｜名称：Sol｜模式：High
+
 :::demo content/blog/pelican-bicycle/demos/gpt-6-luna-high.html | GPT 6｜名称：Luna｜模式：High
 
 :::demo content/blog/pelican-bicycle/demos/gpt-6-luna-ultra.html | GPT 6｜名称：Luna｜模式：Ultra
-
-:::demo content/blog/pelican-bicycle/demos/gpt-6-sol-high.html | GPT 6｜名称：Sol｜模式：High
 
 ### 版本 5.6
 
