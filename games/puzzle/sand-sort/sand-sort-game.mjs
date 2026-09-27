@@ -155,8 +155,8 @@ async function initializeGame() {
   }
 
   const [backgroundResult, bottleResult] = await Promise.all([
-    loadImageSafely('./assets/background.png', 8, 8),
-    loadImageSafely('./assets/bottle-glass.png', 8, 20),
+    loadImageSafely('./assets/background-studio.png', 8, 8),
+    loadImageSafely('./assets/bottle-clear.png', 8, 20),
   ]);
   const degradedAssets = backgroundResult.degraded || bottleResult.degraded;
   const renderer = createRenderer(canvas, {

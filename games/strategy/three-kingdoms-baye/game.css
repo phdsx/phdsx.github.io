@@ -162,3 +162,11 @@ body[data-baye-state="error"] .baye-loading { color: #561d18; background: #d9b8a
 body[data-baye-display="hd"] #lcd { image-rendering: auto; }
 .baye-key kbd { font: 700 10px/1 ui-monospace, monospace; opacity: .8; }
 .baye-dpad .baye-key { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; }
+.baye-map-ownership { margin: 0 auto 16px; padding: 12px 16px; color: #20271b; background: #b8c58d; border: 1px solid #4f5b3e; border-radius: 8px; }
+.baye-map-ownership[hidden] { display: none; }
+.baye-ownership-legend { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 13px; }
+.baye-ownership-legend b { display: inline-block; min-width: 19px; text-align: center; font-size: 12px; line-height: 19px; font-weight: 700; }
+.baye-faction-own { background: #111; color: #b8c58d; border: 1px solid #111; }
+.baye-faction-enemy { color: #111; border: 1px solid #111; }
+.baye-faction-empty { color: #111; }
+#selected-city-owner { margin: 8px 0 0; text-align: center; font-size: 13px; }

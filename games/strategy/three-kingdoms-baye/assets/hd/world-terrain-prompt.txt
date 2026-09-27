@@ -1,0 +1,13 @@
+Mode: built-in image_gen tool, style-transfer edit, 2026-09-26.
+Input 1: world-source.png, original full-world 192x144 map enlarged to 1536x1152.
+Input 2: approved composite exec-dd055c1d-3137-4a0f-a6e9-08bfe219df74.png, style only.
+Generated source: C:/Users/YUE/.codex/generated_images/01a0dcc4-6809-7932-ac45-7c59cb7198a6/exec-66611e79-a8ed-421f-b2a5-26404bf7cf03.png
+
+Use case: style-transfer.
+Asset type: finished full-world terrain texture for a Chinese historical strategy game, 4:3 landscape, preferably 3072 × 2304 pixels.
+Input image 1 is the authoritative full-world 192 × 144 logical terrain map enlarged to 1536 × 1152. Input image 2 is ONLY the approved etched-ink illustration style reference; do not copy its viewport geography, cities or UI.
+Primary request: redraw ONLY the terrain of input 1 as clean high-resolution miniature Chinese pen-and-ink cartography using the fine detailed mountain style of input 2. Precisely preserve the original map's normalized geography, mountain footprints, open plains, coast contour and two long river routes. The full-world map of image 1 is wider and taller than the viewport shown in image 2. Output must be the entire first image area without cropping, expanding or repositioning any major feature.
+Geographic invariants: massive mountain band down the far left/west, scattered smaller mountain groups at the same exact locations in the plains, mountains across the narrow upper edge and lower edge; stippled right/east and bottom perimeter is sea. Keep that coastline at precisely the original normalized location. The thin meandering long lines through the plains are rivers: render as narrow clear double-line channels with their original bends and routes, not invented roads. Do not turn the river loops into lakes.
+Style: crisp delicate black engraved/etched contour and hatching, miniature traditional Chinese mountains with fine rock contours, peaks and very sparse trees within original mountain footprints; quiet white open plains for gameplay overlay. Sparse low-density wave marks confined to sea.
+Palette: pure white background and black ink linework only, no paper grain, no beige, green, gray wash, color, lighting gradient or texture vignette. It will be tinted green by software.
+Exclude all cities, fortresses, buildings, roads, dotted paths, banners, ownership symbols, humans, portrait, text, numerals, logos, frame, borders, sidebar, legend and UI. Remove the tiny cross-like objects in the original plains rather than recreating them. Terrain only. Preserve large open white spaces for exact original city positions to be rendered separately by the game.

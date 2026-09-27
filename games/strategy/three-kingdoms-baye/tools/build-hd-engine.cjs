@@ -26,8 +26,13 @@ const hooks = [
   ['SysLcdPartClear', 5, 4], ['SysLcdReverse', 6, 4],
   ['SysRect', 7, 4], ['SysPutPixel', 8, 3],
   ['SysPictureEx', 9, 8], ['GamChinese', 10, 3], ['GamAscii', 11, 3],
-  ['SysAdjustLCDBuffer', 12, 2], ['__memset', 13, 3], ['GamMovie', 14, 1]
+  ['SysAdjustLCDBuffer', 12, 2], ['__memset', 13, 3], ['GamMovie', 14, 1],
+  ['PlcRPicShowEx', 15, 6], ['ShowCityMap', 16, 1]
 ];
+// These read-only offsets are from this exact shipped engine, not a newer build.
+assert.equal(digest(originalBytes), 'f65723e06946e5a824e0890cd2fe07a1b1488151f6c5abbbc0de2599f491c5a8');
+const cityFunction = source.slice(source.indexOf(' (func $GetKingCitys '), source.indexOf('\n (func ', source.indexOf(' (func $GetKingCitys ') + 1));
+assert.ok(cityFunction.includes('(i32.const 2704560)') && cityFunction.includes('(i32.const 37)') && cityFunction.includes('(i32.load16_u offset=1 align=1'));
 const asyncState = source.match(/\n \(func \$asyncify_get_state \(result i32\)\n  \(global.get (\$[^)]+)\)/)?.[1];
 assert.ok(asyncState, 'Asyncify state must be known to avoid notifications during stack replay');
 const additions = [];

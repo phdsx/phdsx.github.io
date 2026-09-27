@@ -70,3 +70,22 @@ test('picture text overlays require exact original menu signatures and reject ch
   const r=resource(75);
   assert.equal(identify(r.rgba,r.width,r.height,context.window.BayeMenuFingerprints),null);
 });
+
+test('diagonal road junctions stay connected between reconstructed contours',()=>{
+  const width=8,height=8,rgba=new Uint8ClampedArray(width*height*4);
+  for(let n=0;n<width;n++)rgba[(n*width+n)*4+3]=255;
+  const art=verifyCoverage({rgba,width,height}),layer=art.layers[0];
+  for(let n=1;n<width;n++) {
+    let contacts=0;
+    for(let i=0;i<layer.paths.length;i++) {
+      const points=layer.paths[i],index=points.findIndex(p=>p[0]===n&&p[1]===n);
+      if(index<0)continue;
+      contacts++;
+      if(layer.curves[i]) {
+        assert.deepEqual(layer.curves[i][index].start,[n,n]);
+        assert.deepEqual(layer.curves[i][index].end,[n,n]);
+      }
+    }
+    assert.equal(contacts,2,'adjacent road contours must retain their shared vertex');
+  }
+});

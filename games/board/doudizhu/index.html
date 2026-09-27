@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102f2a">
+  <meta name="description" content="无需登录或后台服务，直接在浏览器里与两名电脑玩家斗地主。">
+  <title>斗地主 · 单机人机对战</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="back" href="../../../games.html">← 返回游戏</a>
+      <div class="brand"><span class="brand-mark">♠</span><div><p>OFFLINE CARD CLUB</p><h1>斗地主</h1></div></div>
+      <button id="new-game" class="outline" type="button">重新发牌</button>
+    </header>
+
+    <div class="layout">
+      <section class="table-shell" aria-label="斗地主牌桌">
+        <div class="table-top">
+          <div class="player player-left" id="player-2"></div>
+          <div class="bottom-wrap"><span class="small-label">地主底牌</span><div class="bottom-cards" id="bottom-cards"></div></div>
+          <div class="player player-right" id="player-1"></div>
+        </div>
+
+        <div class="table-center">
+          <div class="table-watermark" aria-hidden="true">♠</div>
+          <p class="trick-owner" id="trick-owner">等待叫地主</p>
+          <div class="played-cards" id="played-cards"></div>
+          <p class="trick-note" id="trick-note">三人各得 17 张，剩余 3 张为地主底牌</p>
+        </div>
+
+        <div class="you-bar"><span class="you-avatar">我</span><div><strong id="you-role">你的手牌</strong><small id="you-count">17 张</small></div><span class="turn-pill" id="turn-pill" hidden>轮到你了</span></div>
+        <div class="hand" id="hand" aria-label="你的手牌"></div>
+        <div class="actions">
+          <div class="bid-actions" id="bid-actions" hidden>
+            <span>选择叫分</span>
+            <button type="button" data-bid="0">不叫</button>
+            <button type="button" data-bid="1">1 分</button>
+            <button type="button" data-bid="2">2 分</button>
+            <button type="button" data-bid="3" class="primary">3 分</button>
+          </div>
+          <div class="play-actions" id="play-actions" hidden>
+            <button id="hint" type="button">提示</button>
+            <button id="pass" type="button">不要</button>
+            <button id="play" class="primary" type="button">出牌</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <section class="panel status-panel">
+          <p class="eyebrow">本地对局 · 人机对战</p>
+          <h2 id="phase-title">正在发牌</h2>
+          <p id="message" role="status" aria-live="polite">牌局准备中…</p>
+          <div class="score-row"><span>叫分 <strong id="bid-score">—</strong></span><span>倍数 <strong id="multiplier">×1</strong></span></div>
+          <div class="record" id="record">本机战绩：0 胜 · 0 负</div>
+        </section>
+        <section class="panel history-panel"><h2>对局记录</h2><ol id="history" aria-label="最近的对局记录"></ol></section>
+        <section class="panel rules-panel">
+          <h2>怎么玩</h2>
+          <p>叫分最高者成为地主，拿走 3 张底牌。地主先出牌；其他人须出相同牌型且更大的牌，也可选择“不要”。连续两人不要后，由上次出牌者重新领出。</p>
+          <p>先出完牌的一方获胜。地主独自一队，另外两位是农民队友。炸弹与王炸可压普通牌，并使倍数翻倍。</p>
+          <details><summary>支持的牌型</summary><p>单张、对子、三张、三带一、三带一对、顺子、连对、飞机、飞机带单／对、四带二、四带两对、炸弹、王炸。顺子及连续组合不含 2 和大小王。</p></details>
+          <p class="source">根据 <a href="https://github.com/tinyshu/ddz_game" target="_blank" rel="noopener noreferrer">tinyshu/ddz_game</a> 的玩法需求重新实现，未复用其服务端或素材。</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <script type="module" src="game.mjs"></script>
+</body>
+</html>

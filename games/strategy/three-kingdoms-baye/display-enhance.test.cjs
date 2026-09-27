@@ -35,7 +35,7 @@ function harness({blocked=false}={}){
   const calls=[],surfaces=[],settings=new Map(),listeners={};
   function surface(){
     const obj={width:0,height:0};const context={};
-    for(const name of ['scale','fillRect','clearRect','drawImage','putImageData','save','restore','beginPath','rect','clip','fillText','strokeRect'])context[name]=(...args)=>calls.push({name,args,surface:obj});
+    for(const name of ['scale','fillRect','clearRect','drawImage','putImageData','save','restore','beginPath','rect','clip','fillText','strokeRect'])context[name]=(...args)=>calls.push({name,args,surface:obj,fillStyle:context.fillStyle,composite:context.globalCompositeOperation});
     obj.getContext=()=>context;obj.getBoundingClientRect=()=>({width:640});surfaces.push(obj);return obj;
   }
   const canvas=surface();const selector={addEventListener(name,fn){listeners[name]=fn;}},label={};
@@ -154,4 +154,14 @@ test('selection edges crossing the next text row retain the exact partial invers
   }
   a.window.bayeFlushLcdBuffer(0);
   assert.equal(a.window.bayeHDStatus().verified,1);
+});
+
+test('both display modes finish with the exact original dictionary green palette',()=>{
+  const a=harness();a.glyph();a.window.bayeFlushLcdBuffer(0);
+  for(const mode of ['hd','original']){
+    a.change(mode);
+    const tint=a.calls.filter(c=>c.name==='fillRect'&&c.surface===a.canvas).at(-1);
+    assert.equal(tint.fillStyle,'#b8c58d');assert.equal(tint.composite,'multiply');
+    assert.deepEqual(tint.args,[0,0,1280,768]);
+  }
 });

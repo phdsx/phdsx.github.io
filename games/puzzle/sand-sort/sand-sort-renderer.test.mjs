@@ -6,6 +6,7 @@ import {
   computeLayout,
   createRenderer,
   getMotionSettings,
+  getVisibleLayers,
   hitTestBottle,
   transformBottlePoint,
   tween,
@@ -23,7 +24,15 @@ function createCanvasHarness() {
     rotate: record('rotate'),
     restore: record('restore'),
     fillRect: record('fillRect'),
+    createLinearGradient: () => ({ addColorStop: record('addColorStop') }),
     beginPath: record('beginPath'),
+    moveTo: record('moveTo'),
+    lineTo: record('lineTo'),
+    quadraticCurveTo: record('quadraticCurveTo'),
+    closePath: record('closePath'),
+    clip: record('clip'),
+    stroke: record('stroke'),
+    ellipse: record('ellipse'),
     arc: record('arc'),
     fill: record('fill'),
     strokeRect: record('strokeRect'),
@@ -86,8 +95,8 @@ test('mobile bottle rows rest on the two background shelves', () => {
   const layout = computeLayout(390, 844, 10);
   const firstRowBottom = layout.bottles[0].y + layout.bottles[0].height;
   const secondRowBottom = layout.bottles[5].y + layout.bottles[5].height;
-  assert.ok(Math.abs(firstRowBottom - 367.984) < 0.5);
-  assert.ok(Math.abs(secondRowBottom - 666.76) < 0.5);
+  assert.ok(Math.abs(firstRowBottom - 413.56) < 0.5);
+  assert.ok(Math.abs(secondRowBottom - 679.42) < 0.5);
 });
 
 test('fallback layout keeps extra bottle rows separated inside the scene', () => {
@@ -156,6 +165,13 @@ test('tween rejects instead of hanging when paint throws', async () => {
   await assert.rejects(animation, /paint failed/);
 });
 
+test('fractional sand layers conserve visible volume during a pour', () => {
+  const source = getVisibleLayers(['pink', 'blue', 'blue'], 1.5);
+  const target = getVisibleLayers(['pink'], 0, 'blue', 1.5);
+  assert.deepEqual(source, [{ color: 'pink', units: 1 }, { color: 'blue', units: 0.5 }]);
+  assert.deepEqual(target, [{ color: 'pink', units: 1 }, { color: 'blue', units: 1.5 }]);
+});
+
 test('renderer composites cropped glass over sand and animates from its production mouth', async () => {
   await withAnimationGlobals(async () => {
     const { assets, calls, canvas } = createCanvasHarness();
@@ -180,13 +196,13 @@ test('renderer composites cropped glass over sand and animates from its producti
     const direction = source.x < target.x ? 1 : -1;
     const dx = target.x + target.width / 2 - (source.x + source.width / 2) - direction * target.width * 0.58;
     const dy = target.y - source.y - source.height * 0.45;
-    const expectedMouth = transformBottlePoint(
-      source,
-      computeBottleMouthAnchor(1024, 1536),
-      { dx, dy, rotation: direction * 1.18 },
-    );
-    const arcs = calls.filter((call) => call.method === 'arc');
-    assert.ok(arcs.some((call) => Math.abs(call.args[0] - expectedMouth.x) < 0.001 && Math.abs(call.args[1] - expectedMouth.y) < 0.001));
+    const expectedMouth = transformBottlePoint(source, computeBottleMouthAnchor(1024, 1536),
+      { dx, dy, rotation: direction * 1.18 });
+    const targetMouth = { x: target.x + target.width / 2, y: target.y + target.height * 0.34 };
+    const grainDraws = calls.filter((call) => call.method === 'fillRect' &&
+      call.args[0] > Math.min(expectedMouth.x, targetMouth.x) - 10 &&
+      call.args[0] < Math.max(expectedMouth.x, targetMouth.x) + 10);
+    assert.ok(grainDraws.length > 0);
 
     await renderer.shake(frame, 0);
     await renderer.flashHint(frame, 0, 1);

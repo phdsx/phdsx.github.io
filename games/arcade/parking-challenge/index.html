@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101b28">
+  <meta name="description" content="驾驶小车完成 15 个倒车入库与侧方停车挑战，支持键盘和触屏操作。">
+  <title>停车场倒车挑战 - PHDSX</title>
+  <link rel="stylesheet" href="game.css">
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="back" href="../../../games.html" aria-label="返回游戏栏目">← <span>游戏栏目</span></a>
+      <div class="brand"><span class="brand-icon" aria-hidden="true">P</span><div><small>PHDSX · ARCADE</small><h1>停车场倒车挑战</h1></div></div>
+      <button id="sound" class="icon-button" type="button" aria-label="关闭声音" aria-pressed="true">♪</button>
+    </header>
+
+    <section class="game" aria-label="停车游戏">
+      <div class="hud">
+        <div class="hud-item"><span>关卡</span><strong id="level-label">01 / 15</strong></div>
+        <div class="hud-item hud-name"><span>场景</span><strong id="level-name">直线倒库</strong></div>
+        <div class="hud-item"><span>用时</span><strong id="time">0.0s</strong></div>
+        <div class="hud-item"><span>碰撞</span><strong id="collisions">0</strong></div>
+        <div class="hud-item"><span>最佳</span><strong id="best">—</strong></div>
+        <button id="restart" class="hud-button" type="button">↻ <span>重来</span></button>
+        <button id="pause" class="hud-button" type="button">Ⅱ <span>暂停</span></button>
+      </div>
+      <div class="arena-wrap">
+        <canvas id="arena" width="900" height="600" role="img" aria-label="俯视停车场。使用方向键或 WASD 驾车，将车完整停进绿色车位。"></canvas>
+        <div class="arena-caption"><span id="hint">倒车入库：让车身完全进入绿色区域</span><span id="parking-status">寻找车位</span></div>
+        <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+          <div class="overlay-card">
+            <div class="overlay-mark" aria-hidden="true">P</div>
+            <p class="eyebrow">PARKING CHALLENGE</p>
+            <h2 id="overlay-title">准备好入库了吗？</h2>
+            <p id="overlay-message">15 个停车场景，先练直线倒库，再挑战侧方停车与狭窄车位。</p>
+            <div class="key-tips"><span>↑ / W 前进</span><span>↓ / S 倒车</span><span>← → 转向</span></div>
+            <button id="overlay-action" class="primary-button" type="button">开始游戏 <span aria-hidden="true">→</span></button>
+            <p class="overlay-foot">车身完整入位并停稳 1 秒即可过关</p>
+          </div>
+        </div>
+      </div>
+      <div class="below">
+        <div class="instruction"><span class="instruction-icon" aria-hidden="true">◎</span><p><strong>驾驶提示</strong><br>方向键 / WASD 操作。倒车时转向效果会反向；松开方向键后方向盘自动回正。R 重来，P 或 Esc 暂停。</p></div>
+        <div class="touch-controls" aria-label="触屏驾驶控制">
+          <button type="button" data-control="left" aria-label="左转">←</button>
+          <div class="touch-drive"><button type="button" data-control="forward" aria-label="前进">↑<small>前进</small></button><button type="button" data-control="reverse" aria-label="倒车">↓<small>倒车</small></button></div>
+          <button type="button" data-control="right" aria-label="右转">→</button>
+        </div>
+      </div>
+    </section>
+    <p class="credit">玩法参考 <a href="https://github.com/HYDONK3/parking-game" target="_blank" rel="noopener noreferrer">HYDONK3/parking-game</a>，本站采用独立实现。</p>
+  </main>
+</body>
+</html>

@@ -468,7 +468,7 @@ var isFileURI = (filename) => filename.startsWith('file://');
 // include: runtime_exceptions.js
 // end include: runtime_exceptions.js
 var wasmBinaryFile;
-  wasmBinaryFile = 'baye-hd.wasm?v=20260926vector1';
+  wasmBinaryFile = 'baye-hd.wasm?v=20260926remaster1';
   if (!isDataURI(wasmBinaryFile)) {
     wasmBinaryFile = locateFile(wasmBinaryFile);
   }

@@ -1,6 +1,6 @@
 {
   "originalSHA256": "f65723e06946e5a824e0890cd2fe07a1b1488151f6c5abbbc0de2599f491c5a8",
-  "enhancedSHA256": "4032dafc4584207492a80f912ce9bc6e191b13a1bc50b576e82a4ee191ffa888",
+  "enhancedSHA256": "b96db4edde8a62382de60d38f692693fd1071eca17dcfbe5f8962f16a9440bcf",
   "hooks": [
     [
       "SysSelectScreen",
@@ -70,6 +70,16 @@
     [
       "GamMovie",
       14,
+      1
+    ],
+    [
+      "PlcRPicShowEx",
+      15,
+      6
+    ],
+    [
+      "ShowCityMap",
+      16,
       1
     ]
   ],

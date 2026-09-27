@@ -41,6 +41,7 @@
   let textCells = [];
   let artwork = null, menu = null;
   let menuAnimation = 0;
+  let mapStatus = null, battleStatus = null;
   const preferenceKey = 'baye/display-mode';
   try { if (window.localStorage.getItem(preferenceKey) === 'original') mode = 'original'; } catch (_) {}
   function screen(id) {
@@ -66,6 +67,8 @@
   }
   function event(kind, a, b, c, d, e, f, g, h) {
     stats.events++;
+    window.BayeMapArt?.event(kind, a, b, c, d, e, f, g, h);
+    window.BayeBattleArt?.event(kind, a, b, c, d, e, f, g, h);
     switch (kind) {
       case 1: current = a; screen(a); pending = null; break;
       case 2: copy(a, 0); break;
@@ -120,6 +123,10 @@
       const selection = menu ? menuAnimation - (menu.name === 'main' ? 100 : 104) : -1;
       window.BayeMenuArt?.paint(ctx, menu, scale, selection);
     } else { ctx.drawImage(originalSurface, 0, 0, w, h); menu = null; }
+    mapStatus = enhanced && !menu ? window.BayeMapArt?.paint(ctx, snapshot, scale) : null;
+    battleStatus = enhanced && !menu ? window.BayeBattleArt?.paint(ctx, snapshot, scale) : null;
+    const ownership = document.getElementById('map-ownership');
+    if (ownership && !mapStatus?.viewport) ownership.hidden = true;
     textCells = [];
     if (enhanced) {
       for (const glyph of screen(0)) {
@@ -151,6 +158,14 @@
       canvas.dataset.vectorContours = String((artwork?.refined || 0) + (artwork?.curved || 0));
       canvas.dataset.menuArtwork = menu?.name || '';
       canvas.dataset.menuSelection = menu ? String(menuAnimation - (menu.name === 'main' ? 100 : 104)) : '';
+      canvas.dataset.mapArtwork = mapStatus?.count ? 'remastered' : '';
+      canvas.dataset.mapCities = JSON.stringify(mapStatus?.cities || []);
+      canvas.dataset.mapViewport = JSON.stringify(mapStatus?.viewport || null);
+      canvas.dataset.mapPortraits = String(mapStatus?.portraits || 0);
+      canvas.dataset.battleArtwork = battleStatus?.count ? 'remastered' : '';
+      canvas.dataset.battleTiles = String(battleStatus?.count || 0);
+      canvas.dataset.battleTroops = String(battleStatus?.troops || 0);
+      canvas.dataset.battleRecorded = `${battleStatus?.recordedTiles || 0}/${battleStatus?.recordedTroops || 0}/${battleStatus?.acceptedTiles || 0}/${battleStatus?.fort || 0}`;
     }
     resolution.textContent = `${w} × ${h} · ${mode === 'hd' ? '绿屏 · 高清重绘' : '原始点阵'}`;
   }
@@ -179,5 +194,7 @@
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(safePresent).observe(canvas);
   window.addEventListener('resize', safePresent); document.addEventListener('fullscreenchange', safePresent);
   window.BayeMenuArt?.ready.then(safePresent);
-  window.bayeHDStatus = () => ({ ...stats, mode, screens: screens.size, textCells: textCells.map(g => ({ ...g })), artwork: artwork ? { sourcePoints: artwork.sourcePoints, vectorPoints: artwork.vectorPoints, refined: artwork.refined } : null, menu: menu?.name || null });
+  window.BayeMapArt?.ready.then(safePresent);
+  window.BayeBattleArt?.ready.then(safePresent);
+  window.bayeHDStatus = () => ({ ...stats, mode, screens: screens.size, textCells: textCells.map(g => ({ ...g })), artwork: artwork ? { sourcePoints: artwork.sourcePoints, vectorPoints: artwork.vectorPoints, refined: artwork.refined } : null, menu: menu?.name || null, map: mapStatus, battle: battleStatus });
 })();

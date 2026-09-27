@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="我的文字修仙全靠刷：可在浏览器中游玩的文字修仙游戏。">
+  <link rel="icon" href="./favicon.ico">
+  <title>文字修仙 - PHDSX 游戏厅</title>
+  <style>
+    .phdsx-game-bar { box-sizing: border-box; max-width: 810px; margin: 12px auto 0; padding: 9px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font: 14px/1.5 system-ui, sans-serif; color: #334155; }
+    .phdsx-game-bar a { color: #24589b; text-decoration: underline; }
+    .phdsx-game-bar a:focus-visible { outline: 2px solid #24589b; outline-offset: 3px; }
+    .phdsx-credit { box-sizing: border-box; max-width: 810px; margin: 4px auto 18px; padding: 10px 16px; color: #536171; font: 13px/1.6 system-ui, sans-serif; text-align: center; }
+    .phdsx-credit a { color: #24589b; }
+    html.dark .phdsx-game-bar, html.dark .phdsx-credit { color: #d5dce5; }
+    html.dark .phdsx-game-bar a, html.dark .phdsx-credit a { color: #9ac5ff; }
+  </style>
+</head>
+<body>
+  <nav class="phdsx-game-bar" aria-label="游戏与站点导航">
+    <a href="../../../games.html">← 返回 PHDSX 游戏厅</a>
+    <span>我的文字修仙全靠刷 · 浏览器版</span>
+  </nav>
+  <div id="app"></div>
+  <footer class="phdsx-credit">
+    原作：<a href="https://github.com/setube/vue-xiuxiangame" target="_blank" rel="noopener noreferrer">谦君（Jun Qian）</a>。
+    本站适配于 2026-09-27，移除统计与独立 PWA，改为子目录静态托管。
+    游戏按 <a href="./LICENSE.txt">CC BY-NC 4.0</a> 授权，仅供非商业使用。
+  </footer>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
+

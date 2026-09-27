@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>武将头像重绘校验</title>
+<style>
+body{margin:0;padding:28px;background:#edf0e4;color:#1d2517;font:16px/1.5 'Microsoft YaHei',sans-serif}header{max-width:1160px;margin:auto}h1{margin:0;font-size:28px}p{margin:8px 0}select{font:inherit;padding:8px;margin:16px 0}main{display:grid;grid-template-columns:repeat(4,minmax(210px,1fr));gap:16px;max-width:1160px;margin:auto}article{padding:14px;background:#fafbf7;border:1px solid #bcc5a5;border-radius:8px}h2{font-size:18px;margin:0 0 10px}section{display:flex;gap:10px;justify-content:center}figure{margin:0;text-align:center}canvas{width:108px;height:108px;background:#b8c58d}figcaption{font-size:12px;color:#536144}#status{font-weight:bold}@media(max-width:900px){main{grid-template-columns:repeat(2,minmax(210px,1fr))}}@media(max-width:490px){main{grid-template-columns:1fr}}
+</style>
+<header><h1>武将头像重绘校验</h1><p>原点阵与实际使用的高清素材逐项对照。人物顺序按原资源映射。</p><p id="status">正在检查素材…</p><label>图集 <select id="sheets"></select></label></header><main id="portraits"></main>
+<script src="../assets/map-art-data.js"></script>
+<script>
+const data=window.BayeMapData, images=new Map(), select=document.querySelector('#sheets'), panel=document.querySelector('#portraits');
+data.portraitSheets.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=s.file;select.append(o)});
+select.value=String(Math.min(data.portraitSheets.length-1,Math.max(0,Number(new URLSearchParams(location.search).get('sheet'))||0)));
+function palette(ctx){ctx.globalCompositeOperation='multiply';ctx.fillStyle='#b8c58d';ctx.fillRect(0,0,216,216);ctx.globalCompositeOperation='source-over'}
+function render(){
+ const sheet=data.portraitSheets[Number(select.value)], image=images.get(sheet.file);panel.replaceChildren();
+ for(let cell=0;cell<sheet.count;cell++){
+  const p=data.portraits[sheet.start+cell],card=document.createElement('article'),name=document.createElement('h2');name.textContent=(p.name||'原版占位图')+' · 剧本'+(p.period+1);card.append(name);
+  const pair=document.createElement('section');card.append(pair);panel.append(card);
+  for(const mode of ['原点阵','重绘']){
+   const fig=document.createElement('figure'),canvas=document.createElement('canvas'),caption=document.createElement('figcaption');canvas.width=canvas.height=216;caption.textContent=mode;fig.append(canvas,caption);pair.append(fig);const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,216,216);
+   if(mode==='原点阵'){const bytes=Uint8Array.from(atob(data.pictures[48+p.period].bits),c=>c.charCodeAt(0));ctx.fillStyle='#000';for(let y=0;y<24;y++)for(let x=0;x<24;x++)if(bytes[p.index*72+y*3+(x>>3)]&(128>>(x%8)))ctx.fillRect(x*9,y*9,9,9)}
+   else if(image){const w=image.width/sheet.columns,h=image.height/sheet.rows;ctx.imageSmoothingQuality='high';ctx.drawImage(image,cell%sheet.columns*w,Math.floor(cell/sheet.columns)*h,w,h,0,0,216,216)}
+   palette(ctx);
+  }
+ }
+}
+select.addEventListener('change',render);
+Promise.all(data.portraitSheets.map(sheet=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images.set(sheet.file,im);resolve()};im.onerror=()=>resolve();im.src='../assets/hd/'+sheet.file}))).then(()=>{const missing=Object.values(data.portraitSlots).flat().filter(v=>v<0).length;document.querySelector('#status').textContent=`${data.portraits.length} 种头像资源 · ${images.size}/${data.portraitSheets.length} 图集已载入 · ${missing} 项未映射`;render()});
+</script></html>

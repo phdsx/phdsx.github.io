@@ -61,14 +61,14 @@
     }
     return spans.join(',');
   }
-  function roundedPath(points) {
+  function roundedPath(points, contacts) {
     const box = bounds(points);
     const corners = points.map((b, i) => {
       const a=points[(i+points.length-1)%points.length], c=points[(i+1)%points.length];
       const before=Math.hypot(a[0]-b[0],a[1]-b[1]), after=Math.hypot(c[0]-b[0],c[1]-b[1]);
       // Keep isolated extrema fixed, including peak tips and the ends of rivers.
       const anchor = [0,1].some(axis => (b[axis]===box[axis]||b[axis]===box[axis+2]) && points.filter(p=>p[axis]===b[axis]).length===1);
-      const radius = anchor ? 0 : Math.min(.65,before*.48,after*.48);
+      const radius = anchor || contacts.has(b.join(',')) ? 0 : Math.min(.65,before*.48,after*.48);
       return {start:[b[0]+(a[0]-b[0])*radius/before,b[1]+(a[1]-b[1])*radius/before],control:b,
         end:[b[0]+(c[0]-b[0])*radius/after,b[1]+(c[1]-b[1])*radius/after]};
     });
@@ -96,8 +96,8 @@
     }
     return spansForHits(hits);
   }
-  function verifiedCurve(points) {
-    const curve=roundedPath(points),box=bounds(points);
+  function verifiedCurve(points, contacts) {
+    const curve=roundedPath(points, contacts),box=bounds(points);
     for(let y=box[1];y<box[3];y++)if(scanline(points,y+.5)!==curveScanline(curve,y+.5))return null;
     return curve;
   }
@@ -162,16 +162,26 @@
     for (let i = 0; i < values.length; i++) { values[i] = inkAt(rgba, i * 4); if (values[i]) shades.add(values[i]); }
     const layers = []; let sourcePoints = 0, vectorPoints = 0, refined = 0, curved = 0;
     for (const shade of shades) {
-      const paths = trace(values, width, height, shade).map(original => {
+      const originals = trace(values, width, height, shade), occurrences = new Map();
+      for (const ring of originals) for (const point of ring) {
+        const key = point.join(','); occurrences.set(key, (occurrences.get(key) || 0) + 1);
+      }
+      // Diagonal pixels can meet at just one vertex. Keep that junction fixed;
+      // pixel-centre coverage alone would allow a continuous road to look broken.
+      const contacts = new Set([...occurrences].filter(([, count]) => count > 1).map(([key]) => key));
+      const paths = originals.map(original => {
         let result = original;
+        const anchors = original.filter(point => contacts.has(point.join(',')));
         // Hard bounds and source-pixel coverage are invariants, not a visual guess.
         const candidates = [simplifyClosed(original, .74), simplifyClosed(original, .55), simplifyPatches(original, .9), simplifyPatches(original, .74)];
-        for (const candidate of candidates) if (candidate.length < result.length && sameCoverage(original, candidate)) result = candidate;
+        for (const candidate of candidates) if (candidate.length < result.length &&
+          anchors.every(anchor => candidate.some(point => point[0] === anchor[0] && point[1] === anchor[1])) &&
+          sameCoverage(original, candidate)) result = candidate;
         if (result !== original) refined++;
         sourcePoints += original.length; vectorPoints += result.length;
         return result;
       });
-      const curves=paths.map(points=>{const curve=verifiedCurve(points);if(curve)curved++;return curve;});
+      const curves=paths.map(points=>{const curve=verifiedCurve(points, contacts);if(curve)curved++;return curve;});
       layers.push({ shade, paths, curves });
     }
     return { layers, sourcePoints, vectorPoints, refined, curved, width, height };

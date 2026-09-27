@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
+  <title id="title">停车场倒车挑战</title><desc id="desc">夜色中的俯视停车场，一辆黄色汽车倒向发光的绿色车位</desc>
+  <defs><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#283e4b"/><stop offset="1" stop-color="#1a2d3a"/></linearGradient><linearGradient id="car" x2="1" y2="1"><stop stop-color="#ffe280"/><stop offset="1" stop-color="#e0a633"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="8"/></filter></defs>
+  <path fill="url(#ground)" d="M0 0h640v400H0z"/>
+  <g stroke="#c4d5d2" stroke-opacity=".32" stroke-width="3" fill="none"><path d="M45 38h96v134H45zM150 38h96v134h-96zM255 38h96v134h-96zM360 38h96v134h-96zM465 38h96v134h-96zM45 228h96v134H45zM150 228h96v134h-96zM255 228h96v134h-96zM360 228h96v134h-96zM465 228h96v134h-96z"/></g>
+  <path fill="#6ee7a2" opacity=".35" filter="url(#glow)" d="M150 228h96v134h-96z"/><path fill="#72da9a" fill-opacity=".24" stroke="#94ffb3" stroke-width="5" d="M150 228h96v134h-96z"/><path fill="none" stroke="#b9ffd0" stroke-dasharray="7 7" stroke-opacity=".6" d="M161 239h74v112h-74z"/>
+  <text x="198" y="312" text-anchor="middle" fill="#adffc3" font-family="sans-serif" font-size="43" font-weight="900">P</text>
+  <g fill="#749abc"><rect x="72" y="67" width="40" height="76" rx="9"/><rect x="388" y="67" width="40" height="76" rx="9"/><rect x="492" y="253" width="40" height="76" rx="9"/></g>
+  <g transform="translate(329 199) rotate(90)"><rect x="-50" y="-26" width="100" height="52" rx="11" fill="url(#car)"/><rect x="-9" y="-21" width="30" height="42" rx="5" fill="#284354"/><rect x="27" y="-21" width="12" height="42" rx="4" fill="#a9d5d8"/><rect x="-50" y="-19" width="5" height="9" fill="#ec6858"/><rect x="-50" y="10" width="5" height="9" fill="#ec6858"/></g>
+  <path d="M329 243v50c0 34-57 51-82 43" fill="none" stroke="#8aeda9" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 9"/>
+</svg>

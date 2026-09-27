@@ -132,4 +132,40 @@
   document.addEventListener('fullscreenchange', () => {
     document.getElementById('fullscreen-game').textContent = document.fullscreenElement ? '退出全屏' : '全屏游玩';
   });
+
+  // The LCD draws its own controls. Forward mouse, pen and touch input to the
+  // original engine in logical LCD coordinates, independent of CSS/HD scaling.
+  let activePointer = null;
+  function sendPointer(type, event) {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const x = (event.clientX - rect.left) / rect.width * lcdWidth;
+    const y = (event.clientY - rect.top) / rect.height * lcdHeight;
+    _bayeSendTouchEvent(type, x, y);
+  }
+  canvas.addEventListener('pointerdown', event => {
+    if (activePointer !== null || event.isPrimary === false || event.button !== 0 ||
+        body.dataset.bayeState !== 'ready' || typeof _bayeSendTouchEvent !== 'function') return;
+    event.preventDefault();
+    canvas.focus({ preventScroll: true });
+    activePointer = event.pointerId;
+    canvas.setPointerCapture(event.pointerId);
+    sendPointer(1, event); // VT_TOUCH_DOWN
+  });
+  canvas.addEventListener('pointermove', event => {
+    if (event.pointerId === activePointer) sendPointer(3, event); // VT_TOUCH_MOVE
+  });
+  canvas.addEventListener('pointerup', event => {
+    if (event.pointerId !== activePointer) return;
+    const rect = canvas.getBoundingClientRect();
+    const inside = event.clientX >= rect.left && event.clientX < rect.right &&
+      event.clientY >= rect.top && event.clientY < rect.bottom;
+    sendPointer(inside ? 2 : 4, event); // VT_TOUCH_UP / VT_TOUCH_CANCEL
+    activePointer = null;
+  });
+  canvas.addEventListener('pointercancel', event => {
+    if (event.pointerId !== activePointer) return;
+    sendPointer(4, event);
+    activePointer = null;
+  });
 })();
