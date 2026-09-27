@@ -6,6 +6,7 @@ import explore from '../views/explorePage.vue'
 import cultivate from '../views/cultivatePage.vue'
 import endlesstower from '../views/endlessPage.vue'
 import game from '../views/game/game.vue'
+import saveEditor from '../views/saveEditor.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
@@ -72,6 +73,12 @@ const routes = [
       keepAlive: false
     },
     component: game
+  },
+  {
+    path: '/save-editor',
+    name: 'saveEditor',
+    meta: { keepAlive: false },
+    component: saveEditor
   }
 ]
 const router = createRouter({

@@ -8,22 +8,6 @@
     return typeof atob === 'function' ? Uint8Array.from(atob(base64), c => c.charCodeAt(0)) : Uint8Array.from(Buffer.from(base64, 'base64'));
   }
   function bit(bits, offset, x, y) { return !!(bits[offset + y * 2 + (x >> 3)] & (128 >> (x & 7))); }
-  function tileEdges(bits, index) {
-    const offset = index * 32;
-    const band = (axis, from) => {
-      let ink = 0;
-      for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++)
-        if ((axis === 'x' ? x : y) >= from && (axis === 'x' ? x : y) < from + 3 && bit(bits, offset, x, y)) ink++;
-      return ink >= 18;
-    };
-    return { top: band('y', 0), bottom: band('y', 13), left: band('x', 0), right: band('x', 13) };
-  }
-  function unitKind(index) {
-    const shape = index % 16;
-    if ([4, 5, 8, 9, 12, 13].includes(shape)) return 'cavalry';
-    if ([2, 3, 10, 11].includes(shape)) return 'commander';
-    return [14, 15].includes(shape) ? 'archer' : 'infantry';
-  }
   function createTracker(source, width = 160, height = 96) {
     const terrain = bytes(source.terrain.bits), units = bytes(source.units.bits), weather = bytes(source.weather.bits);
     const screens = new Map();
@@ -133,122 +117,182 @@
     }
     return { event, visible, terrain, units };
   }
-  const api = { createTracker, tileEdges, unitKind };
+  const api = { createTracker };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (typeof window === 'undefined' || !data) return;
 
-  const tracker = createTracker(data), assets = {}, assetErrors = [];
-  const names = ['infantry', 'cavalry', 'archer', 'commander'];
-  const ready = Promise.all(names.map(name => new Promise(resolve => {
+  const tracker = createTracker(data);
+  let unitAtlas = null;
+  const ready = typeof Image === 'function' ? new Promise(resolve => {
     const image = new Image();
-    image.onload = () => { assets[name] = image; resolve(); };
-    image.onerror = () => { assetErrors.push(name); resolve(); };
-    image.src = `assets/hd/battle-${name}.png?v=20260927battle1`;
-  })));
-  function pebble(ctx, x, y, radius, shade) {
-    ctx.fillStyle = shade; ctx.beginPath(); ctx.ellipse(x, y, radius, radius * .44, -.25, 0, Math.PI * 2); ctx.fill();
+    image.onload = () => { unitAtlas = image; resolve(); };
+    image.onerror = () => resolve();
+    image.src = 'assets/hd/battle-woodcut-units.png?v=20260927woodcut1';
+  }) : Promise.resolve();
+  const trace = window.BayeVectorArt?.trace;
+  if (!trace) return;
+  function contours(bits, offset, inverse = false) {
+    const pixels = new Uint8Array(16 * 16);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++)
+      pixels[y * 16 + x] = +(bit(bits, offset, x, y) !== inverse);
+    return trace(pixels, 16, 16, 1);
   }
-  function stoneWall(ctx, side, seed) {
-    ctx.fillStyle = '#74756d'; ctx.strokeStyle = '#303129'; ctx.lineWidth = .22;
+  const terrainArt = Array.from({ length: data.terrain.count }, (_, i) => contours(tracker.terrain, i * 32));
+  const unitArt = Array.from({ length: data.units.count }, (_, i) => ({
+    clear: contours(tracker.units, i * 64, true),
+    ink: contours(tracker.units, i * 64 + 32)
+  }));
+  function roundedContour(ctx, points, radius) {
+    if (points.length < 3) return;
+    const count = points.length;
+    for (let i = 0; i < count; i++) {
+      const previous = points[(i + count - 1) % count], current = points[i], next = points[(i + 1) % count];
+      const before = Math.hypot(current[0] - previous[0], current[1] - previous[1]);
+      const after = Math.hypot(next[0] - current[0], next[1] - current[1]);
+      if (!before || !after) continue;
+      const start = Math.min(radius, before / 2), end = Math.min(radius, after / 2);
+      const ax = current[0] + (previous[0] - current[0]) * start / before;
+      const ay = current[1] + (previous[1] - current[1]) * start / before;
+      const bx = current[0] + (next[0] - current[0]) * end / after;
+      const by = current[1] + (next[1] - current[1]) * end / after;
+      if (i === 0) ctx.moveTo(ax, ay); else ctx.lineTo(ax, ay);
+      ctx.quadraticCurveTo(current[0], current[1], bx, by);
+    }
+    ctx.closePath();
+  }
+  function paintContours(ctx, paths, color, radius) {
+    ctx.fillStyle = color; ctx.beginPath();
+    for (const points of paths) roundedContour(ctx, points, radius);
+    ctx.fill('evenodd');
+  }
+  function wallEdges(index) {
+    const band = (axis, start) => {
+      let ink = 0;
+      for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++)
+        if ((axis === 'x' ? x : y) >= start && (axis === 'x' ? x : y) < start + 3 &&
+            bit(tracker.terrain, index * 32, x, y)) ink++;
+      return ink >= 18;
+    };
+    return { top: band('y', 0), bottom: band('y', 13), left: band('x', 0), right: band('x', 13) };
+  }
+  function wallBand(ctx, side, seed) {
     const horizontal = side === 'top' || side === 'bottom';
-    const offset = side === 'bottom' || side === 'right' ? 12.2 : 0;
-    ctx.fillRect(horizontal ? 0 : offset, horizontal ? offset : 0, horizontal ? 16 : 3.8, horizontal ? 3.8 : 16);
-    ctx.strokeRect(horizontal ? 0 : offset, horizontal ? offset : 0, horizontal ? 16 : 3.8, horizontal ? 3.8 : 16);
-    ctx.strokeStyle = '#d5d5c9'; ctx.lineWidth = .32;
+    const offset = side === 'bottom' || side === 'right' ? 13 : .35;
+    ctx.strokeStyle = '#000'; ctx.lineWidth = .26;
+    ctx.fillStyle = '#000';
     if (horizontal) {
-      ctx.beginPath(); ctx.moveTo(0, offset + 1.1); ctx.lineTo(16, offset + 1.1);
-      ctx.moveTo(0, offset + 2.75); ctx.lineTo(16, offset + 2.75); ctx.stroke();
-      for (let i = 0; i < 6; i++) {
-        const x = i * 3 + (seed % 2 ? .6 : 0);
-        ctx.strokeStyle = '#303129'; ctx.beginPath(); ctx.moveTo(x, offset + (i % 2 ? 1.1 : 0));
-        ctx.lineTo(x, offset + (i % 2 ? 2.75 : 1.1)); ctx.stroke();
+      ctx.strokeRect(.25, offset, 15.5, 2.6);
+      for (let i = 0; i < 8; i++) {
+        const x = i * 2 + ((seed & 1) ? .4 : 0);
+        ctx.fillRect(x, offset + (i % 2 ? 1.35 : .2), 1.1, .92);
+        if (i % 2 === 0) ctx.fillRect(x + .3, offset - .45, 1.15, .65);
       }
+      ctx.beginPath(); ctx.moveTo(0, offset + 2.2); ctx.lineTo(16, offset + 2.2); ctx.stroke();
     } else {
-      ctx.beginPath(); ctx.moveTo(offset + 1.1, 0); ctx.lineTo(offset + 1.1, 16);
-      ctx.moveTo(offset + 2.75, 0); ctx.lineTo(offset + 2.75, 16); ctx.stroke();
-      for (let i = 0; i < 6; i++) {
-        const y = i * 3 + (seed % 2 ? .6 : 0);
-        ctx.strokeStyle = '#303129'; ctx.beginPath(); ctx.moveTo(offset + (i % 2 ? 1.1 : 0), y);
-        ctx.lineTo(offset + (i % 2 ? 2.75 : 1.1), y); ctx.stroke();
+      ctx.strokeRect(offset, .25, 2.6, 15.5);
+      for (let i = 0; i < 8; i++) {
+        const y = i * 2 + ((seed & 1) ? .4 : 0);
+        ctx.fillRect(offset + (i % 2 ? 1.35 : .2), y, .92, 1.1);
+        if (i % 2 === 0) ctx.fillRect(offset - .45, y + .3, .65, 1.15);
       }
+      ctx.beginPath(); ctx.moveTo(offset + 2.2, 0); ctx.lineTo(offset + 2.2, 16); ctx.stroke();
+    }
+  }
+  function tower(ctx, x, y) {
+    ctx.fillStyle = '#fff'; ctx.strokeStyle = '#000'; ctx.lineWidth = .43;
+    ctx.fillRect(x, y, 4.4, 4.4); ctx.strokeRect(x, y, 4.4, 4.4);
+    ctx.fillStyle = '#000'; ctx.fillRect(x + .9, y + .85, 2.6, 2.6);
+    ctx.fillStyle = '#fff'; ctx.fillRect(x + 1.5, y + 1.45, 1.4, 1.4);
+    for (let i = 0; i < 3; i++) ctx.fillRect(x + .4 + i * 1.5, y - .45, .65, .7);
+  }
+  function gatehouse(ctx) {
+    ctx.fillStyle = '#fff'; ctx.strokeStyle = '#000'; ctx.lineWidth = .48;
+    ctx.fillRect(3.3, 5.6, 9.4, 8.5); ctx.strokeRect(3.3, 5.6, 9.4, 8.5);
+    ctx.fillStyle = '#000'; ctx.beginPath();
+    ctx.moveTo(1.8, 6); ctx.quadraticCurveTo(4, 5.4, 5.1, 2.2);
+    ctx.lineTo(10.9, 2.2); ctx.quadraticCurveTo(12, 5.4, 14.2, 6);
+    ctx.quadraticCurveTo(12.4, 7.1, 10.7, 5.4); ctx.lineTo(5.3, 5.4);
+    ctx.quadraticCurveTo(3.6, 7.1, 1.8, 6); ctx.fill();
+    ctx.fillRect(6.35, 8.5, 3.3, 5.6);
+    ctx.fillStyle = '#fff'; ctx.fillRect(7.05, 9.2, 1.9, 4.9);
+    ctx.strokeStyle = '#000'; ctx.lineWidth = .2;
+    for (let x = 5.4; x <= 10.6; x += 1.3) {
+      ctx.beginPath(); ctx.moveTo(x, 2.65); ctx.lineTo(x + .5, 5.15); ctx.stroke();
+    }
+  }
+  function groundHatching(ctx, seed, count) {
+    ctx.strokeStyle = '#000'; ctx.lineWidth = .16;
+    for (let i = 0; i < count; i++) {
+      const x = 2 + ((seed + i * 53) % 91) / 8;
+      const y = 3 + ((seed * 3 + i * 37) % 81) / 8;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + .65, y - .18); ctx.stroke();
+      if (i === 0) {
+        ctx.beginPath(); ctx.moveTo(x + 1.7, y + 1.1);
+        ctx.lineTo(x + 1.45, y + .42); ctx.moveTo(x + 1.7, y + 1.1);
+        ctx.lineTo(x + 2.05, y + .5); ctx.stroke();
+      }
+    }
+  }
+  function grove(ctx) {
+    const trees = [[3.1, 10.5, 2.35], [7.7, 8.9, 2.7], [12.4, 10.9, 2.15]];
+    ctx.strokeStyle = '#000'; ctx.lineWidth = .34;
+    for (const [x, y, radius] of trees) {
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + radius + 2.1); ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.beginPath();
+      ctx.moveTo(x - radius, y + .1);
+      ctx.quadraticCurveTo(x - radius * 1.18, y - radius * .65, x - radius * .67, y - radius * .82);
+      ctx.quadraticCurveTo(x - radius * .72, y - radius * 1.5, x - radius * .12, y - radius * 1.45);
+      ctx.quadraticCurveTo(x + radius * .45, y - radius * 1.72, x + radius * .58, y - radius * 1.1);
+      ctx.quadraticCurveTo(x + radius * 1.17, y - radius * .95, x + radius, y - radius * .35);
+      ctx.quadraticCurveTo(x + radius * 1.27, y + radius * .3, x + radius * .55, y + radius * .34);
+      ctx.quadraticCurveTo(x, y + radius * .65, x - radius, y + .1);
+      ctx.fill(); ctx.stroke();
+      ctx.lineWidth = .18;
+      for (let i = 0; i < 7; i++) {
+        const hx = x - radius * .8 + i * radius * .25;
+        const hy = y - radius * (i % 2 ? .55 : .95);
+        ctx.beginPath(); ctx.moveTo(hx, hy);
+        ctx.lineTo(hx + .55, hy - .32); ctx.stroke();
+      }
+      ctx.lineWidth = .34;
     }
   }
   function tile(ctx, r, scale) {
     ctx.save(); ctx.translate(r.x * scale, r.y * scale); ctx.scale(scale, scale);
-    const index = r.index, seed = (r.x * 73 + r.y * 131 + index * 17) >>> 0;
-    ctx.fillStyle = '#f8f8f3'; ctx.fillRect(0, 0, 16, 16);
-    if (index === 0) {
-      ctx.strokeStyle = '#34352d'; ctx.lineWidth = .65; ctx.strokeRect(.35, .35, 15.3, 15.3);
-    } else if (index >= 16) {
-      ctx.fillStyle = '#efefe7'; ctx.fillRect(0, 0, 16, 16);
-      for (let i = 0; i < 10; i++) {
-        const x = ((seed + i * 47) % 127) / 8, y = ((seed * 3 + i * 31) % 127) / 8;
-        pebble(ctx, x, y, .5 + (i % 3) * .1, i % 2 ? '#aaaba2' : '#c2c3b8');
-      }
-      const edges = tileEdges(tracker.terrain, index);
-      for (const side of ['top', 'bottom', 'left', 'right']) if (edges[side]) stoneWall(ctx, side, seed);
-      if (index === 41) {
-        ctx.fillStyle = '#74756d'; ctx.beginPath(); ctx.arc(8, 8, 5.5, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = '#292a25'; ctx.lineWidth = .6; ctx.stroke();
-        ctx.fillStyle = '#e1e1d6'; ctx.beginPath(); ctx.arc(8, 8, 3.8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = '#4b4c43'; for (let i = 0; i < 8; i++) {
-          const a = i * Math.PI / 4; ctx.fillRect(7.5 + 4.6 * Math.cos(a), 7.5 + 4.6 * Math.sin(a), 1, 1);
-        }
-      }
-    } else if (index === 2 || index === 5) {
-      for (let i = 0; i < 4; i++) {
-        const x = 2 + (i * 5 + seed) % 12, y = 4 + (i * 7 + seed) % 10;
-        ctx.strokeStyle = '#30372c'; ctx.fillStyle = '#596450'; ctx.lineWidth = .28;
-        ctx.beginPath(); ctx.moveTo(x, y - 3.5);
-        ctx.quadraticCurveTo(x - .8, y - 1.8, x - 1.4, y - 1.4);
-        ctx.lineTo(x - .75, y - 1.4); ctx.lineTo(x - 2.3, y + .5);
-        ctx.lineTo(x - 1.25, y + .15); ctx.lineTo(x - 2.6, y + 2);
-        ctx.quadraticCurveTo(x, y + 1.1, x + 2.6, y + 2);
-        ctx.lineTo(x + 1.25, y + .15); ctx.lineTo(x + 2.3, y + .5);
-        ctx.lineTo(x + .75, y - 1.4); ctx.lineTo(x + 1.4, y - 1.4);
-        ctx.quadraticCurveTo(x + .8, y - 1.8, x, y - 3.5); ctx.fill(); ctx.stroke();
-        ctx.strokeStyle = '#d9ddd0'; ctx.beginPath(); ctx.moveTo(x - .3, y - 2.2);
-        ctx.lineTo(x - 1.2, y + .8); ctx.moveTo(x + .15, y - 1.1);
-        ctx.lineTo(x + 1, y + 1.2); ctx.stroke();
-        ctx.strokeStyle = '#30372c'; ctx.beginPath(); ctx.moveTo(x, y + 1.5);
-        ctx.lineTo(x, y + 3); ctx.stroke();
-      }
-    } else if (index === 3 || index === 4) {
-      ctx.fillStyle = '#79796d'; ctx.fillRect(3, 4, 10, 10);
-      ctx.strokeStyle = '#2e3029'; ctx.lineWidth = .5; ctx.strokeRect(3, 4, 10, 10);
-      ctx.fillStyle = '#34352d'; ctx.beginPath(); ctx.moveTo(1.5, 5); ctx.lineTo(8, 1); ctx.lineTo(14.5, 5); ctx.closePath(); ctx.fill();
-      ctx.fillStyle = '#e7e7dc'; ctx.fillRect(6.1, 9, 3.8, 5);
-    } else if (index >= 6 && index <= 10) {
-      ctx.fillStyle = '#a0a298'; ctx.strokeStyle = '#50534a'; ctx.lineWidth = .5;
-      ctx.beginPath(); ctx.moveTo(0, 14); ctx.lineTo(5, 5); ctx.lineTo(8, 9); ctx.lineTo(12, 3); ctx.lineTo(16, 14); ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.strokeStyle = '#e5e5db'; ctx.beginPath(); ctx.moveTo(5, 5); ctx.lineTo(4, 9); ctx.moveTo(12, 3); ctx.lineTo(10.5, 8); ctx.stroke();
-    } else if (index >= 11 && index <= 15) {
-      ctx.strokeStyle = '#9a9a8e'; ctx.lineWidth = 2.1; ctx.beginPath();
-      ctx.moveTo(index % 2 ? 0 : 16, 2); ctx.quadraticCurveTo(8, 8, index % 2 ? 16 : 0, 14); ctx.stroke();
-      ctx.strokeStyle = '#4e5147'; ctx.lineWidth = .38; ctx.stroke();
-    }
-    if (index < 16) for (let i = 0; i < 4; i++) {
-      const x = ((seed + i * 41) % 123) / 8, y = ((seed * 5 + i * 29) % 123) / 8;
-      pebble(ctx, x, y, .34, '#a9ab9d');
-    }
-    if (index < 16) for (let i = 0; i < 3; i++) {
-      const x = 1.5 + ((seed * 7 + i * 43) % 102) / 8;
-      const y = 1.8 + ((seed * 11 + i * 67) % 100) / 8;
-      ctx.strokeStyle = i === 0 ? '#a3aa90' : '#b3b8a0'; ctx.lineWidth = .2;
-      ctx.beginPath(); ctx.moveTo(x, y + .9); ctx.quadraticCurveTo(x - .7, y + .3, x - .9, y - .2);
-      ctx.moveTo(x, y + .9); ctx.quadraticCurveTo(x + .4, y + .15, x + .8, y - .5); ctx.stroke();
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 16, 16);
+    if (r.index < 16 && r.index !== 5) paintContours(ctx, terrainArt[r.index], '#000', .22);
+    const seed = (r.x * 73 + r.y * 131 + r.index * 17) >>> 0;
+    if (r.index === 1) groundHatching(ctx, seed, 2);
+    if (r.index === 5) grove(ctx);
+    if (r.index >= 16) {
+      groundHatching(ctx, seed, 2);
+      const edges = wallEdges(r.index);
+      for (const side of ['top', 'bottom', 'left', 'right']) if (edges[side]) wallBand(ctx, side, seed);
+      if (edges.top && edges.left) tower(ctx, 0, 0);
+      if (edges.top && edges.right) tower(ctx, 11.6, 0);
+      if (edges.bottom && edges.left) tower(ctx, 0, 11.6);
+      if (edges.bottom && edges.right) tower(ctx, 11.6, 11.6);
+      if (r.index === 41) gatehouse(ctx);
     }
     ctx.restore();
   }
   function soldier(ctx, r, scale) {
-    const image = assets[unitKind(r.index)]; if (!image) return false;
+    if (unitAtlas) {
+      const slots = [0, 1, 5, 2, 0, 6, 5, 3];
+      const slot = slots[Math.floor((r.index % 16) / 2)];
+      ctx.save(); ctx.translate(r.x * scale, r.y * scale); ctx.scale(scale, scale);
+      if (r.index & 1) { ctx.translate(16, 0); ctx.scale(-1, 1); }
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.filter = 'grayscale(1) contrast(3)';
+      ctx.drawImage(unitAtlas, (slot % 4) * 384, Math.floor(slot / 4) * 512, 384, 512, 0, 0, 16, 16);
+      ctx.restore();
+      return;
+    }
+    const art = unitArt[r.index];
     ctx.save(); ctx.translate(r.x * scale, r.y * scale); ctx.scale(scale, scale);
-    ctx.fillStyle = '#e8e8df'; ctx.strokeStyle = '#262820'; ctx.lineWidth = .47;
-    ctx.beginPath(); ctx.ellipse(8, 8.7, 6.4, 5.6, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#777a6b'; ctx.beginPath(); ctx.ellipse(8, 12.2, 5.1, .8, 0, 0, Math.PI * 2); ctx.fill();
-    if (r.index % 2) { ctx.translate(16, 0); ctx.scale(-1, 1); }
-    ctx.drawImage(image, 1.15, .35, 13.7, 14.7);
-    ctx.restore(); return true;
+    paintContours(ctx, art.clear, '#fff', .28);
+    paintContours(ctx, art.ink, '#000', .3);
+    ctx.restore();
   }
   function helpIcon(ctx, scale) {
     ctx.save(); ctx.scale(scale, scale);
@@ -287,7 +331,7 @@
   }
   function paint(ctx, rgba, scale) {
     const frame = tracker.visible(rgba);
-    if (!frame.active) return { count: 0, troops: 0, recordedTiles: frame.recordedTiles, recordedTroops: frame.recordedTroops, acceptedTiles: frame.acceptedTiles, fort: frame.fort, assetErrors: assetErrors.slice() };
+    if (!frame.active) return { count: 0, troops: 0, recordedTiles: frame.recordedTiles, recordedTroops: frame.recordedTroops, acceptedTiles: frame.acceptedTiles, fort: frame.fort };
     ctx.save(); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
     ctx.beginPath();
     for (let y = 0; y < frame.height; y++) {
@@ -300,12 +344,11 @@
     }
     ctx.clip();
     for (const r of frame.tiles) tile(ctx, r, scale);
-    let troops = 0;
-    for (const r of frame.troops) if (soldier(ctx, r, scale)) troops++;
+    for (const r of frame.troops) soldier(ctx, r, scale);
     ctx.restore();
     for (const r of frame.icons) weatherIcon(ctx, r, scale);
     helpIcon(ctx, scale);
-    return { count: frame.tiles.length, fort: frame.fort, troops, weather: frame.icons.map(r => r.index), recordedTiles: frame.recordedTiles, recordedTroops: frame.recordedTroops, acceptedTiles: frame.acceptedTiles, assetErrors: assetErrors.slice() };
+    return { count: frame.tiles.length, fort: frame.fort, troops: frame.troops.length, weather: frame.icons.map(r => r.index), recordedTiles: frame.recordedTiles, recordedTroops: frame.recordedTroops, acceptedTiles: frame.acceptedTiles };
   }
   window.BayeBattleArt = { ...api, event: tracker.event, paint, ready };
 })();

@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
-const { createTracker, unitKind } = require('./battle-art.js');
+const { createTracker } = require('./battle-art.js');
 
 const context = { window: {} };
 vm.runInNewContext(fs.readFileSync(require.resolve('./assets/battle-art-data.js'), 'utf8'), context);
@@ -49,5 +49,48 @@ test('open field and fort tiles remain identifiable after unit compositing and m
   assert.ok(frame.fort >= 6);
   assert.equal(frame.tiles.length, 50);
   assert.equal(frame.troops.length, 6, 'old units under newly drawn terrain are removed');
-  assert.equal(unitKind(28), 'cavalry');
+});
+
+test('battle painter retains original vector silhouettes when the woodcut atlas is unavailable', () => {
+  const runtime = { window: { BayeBattleData: source, BayeVectorArt: require('./vector-art.js') }, Buffer };
+  vm.runInNewContext(fs.readFileSync(require.resolve('./battle-art.js'), 'utf8'), runtime);
+  const art = runtime.window.BayeBattleArt;
+  rgba.fill(255);
+  for (let y = 0; y < 80; y += 16) for (let x = 0; x < 160; x += 16)
+    draw(art, 4, x >= 48 && x <= 96 && y >= 16 && y <= 48 ? 16 : 1, x, y);
+  draw(art, 5, 28, 64, 32);
+  let curves = 0;
+  const ctx = new Proxy({
+    quadraticCurveTo() { curves++; },
+    drawImage() { throw Error('fallback must use original vector shapes'); }
+  }, { get(target, key) { return target[key] ?? (() => {}); } });
+  const result = art.paint(ctx, rgba, 5);
+  assert.equal(result.count, 50);
+  assert.equal(result.troops, 1);
+  assert.ok(curves > 0);
+});
+
+test('approved woodcut units render at the original 16 by 16 battle coordinates', () => {
+  class TestImage {
+    constructor() { this.width = 1536; this.height = 1024; }
+    set src(value) { this.path = value; this.onload(); }
+  }
+  const runtime = { window: { BayeBattleData: source, BayeVectorArt: require('./vector-art.js') }, Buffer, Image: TestImage };
+  vm.runInNewContext(fs.readFileSync(require.resolve('./battle-art.js'), 'utf8'), runtime);
+  const art = runtime.window.BayeBattleArt;
+  rgba.fill(255);
+  for (let y = 0; y < 80; y += 16) for (let x = 0; x < 160; x += 16) draw(art, 4, 1, x, y);
+  draw(art, 5, 28, 64, 32);
+  draw(art, 5, 28, 80, 32);
+  const images = [];
+  const ctx = new Proxy({ drawImage(...args) { images.push(args); } },
+    { get(target, key) { return target[key] ?? (() => {}); } });
+  const result = art.paint(ctx, rgba, 5);
+  assert.equal(result.count, 50);
+  assert.equal(result.troops, 2);
+  assert.equal(images.length, 2);
+  assert.match(images[0][0].path, /battle-woodcut-units\.png/);
+  assert.equal(images[0][7], 16);
+  assert.equal(images[0][8], 16);
+  assert.ok(fs.statSync(require.resolve('./assets/hd/battle-woodcut-units.png')).size > 100_000);
 });

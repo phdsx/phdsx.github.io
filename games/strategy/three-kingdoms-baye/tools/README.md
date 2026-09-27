@@ -14,7 +14,7 @@
 
 地图显示元数据可在游戏目录中重复提取：`node tools/build-map-art.cjs`。
 
-战场由 `battle-art.js` 按原版 16 × 16 地形格与单位绘制通知重画。城墙、道路、山林和兵种保持原坐标；步兵、骑兵、弓兵与主将使用独立高清图像，天气与底部问号使用清晰矢量图标。每格先核对原始最终帧，文字、选择框或其他覆盖内容仍显示原图。元数据可用 `node tools/build-battle-art.cjs` 从原版词典资源重新生成；`battle-art.test.cjs` 检查野战、城池攻防及地图重画后的旧单位清除。
+战场由 `battle-art.js` 按原版 16 × 16 地形格与单位绘制通知重画。2026-09-27 批准的第二张墨线样稿保存在 `assets/hd/battle-woodcut-reference.png`：城墙从原图棋盘纹及边缘数据绘出城垛、角楼和门楼，地面只加细小墨线草纹；人物使用同风格八格黑白图集 `assets/hd/battle-woodcut-units.png`，按原版单位的绘制位置、左右朝向与八组形态分类呈现，图片未加载时回退原图矢量轮廓。天气与底部问号使用清晰矢量图标。每格先核对原始最终帧，文字、选择框或其他覆盖内容仍显示原图。元数据可用 `node tools/build-battle-art.cjs` 从原版词典资源重新生成；`battle-art.test.cjs` 检查野战、城池攻防及地图重画后的旧单位清除。
 
 头像图集注册在 `assets/hd/general-portraits.json`，按原剧本、人物索引及原始位图指纹匹配。同一位图跨剧本共用重绘图，不同位图不混用。人物页和结果弹窗沿用同一映射。`tools/portrait-batch-plan.json` 保存全量补图清单，`assets/hd/portrait-batch-prompts.json` 保存内置 image_gen 的提示词。注册表的 `complete: true` 会强制构建器检查全部 800 个资源条目无遗漏且图集存在。
 

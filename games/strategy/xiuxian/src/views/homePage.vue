@@ -958,12 +958,13 @@
       <div class="dialog-footer">
         <el-divider>存档相关</el-divider>
         <el-button type="info" class="dialog-footer-button" @click="exportData">导出存档</el-button>
+        <el-button type="primary" class="dialog-footer-button" @click="show = false; router.push('/save-editor')">编辑存档</el-button>
         <el-upload
           action="#"
           class="dialog-upload"
           :http-request="importData"
           :show-file-list="false"
-          accept="application/json"
+          accept=".json,application/json"
         >
           <el-button type="warning" class="dialog-footer-button">导入存档</el-button>
         </el-upload>
@@ -981,8 +982,7 @@
         <el-button type="warning" class="dialog-footer-button" @click="deleteScriptData">删除脚本</el-button>
         <el-divider>其他相关</el-divider>
         <el-button class="dialog-footer-button" @click="sellingEquipmentBox">批量处理</el-button>
-        <el-button type="primary" class="dialog-footer-button" @click="copyContent('qq')">官方群聊</el-button>
-        <el-button type="success" class="dialog-footer-button" @click="copyContent('url')">开源地址</el-button>
+        <el-button type="success" class="dialog-footer-button" @click="copyContent">开源地址</el-button>
         <el-divider>当前版本为: {{ ver }}</el-divider>
       </div>
     </el-dialog>
@@ -1121,6 +1121,7 @@
   import equipTooltip from '@/components/equipTooltip.vue'
   import { ElMessageBox } from 'element-plus'
   import { useMainStore } from '@/plugins/store'
+  import { decodeSave } from '@/plugins/save-codec'
   import {
     maxLv,
     dropdownType,
@@ -1386,7 +1387,7 @@
             errBox.value = true
             gameNotifys({
               title: '脚本导入失败',
-              message: '复制错误信息到QQ群内'
+              message: '请检查脚本内容或从备份恢复存档'
             })
           }
         }
@@ -1437,7 +1438,7 @@
 
   // 重置
   const reset = () => {
-    storyText.value = '属性出错, 请添加QQ群:920930589, 上传"存档"并联系作者解决'
+    storyText.value = '属性出错，请先导出存档备份，再检查属性或从备份恢复。'
     ElMessageBox.confirm('你是否要导出存档?', '存档导出提示', {
       center: true,
       confirmButtonText: '确定'
@@ -1578,16 +1579,18 @@
     const reader = new FileReader()
     reader.onload = e => {
       try {
+        const contents = e.target.result
+        decodeSave(contents)
         // 导入存档
-        localStorage.setItem('vuex', e.target.result)
+        localStorage.setItem('vuex', contents)
         // 刷新页面
         location.reload(1)
       } catch (err) {
-        err.value = err
+        err.value = err.message || String(err)
         errBox.value = true
         gameNotifys({
-          title: '脚本导入失败',
-          message: '复制错误信息到QQ群内'
+          title: '存档导入失败',
+          message: '请检查文件内容或从备份恢复存档'
         })
       }
     }
@@ -2407,9 +2410,9 @@
     // return percentage < 0 ? 100 : 100 - percentage;
     return `${num3.toFixed(2)}%`
   }
-  const copyContent = type => {
-    const content = type == 'qq' ? '920930589' : 'https://github.com/setube/vue-XiuXianGame'
-    ElMessageBox.prompt('', type == 'qq' ? '官方群聊' : '开源地址', {
+  const copyContent = () => {
+    const content = 'https://github.com/setube/vue-XiuXianGame'
+    ElMessageBox.prompt('', '开源地址', {
       inputValue: content,
       showCancelButton: false,
       confirmButtonText: '复制',

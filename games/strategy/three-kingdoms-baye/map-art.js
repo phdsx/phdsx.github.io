@@ -131,7 +131,7 @@
       img.src = `assets/hd/${name}?v=20260926remaster1`;
     });
   }
-  const ready = Promise.all([load('world', 'world-terrain.png'), load('city', 'city-gatehouse.png'),
+  const ready = Promise.all([load('world', 'world-terrain.png'),
     ...data.portraitSheets.map(sheet => load(sheet.file, sheet.file))]);
   function clipMask(ctx, visible, accept, scale) {
     ctx.beginPath();
@@ -160,7 +160,26 @@
     ctx.fillText(label, (x + 4) * s, (top + height / 2) * s, (width - .5) * s);
   }
   function citySprite(ctx, x, y, w, h, scale) {
-    ctx.drawImage(assets.city, 119, 190, 1014, 885, x * scale, y * scale, w * scale, h * scale);
+    ctx.save(); ctx.translate(x * scale, y * scale); ctx.scale(w * scale / 8, h * scale / 8);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 8, 8);
+    ctx.fillStyle = '#000'; ctx.strokeStyle = '#000'; ctx.lineWidth = .23;
+    ctx.fillRect(.4, 3.1, 7.2, .5);
+    ctx.strokeRect(.55, 3.6, 6.9, 3.8);
+    for (let i = 0; i < 5; i++) ctx.fillRect(.7 + i * 1.38, 2.65, .72, .75);
+    for (let i = 0; i < 6; i++) ctx.fillRect(.9 + i * 1.05, 4.1 + i % 2 * .8, .6, .32);
+    ctx.fillRect(3.15, 5.1, 1.7, 2.3);
+    ctx.fillStyle = '#fff'; ctx.fillRect(3.55, 5.6, .9, 1.8);
+    ctx.fillStyle = '#000'; ctx.beginPath();
+    ctx.moveTo(1.45, 2.65); ctx.quadraticCurveTo(2.4, 2.25, 2.7, .9);
+    ctx.lineTo(5.3, .9); ctx.quadraticCurveTo(5.6, 2.25, 6.55, 2.65);
+    ctx.quadraticCurveTo(5.7, 3.15, 5.1, 2.3); ctx.lineTo(2.9, 2.3);
+    ctx.quadraticCurveTo(2.3, 3.15, 1.45, 2.65); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = .12;
+    for (let i = 0; i < 4; i++) {
+      ctx.beginPath(); ctx.moveTo(2.8 + i * .8, 1.2);
+      ctx.lineTo(2.6 + i * .8, 2.25); ctx.stroke();
+    }
+    ctx.restore();
   }
   function paint(ctx, rgba, scale) {
     const visible = tracker.visible(rgba), tiles = visible.records.filter(r => r.resource === 54 && r.map);
@@ -187,7 +206,7 @@
     }
     for (const r of visible.records) {
       const portrait = portraitSource(data, r.resource, r.index), atlas = portrait ? assets[portrait.file] : null;
-      if (r.resource === 55 && assets.city && r.city) {
+      if (r.resource === 55 && r.city) {
         ctx.save(); clipMask(ctx, visible, id => id === r.id, scale);
         ctx.fillStyle = '#fff'; ctx.fillRect(r.x * scale, r.y * scale, r.w * scale, r.h * scale);
         citySprite(ctx, r.x, r.y, r.w, r.h, scale); ctx.restore();

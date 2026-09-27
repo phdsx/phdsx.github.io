@@ -132,7 +132,7 @@ function createSandPatterns(ctx) {
 }
 
 function layerProfile(xRatio, top, thickness, seed, mound) {
-  const slope = (noise(seed + 1) - 0.5) * Math.min(7, thickness * 0.35);
+  const slope = (noise(seed + 1) > 0.5 ? 1 : -1) * Math.min(9, thickness * 0.34);
   const crest = mound * Math.exp(-(((xRatio - 0.5) / 0.31) ** 2));
   const ripple = (Math.sin(xRatio * 19 + seed) + Math.sin(xRatio * 39 + seed * 0.4) * 0.5) * 0.36;
   return top + slope * (xRatio - 0.5) - crest + ripple;
