@@ -76,6 +76,8 @@
   }
   function match(){
     const n=8,colors=['#ed275d','#35bfff','#ffc92f','#62db24','#ac53e8','#ff8a22'],size=67,x0=212,y0=54;
+    const gemImage=slug==='match'&&typeof Image==='function'?new Image():null;
+    if(gemImage)gemImage.src='../../classic/match-gems-atlas.png';
     const copy=board=>board.map(row=>row.slice());
     const find=board=>{const out=new Set();for(let y=0;y<n;y++)for(let x=0;x<n;x++){const c=board[y][x];if(c<0)continue;if(x<=n-3&&c===board[y][x+1]&&c===board[y][x+2]){let k=x;while(k<n&&board[y][k]===c)out.add(`${k++},${y}`)}if(y<=n-3&&c===board[y+1][x]&&c===board[y+2][x]){let k=y;while(k<n&&board[k][x]===c)out.add(`${x},${k++}`)}}return out};
     function fall(board){

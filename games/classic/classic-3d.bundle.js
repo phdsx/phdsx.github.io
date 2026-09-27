@@ -53044,7 +53044,7 @@ if ( typeof window !== 'undefined' ) {
 
 }
 
-const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color, ConeGeometry, CylinderGeometry, DirectionalLight, DoubleSide, Float32BufferAttribute, Mesh, MeshPhysicalMaterial, MeshStandardMaterial, OrthographicCamera, SRGBColorSpace, Scene, SphereGeometry, Sprite, SpriteMaterial, TorusGeometry, WebGLRenderer };
+const THREE = { AmbientLight, BoxGeometry, CanvasTexture, Color, ConeGeometry, CylinderGeometry, DirectionalLight, DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, OrthographicCamera, PlaneGeometry, SRGBColorSpace, Scene, SphereGeometry, Sprite, SpriteMaterial, TextureLoader, TorusGeometry, WebGLRenderer };
 
 
 // The game rules and hit targets remain in classic.js. This layer renders the
@@ -53081,58 +53081,26 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
   jewelLight.position.set(4, 7, 18);
   scene.add(jewelLight);
 
-  // Each stone has a crown, table, girdle and pavilion. Separate triangular
-  // facets keep their hard edges under lighting and carry slight color shifts.
-  function jewelOutline(type) {
-    if (type === 2) return [[-.3,.48],[.3,.48],[.43,.34],[.43,-.34],[.3,-.48],[-.3,-.48],[-.43,-.34],[-.43,.34]].reverse();
-    const count = type === 0 ? 12 : 16, outline=[];
-    for (let i=0;i<count;i++) {
-      const angle=i*Math.PI*2/count, sine=Math.sin(angle), cosine=Math.cos(angle);
-      let x,y;
-      if (type === 0) {
-        x=Math.sign(sine)*Math.pow(Math.abs(sine),.72)*.46;
-        y=Math.sign(cosine)*Math.pow(Math.abs(cosine),.72)*.46;
-      } else if (type === 3) {
-        x=sine*(.32+.13*(1-cosine)/2);y=cosine*.48;
-      } else if (type === 4) {
-        x=sine*.38;y=cosine*.48;
-      } else if (type === 5) {
-        x=Math.sign(sine)*Math.pow(Math.abs(sine),1.35)*.44;y=cosine*.48;
-      } else {
-        x=sine*.47;y=cosine*.47;
-      }
-      outline.push([x,y]);
-    }
-    return outline.reverse();
+  // Preserve the approved jewelry rendering in an alpha atlas.
+  let gemAtlas;
+  function ensureGemAtlas() {
+    if (gemAtlas) return;
+    gemAtlas = new THREE.TextureLoader().load('../../classic/match-gems-atlas.png', undefined, undefined, error => {
+      console.warn('Gem atlas unavailable; returning to the Canvas game view.', error);
+      renderer.domElement.remove();
+      delete window.PHDSXClassic3D;
+    });
+    gemAtlas.colorSpace = THREE.SRGBColorSpace;
   }
-  function jewelGeometry(type) {
-    const outline=jewelOutline(type), positions=[], tints=[], count=outline.length;
-    const emit=(a,b,c,light)=>{
-      positions.push(...a,...b,...c);
-      for(let i=0;i<3;i++)tints.push(light,light,light);
-    };
-    const point=(index,scale,z)=>[outline[index][0]*scale,outline[index][1]*scale,z];
-    const table=type===2?.59:.46;
-    for(let i=0;i<count;i++){
-      const j=(i+1)%count,bright=.76+(i%4)*.07;
-      emit(point(i,1,.02),point(j,1,.02),point(j,.75,.24),bright*.8);
-      emit(point(i,1,.02),point(j,.75,.24),point(i,.75,.24),bright);
-      emit(point(i,.75,.24),point(j,.75,.24),point(j,table,.34),.77+(i%3)*.09);
-      emit(point(i,.75,.24),point(j,table,.34),point(i,table,.34),.9+(i%2)*.08);
-      emit([0,0,.35],point(i,table,.34),point(j,table,.34),type===2?.96:.81+(i%4)*.06);
-      emit(point(j,1,.02),point(i,1,.02),point(i,1,-.1),.55+(i%3)*.08);
-      emit(point(j,1,.02),point(i,1,-.1),point(j,1,-.1),.6+(i%3)*.07);
-      emit(point(i,1,-.1),point(j,1,-.1),point(j,.5,-.29),.48+(i%4)*.07);
-      emit(point(i,1,-.1),point(j,.5,-.29),point(i,.5,-.29),.57+(i%3)*.07);
-      emit(point(i,.5,-.29),point(j,.5,-.29),[0,0,-.42],.4+(i%5)*.05);
+  function jewelPlane(type) {
+    const geometry=new THREE.PlaneGeometry(1,1),uv=geometry.attributes.uv;
+    const col=type%3,row=Math.floor(type/3);
+    for(let i=0;i<uv.count;i++){
+      const u=uv.getX(i),v=uv.getY(i);
+      uv.setXY(i,(col*512+2+u*508)/1536,((1-row)*512+2+v*508)/1024);
     }
-    const geometry=new THREE.BufferGeometry();
-    geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
-    geometry.setAttribute('color',new THREE.Float32BufferAttribute(tints,3));
-    geometry.computeVertexNormals();
     return geometry;
   }
-
   const geo = {
     box: new THREE.BoxGeometry(1, 1, 1),
     ball: new THREE.SphereGeometry(1, 18, 12),
@@ -53140,7 +53108,7 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
     cylinder: new THREE.CylinderGeometry(.5, .5, 1, 12),
     torus: new THREE.TorusGeometry(.5, .07, 8, 24),
   };
-  for(let i=0;i<6;i++)geo[`jewel${i}`]=jewelGeometry(i);
+  for(let i=0;i<6;i++)geo[`jewel${i}`]=jewelPlane(i);
   const meshes = [], jewels = [], sprites = [], textTextures = new Map();
   let meshIndex = 0, jewelIndex = 0, spriteIndex = 0;
   const ux = x => (x - 480) / 40, uy = y => (320 - y) / 40;
@@ -53157,7 +53125,7 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
     let object=pool[isJewel?jewelIndex++:meshIndex++];
     if (!object) {
       object = new THREE.Mesh(geo[kind], isJewel
-        ? new THREE.MeshPhysicalMaterial({vertexColors:true,flatShading:true,roughness:.07,metalness:.05,clearcoat:1,clearcoatRoughness:.04,transmission:.08,thickness:.5,side:THREE.DoubleSide})
+        ? new THREE.MeshBasicMaterial({map:gemAtlas,transparent:true,alphaTest:.02,depthWrite:false,toneMapped:false,side:THREE.DoubleSide})
         : new THREE.MeshStandardMaterial({ roughness: .38, metalness: .12 }));
       pool.push(object);
       scene.add(object);
@@ -53170,16 +53138,15 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
     object.position.set(ux(x), uy(y), z);
     object.scale.set(w / 40, h / 40, d / 40);
     object.rotation.set(0, 0, angle);
-    object.material.color.set(color);
-    object.material.emissive.set(color);
-    object.material.emissiveIntensity = glow;
+    object.material.color.set(isJewel?'#ffffff':color);
+    if(!isJewel){object.material.emissive.set(color);object.material.emissiveIntensity=glow}
     return object;
   }
   const box = (x, y, w, h, d, color, z = 0, angle = 0) => mesh('box', x, y, z, w, h, d, color, angle);
   const ball = (x, y, rx, ry, rz, color, z = 0, glow = 0) => mesh('ball', x, y, z, rx, ry, rz, color, 0, glow);
   const cone = (x, y, w, h, d, color, z = 0, angle = 0) => mesh('cone', x, y, z, w, h, d, color, angle);
-  const jewel = (x, y, w, h, type, color, z = 0, angle = 0, glow = 0) =>
-    mesh(`jewel${type}`, x, y, z, w, h, 22, color, angle, glow);
+  const jewel = (x, y, w, h, type, z = 0) =>
+    mesh(`jewel${type}`, x, y, z, w, h, 1, '#ffffff');
   const ring = (x, y, r, color, z = 1) => mesh('torus', x, y, z, r * 2, r * 2, r * 2, color, 0, .35);
   function line(x1, y1, x2, y2, width, color, z = 1) {
     const len = Math.hypot(x2 - x1, y2 - y1);
@@ -53320,12 +53287,17 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
     else if (s.shots) bird(p.x, p.y + Math.sin(tick * 2) * 1.5);
   }
   function drawMatch(s, tick) {
-    begin('#21183f');
-    box(480, 320, 570, 570, 26, '#554787', -2);
-    const colors = ['#ed275d','#35bfff','#ffc92f','#62db24','#ac53e8','#ff8a22'];
+    ensureGemAtlas();
+    begin('#1e1138');
+    box(480, 320, 570, 570, 26, '#392755', -2);
+    box(480, 35, 570, 3, 4, '#c69c57', 1);
+    box(480, 605, 570, 3, 4, '#c69c57', 1);
+    box(195, 320, 3, 570, 4, '#c69c57', 1);
+    box(765, 320, 3, 570, 4, '#c69c57', 1);
     for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
       const px = 212 + x * 67 + 33.5, py = 54 + y * 67 + 33.5;
-      box(px, py, 63, 63, 10, (x + y) % 2 ? '#282146' : '#302650', -.5);
+      box(px, py, 64, 64, 10, '#493363', -.5);
+      box(px, py, 60, 60, 10, '#170c2c', -.2);
     }
     const stage=s.animation,p=stage?Math.min(stage.elapsed/stage.duration,1):0;
     const ease=t=>1-Math.pow(1-t,3);
@@ -53333,11 +53305,13 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
       if(scale<=.01)return;
       const px=212+(x+.5)*67,py=54+(y+.5)*67;
       const bob=selected?Math.sin(tick*6)*2:0;
-      const shapeAngle=type===5?-.52:0;
-      jewel(px,py-bob,49*scale*(type===2?.94:1),49*scale,type,colors[type],selected?3.4:2,shapeAngle+(selected?Math.sin(tick*3)*.07:0),selected?.2:.06);
+      jewel(px,py-bob,65*scale,65*scale,type,selected?3.4:2);
       if(selected){
-        ring(px,py,29+Math.sin(tick*6)*1.7,'#ffe3a1',3.8);
-        ball(px-22,py-23,2.4,2.4,3,'#fff7c8',4.2,.5);
+        const radius=30+Math.sin(tick*6)*.8;
+        box(px,py-radius,60,2.4,2,'#ffe3a1',4);
+        box(px,py+radius,60,2.4,2,'#ffe3a1',4);
+        box(px-radius,py,2.4,60,2,'#ffe3a1',4);
+        box(px+radius,py,2.4,60,2,'#ffe3a1',4);
       }
     };
     if(stage?.type==='fall'){
@@ -53369,7 +53343,6 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
         drawStone(px,py,type,scale*(selected?1.07:1),selected);
       }
     }
-    for (let i = 0; i < 11; i++) ball(74 + i * 82, 607, 3, 3, 2, colors[i % colors.length], 1,.45);
   }
   function drawStars(s, tick) {
     begin('#0b1034');
@@ -53426,7 +53399,7 @@ const THREE = { AmbientLight, BoxGeometry, BufferGeometry, CanvasTexture, Color,
   window.PHDSXClassic3D = {
     draw(game, model, tick) {
       try {
-        jewelLight.intensity=game==='match'?1.1:0;
+        jewelLight.intensity=game==='match'?.25:0;
         drawByGame[game](model, tick);
         renderer.render(scene, camera);
       } catch (error) {

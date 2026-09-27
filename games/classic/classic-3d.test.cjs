@@ -15,13 +15,15 @@ class Material {
   constructor() { this.color=vector(); this.emissive=vector(); }
   dispose() {}
 }
-class BufferGeometry {
+class PlaneGeometry {
   static created=[];
-  constructor() { this.attributes={}; BufferGeometry.created.push(this); }
-  setAttribute(name,attribute) { this.attributes[name]=attribute; }
-  computeVertexNormals() {}
+  constructor() {
+    const values=[[0,1],[1,1],[0,0],[1,0]];
+    this.attributes={uv:{count:4,getX:i=>values[i][0],getY:i=>values[i][1],setXY(i,x,y){values[i]=[x,y]}}};
+    PlaneGeometry.created.push(this);
+  }
 }
-class Float32BufferAttribute { constructor(array,itemSize) { this.array=array; this.itemSize=itemSize; } }
+class TextureLoader { load(url) { assert.equal(url,'../../classic/match-gems-atlas.png'); return {}; } }
 class Mesh extends Object3D { constructor(geometry, material) { super(); this.geometry=geometry; this.material=material; } }
 class Sprite extends Object3D { constructor(material) { super(); this.material=material; } }
 class Renderer {
@@ -31,7 +33,7 @@ class Renderer {
   render() { renders++; }
 }
 class Color { constructor() {} }
-const THREE = {Mesh,Sprite,WebGLRenderer:Renderer,MeshStandardMaterial:Material,MeshPhysicalMaterial:Material,SpriteMaterial:Material,BufferGeometry,Float32BufferAttribute,DoubleSide:2,Color,CanvasTexture:class{},SRGBColorSpace:'srgb'};
+const THREE = {Mesh,Sprite,WebGLRenderer:Renderer,MeshStandardMaterial:Material,MeshBasicMaterial:Material,SpriteMaterial:Material,PlaneGeometry,TextureLoader,DoubleSide:2,Color,CanvasTexture:class{},SRGBColorSpace:'srgb'};
 for(const name of ['Scene','OrthographicCamera','AmbientLight','DirectionalLight']) THREE[name]=Object3D;
 for(const name of ['BoxGeometry','SphereGeometry','ConeGeometry','CylinderGeometry','OctahedronGeometry','TorusGeometry']) THREE[name]=class{};
 const graphics = {beginPath(){},arc(){},fill(){},stroke(){},fillText(){}};
@@ -42,12 +44,13 @@ const document = {
 const window = {devicePixelRatio:1};
 runInNewContext(source,{THREE,document,window,console});
 assert.equal(attached,true);
-assert.equal(BufferGeometry.created.length,6,'six distinct gemstone cuts should be built');
-for(const shape of BufferGeometry.created){
-  const vertices=shape.attributes.position.array;
-  assert.ok(vertices.every(Number.isFinite),'gem facets should have valid coordinates');
-  assert.ok(Math.min(...vertices.filter((_,index)=>index%3===2))<0,'gem pavilion should have depth');
-  assert.ok(Math.max(...vertices.filter((_,index)=>index%3===2))>0,'gem crown should rise above its girdle');
+assert.equal(PlaneGeometry.created.length,6,'six approved gem images should have atlas planes');
+for(const [index,shape] of PlaneGeometry.created.entries()){
+  const uv=shape.attributes.uv;
+  for(let i=0;i<uv.count;i++){
+    assert.ok(uv.getX(i)>=(index%3)/3&&uv.getX(i)<=(index%3+1)/3);
+    assert.ok(uv.getY(i)>=(1-Math.floor(index/3))/2&&uv.getY(i)<=(2-Math.floor(index/3))/2);
+  }
 }
 const draw=window.PHDSXClassic3D.draw;
 const fixtures={

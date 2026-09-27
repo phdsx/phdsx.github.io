@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>联众炸弹超人 · 截图参考复刻</title>
+  <style>
+    :root{color-scheme:dark;font-family:SimSun,"Microsoft YaHei",sans-serif;background:#090b08;color:#e7e5c7}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 15%,#26371a,#090b08 68%)}
+    main{max-width:980px;margin:auto;padding:18px 14px 32px;text-align:center}h1{font-size:23px;letter-spacing:3px;color:#f5d763;text-shadow:2px 2px #594422;margin:5px 0 12px}
+    .layout{display:flex;justify-content:center;gap:18px;align-items:flex-start;flex-wrap:wrap}.frame{background:#000;border:4px ridge #637b33;box-shadow:0 10px 32px #000b;line-height:0}
+    #game{width:min(763px,calc(100vw - 36px));aspect-ratio:763/580}#game canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+    .panel{width:763px;max-width:100%;text-align:left;background:#172015;border:1px solid #65764c;padding:13px 16px;margin:12px auto 0;box-shadow:inset 0 1px #7d9a57}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}button{cursor:pointer;background:#c0c999;border:2px outset #ebf7c7;padding:5px 12px;color:#192313;font:bold 14px SimSun,sans-serif}button:hover{background:#e0e8ad}button.active{background:#f7db73}#status{margin-left:auto;color:#f5d763;font-weight:bold}
+    .help{font-size:13px;line-height:1.7;color:#d3dfba;margin:8px 0 0}.keys{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.keys button{font-size:12px;padding:3px 8px}.keys button.waiting{background:#e9a864}
+    kbd{background:#394b2c;border:1px solid #81945e;padding:1px 4px}a{color:#d7e998}
+  </style>
+</head>
+<body><main>
+  <h1>联众炸弹超人 · 本地对战</h1>
+  <div class="layout"><div class="frame"><div id="game" aria-label="炸弹超人棋盘"></div></div></div>
+  <div class="panel"><div class="toolbar">
+    <button id="start">开始对战</button><button id="pause">暂停</button><button id="restart">重新开局</button><button id="reference">参考画面对照</button><button id="sound">声音：开</button><span id="status">准备开始</span>
+  </div><p class="help">方向键 / WASD 移动，空格放弹，P 暂停，F2 切换对照画面。放弹后可走出该格；火焰不分敌我。点击按键名可重新绑定。</p>
+  <div class="keys" id="keys"></div></div>
+  <p class="help">根据所附截图重绘瓦片、人物和特效；声音为合成替代音效。<a href="https://www.ourgame.com/game/game-intro-dly/bombman.html">联众官方规则</a></p>
+  <script type="module" src="/src/main.ts"></script>
+</main></body></html>
