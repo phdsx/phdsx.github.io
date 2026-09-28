@@ -1,5 +1,12 @@
 window.PHDSX_TOOLS = [
   {
+    "category": "text",
+    "icon": "assets/icons/text-format.webp",
+    "label": "JSON 格式化",
+    "description": "校验、美化与压缩 JSON，查看结构树并保留数字精度。",
+    "href": "tools/text/json-formatter.html"
+  },
+  {
     "category": "document",
     "icon": "assets/icons/text-format.webp",
     "label": "EQ 单字拼音域代码生成器",

@@ -1,4 +1,5 @@
 window.PHDSX_SEARCH_INDEX = [
+  { label: 'JSON 格式化', href: 'tools/text/json-formatter.html', type: '工具', keywords: '文本 编码 JSON json 格式化 校验 结构树 压缩 大整数 文件 上传 formatter' },
   { label: 'EQ 单字拼音域代码生成器', href: 'tools/document/eq-pinyin-code.html', type: '工具', keywords: '文档 Word EQ 拼音 域代码 调号 声调 单字 逐字生成' },
   { label: 'PPT 放映悬浮倒计时', href: 'tools/document/ppt-countdown.html', type: '工具', keywords: '文档 PPT 演示 放映 悬浮 倒计时 时间' },
   { label: '二维码生成', href: 'tools/utility/qr-generator.html', type: '工具', keywords: '文本 编码 二维码 QR Code 文字 网址 文件 本地生成' },

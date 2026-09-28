@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320">
+  <defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#101d40"/><stop offset="1" stop-color="#355e8d"/></linearGradient><linearGradient id="metal" x2="1" y2="1"><stop stop-color="#e1f3ff"/><stop offset="1" stop-color="#7fa7ca"/></linearGradient><linearGradient id="flame" x2="0" y2="1"><stop stop-color="#fff5ad"/><stop offset=".4" stop-color="#ffa857"/><stop offset="1" stop-color="#ffa857" stop-opacity="0"/></linearGradient></defs>
+  <path fill="url(#bg)" d="M0 0h320v320H0z"/>
+  <g stroke="#9dcae8" stroke-opacity=".22"><path d="M45 23v79m25 106v60M266 62v93m-23 64v72M130 17v46M203 24v31"/></g>
+  <g fill="#d4ecfb" opacity=".5"><circle cx="95" cy="49" r="2"/><circle cx="245" cy="188" r="2"/><circle cx="50" cy="184" r="2"/><circle cx="200" cy="94" r="2"/></g>
+  <path d="M135 224h17l-8 73zm34 0h17l-8 73z" fill="url(#flame)"/>
+  <path d="m160 72 15 86 69 53-3 13-66-22 14 45-29-12-29 12 14-45-66 22-3-13 69-53z" fill="#07152c" opacity=".3" transform="translate(0 8)"/>
+  <path d="m160 72 15 86 69 53-3 13-66-22 14 45-29-12-29 12 14-45-66 22-3-13 69-53z" fill="url(#metal)" stroke="#c9eafa" stroke-width="2"/>
+  <path d="m160 108 8 46-8 21-8-21z" fill="#29557c" stroke="#81d0ed" stroke-width="2"/><path d="M160 182v49" stroke="#567ba4" stroke-width="3"/>
+  <g fill="#a9cced"><path d="m72 51 7-24 7 24 19 11v7l-23-6-3 7-3-7-23 6v-7z"/><path d="m238 60 7-24 7 24 19 11v7l-23-6-3 7-3-7-23 6v-7z"/></g>
+  <path d="M147 53V27m26 26V27" stroke="#ffdd87" stroke-width="5" stroke-linecap="round"/>
+</svg>

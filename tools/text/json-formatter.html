@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="ubuntu-boot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2c2929">
+  <meta name="description" content="本地 JSON 校验、格式化与结构树，支持文件上传、压缩和大整数保真。">
+  <title>JSON 格式化 - PHDSX</title>
+  <style>html.ubuntu-boot{background:#2c001e url('../../assets/ubuntu/wallpaper.webp') center/cover fixed no-repeat}html.ubuntu-boot body{visibility:hidden}</style>
+  <script>document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.remove('ubuntu-boot'),{once:true})</script>
+  <noscript><style>html.ubuntu-boot body{visibility:visible}</style></noscript>
+  <link rel="stylesheet" href="../../assets/standalone.css?v=20260824a">
+  <link rel="stylesheet" href="../../assets/design-system.css?v=20260920a">
+  <link rel="stylesheet" href="../../assets/ubuntu.css?v=20260923u5">
+  <link rel="stylesheet" href="json-formatter.css?v=20260928a">
+  <script src="../../assets/navigation.js?v=20260928json"></script>
+  <script defer src="../../assets/design-system.js?v=20260923u5"></script>
+  <script defer src="../../assets/i18n.js?v=20260923u5"></script>
+  <script defer src="json-formatter.js?v=20260928a"></script>
+</head>
+<body>
+  <header class="site-header"></header>
+  <main class="json-tool ubuntu-tool-main">
+    <header>
+      <p class="json-eyebrow">文本与编码 · 本地处理</p>
+      <h1>JSON 格式化</h1>
+      <p>让数据清晰可读。粘贴文本或拖入文件，查看代码与结构树。</p>
+    </header>
+    <div class="json-workspace">
+      <section class="panel json-input-panel" aria-labelledby="input-heading" id="drop-zone">
+        <div class="json-panel-head"><h2 id="input-heading">原始 JSON</h2><button type="button" id="sample">载入示例</button></div>
+        <label for="json-input" class="json-input-label">粘贴 JSON 文本</label>
+        <textarea id="json-input" rows="20" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="input-hint json-error" placeholder='例如：{"name":"你好","items":[1,true,null]}'></textarea>
+        <div class="json-upload"><button type="button" id="upload">上传 .json 文件</button><span>或拖拽文件到此区域</span><input type="file" id="json-file" accept=".json,application/json" hidden></div>
+        <p id="input-hint" class="json-note">上限 2 MiB、128 层嵌套、50,000 个节点。数字保留原始精度。</p>
+        <div class="json-actions"><button type="button" id="format" class="primary">格式化</button><button type="button" id="compress">压缩</button><button type="button" id="clear">清空</button></div>
+        <div id="json-error" class="json-error" role="alert" hidden><span id="error-message"></span> <button type="button" id="locate" hidden>定位错误</button></div>
+      </section>
+      <section class="panel json-result-panel" aria-labelledby="result-heading" aria-busy="false">
+        <div class="json-panel-head"><h2 id="result-heading">解析结果</h2><span id="summary" class="json-note">等待输入</span></div>
+        <div class="json-result-toolbar">
+          <div class="json-view-switch" role="group" aria-label="查看方式"><button type="button" id="code-view" aria-pressed="true">格式化代码</button><button type="button" id="tree-view" aria-pressed="false">结构树</button></div>
+          <label for="indent">缩进 <select id="indent"><option value="2">2 个空格</option><option value="4">4 个空格</option></select></label>
+        </div>
+        <div class="json-actions"><button type="button" id="copy" disabled>复制结果</button><button type="button" id="download" disabled>下载 JSON</button><button type="button" id="expand" disabled>全部展开</button><button type="button" id="collapse" disabled>全部折叠</button></div>
+        <div class="json-legend" aria-label="类型颜色图例"><span class="json-string">字符串</span><span class="json-number">数字</span><span class="json-boolean">布尔值</span><span class="json-null">null</span></div>
+        <p id="empty-result" class="json-empty">格式化后，代码和结构将在这里显示。</p>
+        <div id="code-result" class="json-code json-output" aria-label="JSON 代码" tabindex="0" translate="no"></div>
+        <div id="tree-result" class="json-tree json-output" aria-label="JSON 结构树" tabindex="0" translate="no" hidden></div>
+        <div id="pager" class="json-pager" hidden><button type="button" id="previous">上一页</button><span id="page-info"></span><button type="button" id="next">下一页</button></div>
+      </section>
+    </div>
+    <p id="status" class="json-status" role="status" aria-live="polite">所有解析和文件处理均在浏览器本地完成，不上传 JSON 内容。</p>
+    <noscript><p>请启用 JavaScript 以使用 JSON 格式化工具。</p></noscript>
+  </main>
+</body>
+</html>

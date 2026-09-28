@@ -11,6 +11,9 @@ import {
 } from './sand-sort-session.mjs';
 
 const STORAGE_KEY = 'phdsx-sand-sort-v1';
+const STUDIO_BACKGROUND_URL = './assets/studio-backdrop-faithful.png';
+const GRAIN_TEXTURE_URL = './assets/sand-grain-relief.png';
+const GLASS_DETAIL_URL = './assets/glass-reflection-detail.png';
 const DEFAULT_PROGRESS = Object.freeze({
   currentLevel: 0,
   unlockedLevel: 0,
@@ -102,6 +105,7 @@ async function loadImageSafely(src, fallbackWidth, fallbackHeight) {
 function setBusy(shell, canvas, busy) {
   shell.setAttribute('aria-busy', String(busy));
   canvas.toggleAttribute('data-input-locked', busy);
+  shell.querySelector('#pause-button').disabled = busy;
 }
 
 async function initializeGame() {
@@ -111,6 +115,7 @@ async function initializeGame() {
   const levelNumber = document.querySelector('#level-number');
   const coinCount = document.querySelector('#coin-count');
   const soundButton = document.querySelector('#sound-button');
+  const pauseButton = document.querySelector('#pause-button');
   const statusBar = document.querySelector('.status-bar');
   const tutorial = document.querySelector('#tutorial');
   const startButton = document.querySelector('[data-action="start"]');
@@ -120,6 +125,8 @@ async function initializeGame() {
   const backgroundRegions = [statusBar, canvas, status, toolDock];
 
   const progress = loadProgress();
+  const requestedLevel = Number(new URLSearchParams(location.search).get('level'));
+  if (Number.isInteger(requestedLevel) && requestedLevel >= 1 && requestedLevel <= 30) progress.currentLevel = requestedLevel - 1;
   let session = createSession(progress.currentLevel, 0);
   let keyboardIndex = 0;
   let locked = false;
@@ -129,7 +136,7 @@ async function initializeGame() {
   function updateSoundButton() {
     soundButton.setAttribute('aria-pressed', String(progress.muted));
     soundButton.setAttribute('aria-label', progress.muted ? '开启游戏声音' : '关闭游戏声音');
-    soundButton.textContent = progress.muted ? '静音' : '声音';
+    soundButton.dataset.muted = String(progress.muted);
   }
 
   updateSoundButton();
@@ -154,14 +161,16 @@ async function initializeGame() {
     }
   }
 
-  const [backgroundResult, bottleResult] = await Promise.all([
-    loadImageSafely('./assets/background-studio.png', 8, 8),
-    loadImageSafely('./assets/bottle-clear.png', 8, 20),
+  const [backgroundResult, grainResult, glassDetailResult] = await Promise.all([
+    loadImageSafely(STUDIO_BACKGROUND_URL, 8, 8),
+    loadImageSafely(GRAIN_TEXTURE_URL, 8, 8),
+    loadImageSafely(GLASS_DETAIL_URL, 8, 8),
   ]);
-  const degradedAssets = backgroundResult.degraded || bottleResult.degraded;
+  const degradedAssets = backgroundResult.degraded;
   const renderer = createRenderer(canvas, {
     background: backgroundResult.image,
-    bottle: bottleResult.image,
+    grains: grainResult.degraded ? null : grainResult.image,
+    glassDetail: glassDetailResult.degraded ? null : glassDetailResult.image,
   });
 
   function playTone(frequency, duration) {
@@ -196,7 +205,10 @@ async function initializeGame() {
     status.textContent = degradedAssets ? `${session.message}。已启用简化素材` : session.message;
     levelNumber.textContent = String(session.levelIndex + 1);
     coinCount.textContent = String(progress.coins);
+    const dots = document.querySelectorAll('.level-dots i');
+    dots.forEach((dot, index) => dot.classList.toggle('active', index <= session.levelIndex % 4));
     canvas.setAttribute('aria-label', canvasLabel());
+    canvas.dataset.tubes = JSON.stringify(session.tubes);
     shell.dataset.gameState = session.solved ? 'solved' : 'playing';
   }
 
@@ -252,7 +264,8 @@ async function initializeGame() {
     setBusy(shell, canvas, true);
     try {
       await renderer.animatePour(session, session.pendingMove);
-    } catch {
+    } catch (error) {
+      console.error('Sand pour animation failed', error);
       // Commit the legal move even when its animation cannot be drawn.
     } finally {
       session = commitPendingMove(session);
@@ -336,7 +349,17 @@ async function initializeGame() {
     tutorial.hidden = true;
     updateOverlayGate();
     canvas.focus({ preventScroll: true });
-    announceKeyboardPosition();
+    status.textContent = session.message;
+  });
+
+  pauseButton.addEventListener('click', () => {
+    if (inputIsBlocked()) return;
+    document.querySelector('#tutorial-title').textContent = '游戏已暂停';
+    document.querySelector('#tutorial-description').textContent = '继续分类，或返回游戏厅。';
+    startButton.textContent = '继续游戏';
+    tutorial.hidden = false;
+    updateOverlayGate();
+    startButton.focus();
   });
 
   nextButton.addEventListener('click', () => {
@@ -375,11 +398,14 @@ async function initializeGame() {
   startButton.focus();
 }
 
-function showInitializationError() {
+function showInitializationError(error) {
+  console.error('Sand game initialization failed', error);
   const shell = document.querySelector('.game-shell');
   const status = document.querySelector('#game-status');
   if (shell) shell.dataset.gameState = 'error';
   if (status) status.textContent = '游戏暂时无法启动，请刷新页面重试';
+  const start = document.querySelector('[data-action="start"]');
+  if (start) start.textContent = '需要支持 WebGL 的浏览器';
 }
 
 if (typeof document !== 'undefined') {

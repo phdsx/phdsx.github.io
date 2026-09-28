@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#25392d"/><stop offset="1" stop-color="#56664a"/></linearGradient><linearGradient id="armor" x2="1" y2="1"><stop stop-color="#bad086"/><stop offset="1" stop-color="#637e45"/></linearGradient><pattern id="track" width="12" height="15" patternUnits="userSpaceOnUse"><rect width="12" height="15" fill="#252f29"/><path d="M0 3h12M0 11h12" stroke="#6b7964" stroke-width="2"/></pattern></defs>
+  <path fill="url(#bg)" d="M0 0h320v320H0z"/>
+  <g fill="#9da17a" opacity=".23"><path d="M0 32h64v30H0zM16 67h64v30H16zM259 249h61v29h-61zM240 284h80v29h-80z"/></g>
+  <path d="M0 214 320 99M0 239 320 124" stroke="#c8c69a" stroke-width="2" stroke-dasharray="8 9" opacity=".12"/>
+  <g transform="translate(162 175) rotate(28)">
+    <rect x="-70" y="-66" width="140" height="158" rx="20" fill="#14241c" opacity=".4"/>
+    <rect x="-63" y="-68" width="30" height="148" rx="8" fill="url(#track)"/><rect x="33" y="-68" width="30" height="148" rx="8" fill="url(#track)"/>
+    <rect x="-42" y="-63" width="84" height="138" rx="12" fill="url(#armor)" stroke="#c6d798" stroke-width="2"/>
+    <path d="M-30 54h60M-30 62h60" stroke="#415b37" stroke-width="4"/>
+    <rect x="-30" y="-28" width="60" height="66" rx="17" fill="#99b465" stroke="#c6d798" stroke-width="3"/>
+    <circle cy="8" r="17" fill="#647f49" stroke="#cedbac" stroke-width="2"/>
+    <rect x="-7" y="-103" width="14" height="78" rx="3" fill="#d0d9a5"/><rect x="-11" y="-111" width="22" height="17" rx="3" fill="#718c53"/>
+  </g>
+  <path d="m247 39 6 16 17 3-13 11 3 17-15-9-15 8 4-17-12-12 18-1z" fill="#efd68b"/>
+  <circle cx="51" cy="265" r="18" fill="none" stroke="#c5ca9c" stroke-opacity=".4"/><path d="M51 240v15m0 20v15m-25-25h15m20 0h15" stroke="#c5ca9c" stroke-opacity=".4"/>
+</svg>

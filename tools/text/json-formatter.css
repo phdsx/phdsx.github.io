@@ -1,0 +1,41 @@
+.json-tool{color:#29242c;font-family:Ubuntu,system-ui,sans-serif}
+.json-tool *{box-sizing:border-box}
+.json-tool h1,.json-tool h2,.json-tool p{margin-top:0}
+.json-tool header>p:last-child,.json-note,.json-upload span{color:#716972;font-size:13px;line-height:1.7}
+.json-eyebrow{color:#bc3c12;font-size:12px;letter-spacing:.06em}
+.json-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.json-tool .panel{min-width:0;padding:18px;border:1px solid #e2dcd7;background:#fff;border-radius:9px}
+.json-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.json-tool h2{margin:0;font-size:17px}
+.json-tool button,.json-tool select{font:inherit;font-size:13px;min-height:38px;padding:8px 12px;border:1px solid #d9d3ce;border-radius:6px;background:#f6f2ef;color:#29242c;cursor:pointer}
+.json-tool button:hover:not(:disabled){background:#eee8e3;border-color:#b8aea5}
+.json-tool button:disabled{opacity:.5;cursor:not-allowed}
+.json-tool .primary{background:#e95420;color:#fff;border-color:#e95420}
+.json-tool button:focus-visible,.json-tool textarea:focus-visible,.json-tool select:focus-visible,.json-output:focus-visible{outline:2px solid #bc3c12;outline-offset:2px}
+.json-input-label{display:block;font-size:13px;margin-bottom:8px}
+.json-tool textarea{display:block;width:100%;min-height:400px;resize:vertical;font:13px/1.65 Consolas,monospace;tab-size:2}
+.json-upload,.json-actions,.json-result-toolbar,.json-legend,.json-pager{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.json-upload{padding:12px;border:1px dashed #c9c0b8;border-radius:6px;background:#faf9f8}
+.json-dragging{outline:3px dashed #e95420;outline-offset:3px}
+.json-note{margin:10px 0;font-size:12px}
+.json-result-toolbar{justify-content:space-between;margin:0}
+.json-result-toolbar label{font-size:12px;white-space:nowrap}
+.json-view-switch{display:flex;gap:4px}
+.json-view-switch button[aria-pressed=true]{background:#fcece5;border-color:#e95420;color:#a5320d}
+.json-legend{font:12px/1.5 Consolas,monospace;margin-bottom:12px;gap:16px}
+.json-string{color:#236c37}.json-number{color:#175ca0}.json-boolean{color:#8735a4}.json-null{color:#a44212}.json-key{color:#5f3e74}
+.json-output{height:430px;max-width:100%;overflow:auto;background:#faf9f8;border:1px solid #e2dcd7;border-radius:6px;font:13px/1.75 Consolas,monospace;tab-size:2}
+.json-code-line{display:flex;min-width:max-content;min-height:23px}
+.json-line-number{position:sticky;left:0;flex:0 0 58px;background:#f1eeeb;text-align:right;padding:0 12px;color:#716972;user-select:none;border-right:1px solid #e2dcd7}
+.json-code-line code{white-space:pre;padding:0 12px;font:inherit}
+.json-tree-row{white-space:pre;min-width:max-content;min-height:30px;padding-right:12px}
+.json-tool .json-tree-toggle{background:transparent;border:0;min-height:30px;width:28px;padding:0;border-radius:0}
+.json-tree-leaf{display:inline-block;width:28px;text-align:center;color:#958a80}
+.json-tree-meta{font-size:12px;color:#716972}
+.json-empty{padding:40px 16px;color:#716972;text-align:center;font-size:13px;border:1px dashed #e2dcd7;border-radius:6px}
+.json-error{margin-top:14px;background:#fff0ed;color:#9a3014;padding:12px;border-radius:6px;font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.json-status{margin:18px 0 0;font-size:13px;color:#716972;overflow-wrap:anywhere;min-height:24px}
+.json-pager{justify-content:space-between;font-size:12px;color:#716972}
+.json-tool [hidden]{display:none!important}
+@media(max-width:1000px){.json-workspace{grid-template-columns:1fr}.json-tool textarea{min-height:280px}.json-output{height:360px}}
+@media(max-width:700px){body.ubuntu-desktop.unified-tool .ubuntu-content>main.json-tool{padding:18px 12px}.json-tool .panel{padding:12px}.json-workspace{gap:14px}.json-panel-head{gap:6px}.json-result-toolbar{gap:12px}.json-tool button{min-height:42px}.json-actions{gap:6px}.json-line-number{flex-basis:44px;padding:0 8px}}

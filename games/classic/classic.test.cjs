@@ -4,19 +4,20 @@ const { runInNewContext } = require('node:vm');
 const { join } = require('node:path');
 
 const source = readFileSync(join(__dirname, 'classic.js'), 'utf8');
-const games = ['snake', 'plane', 'tank', 'birds', 'match', 'stars', 'difference'];
+const games = ['snake', 'plane', 'birds', 'match', 'stars', 'difference'];
 
 for (const game of games) {
   const events = new Map();
   const frameQueue = [];
   let currentModel;
+  let atlasDraws=0;
   function element(name) {
     return { name, hidden: false, textContent: '', innerHTML: '', dataset: {},
       addEventListener(type, callback) { events.set(`${name}:${type}`, callback); },
       setPointerCapture() {}, getBoundingClientRect() { return { left: 0, top: 0, width: 960, height: 640 }; } };
   }
   const nodes = new Map(['#classic-game', '#stage', '#stat-one', '#stat-two', '#overlay', '#overlay-title', '#overlay-subtitle', '#pause', '#pad', '#restart'].map(id => [id, element(id)]));
-  const canvasContext = new Proxy({ createLinearGradient() { return { addColorStop() {} }; } }, { get(target, key) { return key in target ? target[key] : () => {}; } });
+  const canvasContext = new Proxy({ createLinearGradient() { return { addColorStop() {} }; },drawImage(){atlasDraws++;} }, { get(target, key) { return key in target ? target[key] : () => {}; } });
   nodes.get('#stage').getContext = () => canvasContext;
   const buttons = ['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'Space'].map(key => ({ ...element(`button-${key}`), dataset: { key } }));
   nodes.get('#pad').querySelectorAll = () => buttons;
@@ -26,6 +27,7 @@ for (const game of games) {
   runInNewContext(source, {
     document: { body: { dataset: { game } }, querySelector: selector => nodes.get(selector) },
     window, requestAnimationFrame: callback => frameQueue.push(callback),
+    Image:class {constructor(){this.complete=true;this.naturalWidth=1536;}set src(value){assert.equal(value,'../../classic/match-gems-atlas.png');}},
   }, { filename: 'classic.js' });
   assert.match(nodes.get('#classic-game').innerHTML, /classic-canvas-wrap/);
   assert.notEqual(nodes.get('#stat-one').textContent, '');
@@ -64,6 +66,9 @@ for (const game of games) {
     assert.equal(currentModel.moves,20,'invalid move costs no turn');
     assert.equal(currentModel.score,0);
     assert.equal(JSON.stringify(currentModel.board),JSON.stringify(board),'invalid move returns to original board');
+    window.PHDSXClassic3D=null;
+    advance();
+    assert.equal(atlasDraws,64,'Canvas fallback should draw the same 64 gemstone images');
   }
   events.get('#pause:click')();
   assert.equal(nodes.get('#overlay').hidden, false);

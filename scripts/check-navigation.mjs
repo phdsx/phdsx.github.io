@@ -6,6 +6,8 @@ const context = {window:{}, URLSearchParams};
 vm.runInNewContext(await readFile(new URL('../assets/navigation.js',import.meta.url),'utf8'),context);
 const {resolve,categories,sections} = context.window.PHDSXNavigation;
 assert.equal(resolve('tools/utility/qr-generator.html').parent.href,'tools.html?category=text');
+assert.equal(resolve('tools/text/json-formatter.html').parent.href,'tools.html?category=text');
+assert.equal(resolve('tools/text/json-formatter.html').crumbs.at(-1).zh,'JSON 格式化');
 assert.equal(resolve('tools/fun/lightning-calculator.html').parent.href,'tools.html?category=lifestyle');
 assert.equal(resolve('games/board/junqi/index.html').parent.href,'games.html?category=board');
 assert.equal(resolve('games/strategy/storm-siege/index.html').parent.href,'games.html?category=strategy');

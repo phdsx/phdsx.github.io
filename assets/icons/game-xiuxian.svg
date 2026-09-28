@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#172947"/><stop offset="1" stop-color="#849eaa"/></linearGradient>
+    <linearGradient id="mountain" x2="0" y2="1"><stop stop-color="#667c98"/><stop offset="1" stop-color="#273e54"/></linearGradient>
+    <linearGradient id="blade"><stop stop-color="#faf6ce"/><stop offset="1" stop-color="#95dae1"/></linearGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h320v320H0z"/>
+  <circle cx="232" cy="74" r="37" fill="#f8e8bb"/>
+  <circle cx="232" cy="74" r="49" fill="none" stroke="#f8e8bb" stroke-opacity=".16"/>
+  <path d="m0 213 68-110 49 73 48-103 69 140 48-58 38 70v95H0" fill="url(#mountain)"/>
+  <path d="m45 141 23-38 27 40-26-15zM144 120l21-47 30 62-30-16z" fill="#ccd8da" opacity=".6"/>
+  <path d="M0 218q75-26 155 9t165-9M0 251q93-27 169 4t151-3" fill="none" stroke="#e3eee3" stroke-width="14" opacity=".18"/>
+  <path d="M0 278q95-27 174 0t146-12v54H0z" fill="#172f39"/>
+  <g transform="translate(158 163) rotate(27)">
+    <path d="m-8-118 8-18 8 18v143l-8 17-8-17z" fill="url(#blade)"/>
+    <path d="M0-121V27" stroke="#fff" stroke-opacity=".7"/>
+    <path d="M-32 29q32-14 64 0l-4 9q-28-10-56 0z" fill="#e9c77e"/>
+    <rect x="-6" y="36" width="12" height="38" rx="4" fill="#354c53" stroke="#e9c77e" stroke-width="3"/>
+    <path d="M6 73q45 15 26 60" fill="none" stroke="#db7769" stroke-width="6"/>
+  </g>
+  <g fill="#f9e8b7"><circle cx="52" cy="54" r="2"/><circle cx="127" cy="36" r="2"/><circle cx="286" cy="138" r="2"/></g>
+</svg>

@@ -1,218 +1,77 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  computeBottleMouthAnchor,
-  computeBottleSourceRect,
-  computeLayout,
-  createRenderer,
-  getMotionSettings,
-  getVisibleLayers,
-  hitTestBottle,
-  transformBottlePoint,
-  tween,
-} from './sand-sort-renderer.mjs';
+import { computeLayout, hitTestBottle, getMotionSettings, tween } from './sand-sort-renderer.mjs';
+import { createSandSurface, sampleSurfaceMean, getVisibleLayers, stepGrain, SAND_FLOOR, SAND_UNIT_HEIGHT } from './sand-sort-physics.mjs';
 
-function createCanvasHarness() {
-  const calls = [];
-  const record = (method) => (...args) => calls.push({ method, args });
-  const context = {
-    setTransform: record('setTransform'),
-    clearRect: record('clearRect'),
-    drawImage: record('drawImage'),
-    save: record('save'),
-    translate: record('translate'),
-    rotate: record('rotate'),
-    restore: record('restore'),
-    fillRect: record('fillRect'),
-    createLinearGradient: () => ({ addColorStop: record('addColorStop') }),
-    beginPath: record('beginPath'),
-    moveTo: record('moveTo'),
-    lineTo: record('lineTo'),
-    quadraticCurveTo: record('quadraticCurveTo'),
-    closePath: record('closePath'),
-    clip: record('clip'),
-    stroke: record('stroke'),
-    ellipse: record('ellipse'),
-    arc: record('arc'),
-    fill: record('fill'),
-    strokeRect: record('strokeRect'),
-  };
-  const canvas = {
-    clientWidth: 390,
-    clientHeight: 844,
-    getContext: () => context,
-    getBoundingClientRect: () => ({ width: 390, height: 844 }),
-  };
-  const assets = {
-    background: { name: 'background' },
-    bottle: { name: 'bottle', naturalWidth: 1024, naturalHeight: 1536 },
-  };
-  return { assets, calls, canvas };
-}
-
-async function withAnimationGlobals(run) {
-  const names = ['devicePixelRatio', 'matchMedia', 'performance', 'requestAnimationFrame'];
-  const descriptors = new Map(names.map((name) => [name, Object.getOwnPropertyDescriptor(globalThis, name)]));
-  let frameTime = 0;
-  Object.defineProperties(globalThis, {
-    devicePixelRatio: { configurable: true, value: 1 },
-    matchMedia: { configurable: true, value: () => ({ matches: false }) },
-    performance: { configurable: true, value: { now: () => 0 } },
-    requestAnimationFrame: {
-      configurable: true,
-      value: (callback) => {
-        frameTime += 310;
-        queueMicrotask(() => callback(frameTime));
-      },
-    },
-  });
-  try {
-    await run();
-  } finally {
-    for (const name of names) {
-      const descriptor = descriptors.get(name);
-      if (descriptor) Object.defineProperty(globalThis, name, descriptor);
-      else delete globalThis[name];
+test('six bottles retain the reference proportions and rest on both shelf edges', () => {
+  const layout = computeLayout(390, 693, 6);
+  assert.equal(layout.columns, 3);
+  assert.ok(layout.bottleWidth > 70);
+  assert.ok(Math.abs(layout.bottles[0].y + layout.bottleHeight - 693 * 0.489) < 0.01);
+  assert.ok(Math.abs(layout.bottles[3].y + layout.bottleHeight - 693 * 0.827) < 0.01);
+});
+test('ten bottles plus the extra bottle fit without overlapping on a short phone', () => {
+  for (const count of [4, 6, 7, 10, 11, 12]) {
+    const layout = computeLayout(360, 640, count);
+    assert.ok(layout.bottles.every(box => box.x >= 0 && box.x + box.width <= 360 && box.y >= 70 && box.y + box.height < 560));
+    for (let i = 1; i < count; i++) {
+      const previous = layout.bottles[i - 1], current = layout.bottles[i];
+      assert.ok(current.y > previous.y || current.x >= previous.x + previous.width);
     }
   }
-}
-
-test('mobile layout fits ten bottles in two rows inside the scene', () => {
-  const layout = computeLayout(390, 844, 10);
-  assert.equal(layout.bottles.length, 10);
-  assert.equal(layout.columns, 5);
-  assert.ok(layout.bottles.every((box) => box.x >= 0 && box.x + box.width <= 390));
-  assert.ok(layout.bottles.every((box) => box.width >= 44 && box.height >= 120));
 });
-
-test('desktop layout keeps the portrait board centered', () => {
-  const layout = computeLayout(1440, 900, 8);
-  assert.ok(layout.scene.width <= 560);
-  assert.equal(Math.round(layout.scene.x * 2 + layout.scene.width), 1440);
+test('hit testing follows the actual rendered bottle boxes', () => {
+  const layout = computeLayout(390,693,6);
+  const box = layout.bottles[4];
+  assert.equal(hitTestBottle(layout,box.x + box.width / 2,box.y + 20),4);
+  assert.equal(hitTestBottle(layout,0,0),null);
+  const dense = computeLayout(360,640,11), second = dense.bottles[1];
+  assert.equal(hitTestBottle(dense,second.x + 0.1,second.y + second.height / 2),1);
 });
-
-test('mobile bottle rows rest on the two background shelves', () => {
-  const layout = computeLayout(390, 844, 10);
-  const firstRowBottom = layout.bottles[0].y + layout.bottles[0].height;
-  const secondRowBottom = layout.bottles[5].y + layout.bottles[5].height;
-  assert.ok(Math.abs(firstRowBottom - 413.56) < 0.5);
-  assert.ok(Math.abs(secondRowBottom - 679.42) < 0.5);
+test('reduced motion removes bottle shake and hint pulses', () => {
+  const settings = getMotionSettings(true);
+  assert.equal(settings.shakeDuration,0);
+  assert.equal(settings.hintDuration,0);
+  assert.ok(settings.pourDuration <= 200);
 });
-
-test('fallback layout keeps extra bottle rows separated inside the scene', () => {
-  const layout = computeLayout(390, 844, 12);
-  const rowStarts = [layout.bottles[0], layout.bottles[5], layout.bottles[10]];
-  assert.ok(rowStarts[0].y + rowStarts[0].height <= rowStarts[1].y);
-  assert.ok(rowStarts[1].y + rowStarts[1].height <= rowStarts[2].y);
-  assert.ok(rowStarts[2].y + rowStarts[2].height <= layout.scene.height);
+test('a failed animation frame rejects instead of leaving input locked forever', async () => {
+  let callback;
+  const animation = tween(100,() => { throw new Error('render failed'); },{ now:() => 0,requestFrame:fn => { callback = fn; } });
+  callback(16);
+  await assert.rejects(animation,/render failed/);
 });
-
-test('bottle source crop contains the glass while removing transparent side padding', () => {
-  const crop = computeBottleSourceRect(1024, 1536);
-  assert.ok(crop.x <= 298 && crop.x + crop.width >= 727);
-  assert.ok(crop.y <= 96 && crop.y + crop.height >= 1420);
-  assert.ok(crop.width < 700);
-  assert.ok(Math.abs(crop.width / crop.height - 1 / 2.45) < 0.001);
+test('source and receiver conserve volume throughout fractional pouring', () => {
+  for (const amount of [0,0.1,0.9,1.4,2]) {
+    const source = getVisibleLayers(['pink','blue','blue'],amount);
+    const receiver = getVisibleLayers(['pink'],0,'blue',amount);
+    const volume = layers => layers.reduce((sum,layer) => sum + layer.units,0);
+    assert.ok(Math.abs(volume(source) + volume(receiver) - 4) < 0.000001);
+  }
 });
-
-test('production bottle mouth anchor maps the cropped asset lip near the rendered top', () => {
-  const anchor = computeBottleMouthAnchor(1024, 1536);
-  assert.equal(anchor.x, 0.5);
-  assert.ok(Math.abs(anchor.y - 0.03514) < 0.001);
+test('tilt and a settling mound retain the same sand volume', () => {
+  for (const units of [0.05,0.5,1.8,4]) for (const tilt of [-1.33,-0.3,0,0.3,1.33]) {
+    const expected = SAND_FLOOR + units * SAND_UNIT_HEIGHT;
+    const surface = createSandSurface(expected,{tilt,mound:0.27});
+    assert.ok(Math.abs(sampleSurfaceMean(surface) - expected) < 0.00001);
+  }
 });
-
-test('bottle mouth transform follows the same translated center and rotation as the bottle', () => {
-  const point = transformBottlePoint(
-    { x: 10, y: 20, width: 40, height: 100 },
-    { x: 0.5, y: 0.1 },
-    { dx: 5, dy: -3, rotation: Math.PI / 2 },
-  );
-  assert.ok(Math.abs(point.x - 75) < 0.0001);
-  assert.ok(Math.abs(point.y - 67) < 0.0001);
+test('tilted color boundaries stay ordered instead of crossing each other', () => {
+  const lower = createSandSurface(SAND_FLOOR + SAND_UNIT_HEIGHT,{tilt:1.33});
+  const upper = createSandSurface(SAND_FLOOR + SAND_UNIT_HEIGHT * 2,{tilt:1.33});
+  for (let x = -0.53; x <= 0.53; x += 0.01) assert.ok(upper.height(x,0) >= lower.height(x,0));
 });
-
-test('reduced motion makes invalid-move feedback static', () => {
-  const normal = getMotionSettings(false);
-  const reduced = getMotionSettings(true);
-  assert.ok(normal.shakeDuration > 0 && normal.shakeAmplitude > 0);
-  assert.equal(reduced.shakeDuration, 0);
-  assert.equal(reduced.shakeAmplitude, 0);
+test('a free grain accelerates under gravity and loses energy on contact', () => {
+  const grain = {x:0,y:1,z:0,vx:0.1,vy:0,vz:0,age:0};
+  stepGrain(grain,0.1);
+  assert.ok(grain.vy < -0.9 && grain.y < 1 && grain.x > 0);
+  const collider = {x:0,z:0,radius:0.5,height:() => 0};
+  for (let i = 0; i < 20; i++) stepGrain(grain,0.1,collider);
+  assert.ok(grain.contacts > 0 && grain.y >= 0 && Math.abs(grain.vy) < 0.2);
 });
-
-test('reduced motion removes the animated hint pulse', () => {
-  const normal = getMotionSettings(false);
-  const reduced = getMotionSettings(true);
-  assert.ok(normal.hintDuration > 0 && normal.hintPulses > 0);
-  assert.equal(reduced.hintDuration, 0);
-  assert.equal(reduced.hintPulses, 0);
-});
-
-test('tween rejects instead of hanging when paint throws', async () => {
-  let scheduledFrame;
-  const animation = tween(
-    100,
-    () => {
-      throw new Error('paint failed');
-    },
-    {
-      now: () => 0,
-      requestFrame: (callback) => {
-        scheduledFrame = callback;
-      },
-    },
-  );
-  scheduledFrame(16);
-  await assert.rejects(animation, /paint failed/);
-});
-
-test('fractional sand layers conserve visible volume during a pour', () => {
-  const source = getVisibleLayers(['pink', 'blue', 'blue'], 1.5);
-  const target = getVisibleLayers(['pink'], 0, 'blue', 1.5);
-  assert.deepEqual(source, [{ color: 'pink', units: 1 }, { color: 'blue', units: 0.5 }]);
-  assert.deepEqual(target, [{ color: 'pink', units: 1 }, { color: 'blue', units: 1.5 }]);
-});
-
-test('renderer composites cropped glass over sand and animates from its production mouth', async () => {
-  await withAnimationGlobals(async () => {
-    const { assets, calls, canvas } = createCanvasHarness();
-    const renderer = createRenderer(canvas, assets);
-    const layout = renderer.resize(2);
-    const frame = { tubes: [['pink'], []] };
-
-    renderer.draw(frame);
-    const backgroundIndex = calls.findIndex((call) => call.method === 'drawImage' && call.args[0] === assets.background);
-    const sandIndex = calls.findIndex((call) => call.method === 'fillRect');
-    const bottleIndex = calls.findIndex((call) => call.method === 'drawImage' && call.args[0] === assets.bottle);
-    const bottleDraw = calls[bottleIndex];
-    assert.ok(backgroundIndex < sandIndex && sandIndex < bottleIndex);
-    assert.equal(bottleDraw.args.length, 9);
-    assert.ok(Math.abs(bottleDraw.args[1] - 235.52) < 0.001);
-    assert.ok(Math.abs(bottleDraw.args[3] - 552.96) < 0.001);
-
-    calls.length = 0;
-    await renderer.animatePour(frame, { from: 0, to: 1, color: 'pink' });
-    const source = layout.bottles[0];
-    const target = layout.bottles[1];
-    const direction = source.x < target.x ? 1 : -1;
-    const dx = target.x + target.width / 2 - (source.x + source.width / 2) - direction * target.width * 0.58;
-    const dy = target.y - source.y - source.height * 0.45;
-    const expectedMouth = transformBottlePoint(source, computeBottleMouthAnchor(1024, 1536),
-      { dx, dy, rotation: direction * 1.18 });
-    const targetMouth = { x: target.x + target.width / 2, y: target.y + target.height * 0.34 };
-    const grainDraws = calls.filter((call) => call.method === 'fillRect' &&
-      call.args[0] > Math.min(expectedMouth.x, targetMouth.x) - 10 &&
-      call.args[0] < Math.max(expectedMouth.x, targetMouth.x) + 10);
-    assert.ok(grainDraws.length > 0);
-
-    await renderer.shake(frame, 0);
-    await renderer.flashHint(frame, 0, 1);
-    await renderer.celebrate(frame);
-  });
-});
-
-test('hitTestBottle returns the visible bottle index only', () => {
-  const layout = computeLayout(390, 844, 6);
-  const first = layout.bottles[0];
-  assert.equal(hitTestBottle(layout, first.x + first.width / 2, first.y + first.height / 2), 0);
-  assert.equal(hitTestBottle(layout, -10, -10), null);
+test('a thin mound on an inclined color boundary remains above it and preserves volume', () => {
+  const lower = createSandSurface(SAND_FLOOR + SAND_UNIT_HEIGHT,{tilt:0.28});
+  const expected = SAND_FLOOR + SAND_UNIT_HEIGHT * 1.1;
+  const upper = createSandSurface(expected,{tilt:-0.28,mound:0.27,lowerSurface:lower});
+  assert.ok(Math.abs(sampleSurfaceMean(upper) - expected) < 0.00001);
+  for (let x = -0.53; x <= 0.53; x += 0.01) assert.ok(upper.height(x,0) >= lower.height(x,0));
 });

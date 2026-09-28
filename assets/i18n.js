@@ -234,7 +234,7 @@
     'tools.simulation': ['趣味模拟', 'Fun simulation'],
     'tools.noData': ['暂时没有可用数据。', 'No data is available right now.'],
     'games.lede': ['24 款小游戏都在这里，选一款直接开始。', 'All twenty-four games are here. Pick one and start playing.'],
-    'games.bombman': ['联众炸弹超人', 'Lianzhong Bomberman'],
+    'games.bombman': ['炸弹超人', 'Bomberman'],
     'games.bombmanNote': ['按经典截图重绘的本地对战：1 名玩家迎战 3 名电脑对手。', 'A screenshot-inspired local battle against three computer opponents.'],
     'games.xiuxian': ['我的文字修仙全靠刷', 'Text Cultivation'],
     'games.xiuxianNote': ['修炼、探索秘境、挑战首领，存档保存在浏览器中。原作：谦君。', 'Cultivate, explore realms, and challenge bosses. Saves stay in your browser. Original game by Jun Qian.'],

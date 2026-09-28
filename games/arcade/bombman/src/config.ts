@@ -4,7 +4,7 @@ export const ROWS = 13;
 export const BOARD_X = 53;
 export const BOARD_Y = 39;
 
-// 联众官方规则已确认：初始一弹、火力半径两格、放下约两秒爆炸、加速每件 +25%。
+// 原版规则已确认：初始一弹、火力半径两格、放下约两秒爆炸、加速每件 +25%。
 // 以下其余数值均为「可调暂定值」，需原版录屏进一步校准。
 export const TUNING = {
   movePxPerSec: 112,

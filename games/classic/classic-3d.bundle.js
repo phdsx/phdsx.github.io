@@ -53077,12 +53077,8 @@ const THREE = { AmbientLight, BoxGeometry, CanvasTexture, Color, ConeGeometry, C
   const fill = new THREE.DirectionalLight(0x8ba9ff, 0.35);
   fill.position.set(12, -5, 12);
   scene.add(fill);
-  const jewelLight = new THREE.DirectionalLight(0xffffff, 1.1);
-  jewelLight.position.set(4, 7, 18);
-  scene.add(jewelLight);
-
   // Preserve the approved jewelry rendering in an alpha atlas.
-  let gemAtlas;
+  let gemAtlas,matchBoard;
   function ensureGemAtlas() {
     if (gemAtlas) return;
     gemAtlas = new THREE.TextureLoader().load('../../classic/match-gems-atlas.png', undefined, undefined, error => {
@@ -53092,12 +53088,33 @@ const THREE = { AmbientLight, BoxGeometry, CanvasTexture, Color, ConeGeometry, C
     });
     gemAtlas.colorSpace = THREE.SRGBColorSpace;
   }
+  function ensureMatchBoard() {
+    if(matchBoard)return;
+    const canvas=document.createElement('canvas');canvas.width=canvas.height=570;
+    const g=canvas.getContext('2d');
+    const fillRound=(x,y,w,h,r,color)=>{g.fillStyle=color;g.beginPath();g.roundRect(x,y,w,h,r);g.fill()};
+    const gradient=g.createLinearGradient(0,0,570,570);
+    gradient.addColorStop(0,'#38204e');gradient.addColorStop(1,'#21112f');
+    fillRound(1,1,568,568,18,gradient);
+    g.strokeStyle='#c2a15c';g.lineWidth=2;g.beginPath();g.roundRect(2,2,566,566,17);g.stroke();
+    g.strokeStyle='#70503a';g.lineWidth=1;g.beginPath();g.roundRect(6,6,558,558,14);g.stroke();
+    for(let y=0;y<8;y++)for(let x=0;x<8;x++){
+      const px=17+x*67,py=19+y*67;
+      fillRound(px+1,py+1,65,65,6,'#473254');
+      fillRound(px+3,py+3,61,61,5,'#150b23');
+      g.strokeStyle='#2c1a3e';g.lineWidth=1;g.beginPath();g.roundRect(px+4,py+4,59,59,4);g.stroke();
+    }
+    const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
+    matchBoard=new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:texture,transparent:true,toneMapped:false}));
+    matchBoard.position.set(0,0,-.5);matchBoard.scale.set(570/40,570/40,1);scene.add(matchBoard);
+  }
   function jewelPlane(type) {
     const geometry=new THREE.PlaneGeometry(1,1),uv=geometry.attributes.uv;
-    const col=type%3,row=Math.floor(type/3);
+    const frames=[[82,56],[568,60],[1047,55],[82,539],[568,538],[1056,543]];
+    const [left,top]=frames[type];
     for(let i=0;i<uv.count;i++){
       const u=uv.getX(i),v=uv.getY(i);
-      uv.setXY(i,(col*512+2+u*508)/1536,((1-row)*512+2+v*508)/1024);
+      uv.setXY(i,(left+u*400)/1536,1-(top+(1-v)*400)/1024);
     }
     return geometry;
   }
@@ -53118,6 +53135,7 @@ const THREE = { AmbientLight, BoxGeometry, CanvasTexture, Color, ConeGeometry, C
     meshes.forEach(mesh => { mesh.visible = false; });
     jewels.forEach(mesh => { mesh.visible = false; });
     sprites.forEach(sprite => { sprite.visible = false; });
+    if(matchBoard)matchBoard.visible=false;
   }
   function mesh(kind, x, y, z, w, h, d, color, angle = 0, glow = 0) {
     const isJewel=kind.startsWith('jewel');
@@ -53228,30 +53246,6 @@ const THREE = { AmbientLight, BoxGeometry, CanvasTexture, Color, ConeGeometry, C
     s.enemies.forEach(e => aircraft(e.x, e.y, '#e96c75', true));
     if (s.inv <= 0 || Math.floor(tick * 12) % 2 === 0) aircraft(s.x, s.y, '#4dccdf');
   }
-  function tankModel(x, y, color, dir = { x: 0, y: -1 }) {
-    box(x - 17, y, 12, 45, 16, '#232e37', 1);
-    box(x + 17, y, 12, 45, 16, '#232e37', 1);
-    for (const dx of [-17, 17]) for (const dy of [-14, 0, 14]) ball(x + dx, y + dy, 5, 5, 6, '#879099', 2);
-    box(x, y, 33, 37, 18, color, 2);
-    ball(x, y, 13, 13, 12, '#d8e6c2', 3);
-    const ex = x + dir.x * 30, ey = y + dir.y * 30;
-    line(x, y, ex, ey, 9, '#cad8b4', 4);
-    ball(x, y, 7, 7, 6, '#364b43', 4.5);
-  }
-  function drawTank(s) {
-    begin('#193b32');
-    for (let y = 0; y < 8; y++) for (let x = 0; x < 12; x++)
-      box(x * 80 + 40, y * 80 + 40, 79, 79, 8, (x + y) % 2 ? '#416d50' : '#3c624a', -3);
-    for (const wall of [{x:185,y:120,w:95,h:45},{x:410,y:90,w:140,h:45},{x:665,y:165,w:110,h:45},{x:130,y:360,w:110,h:45},{x:395,y:330,w:160,h:42},{x:695,y:390,w:95,h:45}]) {
-      box(wall.x + wall.w / 2, wall.y + wall.h / 2, wall.w, wall.h, 22, '#ab7863', 1);
-      for (let x = wall.x + 14; x < wall.x + wall.w - 5; x += 30) box(x, wall.y + 10, 3, 18, 3, '#e9b08a', 3);
-    }
-    s.bullets.forEach(b => ball(b.x, b.y, 7, 7, 7, b.own ? '#ffdc72' : '#ff867a', 5, .5));
-    s.enemies.forEach(e => tankModel(e.x, e.y, '#b75a54', {x:0,y:1}));
-    tankModel(s.x, s.y, '#89bf72', s.dir);
-    box(480, 618, 75, 28, 18, '#c7b779', 1);
-    text('★', 480, 615, 31);
-  }
   function pig(x, y) {
     ball(x, y, 28, 28, 25, '#9bd35d', 2);
     ball(x - 18, y - 22, 9, 11, 8, '#a4de69', 2);
@@ -53288,17 +53282,9 @@ const THREE = { AmbientLight, BoxGeometry, CanvasTexture, Color, ConeGeometry, C
   }
   function drawMatch(s, tick) {
     ensureGemAtlas();
+    ensureMatchBoard();
     begin('#1e1138');
-    box(480, 320, 570, 570, 26, '#392755', -2);
-    box(480, 35, 570, 3, 4, '#c69c57', 1);
-    box(480, 605, 570, 3, 4, '#c69c57', 1);
-    box(195, 320, 3, 570, 4, '#c69c57', 1);
-    box(765, 320, 3, 570, 4, '#c69c57', 1);
-    for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
-      const px = 212 + x * 67 + 33.5, py = 54 + y * 67 + 33.5;
-      box(px, py, 64, 64, 10, '#493363', -.5);
-      box(px, py, 60, 60, 10, '#170c2c', -.2);
-    }
+    matchBoard.visible=true;
     const stage=s.animation,p=stage?Math.min(stage.elapsed/stage.duration,1):0;
     const ease=t=>1-Math.pow(1-t,3);
     const drawStone=(x,y,type,scale=1,selected=false)=>{
@@ -53395,11 +53381,10 @@ const THREE = { AmbientLight, BoxGeometry, CanvasTexture, Color, ConeGeometry, C
     for (const i of s.found) for (const shift of [0, 480])
       ring(positions[i][0] + shift, positions[i][1], positions[i][2], '#ffe17b', 5);
   }
-  const drawByGame = {snake:drawSnake,plane:drawPlane,tank:drawTank,birds:drawBirds,match:drawMatch,stars:drawStars,difference:drawDifference};
+  const drawByGame = {snake:drawSnake,plane:drawPlane,birds:drawBirds,match:drawMatch,stars:drawStars,difference:drawDifference};
   window.PHDSXClassic3D = {
     draw(game, model, tick) {
       try {
-        jewelLight.intensity=game==='match'?.25:0;
         drawByGame[game](model, tick);
         renderer.render(scene, camera);
       } catch (error) {
