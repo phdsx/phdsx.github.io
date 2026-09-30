@@ -17,7 +17,8 @@
     tiantan:['天坛','Temple of Heaven'],
     'forbidden-city':['故宫','Forbidden City'],
     'summer-palace':['颐和园','Summer Palace'],
-    'beijing-zoo':['北京动物园','Beijing Zoo']
+    'beijing-zoo':['北京动物园','Beijing Zoo'],
+    'yuanmingyuan':['圆明园 · 1786','Yuanmingyuan · 1786']
   };
   function resolveTour(path, search, title) {
     const params = new URLSearchParams(search);
