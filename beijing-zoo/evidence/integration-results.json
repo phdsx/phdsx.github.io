@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-01",
+  "root": "http://127.0.0.1:5193/",
+  "browser": "151.0.7922.34",
+  "checks": [
+    "Tour directory search, real screenshot thumbnail, nested public wrapper/iframe load",
+    "Actual minimap click selects searched venue and safe observation point",
+    "Walk and pointer lock inside the published same-origin iframe",
+    "390x844 touch emulation: drag orbit, two-finger zoom, animal query and venue jump"
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "failures": [],
+  "limitations": [
+    "Chromium only; emulated touch and mobile viewport, not a physical phone"
+  ],
+  "wrapperPointerLock": true,
+  "touch": {
+    "rotationDistance": 16.68384543367612,
+    "distanceBefore": 51.224993899462824,
+    "distanceAfter": 27.582689022787704
+  }
+}

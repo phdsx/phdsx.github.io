@@ -1,0 +1,6 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs';
+const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||'C:/Users/YUE/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe',args:['--enable-webgl','--ignore-gpu-blocklist']});
+const page=await browser.newPage({viewport:{width:1440,height:960}});let errors=[],warnings=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());if(m.type()==='warning'&&!warnings.includes(m.text()))warnings.push(m.text())});
+try{await page.goto(process.env.TEST_URL||'http://127.0.0.1:5186/');await page.waitForFunction(()=>window.__ymy?.ready,null,{timeout:90000});await page.waitForTimeout(1500);await page.screenshot({path:'evidence/initial.png'});console.log(await page.evaluate(()=>{let s=window.__ymy,g=s.renderer.getContext(),e=g.getExtension('WEBGL_debug_renderer_info');return {models:s.models.length,stats:s.stats.slice(-15),gpu:e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER),info:s.renderer.info.render,triangles:s.renderer.info.render.triangles,textures:s.renderer.info.memory.textures}}));console.log({errors,warnings});}catch(e){console.log(e.message,{errors,warnings});await page.screenshot({path:'evidence/error.png'})}finally{await browser.close()}

@@ -27,7 +27,7 @@
   function rounded(x,y,w,h,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
   function circle(x,y,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
   function label(s,x,y,size=24,color='#fff',align='center'){ctx.fillStyle=color;ctx.font=`700 ${size}px system-ui`;ctx.textAlign=align;ctx.textBaseline='middle';ctx.fillText(s,x,y)}
-  function pos(e){const r=canvas.getBoundingClientRect();return {x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height}}
+  function pos(e){const r=canvas.getBoundingClientRect(),bx=canvas.clientLeft||0,by=canvas.clientTop||0;return {x:(e.clientX-r.left-bx)*W/(r.width-2*bx),y:(e.clientY-r.top-by)*H/(r.height-2*by)}}
   function reset(){model=modes[slug].init();paused=false;ended=false;overlay.hidden=true;pauseButton.textContent='暂停';held.clear();tick=0;last=0;render()}
   function render(){
     if (window.PHDSXClassic3D) {
@@ -155,9 +155,56 @@
     return {init(){return {level:0,next:0,points:layouts[0],mistakes:0}},up(s,p){const i=s.points.findIndex(q=>Math.hypot(q[0]-p.x,q[1]-p.y)<30);if(i<0)return;if(i===s.next){s.next++;if(s.next===s.points.length){if(s.level===layouts.length-1){finish('星图完成！');return}s.level++;s.points=layouts[s.level];s.next=0}}else{s.mistakes++;s.next=0}},draw(s){background('#142c5a','#090f2d');for(let i=0;i<90;i++){const x=(i*173+81)%W,y=(i*293+55)%H;circle(x,y,i%6===0?2:1,'#a9d8fa90')}ctx.strokeStyle='#f5d076';ctx.lineWidth=4;ctx.beginPath();s.points.slice(0,s.next).forEach((p,i)=>{if(i===0)ctx.moveTo(...p);else ctx.lineTo(...p)});ctx.stroke();s.points.forEach((p,i)=>{circle(p[0],p[1],i<s.next?21:17,i<s.next?'#f4c96a':'#9bc7f9');circle(p[0],p[1],6,'#fff');label(String(i+1),p[0],p[1]-38,19)});status(`星图 ${s.level+1} / ${layouts.length}`,`下一颗 ${s.next+1} · 失误 ${s.mistakes}`)}}
   }
   function difference(){
-    const differences=[{x:95,y:110,r:24},{x:250,y:320,r:28},{x:104,y:402,r:23},{x:350,y:480,r:25},{x:276,y:445,r:25}];
-    function scene(x,variant){ctx.save();ctx.translate(x,0);rounded(10,26,455,570,12,'#b7e4ef');circle(92,111,36,variant?'#f1b765':'#fff2aa');rounded(10,418,455,178,0,'#75ad72');ctx.fillStyle='#486f67';ctx.beginPath();ctx.moveTo(30,420);ctx.lineTo(175,210);ctx.lineTo(310,420);ctx.fill();ctx.fillStyle='#62877c';ctx.beginPath();ctx.moveTo(205,420);ctx.lineTo(365,172);ctx.lineTo(465,420);ctx.fill();rounded(175,352,210,145,6,'#f3dab1');ctx.fillStyle=variant?'#a25e74':'#b85753';ctx.beginPath();ctx.moveTo(156,354);ctx.lineTo(280,265);ctx.lineTo(402,354);ctx.fill();rounded(256,408,46,89,4,variant?'#7cb9d0':'#775f57');rounded(206,382,37,35,3,variant?'#f4d976':'#9dd4ee');rounded(324,378,37,35,3,'#9dd4ee');rounded(76,410,15,102,3,'#70563d');circle(84,399,53,variant?'#d79b50':'#55a267');rounded(335,479,70,15,4,variant?'#ec82a3':'#d6a258');ctx.restore()}
-    return {init(){return {found:new Set(),miss:0}},up(s,p){const side=p.x>=480?1:0,x=p.x-side*480;let found=-1;differences.forEach((d,i)=>{if(Math.hypot(x-d.x,p.y-d.y)<d.r+12)found=i});if(found>=0){s.found.add(found);if(s.found.size===differences.length)finish('全部找到了！')}else{s.miss++;if(s.miss>=8)finish('机会用完了')}},draw(s){background('#233c54','#15253c');scene(0,false);scene(480,true);ctx.fillStyle='#17243b';ctx.fillRect(472,0,16,H);for(const i of s.found){const d=differences[i];for(const shift of [0,480]){ctx.strokeStyle='#fef08a';ctx.lineWidth=5;ctx.beginPath();ctx.arc(d.x+shift,d.y,d.r+16,0,Math.PI*2);ctx.stroke()}}status(`找到 ${s.found.size} / 5`,`错点 ${s.miss} / 8`)}}
+    // Canvas drawing, picking and markers share the complete object outlines.
+    // The Three.js view picks its visible meshes in the same game coordinates.
+    const differences=[
+      {type:'circle',x:92,y:111,r:36,colors:['#fff2aa','#f1b765']},
+      {type:'triangle',points:[[156,354],[280,265],[402,354]],colors:['#b85753','#a25e74']},
+      {type:'circle',x:84,y:399,r:53,colors:['#55a267','#d79b50']},
+      {type:'rect',x:335,y:479,w:70,h:15,colors:['#d6a258','#ec82a3']},
+      {type:'rect',x:256,y:408,w:46,h:89,colors:['#775f57','#7cb9d0']}
+    ];
+    function outline(d,pad=0){
+      ctx.beginPath();
+      if(d.type==='circle')ctx.arc(d.x,d.y,d.r+pad,0,Math.PI*2);
+      else if(d.type==='rect')ctx.roundRect(d.x-pad,d.y-pad,d.w+pad*2,d.h+pad*2,4);
+      else{d.points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath()}
+    }
+    function paint(i,variant){const d=differences[i];outline(d);ctx.fillStyle=d.colors[Number(variant)];ctx.fill()}
+    function contains(d,p){
+      if(d.type==='circle')return Math.hypot(p.x-d.x,p.y-d.y)<=d.r;
+      if(d.type==='rect')return Math.hypot(p.x-clamp(p.x,d.x+4,d.x+d.w-4),p.y-clamp(p.y,d.y+4,d.y+d.h-4))<=4;
+      const crosses=d.points.map(([x,y],i)=>{const [nx,ny]=d.points[(i+1)%3];return (nx-x)*(p.y-y)-(ny-y)*(p.x-x)});
+      return crosses.every(v=>v>=0)||crosses.every(v=>v<=0);
+    }
+    function scene(x,variant){
+      ctx.save();ctx.translate(x,0);
+      rounded(10,26,455,570,12,'#b7e4ef');paint(0,variant);rounded(10,418,455,178,0,'#75ad72');
+      ctx.fillStyle='#486f67';ctx.beginPath();ctx.moveTo(30,420);ctx.lineTo(175,210);ctx.lineTo(310,420);ctx.fill();
+      ctx.fillStyle='#62877c';ctx.beginPath();ctx.moveTo(205,420);ctx.lineTo(365,172);ctx.lineTo(465,420);ctx.fill();
+      rounded(175,352,210,145,6,'#f3dab1');paint(1,variant);paint(4,variant);
+      rounded(206,382,37,35,3,'#9dd4ee');rounded(324,378,37,35,3,'#9dd4ee');
+      rounded(76,410,15,102,3,'#70563d');paint(2,variant);paint(3,variant);ctx.restore();
+    }
+    return {
+      init(){return {found:new Set(),miss:0}},
+      up(s,p){
+        if(p.x<0||p.x>=W||p.y<0||p.y>=H)return;
+        const found=typeof window.PHDSXClassic3D?.hitDifference==='function'
+          ? window.PHDSXClassic3D.hitDifference(p)
+          : differences.findIndex(d=>contains(d,{x:p.x%480,y:p.y}));
+        if(found>=0){s.found.add(found);if(s.found.size===differences.length)finish('全部找到了！')}
+        else{s.miss++;if(s.miss>=8)finish('机会用完了')}
+      },
+      draw(s){
+        background('#233c54','#15253c');scene(0,false);scene(480,true);
+        ctx.fillStyle='#17243b';ctx.fillRect(472,0,16,H);
+        for(const i of s.found)for(const shift of [0,480]){
+          ctx.save();ctx.translate(shift,0);ctx.strokeStyle='#fef08a';ctx.lineWidth=5;outline(differences[i],8);ctx.stroke();ctx.restore();
+        }
+        status(`找到 ${s.found.size} / 5`,`错点 ${s.miss} / 8`);
+      }
+    };
   }
   reset();requestAnimationFrame(frame);
 })();

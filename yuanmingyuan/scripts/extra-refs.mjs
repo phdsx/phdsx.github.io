@@ -1,0 +1,3 @@
+import fs from 'node:fs';
+for(const [name,url]of [['nlc-plan.jpg','https://www.nlc.cn/nmcb/gcjpdz/ysl/wc/201405/W020140528594735831317.jpg'],['three-gardens.pdf','https://www.dpm.org.cn/Uploads/pdf/6172/T00092_00.pdf'],['western-engraving-page.html','https://www.dpm.org.cn/collection/paint/228650.html']]){try{let r=await fetch(url);fs.writeFileSync('yuanmingyuan/research/'+name,Buffer.from(await r.arrayBuffer()));console.log(name,r.status)}catch(e){console.log(e.message)}}
+const p=fs.readFileSync('yuanmingyuan/research/official-guide-page.html','utf8');console.log([...p.matchAll(/(?:src|href)\s*=\s*["']([^"']+\.(?:png|jpg|jpeg))["']/gi)].map(m=>new URL(m[1],'https://www.yuanmingyuanpark.cn/pw/kdt/').href));

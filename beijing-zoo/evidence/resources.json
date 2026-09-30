@@ -1,0 +1,188 @@
+{
+  "date": "2026-10-01",
+  "directory": "../tours/china/beijing/beijing-zoo",
+  "totalBytes": 10094343,
+  "startupAssetBytes": 9475762,
+  "notes": [
+    "Exact local file sizes; not network transfer sizes",
+    "Standalone scene startup excludes optional source geography, CSV, licence documents and outer site assets",
+    "HTTP compression/cache configuration affects wire bytes; gzip values are offline estimates only"
+  ],
+  "files": [
+    {
+      "file": "assets/index-DbSoXT7X.js",
+      "bytes": 692975,
+      "gzipBytes": 184808
+    },
+    {
+      "file": "assets/index-Pz0ncAVB.css",
+      "bytes": 9482,
+      "gzipBytes": 2923
+    },
+    {
+      "file": "data/map.json",
+      "bytes": 206115,
+      "gzipBytes": 40637
+    },
+    {
+      "file": "data/missing-models.json",
+      "bytes": 13492,
+      "gzipBytes": 940
+    },
+    {
+      "file": "data/osm-derived-geography.json",
+      "bytes": 555867,
+      "gzipBytes": 57072
+    },
+    {
+      "file": "data/sources.json",
+      "bytes": 4946,
+      "gzipBytes": 1988
+    },
+    {
+      "file": "data/species-distribution.csv",
+      "bytes": 11943,
+      "gzipBytes": 2908
+    },
+    {
+      "file": "data/species.json",
+      "bytes": 36902,
+      "gzipBytes": 3796
+    },
+    {
+      "file": "data/venues.json",
+      "bytes": 58354,
+      "gzipBytes": 11657
+    },
+    {
+      "file": "docs/ASSETS.md",
+      "bytes": 2775,
+      "gzipBytes": 1797
+    },
+    {
+      "file": "docs/COVERAGE.md",
+      "bytes": 4040,
+      "gzipBytes": 2497
+    },
+    {
+      "file": "docs/SOURCES.md",
+      "bytes": 6416,
+      "gzipBytes": 3770
+    },
+    {
+      "file": "docs/TESTING.md",
+      "bytes": 5617,
+      "gzipBytes": 3536
+    },
+    {
+      "file": "favicon.svg",
+      "bytes": 252,
+      "gzipBytes": 210
+    },
+    {
+      "file": "index.html",
+      "bytes": 1291,
+      "gzipBytes": 654
+    },
+    {
+      "file": "models/ASSET-LICENSES.md",
+      "bytes": 2775,
+      "gzipBytes": 1797
+    },
+    {
+      "file": "models/lion.glb",
+      "bytes": 5417528,
+      "gzipBytes": null
+    },
+    {
+      "file": "models/manifest.json",
+      "bytes": 872,
+      "gzipBytes": 523
+    },
+    {
+      "file": "README.md",
+      "bytes": 4036,
+      "gzipBytes": 2560
+    },
+    {
+      "file": "scene.html",
+      "bytes": 6968,
+      "gzipBytes": 2657
+    },
+    {
+      "file": "SOURCES.md",
+      "bytes": 6416,
+      "gzipBytes": 3770
+    },
+    {
+      "file": "textures/bark-color.webp",
+      "bytes": 251664,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/bark-normalgl.webp",
+      "bytes": 392268,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/bark-roughness.webp",
+      "bytes": 158766,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/forest-color.webp",
+      "bytes": 271614,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/forest-normalgl.webp",
+      "bytes": 351816,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/forest-roughness.webp",
+      "bytes": 201344,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/manifest.json",
+      "bytes": 1960,
+      "gzipBytes": 399
+    },
+    {
+      "file": "textures/paving-color.webp",
+      "bytes": 171844,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/paving-normalgl.webp",
+      "bytes": 267786,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/paving-roughness.webp",
+      "bytes": 186994,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/rock-color.webp",
+      "bytes": 176318,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/rock-normalgl.webp",
+      "bytes": 383588,
+      "gzipBytes": null
+    },
+    {
+      "file": "textures/rock-roughness.webp",
+      "bytes": 228238,
+      "gzipBytes": null
+    },
+    {
+      "file": "THREE-LICENSE.txt",
+      "bytes": 1081,
+      "gzipBytes": 667
+    }
+  ]
+}

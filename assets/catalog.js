@@ -1,4 +1,5 @@
 window.PHDSX_SEARCH_INDEX = [
+  { label: '北京动物园', href: 'tours/china/beijing/beijing-zoo/index.html', type: '3D云游', keywords: '中国 北京 动物园 熊猫 狮虎山 长颈鹿 动物 物种 三维 鸟瞰 步行 Beijing Zoo animals panda lion China Beijing 3D' },
   { label: '3D云游', href: 'tours.html', type: '3D云游', keywords: '三维 云游 旅行 景点 国家 地区 中国 北京 3D tours travel China Beijing' },
   { label: '天坛', href: 'tours/china/beijing/tiantan/index.html', type: '3D云游', keywords: '中国 北京 祈年殿 皇穹宇 回音壁 圜丘 丹陛桥 三维 鸟瞰 步行 Temple of Heaven Tiantan China Beijing 3D' },
   { label: '故宫', href: 'tours/china/beijing/forbidden-city/index.html', type: '3D云游', keywords: '中国 北京 紫禁城 太和殿 午门 宫殿 三维 鸟瞰 步行 Forbidden City Palace Museum China Beijing 3D' },

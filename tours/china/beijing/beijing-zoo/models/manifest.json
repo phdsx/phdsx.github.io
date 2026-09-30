@@ -1,0 +1,21 @@
+[
+  {
+    "id": "lion",
+    "speciesId": "s-1",
+    "file": "lion.glb",
+    "author": "kenchoo",
+    "original": "https://sketchfab.com/3d-models/lion-61d687ca92dc4cafbd5e74e3be40d49d",
+    "mirror": "https://raw.githubusercontent.com/code4fukui/vr-cats/main/lion.glb",
+    "license": "CC-BY-NC-SA-4.0 (embedded); CC-BY-NC-4.0 (current original page); retain attribution, NC and SA",
+    "licenseUrls": [
+      "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "https://creativecommons.org/licenses/by-nc/4.0/"
+    ],
+    "accessed": "2026-10-01",
+    "bytes": 5417528,
+    "sha256": "27406325976beb10efba1033d31afaf4c7c8b08d65f7069fee0e2ad5c58551a8",
+    "changes": "GLB file unchanged. Runtime size 2.65m; material roughness adjusted; procedural chest breathing and head turn. Source walk clip paused.",
+    "demoCount": 1,
+    "realInventoryCount": null
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-01",
+  "units": "metres",
+  "boundaryAreaM2": 735280.7249954336,
+  "counts": {
+    "buildings": 69,
+    "paths": 115,
+    "water": 7,
+    "venues": 54,
+    "species": 41
+  },
+  "safeSpawns": 54,
+  "blockedTargets": 336,
+  "largeMovementTests": 90,
+  "walkableSegments": 505,
+  "blockedSegments": 8,
+  "notes": [
+    "拒绝的道路中点可能落入旧地图建筑/围场或缺少桥梁标注处，保持保守阻挡；不能据此声称全园每条道路连通",
+    "面积是OSM边界计算值，非管理部门官方面积"
+  ]
+}

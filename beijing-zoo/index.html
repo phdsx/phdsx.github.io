@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#203c34" />
+    <meta
+      name="description"
+      content="基于公开地图和资料的北京动物园三维游览，支持鸟瞰、步行及物种查询。"
+    />
+    <title>北京动物园 · 三维游览</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main id="app">
+      <div id="viewport" aria-label="北京动物园三维游览" tabindex="0"></div>
+      <div id="labels"></div>
+      <header class="topbar glass">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">林</span>
+          <div>
+            <span class="eyebrow">BEIJING ZOO · 1906</span>
+            <h1>北京动物园 <span>三维游览</span></h1>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="research">资料与精度</button
+          ><button id="help" aria-label="操作说明">?</button>
+        </div>
+      </header>
+      <aside id="explorer" class="glass">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">DISCOVER THE PARK</span>
+            <h2>在古园里，遇见野生世界</h2>
+          </div>
+          <button id="fold-list" aria-label="折叠场馆列表" aria-expanded="true">
+            −
+          </button>
+        </div>
+        <div class="list-content">
+          <label class="search"
+            ><span aria-hidden="true">⌕</span
+            ><input
+              id="search"
+              type="search"
+              placeholder="搜索动物或场馆"
+              aria-label="搜索动物或场馆"
+              autocomplete="off"
+          /></label>
+          <div id="filters" class="filters" aria-label="动物类别">
+            <button data-category="all" aria-pressed="true">全部</button
+            ><button data-category="mammal" aria-pressed="false">兽类</button
+            ><button data-category="bird" aria-pressed="false">鸟类</button
+            ><button data-category="reptile" aria-pressed="false">
+              爬行类
+            </button>
+          </div>
+          <p id="result-count" role="status"></p>
+          <div id="results"></div>
+          <p class="list-note">
+            分布来自注明日期的资料。<br />今日在展情况未确认。
+          </p>
+        </div>
+      </aside>
+      <section id="info" class="glass" hidden aria-label="场馆详情">
+        <button id="close-info" class="close" aria-label="关闭场馆详情">
+          ×
+        </button>
+        <div id="info-content"></div>
+        <div class="info-actions">
+          <button id="near-view">近景观察</button
+          ><button id="walk-here">步行到此</button>
+        </div>
+      </section>
+      <section id="map-panel" class="glass">
+        <div class="map-heading">
+          <span>园区导览 <small>北 ↑</small></span
+          ><button id="fold-map" aria-label="折叠小地图" aria-expanded="true">
+            −
+          </button>
+        </div>
+        <div class="map-content">
+          <svg id="minimap" role="img" aria-label="北京动物园米制平面图"></svg>
+          <div class="map-legend">
+            <span><i class="legend-dot"></i> 场馆 / 资料点位</span
+            ><span><i class="water-dot"></i> 水体</span
+            ><span class="scale">100 m</span>
+          </div>
+        </div>
+      </section>
+      <div class="scene-caption">
+        <span class="caption-line"></span
+        ><span id="view-title">南门 · 古园初见</span
+        ><small>夏季晴天 · 相对地面 · 1 单位 = 1 米</small>
+      </div>
+      <nav class="toolbar glass" aria-label="游览控制">
+        <div class="mode-tabs">
+          <button id="orbit" aria-pressed="true">◉ 鸟瞰</button
+          ><button id="walk" aria-pressed="false">♧ 步行</button>
+        </div>
+        <button id="home" aria-label="查看全园并重置视角">全园</button
+        ><button id="entrance">南门</button
+        ><label class="quality-label"
+          >画质
+          <select id="quality" aria-label="画质">
+            <option value="low">低</option>
+            <option value="medium" selected>中</option>
+            <option value="high">高</option>
+          </select></label
+        ><button id="stats-toggle" aria-label="性能统计">帧率</button>
+      </nav>
+      <div id="walk-hint" class="glass" hidden>
+        点击场景进入鼠标观察 · WASD 行走 · Esc 释放鼠标<br /><small
+          >视高 1.7 m · 速度 1.4 m/s · 限游客道路</small
+        >
+      </div>
+      <div id="crosshair" hidden>+</div>
+      <output id="stats" class="glass" hidden></output>
+      <div id="toast" role="status" hidden></div>
+      <div id="loading">
+        <div class="loader-brand">北京动物园</div>
+        <p>把一座百年古园，放回真实尺度。</p>
+        <progress id="progress" max="100" value="4"></progress
+        ><span id="loading-text">读取园区资料…</span>
+      </div>
+      <div id="resource-warning" role="status" hidden></div>
+      <dialog id="sources-dialog">
+        <div class="dialog-head">
+          <div>
+            <span class="eyebrow">RESEARCH & PROVENANCE</span>
+            <h2>资料、精度与素材</h2>
+          </div>
+          <button class="dialog-close" aria-label="关闭资料">×</button>
+        </div>
+        <div id="sources-content"></div>
+      </dialog>
+      <dialog id="help-dialog">
+        <div class="dialog-head">
+          <h2>如何游览</h2>
+          <button class="dialog-close" aria-label="关闭操作说明">×</button>
+        </div>
+        <p>
+          鸟瞰：拖动旋转，右键拖动平移，滚轮缩放；触屏单指旋转、双指缩放和平移。
+        </p>
+        <p>
+          步行：点击场景锁定鼠标，WASD / 方向键移动，Esc 释放。行走速度 1.4
+          米/秒，视高 1.7 米。水体、围场、建筑和未标记游客路径不能进入。
+        </p>
+        <p>
+          点击场馆标记、小地图或搜索结果查看资料。近景观察从游客道路观察；手机可查询并跳转，步行建议使用键鼠。
+        </p>
+        <p>
+          动物动画、数量和位置仅用于演示。全景、室内和现时开闭园状态未模拟。
+        </p>
+      </dialog>
+      <noscript
+        ><p>
+          三维游览需要启用 JavaScript。场馆与物种资料可阅读
+          <a href="./data/venues.json">场馆数据</a>、<a
+            href="./data/species.json"
+            >物种数据</a
+          >。
+        </p></noscript
+      >
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

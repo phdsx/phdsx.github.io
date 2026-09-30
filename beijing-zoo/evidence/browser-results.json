@@ -1,0 +1,391 @@
+{
+  "testDate": "2026-10-01",
+  "url": "http://127.0.0.1:5193/tours/china/beijing/beijing-zoo/scene.html",
+  "viewport": {
+    "width": 1440,
+    "height": 960,
+    "dpr": 1
+  },
+  "browser": "151.0.7922.34",
+  "mode": "Headless Chromium on this host; WebGL renderer read below; no physical mobile device",
+  "errors": [],
+  "failedRequests": [],
+  "failures": [],
+  "checks": [
+    "Scene load, local data/textures/GLB load",
+    "Bird view rotate, zoom, pan, reset",
+    "Animal search, venue/source detail, minimap agreement, close animal observation, bounded idle",
+    "Category filters, venue name search, empty result",
+    "Collapsible minimap, source and help dialogs",
+    "Walk entry, WASD, eye height, conservative swept collision, pointer lock attempt",
+    "Three quality tiers with measured frame intervals and draw calls",
+    "390x844 mobile layout, query and venue jump (desktop viewport emulation)",
+    "Blocked model request produces usable scene and failure notice"
+  ],
+  "performance": [
+    {
+      "quality": "low",
+      "frames": 132,
+      "meanFrameMs": 16.667424242424232,
+      "p95FrameMs": 16.700000000000728,
+      "fps": 59.99727285123407,
+      "drawCalls": 267,
+      "triangles": 358445,
+      "pixelRatio": 1
+    },
+    {
+      "quality": "medium",
+      "frames": 132,
+      "meanFrameMs": 16.668181818181825,
+      "p95FrameMs": 16.799999999999272,
+      "fps": 59.99454595036812,
+      "drawCalls": 268,
+      "triangles": 540965,
+      "pixelRatio": 1
+    },
+    {
+      "quality": "high",
+      "frames": 132,
+      "meanFrameMs": 16.666666666666668,
+      "p95FrameMs": 16.700000000000728,
+      "fps": 59.99999999999999,
+      "drawCalls": 268,
+      "triangles": 540965,
+      "pixelRatio": 1
+    }
+  ],
+  "scene": {
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 (0x00002786) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "buildings": 69,
+    "trees": 3040,
+    "animal": {
+      "loaded": true,
+      "error": null,
+      "animation": "骨骼待机：轻微呼吸和转头；源动画移动与脚部接地需独立验证，未播放行走"
+    },
+    "modelAnimations": [
+      {
+        "name": "Animation",
+        "duration": 3
+      }
+    ]
+  },
+  "animalGround": {
+    "min": [
+      193.35600738516047,
+      0.05015387929121597,
+      -314.0342379352865
+    ],
+    "max": [
+      196.00407387568643,
+      1.2582047062727595,
+      -313.4149238553728
+    ],
+    "size": [
+      2.648066490525963,
+      1.2080508269815435,
+      0.6193140799136927
+    ],
+    "root": [
+      194.68100738516048,
+      0.05,
+      -313.7245808953296
+    ],
+    "inside": true,
+    "head": [
+      0.5222335576664052,
+      -0.0026624489483396147,
+      -0.008155204468222852,
+      0.8527593842881489
+    ],
+    "projected": [
+      696.3716549994655,
+      538.8325887264465
+    ]
+  },
+  "safeJumps": [
+    {
+      "id": "v-25375816",
+      "valid": true,
+      "distance": 25.44725161890635
+    },
+    {
+      "id": "v-25375817",
+      "valid": true,
+      "distance": 38.16024960643666
+    },
+    {
+      "id": "v-25375821",
+      "valid": true,
+      "distance": 74.87072863255888
+    },
+    {
+      "id": "v-25375829",
+      "valid": true,
+      "distance": 22.860231121527296
+    },
+    {
+      "id": "v-25375838",
+      "valid": true,
+      "distance": 36.00868375401955
+    },
+    {
+      "id": "v-25375845",
+      "valid": true,
+      "distance": 29.924308384290104
+    },
+    {
+      "id": "v-25375846",
+      "valid": true,
+      "distance": 16.54821814873381
+    },
+    {
+      "id": "v-25375849",
+      "valid": true,
+      "distance": 19.935954008664662
+    },
+    {
+      "id": "v-25375851",
+      "valid": true,
+      "distance": 15.273871680290402
+    },
+    {
+      "id": "v-25375855",
+      "valid": true,
+      "distance": 51.77718660588385
+    },
+    {
+      "id": "v-25375857",
+      "valid": true,
+      "distance": 21.418354957534874
+    },
+    {
+      "id": "v-25375861",
+      "valid": true,
+      "distance": 18.826241863058655
+    },
+    {
+      "id": "v-25375863",
+      "valid": true,
+      "distance": 42.83475019205723
+    },
+    {
+      "id": "v-25375869",
+      "valid": true,
+      "distance": 42.294306361398114
+    },
+    {
+      "id": "v-273416827",
+      "valid": true,
+      "distance": 16.63653649953908
+    },
+    {
+      "id": "v-273416828",
+      "valid": true,
+      "distance": 30.288334428699578
+    },
+    {
+      "id": "v-273416876",
+      "valid": true,
+      "distance": 46.27742652471679
+    },
+    {
+      "id": "v-478432511",
+      "valid": true,
+      "distance": 37.41628612078994
+    },
+    {
+      "id": "v-478432518",
+      "valid": true,
+      "distance": 15.263491195368989
+    },
+    {
+      "id": "v-478432519",
+      "valid": true,
+      "distance": 23.11956639526224
+    },
+    {
+      "id": "v-478457821",
+      "valid": true,
+      "distance": 18.17857051463472
+    },
+    {
+      "id": "v-478457830",
+      "valid": true,
+      "distance": 9.609141374974014
+    },
+    {
+      "id": "v-478457831",
+      "valid": true,
+      "distance": 15.195970366559017
+    },
+    {
+      "id": "v-478457835",
+      "valid": true,
+      "distance": 16.567804949963644
+    },
+    {
+      "id": "v-689563626",
+      "valid": true,
+      "distance": 136.21801493271659
+    },
+    {
+      "id": "v-1205163216",
+      "valid": true,
+      "distance": 17.038909782096056
+    },
+    {
+      "id": "v-1205163225",
+      "valid": true,
+      "distance": 27.085703107102827
+    },
+    {
+      "id": "v-1205163230",
+      "valid": true,
+      "distance": 80.60925000009743
+    },
+    {
+      "id": "v-1205163232",
+      "valid": true,
+      "distance": 22.749415855832687
+    },
+    {
+      "id": "south-gate",
+      "valid": true,
+      "distance": 51.1901302572364
+    },
+    {
+      "id": "northwest-gate",
+      "valid": true,
+      "distance": 0
+    },
+    {
+      "id": "north-gate",
+      "valid": true,
+      "distance": 21.61056117340994
+    },
+    {
+      "id": "v-node-8016547796",
+      "valid": true,
+      "distance": 12.291840405864427
+    },
+    {
+      "id": "v-node-8016547797",
+      "valid": true,
+      "distance": 11.838806265728543
+    },
+    {
+      "id": "v-node-8016547798",
+      "valid": true,
+      "distance": 15.528883879987802
+    },
+    {
+      "id": "v-node-8016547799",
+      "valid": true,
+      "distance": 15.407028232317362
+    },
+    {
+      "id": "v-node-8016547800",
+      "valid": true,
+      "distance": 17.73602396886228
+    },
+    {
+      "id": "v-node-8016547801",
+      "valid": true,
+      "distance": 10.885969643471702
+    },
+    {
+      "id": "v-node-8016547802",
+      "valid": true,
+      "distance": 16.110850913076597
+    },
+    {
+      "id": "v-node-8016547803",
+      "valid": true,
+      "distance": 11.688738619717538
+    },
+    {
+      "id": "v-node-8016547804",
+      "valid": true,
+      "distance": 11.95278468473922
+    },
+    {
+      "id": "v-node-8016547805",
+      "valid": true,
+      "distance": 12.835409435800443
+    },
+    {
+      "id": "v-node-8016547806",
+      "valid": true,
+      "distance": 14.415028041469586
+    },
+    {
+      "id": "v-node-8016547807",
+      "valid": true,
+      "distance": 6.283137115663471
+    },
+    {
+      "id": "v-node-8016547808",
+      "valid": true,
+      "distance": 8.308258075709896
+    },
+    {
+      "id": "v-node-8016547809",
+      "valid": true,
+      "distance": 10.655743640123784
+    },
+    {
+      "id": "v-node-8016547810",
+      "valid": true,
+      "distance": 15.881856110335809
+    },
+    {
+      "id": "v-node-8016547811",
+      "valid": true,
+      "distance": 8.882621336220927
+    },
+    {
+      "id": "v-node-8016547812",
+      "valid": true,
+      "distance": 7.502091458269951
+    },
+    {
+      "id": "v-node-8016547813",
+      "valid": true,
+      "distance": 8.176659625454041
+    },
+    {
+      "id": "v-node-8016547814",
+      "valid": true,
+      "distance": 8.081229115122074
+    },
+    {
+      "id": "v-node-8016547815",
+      "valid": true,
+      "distance": 8.30957490887671
+    },
+    {
+      "id": "v-node-8016547816",
+      "valid": true,
+      "distance": 6.404092964471962
+    },
+    {
+      "id": "v-node-8016547817",
+      "valid": true,
+      "distance": 6.13144082056301
+    }
+  ],
+  "walk": {
+    "before": [
+      207.70616467843794,
+      1.8199999999999998,
+      -306.62099019324666
+    ],
+    "after": [
+      207.01985668951676,
+      1.8199999999999998,
+      -307.86798336433463
+    ]
+  },
+  "pointerLock": true
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "osm",
+    "title": "OpenStreetMap 园区地理数据",
+    "url": "https://www.openstreetmap.org/way/29222967",
+    "published": "2025-12-02",
+    "accessed": "2026-10-01",
+    "usage": "园界、道路、建筑、水岸和历史物种标注；非测绘成果",
+    "license": "ODbL-1.0"
+  },
+  {
+    "id": "guide",
+    "title": "北京市文化和旅游局《残障人士文化旅游资源手册》",
+    "url": "https://whlyj.beijing.gov.cn/ggfw/wh/201912/P020191209383499325005.pdf",
+    "published": "2019-12-09",
+    "accessed": "2026-10-01",
+    "usage": "PDF第8页导览图、正门照片；核对东/西/北区和主要场馆；不作精确测量",
+    "license": "参考阅读，不再分发图像"
+  },
+  {
+    "id": "intro",
+    "title": "北京市公园管理中心：北京动物园简介",
+    "url": "https://gygl.beijing.gov.cn/dwjj/dwjj_zsdw/201911/t20191129_728906.html",
+    "published": "2019-11-29",
+    "accessed": "2026-10-01",
+    "usage": "主要馆舍名单；面积约90公顷与其他口径存在差异",
+    "license": "参考阅读"
+  },
+  {
+    "id": "panda",
+    "title": "北京市政府：大熊猫新馆开放在即",
+    "url": "https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202607/t20260707_4750586.html",
+    "published": "2026-07-07",
+    "accessed": "2026-10-01",
+    "usage": "原雉鸡苑改为熊猫活动场；新旧馆串联；当前扩建轮廓缺少测绘",
+    "license": "参考阅读"
+  },
+  {
+    "id": "panda-open",
+    "title": "北京市公园管理中心：大熊猫馆正式开放",
+    "url": "https://gygl.beijing.gov.cn/xxgk/xxgk_tzgg/202607/t20260715_4763706.html",
+    "published": "2026-07-15",
+    "accessed": "2026-10-01",
+    "usage": "大熊猫馆2026-07-16开放资料；不推断今日个体状态",
+    "license": "参考阅读"
+  },
+  {
+    "id": "lion",
+    "title": "北京市政府：Lion and Tiger Mountain",
+    "url": "https://english.beijing.gov.cn/specials/parktours/guidevisitors/beijingzoo/mustsee/202301/t20230112_2897189.html",
+    "published": "2023-01-12",
+    "accessed": "2026-10-01",
+    "usage": "狮虎山山形外观和大型猫科展示记录",
+    "license": "参考阅读"
+  },
+  {
+    "id": "giraffe",
+    "title": "北京市公园管理中心：长颈鹿宝宝成长记",
+    "url": "https://gygl.beijing.gov.cn/ylkj/ylkj_kjkp/202404/t20240401_3607803.html",
+    "published": "2024-04-01",
+    "accessed": "2026-10-01",
+    "usage": "长颈鹿馆展出长颈鹿记录；未核实亚种",
+    "license": "参考阅读"
+  },
+  {
+    "id": "venues",
+    "title": "北京旅游网：北京动物园场馆介绍",
+    "url": "https://www.visitbeijing.com.cn/article/47QqyRCVqui",
+    "published": "2021（索引日期，具体日待核实）",
+    "accessed": "2026-10-01",
+    "usage": "两爬馆、猩猩馆、犀牛河马馆等历史展示；不作为当前在展确认",
+    "license": "参考阅读"
+  },
+  {
+    "id": "rhino",
+    "title": "北京旅游网：北京动物园景点介绍",
+    "url": "https://www.visitbeijing.com.cn/article/4E7nSjeMHkJ",
+    "published": "2023（索引日期，具体日待核实）",
+    "accessed": "2026-10-01",
+    "usage": "犀牛河马馆长河北岸，白犀牛、独角犀、河马展示记录",
+    "license": "参考阅读"
+  },
+  {
+    "id": "sunbear",
+    "title": "北京旅游网：马来熊亮相熊山",
+    "url": "https://s.visitbeijing.com.cn/index.php/gallery/26977",
+    "published": "2026-05-14",
+    "accessed": "2026-10-01",
+    "usage": "熊山马来熊近期报道；仍非今日在展确认",
+    "license": "参考阅读"
+  },
+  {
+    "id": "route",
+    "title": "北京市政府：走进北京动物园",
+    "url": "https://www.beijing.gov.cn/renwen/sy/whkb/202212/t20221216_2879833.html",
+    "published": "2022-12-16",
+    "accessed": "2026-10-01",
+    "usage": "明星路线物种记录；不据此细分象的种类",
+    "license": "参考阅读"
+  },
+  {
+    "id": "lion-model",
+    "title": "kenchoo：Lion 原模型",
+    "url": "https://sketchfab.com/3d-models/lion-61d687ca92dc4cafbd5e74e3be40d49d",
+    "published": null,
+    "accessed": "2026-10-01",
+    "usage": "狮虎山的1只演示狮子；GLB原文件未修改，运行时缩放、动画裁剪",
+    "license": "GLB元数据 CC-BY-NC-SA-4.0；当前原页面 CC-BY-NC-4.0，遵守两者较严格条件"
+  },
+  {
+    "id": "lion-mirror",
+    "title": "code4fukui/vr-cats 模型镜像及署名",
+    "url": "https://github.com/code4fukui/vr-cats",
+    "published": null,
+    "accessed": "2026-10-01",
+    "usage": "合法免费狮子GLB镜像，保留作者与元数据",
+    "license": "模型许可单独适用"
+  },
+  {
+    "id": "materials",
+    "title": "ambientCG PBR 材质",
+    "url": "https://ambientcg.com/",
+    "published": null,
+    "accessed": "2026-10-01",
+    "usage": "Bark007、PavingStones036、Ground037、Rock039；复用本站已署名768px纹理",
+    "license": "CC0-1.0"
+  }
+]

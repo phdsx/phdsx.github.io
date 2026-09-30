@@ -1,0 +1,1412 @@
+[
+  {
+    "id": "s-0",
+    "name": "大熊猫",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375816",
+      "v-25375817"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "panda",
+      "panda-open"
+    ],
+    "sourceDate": "2026-07-15",
+    "verifiedStatus": "近期官方资料记载",
+    "currentConfirmed": false,
+    "note": "扩建涉及原雉鸡苑；具体分馆和今日在展个体未确认",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375816",
+        "venueName": "亚运熊猫馆",
+        "worldPosition": [
+          118.18210224111188,
+          -78.14562771608114
+        ],
+        "geographicPosition": [
+          116.33338462647059,
+          39.93870199411765
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      },
+      {
+        "venueId": "v-25375817",
+        "venueName": "奥运熊猫馆",
+        "worldPosition": [
+          60.730833971272794,
+          -26.244961447952985
+        ],
+        "geographicPosition": [
+          116.33271152500001,
+          39.9382357625
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-1",
+    "name": "非洲狮",
+    "scientificName": null,
+    "venueIds": [
+      "v-273416876"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "lion"
+    ],
+    "sourceDate": "2023-01-12",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "狮虎山资料记载；演示位置不代表实际隔间或动物定位",
+    "model": "lion.glb",
+    "modelStatus": "已接入，演示数量1只",
+    "demoCount": 1,
+    "locations": [
+      {
+        "venueId": "v-273416876",
+        "venueName": "狮虎山",
+        "worldPosition": [
+          167.16348819577644,
+          -284.307505719216
+        ],
+        "geographicPosition": [
+          116.33395849444445,
+          39.940553977777775
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-2",
+    "name": "东北虎",
+    "scientificName": null,
+    "venueIds": [
+      "v-273416876"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "lion"
+    ],
+    "sourceDate": "2023-01-12",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-273416876",
+        "venueName": "狮虎山",
+        "worldPosition": [
+          167.16348819577644,
+          -284.307505719216
+        ],
+        "geographicPosition": [
+          116.33395849444445,
+          39.940553977777775
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-3",
+    "name": "孟加拉虎",
+    "scientificName": null,
+    "venueIds": [
+      "v-273416876"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "lion"
+    ],
+    "sourceDate": "2023-01-12",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "白虎为毛色型，不另造物种",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-273416876",
+        "venueName": "狮虎山",
+        "worldPosition": [
+          167.16348819577644,
+          -284.307505719216
+        ],
+        "geographicPosition": [
+          116.33395849444445,
+          39.940553977777775
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-4",
+    "name": "长颈鹿",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375846"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "giraffe"
+    ],
+    "sourceDate": "2024-04-01",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "亚种未确认；候选模型许可溯源不足，未采用",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375846",
+        "venueName": "长颈鹿馆",
+        "worldPosition": [
+          -359.65359935667374,
+          -377.96121176539236
+        ],
+        "geographicPosition": [
+          116.32778628333334,
+          39.941395283333335
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-5",
+    "name": "白犀牛",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375838"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "rhino"
+    ],
+    "sourceDate": "2023（具体日待核实）",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375838",
+        "venueName": "犀牛河马馆",
+        "worldPosition": [
+          -78.70028839816214,
+          -532.1448181722781
+        ],
+        "geographicPosition": [
+          116.33107794411765,
+          39.942780338235295
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-6",
+    "name": "独角犀",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375838"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "rhino"
+    ],
+    "sourceDate": "2023（具体日待核实）",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "来源俗名，未核实科学名称",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375838",
+        "venueName": "犀牛河马馆",
+        "worldPosition": [
+          -78.70028839816214,
+          -532.1448181722781
+        ],
+        "geographicPosition": [
+          116.33107794411765,
+          39.942780338235295
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-7",
+    "name": "河马",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375838"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "rhino"
+    ],
+    "sourceDate": "2023（具体日待核实）",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375838",
+        "venueName": "犀牛河马馆",
+        "worldPosition": [
+          -78.70028839816214,
+          -532.1448181722781
+        ],
+        "geographicPosition": [
+          116.33107794411765,
+          39.942780338235295
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-8",
+    "name": "象（种未确定）",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375829"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "route"
+    ],
+    "sourceDate": "2022-12-16",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "仅有象馆和路线记录；不推断亚洲象或非洲象",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375829",
+        "venueName": "象馆",
+        "worldPosition": [
+          63.30806953122159,
+          -498.49535894152086
+        ],
+        "geographicPosition": [
+          116.33274172,
+          39.94247806
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-9",
+    "name": "马来熊",
+    "scientificName": null,
+    "venueIds": [
+      "v-1205163232"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "sunbear"
+    ],
+    "sourceDate": "2026-05-14",
+    "verifiedStatus": "近期资料记载",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-1205163232",
+        "venueName": "熊山",
+        "worldPosition": [
+          327.7801259471082,
+          -247.18015847097092
+        ],
+        "geographicPosition": [
+          116.33584028571428,
+          39.94022045714286
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-10",
+    "name": "北极熊",
+    "scientificName": null,
+    "venueIds": [
+      "v-1205163230"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "route"
+    ],
+    "sourceDate": "2022-12-16",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-1205163230",
+        "venueName": "白熊馆",
+        "worldPosition": [
+          387.3705821082427,
+          -258.6341389342743
+        ],
+        "geographicPosition": [
+          116.33653845,
+          39.94032335
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-11",
+    "name": "黑猩猩",
+    "scientificName": null,
+    "venueIds": [
+      "v-478457830"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "venues",
+      "route"
+    ],
+    "sourceDate": "2022-12-16",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-478457830",
+        "venueName": "猩猩馆（地图猿猴馆）",
+        "worldPosition": [
+          -519.521866923016,
+          -274.6808435322666
+        ],
+        "geographicPosition": [
+          116.32591326,
+          39.940467500000004
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-12",
+    "name": "大猩猩",
+    "scientificName": null,
+    "venueIds": [
+      "v-478457830"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "venues"
+    ],
+    "sourceDate": "2021（具体日待核实）",
+    "verifiedStatus": "历史记录",
+    "currentConfirmed": false,
+    "note": "资料明确为曾饲养；不作为现有在展",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-478457830",
+        "venueName": "猩猩馆（地图猿猴馆）",
+        "worldPosition": [
+          -519.521866923016,
+          -274.6808435322666
+        ],
+        "geographicPosition": [
+          116.32591326,
+          39.940467500000004
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-13",
+    "name": "金丝猴",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375849"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "route"
+    ],
+    "sourceDate": "2022-12-16",
+    "verifiedStatus": "资料记载，当前在展待核实",
+    "currentConfirmed": false,
+    "note": "来源未细分种类，科学名留空",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375849",
+        "venueName": "金丝猴馆",
+        "worldPosition": [
+          -352.6348752143359,
+          -237.91201572310192
+        ],
+        "geographicPosition": [
+          116.327868515,
+          39.9401372
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-14",
+    "name": "扬子鳄",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375863"
+    ],
+    "category": "reptile",
+    "sourceIds": [
+      "venues"
+    ],
+    "sourceDate": "2021（具体日待核实）",
+    "verifiedStatus": "历史场馆资料记载",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375863",
+        "venueName": "两栖爬行动物馆",
+        "worldPosition": [
+          -408.84381090999426,
+          -110.15759360787614
+        ],
+        "geographicPosition": [
+          116.32720996875,
+          39.9389895625
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-15",
+    "name": "网蟒",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375863"
+    ],
+    "category": "reptile",
+    "sourceIds": [
+      "venues"
+    ],
+    "sourceDate": "2021（具体日待核实）",
+    "verifiedStatus": "历史场馆资料记载",
+    "currentConfirmed": false,
+    "note": "未取得今日在展公告",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375863",
+        "venueName": "两栖爬行动物馆",
+        "worldPosition": [
+          -408.84381090999426,
+          -110.15759360787614
+        ],
+        "geographicPosition": [
+          116.32720996875,
+          39.9389895625
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-16",
+    "name": "火烈鸟（种未确定）",
+    "scientificName": null,
+    "venueIds": [
+      "v-478432519"
+    ],
+    "category": "bird",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2023-09-05",
+    "verifiedStatus": "历史地图馆名记录，待核实",
+    "currentConfirmed": false,
+    "note": "仅有馆名，物种与当前在展未确认",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-478432519",
+        "venueName": "火烈鸟馆",
+        "worldPosition": [
+          -247.204119978102,
+          -164.71945052644645
+        ],
+        "geographicPosition": [
+          116.32910374615385,
+          39.9394797
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-17",
+    "name": "企鹅（种未确定）",
+    "scientificName": null,
+    "venueIds": [
+      "v-25375861"
+    ],
+    "category": "bird",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2024-12-30",
+    "verifiedStatus": "历史地图馆名记录，待核实",
+    "currentConfirmed": false,
+    "note": "地图仍称企鹅与蝙蝠区；不推断今日蝙蝠展出",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-25375861",
+        "venueName": "企鹅与蝙蝠区",
+        "worldPosition": [
+          -502.7664927889715,
+          -107.08007351866233
+        ],
+        "geographicPosition": [
+          116.32610956666667,
+          39.93896191666667
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-18",
+    "name": "鹦鹉（种未确定）",
+    "scientificName": null,
+    "venueIds": [
+      "v-478432518"
+    ],
+    "category": "bird",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2024-12-30",
+    "verifiedStatus": "历史地图馆名记录，待核实",
+    "currentConfirmed": false,
+    "note": "仅记录类群，不冒充已核实物种",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-478432518",
+        "venueName": "鹦鹉馆",
+        "worldPosition": [
+          -206.95223832443068,
+          -246.87447161518085
+        ],
+        "geographicPosition": [
+          116.32957533888889,
+          39.94021771111111
+        ],
+        "locationStatus": "OSM轮廓；高度、立面、围隔构件估算"
+      }
+    ]
+  },
+  {
+    "id": "s-19",
+    "name": "白唇鹿",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547796"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547796",
+        "venueName": "白唇鹿展区",
+        "worldPosition": [
+          -482.1679550033238,
+          -402.0192090504868
+        ],
+        "geographicPosition": [
+          116.3263509,
+          39.9416114
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-20",
+    "name": "麋鹿",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547797"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547797",
+        "venueName": "麋鹿展区",
+        "worldPosition": [
+          -509.9845163196695,
+          -401.2177087169006
+        ],
+        "geographicPosition": [
+          116.326025,
+          39.9416042
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-21",
+    "name": "豚鹿",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547798"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547798",
+        "venueName": "豚鹿展区",
+        "worldPosition": [
+          -446.11482367340295,
+          -416.9026249694626
+        ],
+        "geographicPosition": [
+          116.3267733,
+          39.9417451
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-22",
+    "name": "小麂",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547799"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547799",
+        "venueName": "小麂展区",
+        "worldPosition": [
+          -448.0608733755429,
+          -435.559771626927
+        ],
+        "geographicPosition": [
+          116.3267505,
+          39.9419127
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-23",
+    "name": "西伯利亚狍",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547800"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547800",
+        "venueName": "西伯利亚狍展区",
+        "worldPosition": [
+          -448.8631921121879,
+          -458.21328800311363
+        ],
+        "geographicPosition": [
+          116.3267411,
+          39.9421162
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-24",
+    "name": "南非长角羚",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547801"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547801",
+        "venueName": "南非长角羚展区",
+        "worldPosition": [
+          -478.6258031318865,
+          -452.7252371069401
+        ],
+        "geographicPosition": [
+          116.3263924,
+          39.9420669
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-25",
+    "name": "北山羊",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547802"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547802",
+        "venueName": "北山羊展区",
+        "worldPosition": [
+          -495.5598496656189,
+          -482.714707926707
+        ],
+        "geographicPosition": [
+          116.326194,
+          39.9423363
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-26",
+    "name": "马鹿",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547803"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547803",
+        "venueName": "马鹿展区",
+        "worldPosition": [
+          -522.0022267625721,
+          -446.8920957892295
+        ],
+        "geographicPosition": [
+          116.3258842,
+          39.9420145
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-27",
+    "name": "斑马",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547804"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547804",
+        "venueName": "斑马展区",
+        "worldPosition": [
+          -529.5645076236532,
+          -470.2914527537463
+        ],
+        "geographicPosition": [
+          116.3257956,
+          39.9422247
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-28",
+    "name": "黑麂",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547805"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547805",
+        "venueName": "黑麂展区",
+        "worldPosition": [
+          -565.677386093653,
+          -443.6860944540933
+        ],
+        "geographicPosition": [
+          116.3253725,
+          39.9419857
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-29",
+    "name": "普氏野马",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547806"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547806",
+        "venueName": "普氏野马展区",
+        "worldPosition": [
+          -543.2978145160112,
+          -426.79892770115174
+        ],
+        "geographicPosition": [
+          116.3256347,
+          39.941834
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-30",
+    "name": "亚洲野驴",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547807"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547807",
+        "venueName": "亚洲野驴展区",
+        "worldPosition": [
+          -543.4685206298295,
+          -394.6387268108597
+        ],
+        "geographicPosition": [
+          116.3256327,
+          39.9415451
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-31",
+    "name": "藏野驴",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547808"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547808",
+        "venueName": "藏野驴展区",
+        "worldPosition": [
+          -568.5964606474695,
+          -403.7335292089627
+        ],
+        "geographicPosition": [
+          116.3253383,
+          39.9416268
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-32",
+    "name": "依兰大羚羊",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547809"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547809",
+        "venueName": "依兰大羚羊展区",
+        "worldPosition": [
+          -538.4326902600548,
+          -373.45462771291477
+        ],
+        "geographicPosition": [
+          116.3256917,
+          39.9413548
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-33",
+    "name": "秦岭羚牛",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547810"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547810",
+        "venueName": "秦岭羚牛展区",
+        "worldPosition": [
+          -587.7070101372393,
+          -364.35982531481187
+        ],
+        "geographicPosition": [
+          116.3251144,
+          39.9412731
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-34",
+    "name": "四川羚牛",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547811"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547811",
+        "venueName": "四川羚牛展区",
+        "worldPosition": [
+          -565.4469328397555,
+          -354.0627724171205
+        ],
+        "geographicPosition": [
+          116.3253752,
+          39.9411806
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-35",
+    "name": "弯角大羚羊",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547812"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547812",
+        "venueName": "弯角大羚羊展区",
+        "worldPosition": [
+          -540.3787399621947,
+          -353.66202225032737
+        ],
+        "geographicPosition": [
+          116.3256689,
+          39.941177
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-36",
+    "name": "中华斑羚",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547813"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547813",
+        "venueName": "中华斑羚展区",
+        "worldPosition": [
+          -478.7367621068389,
+          -381.59208249008145
+        ],
+        "geographicPosition": [
+          116.3263911,
+          39.9414279
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-37",
+    "name": "白脸牛羚",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547814"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547814",
+        "venueName": "白脸牛羚展区",
+        "worldPosition": [
+          -496.1317151483663,
+          -381.4696310503598
+        ],
+        "geographicPosition": [
+          116.3261873,
+          39.9414268
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-38",
+    "name": "盘羊",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547815"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547815",
+        "venueName": "盘羊展区",
+        "worldPosition": [
+          -514.3375222329576,
+          -381.01322113751957
+        ],
+        "geographicPosition": [
+          116.325974,
+          39.9414227
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-39",
+    "name": "蛮羊",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547816"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547816",
+        "venueName": "蛮羊展区",
+        "worldPosition": [
+          -513.9961100041075,
+          -353.59523055586186
+        ],
+        "geographicPosition": [
+          116.325978,
+          39.9411764
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  },
+  {
+    "id": "s-40",
+    "name": "旋角羚",
+    "scientificName": null,
+    "venueIds": [
+      "v-node-8016547817"
+    ],
+    "category": "mammal",
+    "sourceIds": [
+      "osm"
+    ],
+    "sourceDate": "2020-10-17",
+    "verifiedStatus": "历史地图记录，待核实",
+    "currentConfirmed": false,
+    "note": "公开地图2020年点位；未核实当前馆属与物种学名，原species标签只保留在地图源文件",
+    "model": null,
+    "modelStatus": "缺少合适或许可可核实的模型",
+    "demoCount": 0,
+    "locations": [
+      {
+        "venueId": "v-node-8016547817",
+        "venueName": "旋角羚展区",
+        "worldPosition": [
+          -487.89514513600415,
+          -354.34107114419203
+        ],
+        "geographicPosition": [
+          116.3262838,
+          39.9411831
+        ],
+        "locationStatus": "地图点位，无独立测绘轮廓"
+      }
+    ]
+  }
+]

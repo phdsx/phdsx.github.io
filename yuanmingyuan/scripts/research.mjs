@@ -1,0 +1,5 @@
+import fs from 'node:fs';
+const entries=[['engraving-page','https://www.dpm.org.cn/ancient/yuanmingqing/160017.html'],['plan-page','https://www.nlc.cn/nmcb/gcjpdz/ysl/wc/'],['official-page','https://www.yuanmingyuanpark.cn/'],['research-page','https://www.yuanmingyuanpark.cn/ymyyj/yj040/201612/t20161230_1330939.html']];
+for(const [name,url] of entries){try{const r=await fetch(url);const html=await r.text();fs.writeFileSync('yuanmingyuan/research/'+name+'.html',html);console.log(name,r.status,[...html.matchAll(/(?:src|href)\s*=\s*["']([^"']+\.(?:jpg|png|pdf|jpeg)(?:\?[^"']*)?)["']/gi)].map(m=>new URL(m[1],url).href).slice(-30))}catch(e){console.log(name,e.message)}}
+const query='[out:json][timeout:90];(way["natural"="water"](40.001,116.286,40.022,116.319);relation["natural"="water"](40.001,116.286,40.022,116.319);nwr["name"](40.001,116.286,40.022,116.319););out geom;';
+try{const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',body:new URLSearchParams({data:query})});const str=await r.text();fs.writeFileSync('yuanmingyuan/research/osm.json',str);console.log('osm',r.status,str.length)}catch(e){console.log('osm',e.message)}

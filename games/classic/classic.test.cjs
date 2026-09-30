@@ -70,6 +70,37 @@ for (const game of games) {
     advance();
     assert.equal(atlasDraws,64,'Canvas fallback should draw the same 64 gemstone images');
   }
+  if (game === 'difference') {
+    let now=80;
+    const advance=()=>frameQueue.shift()(now+=16);
+    // Use visible edges well outside the former small circular hit targets.
+    const targets=[[61,111],[390,350],[36,399],[402,490],[298,493]];
+    for(const scale of [1,.35]){
+      const stage=nodes.get('#stage');
+      stage.clientLeft=stage.clientTop=1;
+      stage.getBoundingClientRect=()=>({left:20,top:30,width:960*scale+2,height:640*scale+2});
+      const tap=(x,y)=>{const event=pointerEvent(21+x*scale,31+y*scale);events.get('#stage:pointerdown')(event);events.get('#stage:pointerup')(event);advance()};
+      for(const [x,y] of targets)for(const shift of [0,480]){
+        events.get('#restart:click')();
+        tap(x+shift,y);
+        assert.equal(nodes.get('#stat-one').textContent,'找到 1 / 5','any visible part of a difference should count');
+        assert.equal(nodes.get('#stat-two').textContent,'错点 0 / 8');
+        tap(x+(480-shift),y);
+        assert.equal(nodes.get('#stat-one').textContent,'找到 1 / 5','the matching object on the other side is the same difference');
+        assert.equal(nodes.get('#stat-two').textContent,'错点 0 / 8','repeated correct taps do not cost attempts');
+      }
+      events.get('#restart:click')();
+      targets.forEach(([x,y],i)=>tap(x+(i%2)*480,y));
+      assert.equal(nodes.get('#overlay-title').textContent,'全部找到了！');
+      assert.equal(nodes.get('#stat-two').textContent,'错点 0 / 8');
+      events.get('#restart:click')();
+      tap(224,396);
+      assert.equal(nodes.get('#stat-two').textContent,'错点 1 / 8','the identical windows are not an extra difference');
+      for(let i=0;i<7;i++)tap(450,100);
+      assert.equal(nodes.get('#overlay-title').textContent,'机会用完了');
+    }
+    events.get('#restart:click')();
+  }
   events.get('#pause:click')();
   assert.equal(nodes.get('#overlay').hidden, false);
   events.get('#pause:click')();

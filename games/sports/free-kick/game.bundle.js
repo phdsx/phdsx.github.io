@@ -53044,90 +53044,293 @@ if ( typeof window !== 'undefined' ) {
 
 }
 
-const THREE = { BoxGeometry, BufferGeometry, CanvasTexture, CircleGeometry, Color, CylinderGeometry, DirectionalLight, DoubleSide, EllipseCurve, Fog, Group, HemisphereLight, Line, LineBasicMaterial, LineDashedMaterial, MathUtils, Mesh, MeshBasicMaterial, MeshStandardMaterial, PCFSoftShadowMap, PerspectiveCamera, PlaneGeometry, PointLight, RingGeometry, SRGBColorSpace, Scene, SphereGeometry, Vector3, WebGLRenderer };
+const THREE = { ACESFilmicToneMapping, BoxGeometry, BufferGeometry, CanvasTexture, CapsuleGeometry, CircleGeometry, Color, CylinderGeometry, DirectionalLight, DoubleSide, EllipseCurve, Float32BufferAttribute, Fog, Group, HemisphereLight, InstancedMesh, Line, LineBasicMaterial, LineDashedMaterial, LineSegments, MathUtils, Mesh, MeshBasicMaterial, MeshStandardMaterial, Object3D, PCFSoftShadowMap, PerspectiveCamera, PlaneGeometry, PointLight, Quaternion, RepeatWrapping, RingGeometry, SRGBColorSpace, Scene, SphereGeometry, Vector3, WebGLRenderer };
 
+const { FIELD, PHYSICS, makeShot, wallJump, playerParts, makeKeeper, advanceKeeper, advanceShot, advanceAftermath, predictShot } = (() => {
+// Metres, seconds and radians. Regulation size: IFAB Laws 1 & 2.
+// Aerodynamics: quadratic relative-air drag and spin-dependent Magnus lift.
+// https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/forces-on-a-soccer-ball/
 const FIELD = Object.freeze({
-  startZ: 10,
-  wallZ: 0.85,
-  keeperZ: -11.9,
-  goalZ: -13,
-  goalHalfWidth: 3.66,
-  goalHeight: 2.44,
-  ballRadius: 0.22,
-  wallCenters: [-1.2, -0.4, 0.4, 1.2]
+  startZ: 10, wallZ: 0.85, keeperZ: -12, goalZ: -13,
+  goalHalfWidth: 3.66, goalHeight: 2.44, postRadius: 0.06,
+  ballRadius: 0.11, wallCenters: [-0.93, -0.31, 0.31, 0.93]
 });
+const PHYSICS = Object.freeze({ gravity: 9.81, mass: 0.43, airDensity: 1.225, step: 1 / 240 });
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const airFactor = 0.5 * PHYSICS.airDensity * Math.PI * FIELD.ballRadius ** 2 / PHYSICS.mass;
 
-function makeShot({ aim = 0, power = 70, side = 0, height = 1, wind = 0 } = {}) {
-  const speed = 16 + power * 0.13;
-  const angle = aim * Math.PI / 180;
+function makeShot({ aim = 0, power = 82, side = 0, height = -1, wind = 0 } = {}) {
+  power = clamp(power, 40, 100); side = clamp(side, -1, 1); height = clamp(height, -1, 1);
+  const speed = (12 + power * 0.23) * (1 - Math.abs(side) * 0.035);
+  const angle = clamp(aim, -18, 18) * Math.PI / 180;
+  const elevation = (8.5 - height * 5.5) * Math.PI / 180;
+  const horizontal = speed * Math.cos(elevation);
+  const backspin = -height * 7;
   return {
     x: 0, y: FIELD.ballRadius, z: FIELD.startZ,
-    vx: Math.sin(angle) * speed,
-    vy: 6.35 - height * 0.8 + (power - 70) * 0.014,
-    vz: -Math.cos(angle) * speed,
-    side, wind, time: 0, result: null
+    vx: Math.sin(angle) * horizontal, vy: Math.sin(elevation) * speed, vz: -Math.cos(angle) * horizontal,
+    spinX: Math.cos(angle) * backspin, spinY: side * 48, spinZ: Math.sin(angle) * backspin,
+    speed, side, wind, time: 0, result: null, rolling: false, bounces: 0,
+    wallHit: false, postHit: false, impact: null, impactCount: 0
   };
 }
 
-function advanceShot(shot, dt, keeperX = null) {
-  if (shot.result) return shot;
-  const previous = { ...shot };
-  const drag = 1 - Math.min(0.08, dt * 0.018);
-  shot.vx = shot.vx * drag + (shot.wind * 0.42 + shot.side * 1.65 * Math.exp(-shot.time * 0.55)) * dt;
-  shot.vy = shot.vy * drag - 11.5 * dt;
-  shot.vz *= drag;
-  shot.x += shot.vx * dt;
-  shot.y += shot.vy * dt;
-  shot.z += shot.vz * dt;
-  shot.time += dt;
+function wallJump(time, index = 0) {
+  const t = (time - 0.1 - index * 0.012) / 0.62;
+  return t > 0 && t < 1 ? 0.32 * Math.sin(Math.PI * t) : 0;
+}
 
-  if (crossed(previous.z, shot.z, FIELD.wallZ)) {
-    const p = atPlane(previous, shot, FIELD.wallZ);
-    if (p.y - FIELD.ballRadius < 1.78 && FIELD.wallCenters.some(x => Math.abs(p.x - x) < 0.43 + FIELD.ballRadius)) {
-      shot.x = p.x; shot.y = Math.max(FIELD.ballRadius, p.y); shot.z = FIELD.wallZ;
-      shot.result = 'wall'; return shot;
-    }
+// These capsules are also used to build the visible player, so hands, head,
+// torso and legs block the ball only where they actually are.
+function playerParts(isKeeper = false, diving = false) {
+  const parts = [
+    { a: [0, 0.91, 0], b: [0, 1.35, 0], r: 0.23, kind: 'shirt' },
+    { a: [0, 0.72, 0], b: [0, 0.86, 0], r: 0.23, kind: 'shorts' },
+    { a: [0, 1.7, 0], b: [0, 1.7, 0], r: 0.16, kind: 'head' }
+  ];
+  for (const sign of [-1, 1]) {
+    const elbow = isKeeper ? [sign * 0.48, diving ? 1.66 : 1.18, 0.05] : [sign * 0.33, 1.08, 0.08];
+    const hand = isKeeper ? [sign * 0.75, diving ? 1.98 : 1.42, 0.12] : [sign * 0.14, 0.96, 0.18];
+    parts.push(
+      { a: [sign * 0.23, 1.38, 0], b: elbow, r: 0.08, kind: 'sleeve' },
+      { a: elbow, b: hand, r: 0.065, kind: 'skin' },
+      { a: hand, b: hand, r: isKeeper ? 0.105 : 0.075, kind: isKeeper ? 'glove' : 'skin' },
+      { a: [sign * 0.15, 0.69, 0], b: [sign * 0.18, 0.4, 0.025], r: 0.095, kind: 'skin' },
+      { a: [sign * 0.18, 0.4, 0.025], b: [sign * 0.19, 0.13, 0.04], r: 0.075, kind: 'sock' },
+      { a: [sign * 0.19, 0.09, 0.015], b: [sign * 0.19, 0.09, 0.19], r: 0.075, kind: 'boot' }
+    );
   }
-  if (keeperX !== null && crossed(previous.z, shot.z, FIELD.keeperZ)) {
-    const p = atPlane(previous, shot, FIELD.keeperZ);
-    if (Math.abs(p.x - keeperX) < 0.85 && p.y < 2.5) {
-      shot.x = p.x; shot.y = p.y; shot.z = FIELD.keeperZ;
-      shot.result = 'save'; return shot;
-    }
+  return parts;
+}
+
+function makeKeeper() {
+  return { x: 0, y: 0, lean: 0, time: 0, targetX: 0, targetY: 1, direction: 0, diveTime: null };
+}
+
+function advanceKeeper(keeper, shot, dt) {
+  keeper.time += dt;
+  if (keeper.diveTime !== null) {
+    keeper.diveTime += dt;
+    const t = keeper.diveTime;
+    if (t < 0.54) keeper.x = clamp(keeper.x + keeper.direction * 4.2 * dt, -3.05, 3.05);
+    const reach = Math.sin(Math.PI * Math.min(t / 0.8, 1));
+    keeper.lean = -keeper.direction * Math.min(1, t / 0.32) * 1.22;
+    const flightY = reach * (0.24 + clamp(keeper.targetY - 1.1, -0.5, 1.2) * 0.28);
+    const lowest = Math.min(...playerParts(true, true).flatMap(part => [part.a, part.b].map(p => 1 + p[0] * Math.sin(keeper.lean) + (p[1] - 1) * Math.cos(keeper.lean) - part.r)));
+    const landing = clamp((t - 0.45) / 0.4, 0, 1);
+    keeper.y = Math.max(-lowest, flightY * (1 - landing) - lowest * landing);
+    return keeper;
   }
-  if (crossed(previous.z, shot.z, FIELD.goalZ)) {
-    const p = atPlane(previous, shot, FIELD.goalZ);
-    shot.x = p.x; shot.y = p.y; shot.z = FIELD.goalZ;
-    const insideX = Math.abs(p.x) < FIELD.goalHalfWidth - FIELD.ballRadius;
-    const insideY = p.y > FIELD.ballRadius && p.y < FIELD.goalHeight - FIELD.ballRadius;
-    const nearPost = Math.abs(Math.abs(p.x) - FIELD.goalHalfWidth) < FIELD.ballRadius + 0.11 && p.y < FIELD.goalHeight + 0.12;
-    const nearBar = Math.abs(p.y - FIELD.goalHeight) < FIELD.ballRadius + 0.11 && Math.abs(p.x) < FIELD.goalHalfWidth + 0.1;
-    shot.result = insideX && insideY ? 'goal' : nearPost || nearBar ? 'post' : p.y >= FIELD.goalHeight ? 'over' : 'wide';
-    return shot;
+  if (shot.time < 0.23 || shot.vz >= 0 || shot.result) return keeper;
+  const remaining = Math.max(0, (shot.z - FIELD.keeperZ) / -shot.vz);
+  // Read the visible flight after a human reaction delay; a committed dive
+  // cannot retarget itself to a late curve.
+  keeper.targetX = clamp(shot.x + shot.vx * remaining, -3.25, 3.25);
+  keeper.targetY = clamp(shot.y + shot.vy * remaining - 0.5 * PHYSICS.gravity * remaining ** 2, 0.15, 2.7);
+  if (remaining < 0.58 && (Math.abs(keeper.targetX - keeper.x) > 0.55 || keeper.targetY > 1.85 || keeper.targetY < 0.55)) {
+    keeper.direction = Math.sign(keeper.targetX - keeper.x) || 1;
+    keeper.diveTime = 0;
+  } else {
+    keeper.x += clamp(keeper.targetX - keeper.x, -1.7 * dt, 1.7 * dt);
   }
-  if (shot.y <= FIELD.ballRadius && shot.time > 0.08) {
+  return keeper;
+}
+
+function acceleration(shot, vx, vy, vz) {
+  const ux = vx - shot.wind, uy = vy, uz = vz;
+  const speed = Math.hypot(ux, uy, uz);
+  const cd = 0.23 + 0.18 / (1 + Math.exp((speed - 15) / 2));
+  const drag = airFactor * cd * speed;
+  const cx = shot.spinY * uz - shot.spinZ * uy;
+  const cy = shot.spinZ * ux - shot.spinX * uz;
+  const cz = shot.spinX * uy - shot.spinY * ux;
+  const cross = Math.hypot(cx, cy, cz);
+  const spinRatio = FIELD.ballRadius * cross / Math.max(speed * speed, 0.01);
+  const lift = airFactor * speed * speed * Math.min(0.28, spinRatio * 0.9) / Math.max(cross, 0.01);
+  return { x: -drag * ux + lift * cx, y: -PHYSICS.gravity - drag * uy + lift * cy, z: -drag * uz + lift * cz };
+}
+
+function integrate(shot, dt) {
+  if (shot.rolling) {
+    const speed = Math.hypot(shot.vx, shot.vz);
+    const friction = Math.max(0, 1 - 1.1 * dt / Math.max(speed, 0.001));
+    shot.vx *= friction; shot.vz *= friction; shot.vy = 0;
     shot.y = FIELD.ballRadius;
-    shot.result = 'ground';
+    shot.spinX = -shot.vz / FIELD.ballRadius; shot.spinZ = shot.vx / FIELD.ballRadius;
+    shot.x += shot.vx * dt; shot.z += shot.vz * dt;
+  } else {
+    const a = acceleration(shot, shot.vx, shot.vy, shot.vz);
+    const mx = shot.vx + a.x * dt / 2, my = shot.vy + a.y * dt / 2, mz = shot.vz + a.z * dt / 2;
+    const mid = acceleration(shot, mx, my, mz);
+    shot.x += mx * dt; shot.y += my * dt; shot.z += mz * dt;
+    shot.vx += mid.x * dt; shot.vy += mid.y * dt; shot.vz += mid.z * dt;
+  }
+  const decay = Math.exp(-0.12 * dt);
+  shot.spinX *= decay; shot.spinY *= decay; shot.spinZ *= decay;
+  shot.time += dt;
+}
+
+function groundContact(shot) {
+  if (shot.y > FIELD.ballRadius || shot.vy >= 0) return;
+  shot.y = FIELD.ballRadius;
+  shot.bounces++;
+  shot.vy *= -0.52;
+  shot.vx *= 0.82; shot.vz *= 0.82;
+  if (shot.vy < 0.65) { shot.vy = 0; shot.rolling = true; }
+  impact(shot, 'ground');
+}
+
+function impact(shot, type) {
+  shot.impact = { type, x: shot.x, y: shot.y, z: shot.z, time: shot.time };
+  shot.impactCount++;
+}
+
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const sub = (a, b) => a.map((v, i) => v - b[i]);
+function sphereHit(p, d, center, radius) {
+  const offset = sub(p, center), aa = dot(d, d), bb = dot(offset, d), cc = dot(offset, offset) - radius * radius;
+  if (aa < 1e-12) return null;
+  const h = bb * bb - aa * cc;
+  if (h < 0) return null;
+  const t = cc <= 0 ? 0 : (-bb - Math.sqrt(h)) / aa;
+  return t >= 0 && t <= 1 ? t : null;
+}
+
+// Swept ball/capsule intersection prevents fast shots tunnelling through a
+// thin post or a glove between frames.
+function capsuleHit(before, shot, a, b, radius, type) {
+  radius += FIELD.ballRadius;
+  const p = [before.x, before.y, before.z], d = [shot.x - before.x, shot.y - before.y, shot.z - before.z];
+  const ba = sub(b, a), oa = sub(p, a), length = dot(ba, ba);
+  let t = null;
+  if (length > 1e-10) {
+    const bd = dot(ba, d), bo = dot(ba, oa);
+    const aa = length * dot(d, d) - bd * bd;
+    const bb = length * dot(d, oa) - bo * bd;
+    const cc = length * dot(oa, oa) - bo * bo - radius * radius * length;
+    const h = bb * bb - aa * cc;
+    const startProjection = clamp(bo / length, 0, 1);
+    const startOffset = sub(p, a.map((v, i) => v + ba[i] * startProjection));
+    if (dot(startOffset, startOffset) < radius * radius) t = 0;
+    else if (h >= 0 && Math.abs(aa) > 1e-12) {
+      const candidate = (-bb - Math.sqrt(h)) / aa, along = bo + candidate * bd;
+      if (candidate >= 0 && candidate <= 1 && along >= 0 && along <= length) t = candidate;
+    }
+  }
+  for (const center of [a, b]) {
+    const candidate = sphereHit(p, d, center, radius);
+    if (candidate !== null && (t === null || candidate < t)) t = candidate;
+  }
+  if (t === null) return null;
+  const point = p.map((v, i) => v + d[i] * t);
+  const along = length > 1e-10 ? clamp(dot(sub(point, a), ba) / length, 0, 1) : 0;
+  const normal = sub(point, a.map((v, i) => v + ba[i] * along));
+  const magnitude = Math.hypot(...normal) || 1;
+  const n = normal.map(v => v / magnitude);
+  if (shot.vx * n[0] + shot.vy * n[1] + shot.vz * n[2] >= 0) return null;
+  return { t, point, normal: n, type };
+}
+
+function worldPart(point, x, y, z, lean = 0) {
+  const py = point[1] - 1;
+  return [x + point[0] * Math.cos(lean) - py * Math.sin(lean), y + 1 + point[0] * Math.sin(lean) + py * Math.cos(lean), z + point[2]];
+}
+
+function collisions(before, shot, keeper, options) {
+  let closest = null;
+  const check = (a, b, radius, type) => {
+    const hit = capsuleHit(before, shot, a, b, radius, type);
+    if (hit && (!closest || hit.t < closest.t)) closest = hit;
+  };
+  if (options.wall !== false && Math.abs(shot.z - FIELD.wallZ) < 0.7) {
+    FIELD.wallCenters.forEach((x, index) => {
+      const jump = wallJump(shot.time, index);
+      for (const part of playerParts()) check(worldPart(part.a, x, jump, FIELD.wallZ), worldPart(part.b, x, jump, FIELD.wallZ), part.r, 'wall');
+    });
+  }
+  if (keeper !== null && Math.abs(shot.z - FIELD.keeperZ) < 0.8) {
+    const pose = typeof keeper === 'number' ? { x: keeper, y: 0, lean: 0, diveTime: null } : keeper;
+    for (const part of playerParts(true, pose.diveTime !== null)) {
+      check(worldPart(part.a, pose.x, pose.y, FIELD.keeperZ, pose.lean), worldPart(part.b, pose.x, pose.y, FIELD.keeperZ, pose.lean), part.r, 'save');
+    }
+  }
+  if (options.frame !== false && Math.abs(shot.z - FIELD.goalZ) < 0.5) {
+    const x = FIELD.goalHalfWidth + FIELD.postRadius, y = FIELD.goalHeight + FIELD.postRadius;
+    for (const sign of [-1, 1]) check([sign * x, 0, FIELD.goalZ], [sign * x, y, FIELD.goalZ], FIELD.postRadius, 'post');
+    check([-x, y, FIELD.goalZ], [x, y, FIELD.goalZ], FIELD.postRadius, 'post');
+  }
+  return closest;
+}
+
+function resolveCollision(shot, hit) {
+  [shot.x, shot.y, shot.z] = hit.point.map((v, i) => v + hit.normal[i] * 0.001);
+  const velocity = [shot.vx, shot.vy, shot.vz], normalSpeed = dot(velocity, hit.normal);
+  const restitution = hit.type === 'post' ? 0.72 : hit.type === 'wall' ? 0.28 : 0.12;
+  [shot.vx, shot.vy, shot.vz] = velocity.map((v, i) => (v - (1 + restitution) * normalSpeed * hit.normal[i]) * (hit.type === 'save' ? 0.25 : 0.9));
+  shot.rolling = false;
+  impact(shot, hit.type);
+  if (hit.type === 'wall') shot.wallHit = true;
+  if (hit.type === 'post') shot.postHit = true;
+  if (hit.type === 'save') shot.result = 'save';
+}
+
+function advanceShot(shot, dt, keeper = null, options = {}) {
+  if (shot.result || !Number.isFinite(dt) || dt <= 0) return shot;
+  const steps = Math.ceil(dt / PHYSICS.step), step = dt / steps;
+  for (let i = 0; i < steps && !shot.result; i++) {
+    const previous = { x: shot.x, y: shot.y, z: shot.z };
+    integrate(shot, step);
+    const hit = collisions(previous, shot, keeper, options);
+    if (hit) resolveCollision(shot, hit);
+    groundContact(shot);
+    const goalPlane = FIELD.goalZ - FIELD.postRadius - FIELD.ballRadius;
+    if (!shot.result && previous.z > goalPlane && shot.z <= goalPlane) {
+      const t = (previous.z - goalPlane) / (previous.z - shot.z);
+      const x = previous.x + (shot.x - previous.x) * t, y = previous.y + (shot.y - previous.y) * t;
+      const insideX = Math.abs(x) <= FIELD.goalHalfWidth - FIELD.ballRadius;
+      const insideY = y >= FIELD.ballRadius - 0.001 && y <= FIELD.goalHeight - FIELD.ballRadius;
+      shot.result = insideX && insideY ? 'goal' : shot.postHit ? 'post' : !insideX ? 'wide' : 'over';
+      shot.x = x; shot.y = y; shot.z = goalPlane;
+    }
+    if (!shot.result && shot.vz > 0 && ((shot.wallHit && shot.z > FIELD.wallZ + 0.6) || (shot.postHit && shot.z > FIELD.goalZ + 0.6))) {
+      shot.result = shot.wallHit ? 'wall' : 'post';
+    }
+    if (!shot.result && (shot.time >= 6 - 1e-8 || Math.hypot(shot.vx, shot.vy, shot.vz) < 0.5 || shot.z > FIELD.startZ + 5)) {
+      shot.result = shot.wallHit ? 'wall' : shot.postHit ? 'post' : 'ground';
+    }
   }
   return shot;
 }
 
-function predictShot(config) {
-  const shot = makeShot(config);
-  const points = [[shot.x, shot.y, shot.z]];
-  for (let i = 0; i < 500 && !shot.result; i++) {
-    advanceShot(shot, 1 / 120);
-    if (i % 6 === 5 || shot.result) points.push([shot.x, shot.y, shot.z]);
+// Continue after the result: the net catches a goal; saves and misses fall,
+// bounce and roll instead of freezing in midair.
+function advanceAftermath(shot, dt) {
+  const steps = Math.ceil(dt / PHYSICS.step), step = dt / Math.max(1, steps);
+  for (let i = 0; i < steps; i++) {
+    integrate(shot, step);
+    groundContact(shot);
+    if (shot.result === 'goal') {
+      const back = FIELD.goalZ - 1.95 + FIELD.ballRadius;
+      if (shot.z < back && shot.vz < 0) { shot.z = back; shot.vz *= -0.12; shot.vx *= 0.45; shot.vy *= 0.45; impact(shot, 'net'); }
+      const side = FIELD.goalHalfWidth - FIELD.ballRadius;
+      if (Math.abs(shot.x) > side) { shot.x = Math.sign(shot.x) * side; shot.vx *= -0.12; impact(shot, 'net'); }
+      if (shot.y > FIELD.goalHeight - FIELD.ballRadius) { shot.y = FIELD.goalHeight - FIELD.ballRadius; shot.vy *= -0.12; impact(shot, 'net'); }
+    }
   }
-  return { points, result: shot.result, landing: [shot.x, shot.y, shot.z] };
+  return shot;
 }
 
-function crossed(before, after, plane) { return before > plane && after <= plane; }
-function atPlane(before, after, plane) {
-  const t = (before.z - plane) / (before.z - after.z);
-  return { x: before.x + (after.x - before.x) * t, y: before.y + (after.y - before.y) * t };
+function predictShot(config, options = {}) {
+  const shot = makeShot(config), points = [[shot.x, shot.y, shot.z]];
+  for (let i = 0; i < 1440 && !shot.result; i++) {
+    advanceShot(shot, 1 / 240, null, options);
+    if (i % 12 === 11 || shot.result || (shot.impact && shot.impact.time === shot.time)) points.push([shot.x, shot.y, shot.z]);
+  }
+  return { points, result: shot.result, landing: [shot.x, shot.y, shot.z], shot };
 }
 
+return { FIELD, PHYSICS, makeShot, wallJump, playerParts, makeKeeper, advanceKeeper, advanceShot, advanceAftermath, predictShot };
+})();
 
 const $ = id => document.getElementById(id);
 const canvas = $('gameCanvas');
@@ -53137,24 +53340,28 @@ const shootButton = $('shootButton');
 const nextButton = $('nextButton');
 const resultBanner = $('resultBanner');
 const summary = $('shotSummary');
-const state = { aim: -5, power: 82, side: -1, height: -1, wind: 0, shots: 0, goals: 0, shot: null, phase: 'ready', keeperTarget: 0 };
+const state = { aim: -12, power: 82, side: -1, height: -1, wind: 0, shots: 0, goals: 0, shot: null, phase: 'ready', keeper: makeKeeper(), runup: 0, aftermath: 0 };
 const resultText = {
   goal: ['精彩进球！', '漂亮的弧线钻入球网'], wall: ['被人墙挡下', '试试击打足球下沿，让球飞得更高'],
   save: ['门将扑救！', '增加弧线，瞄准更远的门角'], post: ['击中门框！', '只差一点点，微调角度再来'],
-  over: ['高出横梁', '试试提高击球点或减少力度'], wide: ['偏出球门', '调整瞄准方向或弧线'],
-  ground: ['足球提前落地', '击打下沿或增加力度']
+  over: ['高出横梁', '提高触球点，让射门压低一些'], wide: ['偏出球门', '旋转会改变终点，调整瞄准方向再试'],
+  ground: ['射门失去速度', '增加力度或击打下沿，延长飞行距离']
 };
 
-let renderer, scene, camera, ball, keeper, flightLine, landingRing;
+let renderer, scene, camera, ball, ballShadow, keeper, shooter, flightLine, landingRing, goalNet;
+const wallPlayers = [];
+const spinAxis = new THREE.Vector3(), spinRotation = new THREE.Quaternion();
 try {
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x092641);
-  scene.fog = new THREE.Fog(0x092641, 38, 90);
+  scene.background = new THREE.Color(0x799fb5);
+  scene.fog = new THREE.Fog(0x799fb5, 48, 125);
   camera = new THREE.PerspectiveCamera(53, 1, 0.1, 140);
   buildWorld();
   resize();
@@ -53188,8 +53395,8 @@ function line(points, color = 0xffffff, opacity = 1) {
 }
 
 function buildWorld() {
-  scene.add(new THREE.HemisphereLight(0xdaf1ff, 0x164025, 2.1));
-  const sun = new THREE.DirectionalLight(0xe7f8ff, 2.7);
+  scene.add(new THREE.HemisphereLight(0xe1f1ff, 0x355a27, 1.7));
+  const sun = new THREE.DirectionalLight(0xfff3da, 2.5);
   sun.position.set(-12, 27, 18);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
@@ -53200,39 +53407,68 @@ function buildWorld() {
   const flood = new THREE.PointLight(0xb8f4ff, 65, 75, 2);
   flood.position.set(14, 16, -12); scene.add(flood);
 
-  const grass = mat(0x277a4b, 1);
-  const field = mesh(new THREE.PlaneGeometry(90, 300), grass, 0, -0.04, -45, false);
+  const grass = mat(0xc4d4b0, 1);
+  const turf = document.createElement('canvas'); turf.width = turf.height = 256;
+  const turfContext = turf.getContext('2d');
+  turfContext.fillStyle = '#759456'; turfContext.fillRect(0, 0, 256, 256);
+  let seed = 42;
+  const noise = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+  for (let i = 0; i < 18000; i++) {
+    const value = Math.floor(65 + noise() * 70);
+    turfContext.fillStyle = `rgba(${value},${value + 38},${value - 22},.45)`;
+    turfContext.fillRect(noise() * 256, noise() * 256, 1, 2 + noise() * 3);
+  }
+  const turfTexture = new THREE.CanvasTexture(turf);
+  turfTexture.wrapS = turfTexture.wrapT = THREE.RepeatWrapping; turfTexture.repeat.set(28, 84);
+  turfTexture.colorSpace = THREE.SRGBColorSpace; turfTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  grass.map = turfTexture;
+  const field = mesh(new THREE.PlaneGeometry(90, 300), grass, 0, 0, -45, false);
   field.rotation.x = -Math.PI / 2; field.receiveShadow = true; scene.add(field);
   for (let z = -33, index = 0; z < 49; z += 6, index++) {
-    const stripe = mesh(new THREE.PlaneGeometry(90, 6), new THREE.MeshBasicMaterial({ color: index % 2 ? 0x2b864f : 0x2e9254, transparent: true, opacity: 0.42 }), 0, -0.026, z, false);
+    const stripe = mesh(new THREE.PlaneGeometry(90, 6), new THREE.MeshBasicMaterial({ color: index % 2 ? 0x162d08 : 0xcbe6a0, transparent: true, opacity: 0.09 }), 0, .001, z, false);
     stripe.rotation.x = -Math.PI / 2; scene.add(stripe);
   }
   const white = 0xe9fcf5;
-  scene.add(line([[-22, .018, 23], [22, .018, 23], [22, .018, -22], [-22, .018, -22], [-22, .018, 23]], white, .67));
+  scene.add(line([[-34, .018, FIELD.goalZ + 105], [34, .018, FIELD.goalZ + 105], [34, .018, FIELD.goalZ], [-34, .018, FIELD.goalZ], [-34, .018, FIELD.goalZ + 105]], white, .8));
   scene.add(line([[-20.16, .02, FIELD.goalZ], [-20.16, .02, 3.5], [20.16, .02, 3.5], [20.16, .02, FIELD.goalZ]], white, .72));
   scene.add(line([[-9.16, .021, FIELD.goalZ], [-9.16, .021, -7.5], [9.16, .021, -7.5], [9.16, .021, FIELD.goalZ]], white, .68));
   const spot = mesh(new THREE.CircleGeometry(.11, 20), new THREE.MeshBasicMaterial({ color: white }), 0, .022, -2, false);
   spot.rotation.x = -Math.PI / 2; scene.add(spot);
-  const arc = new THREE.EllipseCurve(0, -2, 9.15, 9.15, Math.PI * .25, Math.PI * .75, false, 0);
+  const arcAngle = Math.asin(5.5 / 9.15);
+  const arc = new THREE.EllipseCurve(0, -2, 9.15, 9.15, arcAngle, Math.PI - arcAngle, false, 0);
   scene.add(line(arc.getPoints(36).map(p => [p.x, .023, p.y]), white, .45));
 
   // Goal frame and visible mesh net.
-  const frame = mat(0xf7ffff, .23), netMat = new THREE.LineBasicMaterial({ color: 0xc9f3ff, transparent: true, opacity: .35 });
-  const gx = FIELD.goalHalfWidth, gz = FIELD.goalZ, gh = FIELD.goalHeight;
+  const frame = mat(0xf7ffff, .23);
+  const gx = FIELD.goalHalfWidth + FIELD.postRadius, gz = FIELD.goalZ, gh = FIELD.goalHeight + FIELD.postRadius;
   for (const x of [-gx, gx]) {
-    scene.add(barBetween([x, 0, gz], [x, gh, gz], .07, frame));
-    scene.add(barBetween([x, gh, gz], [x, gh - .22, gz - 2], .04, frame));
-    scene.add(barBetween([x, 0, gz - 2], [x, gh - .22, gz - 2], .035, frame));
+    scene.add(barBetween([x, 0, gz], [x, gh, gz], FIELD.postRadius, frame));
+    scene.add(barBetween([x, gh, gz], [x, gh, gz - 2], .04, frame));
+    scene.add(barBetween([x, 0, gz - 2], [x, gh, gz - 2], .035, frame));
   }
-  scene.add(barBetween([-gx, gh, gz], [gx, gh, gz], .07, frame));
-  scene.add(barBetween([-gx, gh - .22, gz - 2], [gx, gh - .22, gz - 2], .04, frame));
-  for (let x = -gx; x <= gx + .01; x += .42) {
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x, 0, gz - 2), new THREE.Vector3(x, gh - .22, gz - 2)]), netMat));
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x, gh, gz), new THREE.Vector3(x, gh - .22, gz - 2)]), netMat));
+  scene.add(barBetween([-gx, gh, gz], [gx, gh, gz], FIELD.postRadius, frame));
+  scene.add(barBetween([-gx, gh, gz - 2], [gx, gh, gz - 2], .04, frame));
+  const netPoints = [];
+  const addNetLine = (a, b) => {
+    const start = new THREE.Vector3(...a), end = new THREE.Vector3(...b);
+    for (let i = 0; i < 20; i++) netPoints.push(...start.clone().lerp(end, i / 20).toArray(), ...start.clone().lerp(end, (i + 1) / 20).toArray());
+  };
+  for (let x = -gx; x <= gx + .01; x += .22) {
+    addNetLine([x, 0, gz - 2], [x, gh, gz - 2]);
+    addNetLine([x, gh, gz], [x, gh, gz - 2]);
   }
-  for (let y = 0; y <= gh; y += .38) {
-    scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-gx, y, gz - 2), new THREE.Vector3(gx, y, gz - 2)]), netMat));
+  for (let y = 0; y <= gh + .01; y += .22) {
+    addNetLine([-gx, y, gz - 2], [gx, y, gz - 2]);
+    for (const sign of [-1, 1]) addNetLine([sign * gx, y, gz], [sign * gx, y, gz - 2]);
   }
+  for (let z = gz; z >= gz - 2; z -= .22) {
+    addNetLine([-gx, gh, z], [gx, gh, z]);
+    for (const sign of [-1, 1]) addNetLine([sign * gx, 0, z], [sign * gx, gh, z]);
+  }
+  const netGeometry = new THREE.BufferGeometry();
+  netGeometry.setAttribute('position', new THREE.Float32BufferAttribute(netPoints, 3));
+  goalNet = new THREE.LineSegments(netGeometry, new THREE.LineBasicMaterial({ color: 0xf5f4e8, transparent: true, opacity: .5 }));
+  goalNet.userData.rest = new Float32Array(netPoints); goalNet.frustumCulled = false; scene.add(goalNet);
 
   // Stylized crowd and floodlit stadium walls frame the playable field.
   const stand = mat(0x0c263b), accent = new THREE.MeshBasicMaterial({ color: 0x85b6ce });
@@ -53244,22 +53480,47 @@ function buildWorld() {
     }
     scene.add(box(.12, .08, 84, accent, x > 0 ? 23.8 : -23.8, 3.65, -2));
   }
-  scene.add(box(50, 7, 5, stand, 0, 2.1, -29));
-  scene.add(box(50, .12, .15, accent, 0, 5.7, -26.4));
+  const seats = mat(0x304b60), spectators = new THREE.InstancedMesh(new THREE.SphereGeometry(.12, 6, 5), mat(0xffffff), 12 * 108);
+  const crowdTransform = new THREE.Object3D(), crowdColor = new THREE.Color();
+  const crowdPalette = [0xd4c2a4, 0x345771, 0x9baaaa, 0xab584e, 0xc9bb70, 0x506975];
+  for (let row = 0; row < 12; row++) {
+    const y = .6 + row * .6, z = -24 - row * 1.1;
+    scene.add(box(65, .45, 1.2, seats, 0, y - .3, z));
+    for (let column = 0; column < 108; column++) {
+      crowdTransform.position.set(-31.8 + column * .59, y + .25, z);
+      crowdTransform.scale.set(.85, 1.8, .9); crowdTransform.updateMatrix();
+      const index = row * 108 + column;
+      spectators.setMatrixAt(index, crowdTransform.matrix);
+      spectators.setColorAt(index, crowdColor.setHex(crowdPalette[(row * 17 + column * 7) % crowdPalette.length]));
+    }
+  }
+  scene.add(spectators);
+  scene.add(box(67, .2, 15, mat(0x233d52), 0, 11, -30));
+  for (const x of [-32, -16, 16, 32]) scene.add(barBetween([x, 0, -36], [x, 11, -36], .12, seats));
+  const boardCanvas = document.createElement('canvas'); boardCanvas.width = 1024; boardCanvas.height = 64;
+  const boardContext = boardCanvas.getContext('2d');
+  boardContext.fillStyle = '#142b40'; boardContext.fillRect(0, 0, 1024, 64);
+  boardContext.fillStyle = '#dceac6'; boardContext.font = 'bold 28px Arial'; boardContext.textAlign = 'center';
+  boardContext.fillText('PHDSX     •     FOOTBALL     •     PHDSX     •     FOOTBALL', 512, 43);
+  const boardTexture = new THREE.CanvasTexture(boardCanvas); boardTexture.colorSpace = THREE.SRGBColorSpace;
+  scene.add(mesh(new THREE.PlaneGeometry(44, .85), new THREE.MeshBasicMaterial({ map: boardTexture }), 0, .55, -21, false));
 
   for (let i = 0; i < FIELD.wallCenters.length; i++) {
     const player = makePlayer(i % 2 ? 0x1160a3 : 0x0c5391, 0xe5e8ed, 0xe9b989);
     player.position.set(FIELD.wallCenters[i], 0, FIELD.wallZ);
     scene.add(player);
+    wallPlayers.push(player);
   }
   keeper = makePlayer(0xf5a51d, 0x172843, 0xdba574, true);
   keeper.position.set(0, 0, FIELD.keeperZ);
   scene.add(keeper);
+  shooter = makePlayer(0xc6283e, 0xe8edf0, 0xd6a47a);
+  shooter.rotation.y = Math.PI; shooter.position.set(.9, 0, FIELD.startZ + 2.6); scene.add(shooter);
   const ballTexture = soccerTexture();
   ball = mesh(new THREE.SphereGeometry(FIELD.ballRadius, 32, 20), new THREE.MeshStandardMaterial({ map: ballTexture, roughness: .38 }), 0, FIELD.ballRadius, FIELD.startZ);
   scene.add(ball);
-  const shadow = mesh(new THREE.CircleGeometry(.33, 24), new THREE.MeshBasicMaterial({ color: 0x071f1a, transparent: true, opacity: .35 }), 0, .006, FIELD.startZ, false);
-  shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
+  ballShadow = mesh(new THREE.CircleGeometry(.15, 24), new THREE.MeshBasicMaterial({ color: 0x071f1a, transparent: true, opacity: .35 }), 0, .006, FIELD.startZ, false);
+  ballShadow.rotation.x = -Math.PI / 2; scene.add(ballShadow);
   landingRing = mesh(new THREE.RingGeometry(.28, .34, 40), new THREE.MeshBasicMaterial({ color: 0xb9fb5c, side: THREE.DoubleSide, transparent: true, opacity: .8 }), 0, .035, 0, false);
   landingRing.rotation.x = -Math.PI / 2; scene.add(landingRing);
   camera.position.set(0, 8.5, 25);
@@ -53268,19 +53529,40 @@ function buildWorld() {
 
 function makePlayer(jersey, shorts, skin, isKeeper = false) {
   const group = new THREE.Group();
-  const shirt = mat(jersey, .85), pant = mat(shorts), flesh = mat(skin), dark = mat(0x132d3e);
-  group.add(mesh(new THREE.CylinderGeometry(.28, .31, .77, 9), shirt, 0, 1.18, 0));
-  group.add(mesh(new THREE.SphereGeometry(.23, 12, 9), flesh, 0, 1.79, 0));
-  group.add(mesh(new THREE.SphereGeometry(.235, 12, 8, 0, Math.PI * 2, 0, Math.PI * .42), dark, 0, 1.84, 0));
-  group.add(box(.57, .25, .3, pant, 0, .69, 0));
-  for (const sign of [-1, 1]) {
-    group.add(barBetween([sign * .21, .68, 0], [sign * .21, .17, .04], .105, flesh));
-    group.add(box(.22, .13, .35, dark, sign * .21, .09, .11));
-    group.add(barBetween([sign * .28, 1.43, 0], [sign * (isKeeper ? .57 : .37), .91, .05], .095, shirt));
-    group.add(mesh(new THREE.SphereGeometry(.1, 8, 6), flesh, sign * (isKeeper ? .59 : .37), .87, .05));
-  }
+  const body = new THREE.Group(); body.position.y = 1; group.add(body);
+  const materials = { shirt: mat(jersey, .85), sleeve: mat(jersey), shorts: mat(shorts), head: mat(skin), skin: mat(skin), sock: mat(isKeeper ? 0x172843 : 0xe7edf1), glove: mat(0xf0faed), boot: mat(0x17212a) };
+  const addPose = diving => {
+    const pose = new THREE.Group();
+    const legs = [new THREE.Group(), new THREE.Group()];
+    legs.forEach((leg, i) => { leg.position.set((i ? 1 : -1) * .15, -.31, 0); pose.add(leg); });
+    for (const part of playerParts(isKeeper, diving)) {
+      const a = new THREE.Vector3(...part.a), b = new THREE.Vector3(...part.b);
+      const length = a.distanceTo(b);
+      const item = mesh(length < .001 ? new THREE.SphereGeometry(part.r, 16, 12) : new THREE.CapsuleGeometry(part.r, length, 5, 12), materials[part.kind]);
+      item.position.copy(a).add(b).multiplyScalar(.5); item.position.y -= 1;
+      if (length > .001) item.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), b.sub(a).normalize());
+      if (part.a[1] < .7) {
+        const leg = legs[part.a[0] > 0 ? 1 : 0]; item.position.sub(leg.position); leg.add(item);
+      } else pose.add(item);
+    }
+    const hair = mesh(new THREE.SphereGeometry(.163, 16, 10, 0, Math.PI * 2, 0, Math.PI * .45), mat(0x25201c), 0, .73, 0);
+    pose.add(hair);
+    pose.add(mesh(new THREE.SphereGeometry(.038, 8, 6), materials.skin, 0, .68, .155));
+    for (const sign of [-1, 1]) pose.add(mesh(new THREE.SphereGeometry(.013, 6, 4), materials.boot, sign * .055, .735, .147));
+    pose.add(box(.38, .035, .014, materials.shorts, 0, .3, .232));
+    pose.userData.legs = legs; body.add(pose);
+    return pose;
+  };
+  const normal = addPose(false), dive = isKeeper ? addPose(true) : null;
+  if (dive) dive.visible = false;
+  group.userData = { body, normal, dive, legs: normal.userData.legs };
+  const numberCanvas = document.createElement('canvas'); numberCanvas.width = 64; numberCanvas.height = 80;
+  const numberContext = numberCanvas.getContext('2d'); numberContext.fillStyle = '#fff'; numberContext.font = 'bold 66px Arial'; numberContext.textAlign = 'center'; numberContext.fillText(isKeeper ? '1' : '7', 32, 65);
+  const numberTexture = new THREE.CanvasTexture(numberCanvas); numberTexture.colorSpace = THREE.SRGBColorSpace;
+  const number = mesh(new THREE.PlaneGeometry(.22, .28), new THREE.MeshBasicMaterial({ map: numberTexture, transparent: true }), 0, .15, -.235, false);
+  number.rotation.y = Math.PI; normal.add(number);
   const shade = mesh(new THREE.CircleGeometry(.4, 16), new THREE.MeshBasicMaterial({ color: 0x0b2c25, transparent: true, opacity: .26 }), 0, .018, 0, false);
-  shade.rotation.x = -Math.PI / 2; group.add(shade);
+  shade.rotation.x = -Math.PI / 2; group.add(shade); group.userData.shadow = shade;
   return group;
 }
 
@@ -53309,9 +53591,9 @@ function resize() {
   if (!width || !height) return;
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.fov = width < 560 ? 43 : 42;
-  camera.position.set(0, width < 560 ? 12 : 10.5, width < 560 ? 35 : 32);
-  camera.lookAt(0, 0, 0);
+  camera.fov = width < 560 ? 57 : 51;
+  camera.position.set(0, width < 560 ? 6.4 : 4.6, width < 560 ? 23 : 19.8);
+  camera.lookAt(0, 1, -3);
   camera.updateProjectionMatrix();
 }
 
@@ -53319,22 +53601,24 @@ function config() { return { aim: state.aim, power: state.power, side: state.sid
 function updatePreview() {
   $('aimValue').textContent = `${state.aim > 0 ? '+' : ''}${state.aim}°`;
   $('powerValue').textContent = `${state.power}%`;
-  const parts = ['左侧', '正中', '右侧'];
-  const heights = { '-1': '高弧线', 0: '中弧线', 1: '低平球' };
-  $('contactValue').textContent = `${parts[state.side + 1]} · ${heights[state.height]}`;
+  $('speedValue').textContent = `${Math.round(makeShot(config()).speed * 3.6)} km/h`;
+  const heights = { '-1': '挑起 / 回旋', 0: '平抽', 1: '低射 / 前旋' };
+  const bend = state.side < 0 ? '右弯' : state.side > 0 ? '左弯' : '直线';
+  $('contactValue').textContent = `${bend} · ${heights[state.height]}`;
   if (!scene || state.phase !== 'ready') return;
   const prediction = predictShot(config());
-  if (flightLine) scene.remove(flightLine);
+  if (flightLine) { scene.remove(flightLine); flightLine.geometry.dispose(); flightLine.material.dispose(); }
   const geometry = new THREE.BufferGeometry().setFromPoints(prediction.points.map(p => new THREE.Vector3(...p)));
   flightLine = new THREE.Line(geometry, new THREE.LineDashedMaterial({ color: 0xd9ff85, transparent: true, opacity: .82, dashSize: .25, gapSize: .17 }));
   flightLine.computeLineDistances(); scene.add(flightLine);
+  flightLine.visible = $('trajectoryInput').checked;
   landingRing.position.x = prediction.landing[0];
   landingRing.position.z = prediction.landing[2];
-  landingRing.visible = ['goal', 'wide', 'over', 'ground'].includes(prediction.result);
+  landingRing.visible = $('trajectoryInput').checked && ['goal', 'wide', 'over', 'ground'].includes(prediction.result);
   const messages = { goal: '轨迹可入门！留意门将的扑救。', wall: '轨迹撞上人墙：尝试击打球的下沿或绕向两侧。',
     post: '轨迹擦到门框：微调射门角度。', over: '轨迹高出横梁：调整击球点或力度。',
-    wide: '轨迹偏出：瞄准更靠近球门的方向。', ground: '足球会提前落地：增加力度或击打下沿。' };
-  summary.textContent = `预计：${messages[prediction.result] || '调整参数，寻找进球路线。'}`;
+    wide: '轨迹偏出：瞄准更靠近球门的方向。', ground: '球会落地减速：增加力度或击打下沿。' };
+  summary.textContent = $('trajectoryInput').checked ? `参考：${messages[prediction.result] || '调整参数，寻找进球路线。'} 人墙会起跳，门将会扑救。` : '比赛视野：参考风向和触球点，自己判断落点。';
 }
 
 function setWind() {
@@ -53350,33 +53634,49 @@ function updateScore() {
 }
 function finish(result) {
   state.phase = 'finished';
+  state.aftermath = 0;
   state.shots++;
   if (result === 'goal') state.goals++;
   updateScore();
   const [headline, detail] = resultText[result] || ['射门结束', '再试一次'];
-  resultBanner.innerHTML = `${headline}<small>${detail}</small>`;
+  resultBanner.innerHTML = `${headline}<small>${detail}</small><button class="result-next" type="button">下一球 →</button>`;
   resultBanner.hidden = false;
   shootButton.hidden = true;
   nextButton.hidden = false;
   document.querySelector('.panel-live').innerHTML = '<i></i> 本次结束';
   summary.textContent = result === 'goal' ? '弧线、力度与风向配合得恰到好处！' : detail;
 }
+function lockControls(locked) {
+  aimInput.disabled = powerInput.disabled = locked;
+  document.querySelectorAll('#contactPicker button').forEach(button => { button.disabled = locked; });
+}
 function startShot() {
   if (state.phase !== 'ready' || !renderer) return;
-  state.shot = makeShot(config()); state.phase = 'flying';
-  state.keeperTarget = 0;
+  state.shot = makeShot(config()); state.phase = 'runup'; state.runup = 0;
+  state.keeper = makeKeeper();
   resultBanner.hidden = true;
   shootButton.disabled = true;
+  lockControls(true);
   if (flightLine) flightLine.visible = false;
   landingRing.visible = false;
-  document.querySelector('.panel-live').innerHTML = '<i></i> 足球飞行中';
-  summary.textContent = '足球飞行中，风和旋转正改变它的轨迹…';
+  document.querySelector('.panel-live').innerHTML = '<i></i> 助跑中';
+  summary.textContent = '助跑、支撑脚落位、触球…';
+  if (matchMedia('(max-width:760px)').matches) canvas.closest('.stadium').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'instant' : 'smooth', block: 'start' });
 }
 function nextShot() {
   state.phase = 'ready'; state.shot = null;
+  state.keeper = makeKeeper(); state.runup = 0; state.aftermath = 0;
   ball.position.set(0, FIELD.ballRadius, FIELD.startZ);
   ball.rotation.set(0, 0, 0);
-  keeper.position.x = 0; keeper.rotation.z = 0;
+  keeper.position.set(0, 0, FIELD.keeperZ); keeper.userData.body.rotation.z = 0;
+  keeper.userData.shadow.position.y = .018;
+  keeper.userData.normal.visible = true; keeper.userData.dive.visible = false;
+  shooter.position.set(.9, 0, FIELD.startZ + 2.6);
+  shooter.userData.legs.forEach(leg => { leg.rotation.x = 0; });
+  wallPlayers.forEach(player => { player.position.y = 0; player.userData.shadow.position.y = .018; });
+  goalNet.geometry.attributes.position.array.set(goalNet.userData.rest);
+  goalNet.geometry.attributes.position.needsUpdate = true;
+  lockControls(false);
   setWind();
   resultBanner.hidden = true;
   shootButton.hidden = false; shootButton.disabled = false;
@@ -53385,53 +53685,102 @@ function nextShot() {
   updatePreview();
 }
 
-let lastFrame = performance.now();
+function simulationStep(dt) {
+  if (state.phase === 'runup') {
+    state.runup += dt;
+    const t = Math.min(1, state.runup / .65);
+    shooter.position.set(.9 + (.19 - .9) * t, 0, FIELD.startZ + 2.6 - 2.3 * t);
+    shooter.userData.legs.forEach((leg, i) => { leg.rotation.x = t < .8 ? Math.sin(t * Math.PI * 5 + i * Math.PI) * .45 : i === 1 ? -(t - .8) * 1.5 : .1; });
+    if (t === 1) {
+      state.phase = 'flying';
+      document.querySelector('.panel-live').innerHTML = '<i></i> 足球飞行中';
+      summary.textContent = '旋转和侧风正在改变球路，门将开始判断落点…';
+    }
+    return;
+  }
+  if (state.phase === 'flying') {
+    advanceKeeper(state.keeper, state.shot, dt);
+    advanceShot(state.shot, dt, state.keeper);
+    if (state.shot.result) finish(state.shot.result);
+  } else if (state.phase === 'finished' && state.aftermath < 3) {
+    state.aftermath += dt;
+    advanceAftermath(state.shot, dt);
+    advanceKeeper(state.keeper, state.shot, dt);
+  }
+}
+
+function updateActors(dt) {
+  const shot = state.shot;
+  if (shot && state.phase !== 'runup') {
+    ball.position.set(shot.x, shot.y, shot.z);
+    spinAxis.set(shot.spinX, shot.spinY, shot.spinZ);
+    const speed = spinAxis.length();
+    if (speed > .001) { spinRotation.setFromAxisAngle(spinAxis.divideScalar(speed), speed * dt); ball.quaternion.premultiply(spinRotation); }
+    $('speedValue').textContent = `${Math.round(Math.hypot(shot.vx, shot.vy, shot.vz) * 3.6)} km/h`;
+    wallPlayers.forEach((player, i) => {
+      player.position.y = wallJump(shot.time, i);
+      player.userData.shadow.position.y = .018 - player.position.y;
+    });
+    const pose = state.keeper;
+    keeper.position.set(pose.x, pose.y, FIELD.keeperZ);
+    keeper.userData.body.rotation.z = pose.lean;
+    keeper.userData.shadow.position.y = .018 - pose.y;
+    keeper.userData.normal.visible = pose.diveTime === null;
+    keeper.userData.dive.visible = pose.diveTime !== null;
+    shooter.userData.legs[1].rotation.x = shot.time < .15 ? -.3 - shot.time / .15 * .8 : -1.1 * Math.exp(-(shot.time - .15) * 5);
+    const position = goalNet.geometry.attributes.position, rest = goalNet.userData.rest;
+    const hit = shot.impact;
+    const elapsed = hit?.type === 'net' ? shot.time - hit.time : 10;
+    const strength = elapsed < 1.5 ? .36 * Math.exp(-elapsed * 4) * Math.sin(elapsed * 23) : 0;
+    for (let i = 0; i < rest.length; i += 3) {
+      const distance = hit ? ((rest[i] - hit.x) ** 2 + (rest[i + 1] - hit.y) ** 2 + (rest[i + 2] - hit.z) ** 2) : 100;
+      const edge = Math.min(1, Math.max(0, rest[i + 1]) * 3);
+      position.array[i + 2] = rest[i + 2] - strength * Math.exp(-distance * .8) * edge;
+    }
+    position.needsUpdate = true;
+  }
+  ballShadow.position.set(ball.position.x, .006, ball.position.z);
+  ballShadow.scale.setScalar(1 + ball.position.y * .18);
+  ballShadow.material.opacity = .32 / (1 + ball.position.y * .65);
+}
+
+let lastFrame = performance.now(), accumulator = 0;
 function animate(now) {
   requestAnimationFrame(animate);
-  const dt = Math.min(.05, (now - lastFrame) / 1000);
+  const dt = Math.min(.1, (now - lastFrame) / 1000);
   lastFrame = now;
-  if (state.phase === 'flying') {
-    const shot = state.shot;
-    const steps = Math.max(1, Math.ceil(dt / (1 / 120)));
-    for (let i = 0; i < steps && !shot.result; i++) {
-      if (shot.time > .27) {
-        const remaining = Math.max(0, (shot.z - FIELD.keeperZ) / -shot.vz);
-        state.keeperTarget = THREE.MathUtils.clamp(shot.x + shot.vx * remaining, -1.8, 1.8);
-      }
-      const distance = state.keeperTarget - keeper.position.x;
-      keeper.position.x += Math.sign(distance) * Math.min(Math.abs(distance), 3.4 * dt / steps);
-      keeper.rotation.z = -THREE.MathUtils.clamp(distance * .12, -.22, .22);
-      advanceShot(shot, dt / steps, keeper.position.x);
-    }
-    ball.position.set(shot.x, shot.y, shot.z);
-    ball.rotation.x -= dt * 11; ball.rotation.z += dt * shot.side * 8;
-    if (shot.result) finish(shot.result);
-  }
+  accumulator += dt;
+  while (accumulator >= PHYSICS.step) { simulationStep(PHYSICS.step); accumulator -= PHYSICS.step; }
+  updateActors(dt);
   if (landingRing?.visible) landingRing.material.opacity = .52 + Math.sin(now * .006) * .22;
   renderer.render(scene, camera);
 }
+document.addEventListener('visibilitychange', () => { lastFrame = performance.now(); accumulator = 0; });
 
 document.querySelectorAll('#contactPicker button').forEach(button => {
   button.addEventListener('click', () => {
     if (state.phase !== 'ready') return;
-    document.querySelectorAll('#contactPicker button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('#contactPicker button').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
     button.classList.add('active');
+    button.setAttribute('aria-pressed', 'true');
     state.side = Number(button.dataset.side); state.height = Number(button.dataset.height);
     updatePreview();
   });
 });
-document.querySelector('#contactPicker [data-side="-1"][data-height="-1"]').classList.add('active');
+document.querySelectorAll('#contactPicker button').forEach(button => { const active = Number(button.dataset.side) === state.side && Number(button.dataset.height) === state.height; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
 aimInput.addEventListener('input', () => { state.aim = Number(aimInput.value); updatePreview(); });
 powerInput.addEventListener('input', () => { state.power = Number(powerInput.value); updatePreview(); });
+$('trajectoryInput').addEventListener('change', updatePreview);
 shootButton.addEventListener('click', startShot);
 nextButton.addEventListener('click', nextShot);
+resultBanner.addEventListener('click', event => { if (event.target.closest('.result-next')) nextShot(); });
 $('resetButton').addEventListener('click', () => { state.shots = state.goals = 0; updateScore(); if (state.phase === 'finished') nextShot(); });
 window.addEventListener('keydown', event => {
-  if (event.target instanceof HTMLInputElement || event.target instanceof HTMLButtonElement) return;
-  if (event.code === 'Space') { event.preventDefault(); startShot(); }
+  if (event.target instanceof HTMLInputElement || event.target instanceof HTMLButtonElement || event.target instanceof HTMLAnchorElement) return;
+  if (event.code === 'Space') { event.preventDefault(); state.phase === 'finished' ? nextShot() : startShot(); }
   if (state.phase === 'ready' && (event.code === 'ArrowLeft' || event.code === 'ArrowRight')) {
     event.preventDefault();
-    state.aim = THREE.MathUtils.clamp(state.aim + (event.code === 'ArrowRight' ? .5 : -.5), -10, 10);
+    state.aim = THREE.MathUtils.clamp(state.aim + (event.code === 'ArrowRight' ? .5 : -.5), -18, 18);
     aimInput.value = state.aim; updatePreview();
   }
 });

@@ -16,7 +16,8 @@
   const destinations = {
     tiantan:['天坛','Temple of Heaven'],
     'forbidden-city':['故宫','Forbidden City'],
-    'summer-palace':['颐和园','Summer Palace']
+    'summer-palace':['颐和园','Summer Palace'],
+    'beijing-zoo':['北京动物园','Beijing Zoo']
   };
   function resolveTour(path, search, title) {
     const params = new URLSearchParams(search);

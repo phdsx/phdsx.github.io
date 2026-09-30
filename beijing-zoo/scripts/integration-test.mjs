@@ -1,0 +1,57 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const root=process.env.SITE_URL||'http://127.0.0.1:5193/';
+const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||'C:/Users/YUE/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe',args:['--enable-webgl','--ignore-gpu-blocklist']});
+const report={date:'2026-10-01',root,browser:await browser.version(),checks:[],errors:[],failedRequests:[],failures:[],limitations:['Chromium only; emulated touch and mobile viewport, not a physical phone']};
+const watch=p=>{p.on('pageerror',e=>report.errors.push(e.message));p.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});p.on('response',r=>{if(r.status()>=400)report.failedRequests.push({url:r.url(),status:r.status()});});};
+try{
+ const page=await browser.newPage({viewport:{width:1440,height:1000}});watch(page);
+ await page.goto(root+'tours.html?country=china&region=beijing',{waitUntil:'networkidle'});
+ await page.locator('#tour-search').fill('动物园');
+ const card=page.locator('[data-tour="beijing-zoo"]');await card.waitFor({state:'visible'});
+ assert.equal(await card.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0),true);
+ await card.locator('a').click();await page.waitForURL('**/beijing-zoo/index.html');
+ const frame=page.frames().find(f=>f.url().endsWith('scene.html'));assert(frame);
+ await frame.waitForFunction(()=>window.__zoo?.ready,null,{timeout:60000});
+ assert.equal(await frame.evaluate(()=>window.__zoo.venues.length),54);
+ await page.waitForTimeout(800);
+ await page.screenshot({path:'evidence/final-site-entry.png'});
+ const hideUI=await frame.addStyleTag({content:'#app > :not(#viewport){visibility:hidden !important}'});
+ await frame.locator('#viewport').screenshot({path:'evidence/thumbnail-scene.png'});
+ await hideUI.evaluate(e=>e.remove());
+ report.checks.push('Tour directory search, real screenshot thumbnail, nested public wrapper/iframe load');
+ await frame.locator('#search').fill('长颈鹿馆');
+ await frame.locator('#minimap .map-mark').first().click();
+ assert.match(await frame.locator('#info h2').textContent(),/长颈鹿/);
+ assert.equal(await frame.evaluate(()=>window.__zoo.nav.ground(window.__zoo.selected.spawn.position)!==null),true);
+ report.checks.push('Actual minimap click selects searched venue and safe observation point');
+ await frame.locator('#walk-here').click();await frame.locator('#viewport').click({position:{x:780,y:330}});await page.waitForTimeout(200);
+ report.wrapperPointerLock=await frame.evaluate(()=>!!document.pointerLockElement);
+ assert.equal(report.wrapperPointerLock,true);await page.keyboard.press('Escape');
+ report.checks.push('Walk and pointer lock inside the published same-origin iframe');
+ const mobile=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1});watch(mobile);
+ await mobile.goto(root+'tours/china/beijing/beijing-zoo/scene.html',{waitUntil:'networkidle'});
+ await mobile.waitForFunction(()=>window.__zoo?.ready);await mobile.waitForTimeout(800);
+ const cdp=await mobile.context().newCDPSession(mobile);
+ const before=await mobile.evaluate(()=>window.__zoo.camera.position.toArray());
+ const touch=async(type,points)=>cdp.send('Input.dispatchTouchEvent',{type,touchPoints:points.map(([x,y],id)=>({x,y,id,radiusX:3,radiusY:3,force:1}))});
+ await touch('touchStart',[[280,420]]);
+ for(let i=1;i<=6;i++){await touch('touchMove',[[280-i*8,420+i*2]]);await mobile.waitForTimeout(40);}
+ await touch('touchEnd',[]);await mobile.waitForTimeout(300);
+ const rotated=await mobile.evaluate(()=>window.__zoo.camera.position.toArray());
+ assert(Math.hypot(...rotated.map((n,i)=>n-before[i]))>0.5);
+ const d0=await mobile.evaluate(()=>window.__zoo.camera.position.distanceTo(window.__zoo.controls.target));
+ await touch('touchStart',[[230,430],[300,430]]);
+ for(let i=1;i<=6;i++){await touch('touchMove',[[230-i*5,430],[300+i*5,430]]);await mobile.waitForTimeout(40);}
+ await touch('touchEnd',[]);await mobile.waitForTimeout(300);
+ const d1=await mobile.evaluate(()=>window.__zoo.camera.position.distanceTo(window.__zoo.controls.target));
+ assert(Math.abs(d1-d0)>1);report.touch={rotationDistance:Math.hypot(...rotated.map((n,i)=>n-before[i])),distanceBefore:d0,distanceAfter:d1};
+ await mobile.locator('#fold-list').tap();await mobile.locator('#search').fill('非洲狮');await mobile.locator('.result[data-species]').tap();
+ assert.match(await mobile.locator('#info h2').textContent(),/狮虎山/);
+ await mobile.evaluate(()=>getSelection()?.removeAllRanges());
+ await mobile.screenshot({path:'evidence/final-touch-mobile.png'});
+ report.checks.push('390x844 touch emulation: drag orbit, two-finger zoom, animal query and venue jump');
+ assert.equal(report.errors.length,0);assert.equal(report.failedRequests.length,0);
+}catch(e){report.failures.push(e.stack||e.message);}finally{await fs.writeFile('evidence/integration-results.json',JSON.stringify(report,null,2));await browser.close();console.log(JSON.stringify(report,null,2));}
+if(report.failures.length)process.exit(1);

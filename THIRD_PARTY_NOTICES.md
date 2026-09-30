@@ -6,9 +6,11 @@
 
 | 路径或组件 | 许可证 | 说明 |
 | --- | --- | --- |
-| `tours/china/beijing/*/assets/` 中的 Three.js 0.180.0 | MIT License | 三个 3D云游场景使用本地打包的 Three.js；各景点目录附 `THREE-LICENSE.txt`。 |
+| `tours/china/beijing/*/assets/` 中的 Three.js 0.180.0 | MIT License | 3D云游场景使用本地打包的 Three.js；各景点目录附 `THREE-LICENSE.txt`。 |
 | `tours/china/beijing/*/data/` 中的 OpenStreetMap 衍生地图数据 | ODbL 1.0 | 原始贡献者署名和资料说明保留在场景界面及各景点的 `SOURCES.md` 中。 |
 | `tours/china/beijing/summer-palace/textures/` | CC0 1.0 | ambientCG 材质经缩放和调色，素材来源见该场景的 `SOURCES.md` 和 `textures/manifest.json`。 |
+| `beijing-zoo/public/textures/` 与对应公开目录 | CC0 1.0 | 复用 ambientCG 的四组 PBR 纹理，见 `beijing-zoo/docs/ASSETS.md` 和材质清单。 |
+| `beijing-zoo/public/models/lion.glb` 与对应公开目录 | CC BY-NC 4.0 / 内嵌 CC BY-NC-SA 4.0 | kenchoo 的 Lion。保留署名、非商业及相同方式共享条件；文件未修改。许可版本差异、原作者页面及下载镜像见 `beijing-zoo/docs/ASSETS.md`。此动物资产不适用本站代码的 AGPL 许可。 |
 | `assets/vendor/jsdiff-8.0.3/` | BSD-3-Clause | [jsdiff 8.0.3](https://github.com/kpdecker/jsdiff/tree/v8.0.3)，仅复用 Myers 差异算法的 `base.js` 和 `array.js`；文件未修改，版本和校验值见该目录 README，完整许可证见 [`LICENSE`](assets/vendor/jsdiff-8.0.3/LICENSE)。 |
 | `games/strategy/xiuxian/` | CC BY-NC 4.0 | 原作谦君（Jun Qian），[源项目](https://github.com/setube/vue-xiuxiangame)。2026-09-27 适配本站子目录静态托管，移除上游统计脚本、PWA 和构建混淆。游戏代码与素材仍按 CC BY-NC 4.0 授权，仅供非商业使用；完整许可见 [`LICENSE`](games/strategy/xiuxian/LICENSE)。 |
 | `games/arcade/fruit-ninja/` | Apache License 2.0 | 完整许可证见 [`games/arcade/fruit-ninja/LICENSE`](games/arcade/fruit-ninja/LICENSE)。 |

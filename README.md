@@ -17,7 +17,7 @@
 | --- | --- |
 | [在线工具](https://phdsx.github.io/tools.html) | 文本处理、图片处理、二维码、倒计时、拼音辅助和生活小工具 |
 | [网页游戏](https://phdsx.github.io/games.html) | 三国霸业、五子棋、军棋、前线指挥、星环塔防、风暴攻城、俄罗斯方块、潜艇大战、Parking Pulse、沙子分类等 |
-| [3D云游](https://phdsx.github.io/tours.html) | 按国家、地区分类的交互式三维景点：目前收录中国北京的天坛、故宫、颐和园 |
+| [3D云游](https://phdsx.github.io/tours.html) | 按国家、地区分类的交互式三维景点：天坛、故宫、颐和园、北京动物园（资料参考场景） |
 | [博客](https://phdsx.github.io/blog.html) | Python、HTML、JavaScript 与 Markdown 学习记录 |
 | [小说](https://phdsx.github.io/novels/) | 支持章节导航、阅读进度和显示设置的在线阅读页 |
 | [软件作品](https://phdsx.github.io/software.html) | 自制软件与 Web 作品的版本发布入口 |
@@ -122,4 +122,4 @@ Made with curiosity by **PHDSX**
 
 全站导航层级由 assets/navigation.js 维护；工具/游戏分类使用 ?category= 参数，工具搜索使用 q 参数。新增或移动页面后运行 node scripts/check-navigation.mjs 和 node scripts/check-site-links.mjs。
 
-3D云游入口为 `tours.html`，国家、地区筛选使用 `?country=china&region=beijing`，景点静态页面按 `tours/<国家>/<地区>/<景点>/` 保存。三个场景的源码保留在 `tiantan/`、`forbidden-city/`、`summer-palace/`；修改场景后，在已安装各项目依赖的环境运行 `node scripts/build-tours.mjs`，将构建产物更新到公开目录。部署直接使用 `tours/`，无需浏览器端构建或开发服务器；场景内的资料说明与素材署名随静态版本保留。栏目缩略图来自本地三维场景截图，存放在 `assets/tours/`。
+3D云游入口为 `tours.html`，国家、地区筛选使用 `?country=china&region=beijing`，景点静态页面按 `tours/<国家>/<地区>/<景点>/` 保存。场景源码保留在 `tiantan/`、`forbidden-city/`、`summer-palace/`、`beijing-zoo/`；修改场景后，在已安装各项目依赖的环境运行 `node scripts/build-tours.mjs`，将构建产物更新到公开目录。仅更新动物园可运行 `node scripts/build-tours.mjs --only beijing-zoo`。部署直接使用 `tours/`，无需浏览器端构建或开发服务器；场景内的资料说明与素材署名随静态版本保留。栏目缩略图来自本地三维场景截图，存放在 `assets/tours/`。动物园的精度、物种依据、素材许可及测试记录见 [项目说明](beijing-zoo/README.md)。

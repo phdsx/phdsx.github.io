@@ -24,8 +24,9 @@ body.ubuntu-desktop{margin:0;display:block;min-height:100svh;padding:78px 7% 48p
 .ubuntu-dock img{width:48px;height:48px;object-fit:contain}
 .ubuntu-dock .ubuntu-all-apps{margin-top:auto}
 .ubuntu-dock .ubuntu-all-apps img{width:30px;height:30px;filter:invert(1)}
-.ubuntu-radar-launcher{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#268a83;box-shadow:inset 0 1px 2px #ffffff30}
-.ubuntu-dock .ubuntu-radar-launcher img{width:32px;height:32px;filter:invert(1)}
+.ubuntu-radar-launcher,.ubuntu-tour-launcher{display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#268a83;box-shadow:inset 0 1px 2px #ffffff30}
+.ubuntu-tour-launcher{background:#2d6ea5}
+.ubuntu-dock .ubuntu-radar-launcher img,.ubuntu-dock .ubuntu-tour-launcher img{width:32px;height:32px;filter:invert(1)}
 .ubuntu-apps{width:min(720px,calc(100% - 32px));max-height:calc(100svh - 80px);padding:26px;border:1px solid #64545e;border-radius:16px;background:#30252f;color:#fff;box-shadow:0 24px 80px #14061270}
 .ubuntu-apps::backdrop{background:#160d20b8;backdrop-filter:blur(5px)}
 .ubuntu-apps-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}

@@ -106,6 +106,8 @@ import * as THREE from '../../assets/vendor/three.module.r160.js';
       object.userData.kind = kind;
     }
     object.visible = true;
+    delete object.userData.difference;
+    delete object.userData.differenceMarker;
     object.position.set(ux(x), uy(y), z);
     object.scale.set(w / 40, h / 40, d / 40);
     object.rotation.set(0, 0, angle);
@@ -298,21 +300,25 @@ import * as THREE from '../../assets/vendor/three.module.r160.js';
       text(i + 1, p[0], p[1] - 39, 29);
     });
   }
+  function differencePart(index, object) {
+    object.userData.difference = index;
+    return object;
+  }
   function differenceScene(shift, variant) {
     const x = n => n + shift;
     box(x(237), 305, 455, 555, 8, '#b5e0ec', -5);
-    ball(x(94), 110, 34, 34, 8, variant ? '#f5ad60' : '#fff0a0', -3, .3);
+    differencePart(0, ball(x(94), 110, 34, 34, 8, variant ? '#f5ad60' : '#fff0a0', -3, .3));
     for (const [px, py, w] of [[176,355,260],[360,348,210]]) {
       cone(x(px), py, w, 235, 24, '#72958b', -3);
       cone(x(px), py - 89, 56, 47, 16, '#f2f6ef', -2.5);
     }
     box(x(237), 508, 455, 177, 15, '#76b67b', -2);
     box(x(280), 424, 210, 145, 27, '#edcfaa', 0);
-    box(x(280), 353, 245, 18, 30, variant ? '#a25e86' : '#ba5d57', 2);
-    line(x(163), 351, x(280), 273, 22, variant ? '#965777' : '#a84c4c', 2);
-    line(x(280), 273, x(397), 351, 22, variant ? '#965777' : '#a84c4c', 2);
-    box(x(276), 451, 46, 92, 8, variant ? '#70aecf' : '#755d50', 2);
-    ball(x(291), 450, 3, 3, 3, '#e7c469', 4);
+    differencePart(1, box(x(280), 353, 245, 18, 30, variant ? '#a25e86' : '#ba5d57', 2));
+    differencePart(1, line(x(163), 351, x(280), 273, 22, variant ? '#965777' : '#a84c4c', 2));
+    differencePart(1, line(x(280), 273, x(397), 351, 22, variant ? '#965777' : '#a84c4c', 2));
+    differencePart(4, box(x(276), 451, 46, 92, 8, variant ? '#70aecf' : '#755d50', 2));
+    differencePart(4, ball(x(291), 450, 3, 3, 3, '#e7c469', 4));
     for (const px of [224, 344]) {
       box(x(px), 396, 42, 39, 7, '#eef5ee', 2);
       box(x(px), 396, 30, 27, 3, '#8ecbe5', 3);
@@ -320,8 +326,8 @@ import * as THREE from '../../assets/vendor/three.module.r160.js';
     }
     box(x(85), 455, 19, 110, 16, '#74583d', 0);
     for (const [dx, dy, r] of [[-20,0,32],[17,-11,34],[-1,-34,30]])
-      ball(x(85 + dx), 400 + dy, r, r, 17, variant ? '#dca058' : '#61a66c', 1);
-    box(x(351), 475, 82, 17, 13, variant ? '#ed8ea4' : '#d5a45e', 2);
+      differencePart(2, ball(x(85 + dx), 400 + dy, r, r, 17, variant ? '#dca058' : '#61a66c', 1));
+    differencePart(3, box(x(351), 475, 82, 17, 13, variant ? '#ed8ea4' : '#d5a45e', 2));
     box(x(321), 490, 8, 25, 10, '#766747', 1);
     box(x(381), 490, 8, 25, 10, '#766747', 1);
   }
@@ -330,12 +336,28 @@ import * as THREE from '../../assets/vendor/three.module.r160.js';
     differenceScene(0, false);
     differenceScene(480, true);
     box(480, 320, 16, 640, 18, '#263850', 5);
-    const positions = [[95,110,38],[250,320,42],[104,402,36],[350,480,38],[276,445,39]];
-    for (const i of s.found) for (const shift of [0, 480])
-      ring(positions[i][0] + shift, positions[i][1], positions[i][2], '#ffe17b', 5);
+    const markers = [[94,110,42],[280,312,265,112],[85,388,64],[351,475,98,33],[276,451,62,108]];
+    for (const i of s.found) for (const shift of [0, 480]) {
+      const [x,y,w,h] = markers[i], parts = h
+        ? [line(x-w/2+shift,y-h/2,x+w/2+shift,y-h/2,4,'#ffe17b',5),
+           line(x-w/2+shift,y+h/2,x+w/2+shift,y+h/2,4,'#ffe17b',5),
+           line(x-w/2+shift,y-h/2,x-w/2+shift,y+h/2,4,'#ffe17b',5),
+           line(x+w/2+shift,y-h/2,x+w/2+shift,y+h/2,4,'#ffe17b',5)]
+        : [ring(x+shift,y,w,'#ffe17b',5)];
+      parts.forEach(part => { part.userData.differenceMarker = true; });
+    }
   }
+  let differencePicker;
   const drawByGame = {snake:drawSnake,plane:drawPlane,birds:drawBirds,match:drawMatch,stars:drawStars,difference:drawDifference};
   window.PHDSXClassic3D = {
+    hitDifference(point) {
+      differencePicker ||= new THREE.Raycaster();
+      differencePicker.setFromCamera({x:point.x/480-1,y:1-point.y/320},camera);
+      // Pick the frontmost visible surface. Markers must not obscure another
+      // target, and scenery inside the roof outline must remain a miss.
+      const hit = differencePicker.intersectObjects(meshes.filter(object => object.visible && !object.userData.differenceMarker),false)[0];
+      return hit?.object.userData.difference ?? -1;
+    },
     draw(game, model, tick) {
       try {
         drawByGame[game](model, tick);
