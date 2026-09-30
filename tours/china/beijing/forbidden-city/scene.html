@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#26352f"><title>紫禁城 · 空间探索</title><link rel="icon" href="data:,">  <script type="module" crossorigin src="./assets/index-D1ujysNm.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/three-DIZ_T8tx.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-DHqiZetf.css">
+</head>
+<body>
+<main id="viewport" aria-label="三维故宫场景"></main>
+<header class="panel masthead"><div class="seal">宫</div><div><p class="eyebrow">THE FORBIDDEN CITY · BEIJING</p><h1>紫禁城 <span>空间探索</span></h1><p class="subtitle">当代室外格局参考 · 世界单位 1 米</p></div></header>
+<nav class="panel toolbar" aria-label="探索控制"><div class="mode"><button id="orbit" class="active">鸟瞰</button><button id="walk">步行</button></div><button id="home" title="回到初始视角">↺ 全域</button><button id="labels" aria-pressed="true">地标标签</button><button id="gray" aria-pressed="false">灰盒核对</button><select id="quality" aria-label="画质"><option value="low">低画质</option><option value="medium" selected>中画质</option><option value="high">高画质</option></select><button id="capture" title="保存当前三维视角 PNG">保存视角</button><button id="about">资料与范围</button></nav>
+<aside class="panel destinations"><p class="eyebrow">沿轴线，读懂宫城</p><h2>探索地标</h2><div id="landmarks"></div><p class="fine">选择地标定位，点击建筑查看资料。</p></aside>
+<aside id="info" class="panel hidden" aria-live="polite"></aside>
+<section class="panel minimap"><div class="map-heading"><span>方位图</span><span>北 ↑</span></div><canvas id="map" width="240" height="300" aria-label="位置与朝向小地图"></canvas><div id="coords" class="fine"></div><div class="map-legend"><i></i> 当前视角 <span>虚线：资料不足区域</span></div></section>
+<footer class="panel hints"><span id="hint">拖动旋转 · 滚轮缩放 · 右键平移</span><span id="stats">准备场景</span></footer>
+<div id="crosshair" class="hidden">+</div><div id="toast" role="status"></div><div id="loading"><div><p class="eyebrow">紫禁城 · 空间探索</p><h2 id="loading-title">建立宫城坐标</h2><progress id="progress" max="100" value="0"></progress><p id="loading-note">载入布局与参数化三维几何</p></div></div>
+<dialog id="sources"><button id="close-sources" class="close" aria-label="关闭">×</button><p class="eyebrow">资料、尺度与复原边界</p><h2>有依据的空间，明确的未知</h2><div id="source-content"></div></dialog>
+<div id="boot-error" class="hidden" role="alert"></div>
+<script>window.addEventListener('error',e=>{if(!window.__ready){const el=document.getElementById('boot-error');el.classList.remove('hidden');el.textContent='启动失败：'+e.message+'。请通过 npm run dev 启动，检查浏览器 WebGL 与资源加载。';}});</script>
+</body></html>

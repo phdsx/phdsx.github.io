@@ -44,7 +44,7 @@ async function collect(directory) {
     if (entry.name.startsWith('.') || entry.name === 'docs' || entry.name === 'content' || entry.name === 'scripts') continue;
     const fullPath = path.join(directory, entry.name);
     if (entry.isDirectory()) {
-      if (directory === root && !['tools', 'games', 'novels', 'brand-blacklist'].includes(entry.name)) continue;
+      if (directory === root && !['tools', 'games', 'novels', 'brand-blacklist', 'tours'].includes(entry.name)) continue;
       await collect(fullPath);
     } else if (/\.(?:html|css)$/i.test(entry.name)) {
       files.push(fullPath);

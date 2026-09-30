@@ -1,0 +1,165 @@
+{
+  "timestamp": "2026-09-30T14:13:55.883Z",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "dpr": 1,
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 (0x00002786) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (NVIDIA)",
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "layout": 1228
+  },
+  "checks": [
+    {
+      "name": "地标快速定位与资料卡",
+      "pass": true
+    },
+    {
+      "name": "标签切换",
+      "pass": true
+    },
+    {
+      "name": "鸟瞰旋转缩放",
+      "pass": true,
+      "details": {
+        "before": [
+          442,
+          94.99999999999999,
+          -351
+        ],
+        "after": [
+          436.44590970676387,
+          89.14969155779126,
+          -359.8865444691778
+        ]
+      }
+    },
+    {
+      "name": "WASD步行",
+      "pass": true,
+      "details": {
+        "walkBefore": [
+          -1.69,
+          9.81,
+          159.62
+        ],
+        "walkAfter": [
+          -1.69,
+          9.81,
+          157.94495000000003
+        ]
+      }
+    },
+    {
+      "name": "鼠标观察",
+      "pass": true
+    },
+    {
+      "name": "建筑/城墙/水体/边界约束",
+      "pass": true,
+      "details": {
+        "building": false,
+        "wall": false,
+        "water": false,
+        "outside": false,
+        "courtyard": true,
+        "eyeHeight": 1.6799999999999997,
+        "ramps": 28,
+        "bridges": 5
+      }
+    },
+    {
+      "name": "视高与台阶/桥梁",
+      "pass": true,
+      "details": {
+        "building": false,
+        "wall": false,
+        "water": false,
+        "outside": false,
+        "courtyard": true,
+        "eyeHeight": 1.6799999999999997,
+        "ramps": 28,
+        "bridges": 5
+      }
+    },
+    {
+      "name": "低中高画质切换",
+      "pass": true
+    },
+    {
+      "name": "资料对话框",
+      "pass": true
+    },
+    {
+      "name": "无页面/控制台错误",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "无资源加载失败",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "performance": [
+    {
+      "quality": "low",
+      "frames": 96,
+      "meanFrameMs": 16.665624999999995,
+      "fps": 60.00375023438967,
+      "p95FrameMs": 16.799999999999272,
+      "calls": 523,
+      "triangles": 2940493,
+      "geometries": 764,
+      "textures": 45,
+      "pixelRatio": 1,
+      "buffer": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "quality": "medium",
+      "frames": 96,
+      "meanFrameMs": 16.66770833333332,
+      "fps": 59.9962502343604,
+      "p95FrameMs": 16.799999999999272,
+      "calls": 1039,
+      "triangles": 5821469,
+      "geometries": 764,
+      "textures": 45,
+      "pixelRatio": 1,
+      "buffer": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "quality": "high",
+      "frames": 97,
+      "meanFrameMs": 16.665979381443282,
+      "fps": 60.00247432883836,
+      "p95FrameMs": 16.700000000000728,
+      "calls": 2079,
+      "triangles": 11642928,
+      "geometries": 764,
+      "textures": 50,
+      "pixelRatio": 1,
+      "buffer": [
+        1440,
+        1000
+      ]
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "limitations": [
+    "自动化使用独立headless Chromium；不代表用户前台浏览器硬件帧率",
+    "硬件渲染器与软件渲染情况见environment.renderer；未做GPU计时查询",
+    "性能取各画质全域固定视角约1.6秒，未覆盖长时间遍历"
+  ],
+  "passed": true
+}

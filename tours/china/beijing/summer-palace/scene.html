@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#173d38" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>颐和园 · 山水之间 | Three.js 三维游览</title>
+    <script type="module" crossorigin src="./assets/index-CczyIMSl.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-VsFQtG-T.css">
+  </head>
+  <body>
+    <main id="scene" aria-label="颐和园实时三维园区"></main>
+    <header>
+      <div class="seal">颐</div>
+      <div>
+        <h1>颐和园 <span>山水之间</span></h1>
+        <p>SUMMER PALACE · BEIJING</p>
+      </div>
+      <div class="header-right">
+        <span class="live-dot"></span><span>实时三维</span
+        ><button id="research">资料与精度</button>
+      </div>
+    </header>
+    <nav id="toolbar" aria-label="游览控制">
+      <div class="segmented">
+        <button id="orbit" class="active">鸟瞰</button
+        ><button id="walk">步行</button>
+      </div>
+      <button id="home" title="恢复全园视角">↺ <span>全园</span></button
+      ><button id="tour" title="沿长廊步行路线自动游览">
+        ▷ <span>游览长廊</span></button
+      ><label
+        >画质
+        <select id="quality">
+          <option value="low">低</option>
+          <option value="medium" selected>中</option>
+          <option value="high">高</option>
+        </select></label
+      ><button id="help">?</button>
+    </nav>
+    <aside id="places">
+      <button id="fold-places" aria-expanded="true">景点 <span>−</span></button>
+      <div id="place-list"></div>
+    </aside>
+    <section id="info" hidden>
+      <button id="close-info" aria-label="关闭介绍">×</button
+      ><small>园林档案 / LANDMARK</small>
+      <h2 id="info-name"></h2>
+      <p id="info-text"></p>
+      <div id="info-accuracy"></div>
+      <a id="info-source" target="_blank" rel="noopener">查阅原始资料 ↗</a
+      ><button id="enter-walk">在此步行</button>
+    </section>
+    <section id="map-panel">
+      <button id="fold-map" aria-expanded="true">
+        <span>园区地图</span><span>−</span></button
+      ><canvas
+        id="map"
+        width="300"
+        height="300"
+        aria-label="园区小地图，显示当前相机位置和主要景点"
+      ></canvas>
+      <div class="map-caption">真北 ↑ <span>1 单位 = 1 米</span></div>
+      <a
+        class="map-credit"
+        href="https://www.openstreetmap.org/copyright"
+        target="_blank"
+        rel="noopener"
+        >© OpenStreetMap contributors</a
+      >
+    </section>
+    <footer>
+      <div id="hint">左键旋转 · 滚轮缩放 · 右键平移</div>
+      <div id="stats">正在准备园区</div>
+    </footer>
+    <div id="toast" role="status"></div>
+    <div id="crosshair" hidden>+</div>
+    <div id="loading">
+      <div class="load-title">颐和园</div>
+      <p>在真实尺度的山水之间</p>
+      <progress id="progress" max="100" value="4"></progress
+      ><small id="load-message">读取地理布局与高程…</small>
+    </div>
+    <dialog id="sources">
+      <button class="dialog-close" aria-label="关闭">×</button
+      ><small>MODEL NOTES</small>
+      <h2>尺度、依据与边界</h2>
+      <p>
+        本场景覆盖全园山水和主要建筑群。1 世界单位对应 1 米，WGS84
+        地理坐标转局部米制坐标；X 向东、Z 向南，昆明湖水面为相对高程零点。
+      </p>
+      <p>
+        湖岸、岛屿、园界、道路和 226 处建筑轮廓来自 OpenStreetMap；山体使用
+        Mapzen/USGS DEM 并进行岸线、道路和台基整合。地图与 DEM
+        均非园区测绘成果。
+      </p>
+      <p>
+        长廊 728 米、273 间；十七孔桥 17 孔、按 150 米建模；石舫长 36
+        米；佛香阁采用新官网通高 36.44
+        米、八面三层四重檐。立面比例、屋顶、彩画、绿化和局部高程仍是照片推算及程序化简化。细部不能视为文物测绘复原。
+      </p>
+      <p>
+        佛香阁旧官方介绍为 41 米，口径与新官网不同；场景记录该差异。长廊 OSM
+        同名线段包含东侧延伸，本模型截取对应主体并使用官方长度控制开间，不缩放其他园区。
+      </p>
+      <div class="source-links">
+        <a href="https://summerpalace.net.cn/" target="_blank" rel="noopener"
+          >颐和园官网 ↗</a
+        ><a
+          href="https://whc.unesco.org/en/list/880/"
+          target="_blank"
+          rel="noopener"
+          >UNESCO ↗</a
+        ><a
+          href="https://www.openstreetmap.org/copyright"
+          target="_blank"
+          rel="noopener"
+          >© OpenStreetMap contributors · ODbL ↗</a
+        ><a
+          href="https://registry.opendata.aws/terrain-tiles/"
+          target="_blank"
+          rel="noopener"
+          >Mapzen · USGS 高程 ↗</a
+        ><a href="./data/sources.json" target="_blank">项目来源清单 ↗</a>
+      </div>
+    </dialog>
+    <dialog id="instructions">
+      <button class="dialog-close" aria-label="关闭">×</button>
+      <h2>游览操作</h2>
+      <p>鸟瞰：左键拖动旋转，滚轮缩放，右键平移。触屏支持双指缩放与平移。</p>
+      <p>
+        步行：WASD 移动，按住鼠标左键观察；双击场景锁定鼠标，Esc
+        释放；方向键左右转身。视高 1.7 米，步速 1.5 米/秒，Shift 加速至 3
+        米/秒。
+      </p>
+      <p>
+        水体不能步行穿越。选择景点可到达湖中岛屿；桥面、岸边和建筑有碰撞约束。景点介绍可关闭，保持场景清晰。
+      </p>
+      <p>
+        “游览长廊”沿长廊中心行走，可再次点击或按任意移动键结束。移动端使用鸟瞰与景点跳转。
+      </p>
+    </dialog>
+  </body>
+</html>

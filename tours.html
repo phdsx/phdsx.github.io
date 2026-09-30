@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="ubuntu-boot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2c2929">
+  <meta name="description" content="按国家、地区浏览天坛、故宫、颐和园等交互式三维景点。">
+  <title>3D云游 - PHDSX</title>
+  <style>html.ubuntu-boot{background:#2c001e url('assets/ubuntu/wallpaper.webp') center/cover fixed no-repeat}html.ubuntu-boot body{visibility:hidden}</style>
+  <script>document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.remove('ubuntu-boot'),{once:true})</script>
+  <noscript><style>html.ubuntu-boot body{visibility:visible}</style></noscript>
+  <link rel="stylesheet" href="assets/site.css?v=20260919a">
+  <link rel="stylesheet" href="assets/design-system.css?v=20260920a">
+  <link rel="stylesheet" href="assets/ubuntu.css?v=20260923u5">
+  <link rel="stylesheet" href="assets/tours.css?v=20261001tours">
+  <script src="assets/navigation.js?v=20261001tours"></script>
+  <script defer src="assets/design-system.js?v=20261001tours"></script>
+</head>
+<body>
+  <header class="site-header"></header>
+  <main id="main-content">
+    <section class="section tours-directory" aria-labelledby="tours-title">
+      <div class="tours-heading">
+        <div><p class="tours-eyebrow">EXPLORE IN 3D</p><h1 id="tours-title" data-i18n="common.tours">3D云游</h1><p class="section-lede" data-i18n="tours.intro">按国家、地区探索，在三维场景中走进建筑与山水。</p></div>
+        <span class="tours-preview-label" data-i18n="tours.preview">三维场景预览</span>
+      </div>
+      <form class="tours-filters" role="search" aria-label="搜索景点" hidden>
+        <label><span data-i18n="tours.country">国家</span><select id="tour-country" aria-controls="tour-groups"><option value="" data-i18n="tours.allCountries">全部国家</option><option value="china">中国</option></select></label>
+        <label><span data-i18n="tours.region">地区</span><select id="tour-region" aria-controls="tour-groups" disabled><option value="" data-i18n="tours.allRegions">全部地区</option><option value="beijing">北京</option></select></label>
+        <label class="tours-search"><span data-i18n="tours.search">搜索景点</span><input id="tour-search" type="search" placeholder="搜索景点或地标，例如：祈年殿、昆明湖" data-i18n-attr="placeholder:tours.placeholder" aria-controls="tour-groups" autocomplete="off"></label>
+      </form>
+      <p id="tour-status" class="tours-status" role="status" aria-live="polite">共 3 个景点</p>
+      <div id="tour-groups">
+        <section class="tour-country-group" data-country="china" aria-labelledby="china-title">
+          <h2 id="china-title" class="tour-country-title"><a href="tours.html?country=china">中国</a><span>CHINA</span></h2>
+          <section class="tour-region-group" data-region="beijing" aria-labelledby="beijing-title">
+            <div class="tour-region-heading"><h3 id="beijing-title"><a href="tours.html?country=china&amp;region=beijing">北京</a></h3><p data-i18n="tours.help">拖动旋转、滚轮缩放，也可切换步行模式。</p></div>
+            <div class="tour-grid">
+              <article class="tour-card" data-tour="tiantan" data-keywords="天坛 祈年殿 皇穹宇 回音壁 圜丘 丹陛桥 中国 北京 Temple of Heaven Tiantan China Beijing">
+                <a class="tour-card-link" href="tours/china/beijing/tiantan/index.html">
+                  <div class="tour-card-preview"><img src="assets/tours/tiantan.webp" alt="天坛" width="960" height="540"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>北京</span></p><h4>天坛</h4><p class="tour-description" data-i18n="tours.tiantan">祈年殿、皇穹宇与圜丘，沿南北轴线漫游天坛。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
+              <article class="tour-card" data-tour="forbidden-city" data-keywords="故宫 紫禁城 太和殿 午门 御花园 中国 北京 Forbidden City Palace Museum China Beijing">
+                <a class="tour-card-link" href="tours/china/beijing/forbidden-city/index.html">
+                  <div class="tour-card-preview"><img src="assets/tours/forbidden-city.webp" alt="故宫" width="960" height="540"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>北京</span></p><h4>故宫</h4><p class="tour-description" data-i18n="tours.forbiddenCity">从午门到御花园，鸟瞰宫城或沿中轴步行。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
+              <article class="tour-card" data-tour="summer-palace" data-keywords="颐和园 昆明湖 万寿山 佛香阁 长廊 十七孔桥 中国 北京 Summer Palace China Beijing">
+                <a class="tour-card-link" href="tours/china/beijing/summer-palace/index.html">
+                  <div class="tour-card-preview"><img src="assets/tours/summer-palace.webp" alt="颐和园" width="960" height="540"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>北京</span></p><h4>颐和园</h4><p class="tour-description" data-i18n="tours.summerPalace">环游昆明湖，探访佛香阁、长廊与十七孔桥。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
+            </div>
+          </section>
+        </section>
+      </div>
+      <div id="tour-empty" class="tours-empty" hidden><p data-i18n="tours.empty">没有找到符合条件的景点。</p><button type="button" id="tour-reset" data-i18n="tours.reset">重置筛选</button></div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>PHDSX © 2026</span><nav aria-label="页脚导航"><a href="index.html">首页</a><a href="tours.html">3D云游</a></nav></footer>
+  <script src="assets/i18n.js?v=20261001tours"></script>
+  <script src="assets/site.js?v=20261001tours"></script>
+  <script src="assets/tours.js?v=20261001tours"></script>
+</body>
+</html>

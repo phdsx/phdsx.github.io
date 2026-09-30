@@ -1,0 +1,14 @@
+[
+  {
+    "id": "4116308192",
+    "x": 74.53,
+    "z": 36.8,
+    "tags": {
+      "barrier": "gate",
+      "exit": "yes",
+      "name": "颐和园出口",
+      "name:de": "Park Ausgang",
+      "name:en": "Park Exit Gate"
+    }
+  }
+]

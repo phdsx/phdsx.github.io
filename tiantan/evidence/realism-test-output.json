@@ -1,0 +1,262 @@
+{
+  "timestamp": "2026-09-30T13:44:39.962Z",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 (0x00002786) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "viewport": [
+      1440,
+      960
+    ],
+    "dpr": 1,
+    "origin": [
+      116.40662197999998,
+      39.882247885
+    ],
+    "trees": 4700,
+    "ways": 573
+  },
+  "checks": [
+    {
+      "name": "页面与米制地图加载",
+      "pass": true,
+      "details": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 (0x00002786) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "viewport": [
+          1440,
+          960
+        ],
+        "dpr": 1,
+        "origin": [
+          116.40662197999998,
+          39.882247885
+        ],
+        "trees": 4700,
+        "ways": 573
+      }
+    },
+    {
+      "name": "WebGL 实际绘制",
+      "pass": true
+    },
+    {
+      "name": "鸟瞰旋转与缩放",
+      "pass": true,
+      "details": {
+        "before": [
+          81.25000000000001,
+          69,
+          105.00000000000003
+        ],
+        "after": [
+          -16.431816878110816,
+          96.16104029402695,
+          97.54699668649764
+        ]
+      }
+    },
+    {
+      "name": "重置回祈年殿视角",
+      "pass": true
+    },
+    {
+      "name": "点击建筑显示简介",
+      "pass": true,
+      "details": {
+        "x": 719.9999999999999,
+        "y": 522.2606396050741
+      }
+    },
+    {
+      "name": "全园鸟瞰",
+      "pass": true
+    },
+    {
+      "name": "qinian 快捷跳转及资料",
+      "pass": true
+    },
+    {
+      "name": "vault 快捷跳转及资料",
+      "pass": true
+    },
+    {
+      "name": "altar 快捷跳转及资料",
+      "pass": true
+    },
+    {
+      "name": "bridge 快捷跳转及资料",
+      "pass": true
+    },
+    {
+      "name": "palace 快捷跳转及资料",
+      "pass": true
+    },
+    {
+      "name": "music 快捷跳转及资料",
+      "pass": true
+    },
+    {
+      "name": "步行视高与模式",
+      "pass": true
+    },
+    {
+      "name": "WASD 实际移动",
+      "pass": true,
+      "details": {
+        "wb": [
+          0,
+          5.7,
+          62
+        ],
+        "wa": [
+          0,
+          5.7,
+          58.40000000000004
+        ]
+      }
+    },
+    {
+      "name": "鼠标改变步行视角",
+      "pass": true
+    },
+    {
+      "name": "建筑、回音壁与边界碰撞",
+      "pass": true,
+      "details": {
+        "building": false,
+        "echoBuilding": false,
+        "outside": false,
+        "echoWall": false,
+        "step": 6,
+        "altarTop": 5.17,
+        "bridgeNorth": 4,
+        "bridgeSouth": 0.16
+      }
+    },
+    {
+      "name": "三级台面、桥坡与台阶高度",
+      "pass": true,
+      "details": {
+        "building": false,
+        "echoBuilding": false,
+        "outside": false,
+        "echoWall": false,
+        "step": 6,
+        "altarTop": 5.17,
+        "bridgeNorth": 4,
+        "bridgeSouth": 0.16
+      }
+    },
+    {
+      "name": "主要游线可通行",
+      "pass": true,
+      "details": {
+        "bridge": true,
+        "gate": true,
+        "prayerSteps": true,
+        "vaultSteps": true,
+        "altarSteps": true
+      }
+    },
+    {
+      "name": "资料说明面板",
+      "pass": true
+    },
+    {
+      "name": "窄窗口 WebGL 与控件响应",
+      "pass": true
+    },
+    {
+      "name": "移动设备触控鸟瞰旋转",
+      "pass": true,
+      "details": {
+        "before": [
+          178.75,
+          147,
+          231.00000000000003
+        ],
+        "after": [
+          71.69399360720008,
+          193.46090160869022,
+          257.31857568732005
+        ]
+      }
+    },
+    {
+      "name": "三级画质切换",
+      "pass": true,
+      "details": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    {
+      "name": "无页面错误或失败资源",
+      "pass": true,
+      "details": {
+        "errors": [],
+        "failed": []
+      }
+    }
+  ],
+  "performance": [
+    {
+      "quality": "low",
+      "frames": 91,
+      "meanFrameMs": 16.667032967032956,
+      "fps": 59.99868134766273,
+      "p95FrameMs": 16.80000000000109,
+      "drawCalls": 124,
+      "triangles": 1916276,
+      "geometries": 37,
+      "textures": 8,
+      "pixelRatio": 0.75,
+      "buffer": [
+        1080,
+        720
+      ]
+    },
+    {
+      "quality": "medium",
+      "frames": 90,
+      "meanFrameMs": 16.666666666666668,
+      "fps": 59.99999999999999,
+      "p95FrameMs": 16.80000000000109,
+      "drawCalls": 136,
+      "triangles": 2333220,
+      "geometries": 37,
+      "textures": 9,
+      "pixelRatio": 1,
+      "buffer": [
+        1440,
+        960
+      ]
+    },
+    {
+      "quality": "high",
+      "frames": 90,
+      "meanFrameMs": 16.66777777777776,
+      "fps": 59.99600026664895,
+      "p95FrameMs": 16.80000000000291,
+      "drawCalls": 136,
+      "triangles": 2333220,
+      "geometries": 37,
+      "textures": 9,
+      "pixelRatio": 1.5,
+      "buffer": [
+        2160,
+        1440
+      ]
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "limitations": [
+    "独立 headless Chromium 与软件/硬件渲染器以 environment.renderer 为准",
+    "全园鸟瞰静止视角约 1.5 秒样本；不代表所有设备或长时间游览帧率"
+  ],
+  "passed": true
+}

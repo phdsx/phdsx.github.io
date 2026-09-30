@@ -1,0 +1,38 @@
+.tours-directory { padding: clamp(24px, 4vw, 44px); }
+.tours-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.tours-eyebrow { margin: 0 0 8px; color: #a6401c; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+.tours-heading h1 { margin: 0 0 10px; font-size: clamp(28px, 3vw, 38px); }
+.tours-heading .section-lede { margin: 0; max-width: 620px; }
+.tours-preview-label { flex: none; padding: 8px 12px; border: 1px solid #e4ddd8; border-radius: 6px; color: #70676b; font-size: 12px; }
+.tours-filters { display: grid; grid-template-columns: minmax(110px, .65fr) minmax(110px, .65fr) minmax(180px, 2fr); gap: 14px; padding: 18px; border: 1px solid #e6e1dd; border-radius: 8px; background: #f7f5f3; }
+.tours-filters label { display: grid; gap: 7px; min-width: 0; color: #5f5559; font-size: 12px; font-weight: 600; }
+.tours-filters select, .tours-filters input { width: 100%; min-width: 0; height: 42px; margin: 0; padding: 0 12px; border: 1px solid #d6ceca; border-radius: 5px; background: #fff; color: #312a2d; font: inherit; font-size: 14px; }
+.tours-filters select:disabled { background: #eeeae7; color: #797174; }
+.tours-filters input:focus-visible, .tours-filters select:focus-visible, .tour-card-link:focus-visible, .tour-country-title a:focus-visible, .tour-region-heading a:focus-visible { outline: 3px solid #e95420; outline-offset: 3px; }
+.tours-status { margin: 18px 0 26px; color: #74686e; font-size: 13px; }
+.tour-country-title { display: flex; align-items: baseline; gap: 12px; margin: 0 0 22px; padding-bottom: 12px; border-bottom: 1px solid #e7e0db; font-size: 23px; }
+.tour-country-title a, .tour-region-heading a { color: #30272b; text-decoration: none; }
+.tour-country-title a:hover, .tour-region-heading a:hover { color: #b63e12; }
+.tour-country-title > span { color: #8f8588; font-size: 10px; font-weight: 500; letter-spacing: .16em; }
+.tour-region-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+.tour-region-heading h3 { margin: 0; font-size: 18px; }
+.tour-region-heading p { margin: 0; color: #80747a; font-size: 12px; }
+.tour-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.tour-card { min-width: 0; border: 1px solid #e4ddd8; border-radius: 8px; overflow: hidden; background: #fff; }
+.tour-card-link { display: flex; flex-direction: column; height: 100%; color: inherit; text-decoration: none; }
+.tour-card-preview { position: relative; overflow: hidden; background: #d7dfd7; }
+.tour-card-preview img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .2s ease; }
+.tour-card-preview > span { position: absolute; top: 12px; right: 12px; padding: 4px 8px; border-radius: 4px; background: #17372cdd; color: #fff; font-size: 11px; font-weight: 700; }
+.tour-card-body { display: flex; flex: 1; flex-direction: column; align-items: start; padding: 20px; }
+.tour-location { margin: 0 0 8px; color: #887a80; font-size: 11px; }
+.tour-card h4 { margin: 0 0 10px; color: #342830; font-size: 22px; }
+.tour-description { margin: 0 0 22px; color: #796c72; font-size: 13px; line-height: 1.8; }
+.tour-action { margin-top: auto; color: #b53e14; font-size: 13px; font-weight: 700; }
+.tour-card:has(a:hover) { border-color: #dcb29f; box-shadow: 0 8px 22px #402c2110; }
+.tour-card-link:hover .tour-card-preview img { transform: scale(1.03); }
+.tours-empty { padding: 42px 16px; text-align: center; color: #796c72; }
+.tours-empty button { min-height: 40px; margin-top: 12px; padding: 8px 16px; border: 1px solid #d6ceca; border-radius: 5px; color: #a23712; background: #fff; cursor: pointer; }
+.tours-directory [hidden] { display: none !important; }
+@media (max-width: 1100px) { .tour-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tours-preview-label { display: none; } .tour-region-heading { align-items: start; flex-direction: column; gap: 6px; } }
+@media (max-width: 700px) { .tours-heading { margin-bottom: 22px; } .tours-filters { grid-template-columns: 1fr 1fr; padding: 14px; gap: 12px; } .tours-search { grid-column: 1 / -1; } .tour-grid { grid-template-columns: 1fr; gap: 18px; } .tour-card-body { padding: 18px; } }
+@media (prefers-reduced-motion: reduce) { .tour-card-preview img { transition: none; } }

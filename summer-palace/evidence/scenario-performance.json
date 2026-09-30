@@ -1,0 +1,67 @@
+{
+  "date": "2026-09-30T21:09:00.799Z",
+  "viewport": "1440×960, deviceScaleFactor1",
+  "method": "5-second requestAnimationFrame samples, headless hardware WebGL, isolated sequential scenarios; refresh-capped, not GPU timer or universal FPS claim",
+  "results": [
+    {
+      "view": "default",
+      "quality": "low",
+      "frames": 300,
+      "durationSeconds": 5,
+      "observedRafFps": 60,
+      "meanFrameMs": 16.67,
+      "p95FrameMs": 16.8,
+      "drawCalls": 517,
+      "triangles": 3513962,
+      "pixelRatio": 0.8
+    },
+    {
+      "view": "default",
+      "quality": "medium",
+      "frames": 300,
+      "durationSeconds": 5,
+      "observedRafFps": 60,
+      "meanFrameMs": 16.67,
+      "p95FrameMs": 16.8,
+      "drawCalls": 543,
+      "triangles": 3642674,
+      "pixelRatio": 1
+    },
+    {
+      "view": "default",
+      "quality": "high",
+      "frames": 300,
+      "durationSeconds": 5,
+      "observedRafFps": 60,
+      "meanFrameMs": 16.67,
+      "p95FrameMs": 17,
+      "drawCalls": 543,
+      "triangles": 3642674,
+      "pixelRatio": 1
+    },
+    {
+      "view": "overview",
+      "quality": "medium",
+      "frames": 300,
+      "durationSeconds": 5,
+      "observedRafFps": 60,
+      "meanFrameMs": 16.67,
+      "p95FrameMs": 16.9,
+      "drawCalls": 636,
+      "triangles": 4255556,
+      "pixelRatio": 1
+    },
+    {
+      "view": "walking-corridor",
+      "quality": "medium",
+      "frames": 300,
+      "durationSeconds": 5,
+      "observedRafFps": 60,
+      "meanFrameMs": 16.67,
+      "p95FrameMs": 16.8,
+      "drawCalls": 214,
+      "triangles": 1111100,
+      "pixelRatio": 1
+    }
+  ]
+}

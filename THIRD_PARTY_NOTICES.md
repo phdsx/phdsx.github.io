@@ -6,6 +6,10 @@
 
 | 路径或组件 | 许可证 | 说明 |
 | --- | --- | --- |
+| `tours/china/beijing/*/assets/` 中的 Three.js 0.180.0 | MIT License | 三个 3D云游场景使用本地打包的 Three.js；各景点目录附 `THREE-LICENSE.txt`。 |
+| `tours/china/beijing/*/data/` 中的 OpenStreetMap 衍生地图数据 | ODbL 1.0 | 原始贡献者署名和资料说明保留在场景界面及各景点的 `SOURCES.md` 中。 |
+| `tours/china/beijing/summer-palace/textures/` | CC0 1.0 | ambientCG 材质经缩放和调色，素材来源见该场景的 `SOURCES.md` 和 `textures/manifest.json`。 |
+| `assets/vendor/jsdiff-8.0.3/` | BSD-3-Clause | [jsdiff 8.0.3](https://github.com/kpdecker/jsdiff/tree/v8.0.3)，仅复用 Myers 差异算法的 `base.js` 和 `array.js`；文件未修改，版本和校验值见该目录 README，完整许可证见 [`LICENSE`](assets/vendor/jsdiff-8.0.3/LICENSE)。 |
 | `games/strategy/xiuxian/` | CC BY-NC 4.0 | 原作谦君（Jun Qian），[源项目](https://github.com/setube/vue-xiuxiangame)。2026-09-27 适配本站子目录静态托管，移除上游统计脚本、PWA 和构建混淆。游戏代码与素材仍按 CC BY-NC 4.0 授权，仅供非商业使用；完整许可见 [`LICENSE`](games/strategy/xiuxian/LICENSE)。 |
 | `games/arcade/fruit-ninja/` | Apache License 2.0 | 完整许可证见 [`games/arcade/fruit-ninja/LICENSE`](games/arcade/fruit-ninja/LICENSE)。 |
 | `games/arcade/fruit-ninja/scripts/all.js` 中保留许可头的组件 | MIT License | 许可和版权声明已保留在源文件中。 |

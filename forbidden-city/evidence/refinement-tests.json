@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-09-30T13:57:11.946Z",
+  "checks": [
+    {
+      "name": "东西六宫11座正殿独立配置与地图别名",
+      "pass": true,
+      "details": {
+        "side": [
+          {
+            "id": "jingren",
+            "name": "景仁宫",
+            "x": 91.34,
+            "z": -239.81,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "chengqian",
+            "name": "承乾宫",
+            "x": 91.46,
+            "z": -290.66,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "yonghe",
+            "name": "永和宫",
+            "x": 147,
+            "z": -287.35,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "zhongcui",
+            "name": "钟粹宫",
+            "x": 91.14,
+            "z": -341.88,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "jingyang",
+            "name": "景阳宫",
+            "x": 147.36,
+            "z": -340.41,
+            "roof": "hip",
+            "bays": 3
+          },
+          {
+            "id": "yongshou",
+            "name": "永寿宫",
+            "x": -97.2,
+            "z": -241.7,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "yikun",
+            "name": "翊坤宫",
+            "x": -96.43,
+            "z": -293.17,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "chuxiu",
+            "name": "储秀宫",
+            "x": -97.31,
+            "z": -344.81,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "taiji",
+            "name": "太极殿",
+            "x": -152.62,
+            "z": -241.19,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "changchun",
+            "name": "长春宫",
+            "x": -152.64,
+            "z": -290.78,
+            "roof": "gablehip",
+            "bays": 5
+          },
+          {
+            "id": "xianfu",
+            "name": "咸福宫",
+            "x": -152.37,
+            "z": -341.44,
+            "roof": "hip",
+            "bays": 3
+          }
+        ],
+        "yangxin": {
+          "w": 36,
+          "d": 12,
+          "bays": 3,
+          "frontPosts": 9
+        }
+      }
+    },
+    {
+      "name": "景阳/咸福三间庑殿顶；其余九座五间歇山顶",
+      "pass": true
+    },
+    {
+      "name": "养心殿前殿36×12米、三间及加柱配置",
+      "pass": true,
+      "reference": "https://www.dpm.org.cn/explore/building/236442.html",
+      "deviation": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "近景遍历与缓存回收不释放共享材质/纹理",
+      "pass": true,
+      "details": {
+        "cacheSize": 18,
+        "disposedShared": 0,
+        "generatedTargets": 33
+      }
+    },
+    {
+      "name": "新增模型与细部无页面异常",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "passed": true
+}

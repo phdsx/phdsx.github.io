@@ -5,12 +5,34 @@
     games: { board:['棋类对弈','Board games'], strategy:['策略战争','Strategy'], sports:['体育竞技','Sports'], arcade:['动作街机','Arcade'], puzzle:['益智休闲','Puzzles'] }
   };
   const sections = {
-    'index.html':['首页','Home'], 'tools.html':['在线工具','Tools'], 'games.html':['游戏厅','Games'],
+    'index.html':['首页','Home'], 'tools.html':['在线工具','Tools'], 'games.html':['游戏厅','Games'], 'tours.html':['3D云游','3D Tours'],
     'blog.html':['博客笔记','Blog'], 'novels/index.html':['小说连载','Reading'], 'software.html':['软件作品','Software'],
     'ai-radar.html':['AI 雷达','AI Radar'], 'directory.html':['电话黄页','Directory'], 'brand-blacklist/index.html':['品牌黑名单','Brand blacklist']
   };
   const item = (href, names) => ({href, zh:names[0], en:names[1]});
+  const countries = {
+    china: { names:['中国','China'], regions:{ beijing:['北京','Beijing'] } }
+  };
+  const destinations = {
+    tiantan:['天坛','Temple of Heaven'],
+    'forbidden-city':['故宫','Forbidden City'],
+    'summer-palace':['颐和园','Summer Palace']
+  };
+  function resolveTour(path, search, title) {
+    const params = new URLSearchParams(search);
+    const parts = path.startsWith('tours/') ? path.split('/') : [];
+    const countryKey = parts[1] || params.get('country');
+    const country = Object.hasOwn(countries, countryKey) ? countryKey : null;
+    const regionKey = parts[2] || params.get('region');
+    const region = country && Object.hasOwn(countries[country].regions, regionKey) ? regionKey : null;
+    const crumbs = [item('index.html',sections['index.html']),item('tours.html',sections['tours.html'])];
+    if (country) crumbs.push(item(`tours.html?country=${country}`,countries[country].names));
+    if (region) crumbs.push(item(`tours.html?country=${country}&region=${region}`,countries[country].regions[region]));
+    if (parts[3]) crumbs.push(item(path + search,destinations[parts[3]] || [title || '景点',title || 'Destination']));
+    return {family:'tours',section:'tours.html',category:null,country,region,crumbs,parent:crumbs.at(-2)};
+  }
   const titles = {
+    'text-diff':['文本差异比对','Text diff'],
     'image-compressor':['图片压缩','Image compressor'], 'image-cropper':['图片裁剪','Image cropper'], 'batch-image-cropper':['批量图片裁剪','Batch image cropper'], 'image-watermark-editor':['图片水印与 EXIF 编辑器','Watermark & EXIF editor'],
     'case-converter':['大小写转换','Case converter'], 'text-deduplicator':['文本去重','Text deduplicator'], 'text-formatter':['文本格式化','Text formatter'], 'json-formatter':['JSON 格式化','JSON formatter'], 'word-counter':['字数统计','Word counter'], 'qr-generator':['二维码生成','QR generator'],
     'eq-pinyin-code':['EQ 单字拼音域代码生成器','Pinyin EQ field generator'], 'ppt-countdown':['PPT 放映悬浮倒计时','Floating presentation timer'], 'work-countdown':['下班倒计时','Work countdown'], 'countdown':['自定义倒计时','Countdown'],
@@ -19,6 +41,7 @@
   };
   function resolve(path, search = '', title = '') {
     path = path || 'index.html';
+    if (path === 'tours.html' || path.startsWith('tours/')) return resolveTour(path, search, title);
     const params = new URLSearchParams(search);
     const family = /^(tools|games)(\/|\.html$)/.exec(path)?.[1];
     const detail = path.startsWith('tools/') || path.startsWith('games/');
@@ -34,5 +57,5 @@
     if (detail || (section !== path && !sections[path])) crumbs.push(item(path + search,titles[slug] || [title || '详情', title || 'Details']));
     return {family, section, category, crumbs, parent:crumbs.length > 1 ? crumbs[crumbs.length - 2] : null};
   }
-  window.PHDSXNavigation = {categories, sections, resolve};
+  window.PHDSXNavigation = {categories, sections, countries, destinations, resolve};
 })();

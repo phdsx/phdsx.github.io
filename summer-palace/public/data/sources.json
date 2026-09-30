@@ -1,0 +1,204 @@
+{
+  "researched": "2026-09-28—2026-09-30",
+  "coordinateSystem": {
+    "originWGS84": [
+      116.273,
+      39.99
+    ],
+    "unit": "1 Three.js unit = 1 metre",
+    "axes": "X east, Y up, Z south",
+    "heightDatum": "Kunming Lake surface = 0, relative; not certified survey datum",
+    "projection": "local equirectangular tangent plane, R6378137",
+    "alignment": "Only WGS84 sources layered; no unconverted GCJ02/BD09 map"
+  },
+  "sources": [
+    {
+      "id": "osm",
+      "url": "https://www.openstreetmap.org/",
+      "download": "https://api.openstreetmap.org/api/0.6/map?bbox=116.25,39.98,116.285,40.005",
+      "use": "全园边界、湖岸、岛屿、道路、建筑轮廓和朝向；原始 XML 保存在 research/osm.xml",
+      "method": "WGS84 转局部米制；多边形 relations 的内外环拼接；最长边确定建筑局部轴，不压缩地理距离",
+      "accuracy": "公开编辑地图；无测绘精度担保。OSM 未标注建筑高度及立面均推算。",
+      "license": "OpenStreetMap contributors, ODbL 1.0",
+      "licenseUrl": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "id": "dem",
+      "url": "https://registry.opendata.aws/terrain-tiles/",
+      "download": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+      "use": "万寿山连续高程和周边地形；园内 z14 六瓦片，周边 z12 两瓦片",
+      "method": "Terrarium RGB 解码；园内 12m 采样，不代表原始分辨率提高。昆明湖样点原始值 48.99609375 用作相对高程零点；湖床、岸线、道路、台阶和平台整合",
+      "accuracy": "SRTM/GMTED 混合产品，无经本项目确认的国家垂直基准。树冠和建筑伪影、插值误差以及台基高差不确定。周边缺失格网平整处理。",
+      "license": "底层全球 USGS SRTM/GMTED 资料；Tilezen/Mapzen 官方署名列表见链接。未对瓦片单独声称测绘级许可或精度。",
+      "licenseUrl": "https://github.com/tilezen/joerd/blob/master/docs/attribution.md"
+    },
+    {
+      "id": "guide",
+      "url": "https://summerpalace.net.cn/guide_map.html",
+      "image": "https://summerpalace.net.cn/Public/static/themes/image/pinning_img1.jpg",
+      "use": "全园拓扑关系、出入口、前后山、岛屿和景观视线核对",
+      "method": "与本项目米制地图人工比对；官方示意地图未作坐标控制点",
+      "license": "颐和园官网 All Rights Reserved；仅研究参考，不进入 public 或构建产物"
+    },
+    {
+      "id": "unesco",
+      "url": "https://whc.unesco.org/en/list/880/",
+      "use": "遗产范围和山水格局背景核对",
+      "method": "阅读官方遗产介绍及地图索引；未宣称获得文物测绘资料",
+      "license": "仅链接和事实摘要；未使用网页图片作贴图"
+    },
+    {
+      "id": "foxiang",
+      "url": "https://summerpalace.net.cn/longevity/detailqianshan/382.html",
+      "use": "八面三层四重檐、通高36.44m、台基20m",
+      "method": "高度名义控制；照片推算楼层、屋檐、柱廊、窗棂、斗栱；20m平台不是现场实测底部高程",
+      "accuracy": "新官网36.44m与旧官方41m口径冲突；选前者并显式记录，不混用",
+      "license": "文本事实引用；照片权利保留，未作为运行贴图"
+    },
+    {
+      "id": "foxiang-old",
+      "url": "https://gygl.beijing.gov.cn/mlgy/mlgy_gyjg01/201912/t20191211_1048175.html",
+      "use": "41m 高度冲突记录",
+      "method": "交叉核对旧官方介绍",
+      "license": "仅链接和事实摘要"
+    },
+    {
+      "id": "corridor",
+      "url": "https://summerpalace.net.cn/gallery_detail/369.html",
+      "use": "728m、273间、四座八角重檐亭",
+      "method": "OSM同名线较长，沿对应主体自西向东截取728m，均分273开间；亭位置估计。自绘彩画并非真实14000幅彩画复刻",
+      "license": "仅链接和事实摘要"
+    },
+    {
+      "id": "bridge",
+      "url": "https://www.summerpalace.net.cn/laka_spot/detail/362.html",
+      "crosscheck": "https://gygl.beijing.gov.cn/mlgy/mlgy_gyjg01/201912/t20191211_1048145.html",
+      "use": "17孔、约150m桥长；桥券和栏杆照片比对",
+      "method": "地图原线约134m，保持中点和方向，沿两端延伸至150m；宽8m、拱高、孔径、栏杆和石狮体态为估计",
+      "accuracy": "桥宽8m没有在已阅读官方文字中核实，不能作为已核实数据。端部与岸线连接有位置误差。",
+      "license": "事实摘要；官方照片仅研究，不打包部署"
+    },
+    {
+      "id": "boat",
+      "url": "https://gygl.beijing.gov.cn/whgy/whgy_wsgc/201912/t20191206_885544.html",
+      "coordinate": "https://www.wikidata.org/wiki/Q2636083",
+      "use": "船长36m、石船身、西洋舱楼；公开坐标39.996778,116.263583作辅助定位",
+      "method": "坐标转米制并与西北湖岸匹配；宽度、朝向、舱楼和明轮照片估计，登舫桥为岸线衔接近似",
+      "license": "Wikidata结构化数据CC0；官方照片仅研究；公开坐标无精度担保"
+    },
+    {
+      "id": "paiyun",
+      "url": "https://summerpalace.net.cn/longevity/detailqianshan/381.html",
+      "use": "前山中轴建筑群关系",
+      "method": "平面地图+官方实景，比对前庭、中轴及屋檐层次",
+      "license": "事实摘要；未使用官方图片作贴图"
+    },
+    {
+      "id": "xiequ",
+      "url": "https://summerpalace.net.cn/longevity/detailhouhu/372.html",
+      "use": "池水、百间曲折游廊、园中园构成",
+      "method": "OSM池岸与道路生成局部廊道；现阶段开间数、廊位与细部并未达到百间一一核实",
+      "license": "事实摘要；权利保留图片仅研究"
+    },
+    {
+      "id": "suzhou",
+      "url": "https://summerpalace.net.cn/longevity/detailhouhu/373.html",
+      "use": "后湖两岸水街和长桥组合",
+      "method": "岸线及226轮廓中的沿岸商铺；门窗、店面、岸平台为简化",
+      "license": "事实摘要；未使用图片作贴图"
+    },
+    {
+      "id": "foxiang-front.jpg",
+      "url": "https://summerpalace.net.cn/Uploads/Picture/2025/08/30/s68b2ae16e5183.jpg",
+      "use": "昆明湖看前山中轴与佛香阁",
+      "local": "research/foxiang-front.jpg",
+      "license": "官方网站 All Rights Reserved，仅本地研究，构建目录不含照片",
+      "method": "比例和形态人工比对；未用照片冒充三维园区"
+    },
+    {
+      "id": "foxiang-side.jpg",
+      "url": "https://summerpalace.net.cn/Uploads/Picture/2025/08/30/s68b2ae1aa9166.jpg",
+      "use": "仰视佛香阁檐下椽头、梁架、彩绘和柱列",
+      "local": "research/foxiang-side.jpg",
+      "license": "官方网站 All Rights Reserved，仅本地研究，构建目录不含照片",
+      "method": "比例和形态人工比对；未用照片冒充三维园区"
+    },
+    {
+      "id": "bridge-side.jpg",
+      "url": "https://www.summerpalace.net.cn/Uploads/Picture/2025/08/30/s68b2a284986e7.jpg",
+      "use": "栏杆柱头石狮",
+      "local": "research/bridge-side.jpg",
+      "license": "官方网站 All Rights Reserved，仅本地研究，构建目录不含照片",
+      "method": "比例和形态人工比对；未用照片冒充三维园区"
+    },
+    {
+      "id": "bridge-angle.jpg",
+      "url": "https://www.summerpalace.net.cn/Uploads/Picture/2025/08/30/s68b2a285a4be7.jpg",
+      "use": "桥梁斜侧视参考",
+      "local": "research/bridge-angle.jpg",
+      "license": "官方网站 All Rights Reserved，仅本地研究，构建目录不含照片",
+      "method": "比例和形态人工比对；未用照片冒充三维园区"
+    },
+    {
+      "id": "boat-reference.jpg",
+      "url": "https://gygl.beijing.gov.cn/whgy/whgy_wsgc/201912/W020191206578391142652.jpg",
+      "use": "卷纹船艏、西洋拱窗、明轮、栏杆与三角舱顶山花",
+      "local": "research/boat-reference.jpg",
+      "license": "官方网站 All Rights Reserved，仅本地研究，构建目录不含照片",
+      "method": "比例和形态人工比对；未用照片冒充三维园区"
+    },
+    {
+      "id": "gates",
+      "url": "https://gygl.beijing.gov.cn/whgy/whgy_wsgc/201912/t20191206_885616.html",
+      "crosscheck": "https://www.summerpalace.net.cn/single/detail_g7yU_73/607.html",
+      "use": "主要宫门的朝向、门洞及园墙关系",
+      "method": "东宫门对应OSM1559213224轮廓，设三洞体态；新建宫门区使用OSM出口节点4116308192作为近似定位，缺少主宫门精确轮廓。剔除同名厕所与公交站坐标；门区以估计建筑补全。",
+      "accuracy": "新建宫门模型227中的额外一处近似，不计入226处OSM建筑。门区定位与建筑细部仍需测绘。",
+      "license": "事实摘要、OSM ODbL派生定位；未将GCJ02高德坐标叠加"
+    },
+    {
+      "id": "boat-alignment",
+      "url": "https://www.openstreetmap.org/",
+      "use": "石舫位置与登舫桥校核",
+      "method": "Wikidata辅助坐标与OSM岸线中船体轮廓约有9m差别，优先贴合石舫窄长轮廓，取局部米制中心x=-794.4,z=-752.5，yaw=.068弧度；此为推算，不能视为核实精确数据。船尾接岸短桥及甲板地面单独处理。",
+      "license": "OSM contributors / ODbL 1.0；推算说明"
+    },
+    {
+      "id": "Bark007",
+      "url": "https://ambientcg.com/view?id=Bark007",
+      "download": "https://ambientcg.com/get?file=Bark007_1K-JPG.zip",
+      "use": "树干 PBR Color/NormalGL/Roughness",
+      "method": "1K源图转768px WebP；部分去饱和/提亮；Ground037实物周期2.1m，其余材质物理周期估计。林地视觉混合周期放宽至3.4m以减少远景重复。",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "PavingStones036",
+      "url": "https://ambientcg.com/view?id=PavingStones036",
+      "download": "https://ambientcg.com/get?file=PavingStones036_1K-JPG.zip",
+      "use": "铺地 PBR Color/NormalGL/Roughness",
+      "method": "1K源图转768px WebP；部分去饱和/提亮；Ground037实物周期2.1m，其余材质物理周期估计。林地视觉混合周期放宽至3.4m以减少远景重复。",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "Ground037",
+      "url": "https://ambientcg.com/view?id=Ground037",
+      "download": "https://ambientcg.com/get?file=Ground037_1K-JPG.zip",
+      "use": "林地土壤 PBR Color/NormalGL/Roughness",
+      "method": "1K源图转768px WebP；部分去饱和/提亮；Ground037实物周期2.1m，其余材质物理周期估计。林地视觉混合周期放宽至3.4m以减少远景重复。",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "Rock039",
+      "url": "https://ambientcg.com/view?id=Rock039",
+      "download": "https://ambientcg.com/get?file=Rock039_1K-JPG.zip",
+      "use": "山石 PBR Color/NormalGL/Roughness",
+      "method": "1K源图转768px WebP；部分去饱和/提亮；Ground037实物周期2.1m，其余材质物理周期估计。林地视觉混合周期放宽至3.4m以减少远景重复。",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  ],
+  "runtimeAssets": "Only local data, CC0 material maps and procedurally authored geometry/textures. No official photographs, panoramas, CDN or remote model loads."
+}

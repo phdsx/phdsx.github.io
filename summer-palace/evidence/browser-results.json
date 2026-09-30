@@ -1,0 +1,485 @@
+{
+  "date": "2026-09-30T21:06:24.561Z",
+  "url": "http://127.0.0.1:5184/palace/",
+  "viewport": {
+    "width": 1440,
+    "height": 960,
+    "dpr": 1
+  },
+  "browser": "151.0.7922.34",
+  "mode": "headless Chromium, hardware WebGL; isolated local test",
+  "errors": [],
+  "failedRequests": [],
+  "failures": [],
+  "checks": [
+    "Load, reset overview",
+    "Reference and help dialogs",
+    "Collapsible minimap",
+    "Mouse orbit and zoom",
+    "16 landmark jumps and introductions",
+    "Minimap landmark click",
+    "Batched 3D building picking",
+    "Water and wall collision; bridge deck separate from lake bed; sampled continuous routes at 0.1m",
+    "WASD, held mouse look, 1.7m ground-following camera",
+    "Corridor guided walk starts and stops",
+    "390×844 responsive layout and collapsed controls",
+    "Touch device emulation: pinch zoom and landmark tap"
+  ],
+  "performance": [
+    {
+      "quality": "low",
+      "view": "佛香阁近景",
+      "sampleFrames": 210,
+      "seconds": 3.5,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.9,
+      "drawCalls": 175,
+      "triangles": 1328726,
+      "textureCount": 84,
+      "geometries": 2294,
+      "pixelRatio": 0.8
+    },
+    {
+      "quality": "medium",
+      "view": "佛香阁近景",
+      "sampleFrames": 210,
+      "seconds": 3.5,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.9,
+      "drawCalls": 259,
+      "triangles": 1621890,
+      "textureCount": 85,
+      "geometries": 2294,
+      "pixelRatio": 1
+    },
+    {
+      "quality": "high",
+      "view": "佛香阁近景",
+      "sampleFrames": 210,
+      "seconds": 3.5,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCalls": 301,
+      "triangles": 1821630,
+      "textureCount": 86,
+      "geometries": 2315,
+      "pixelRatio": 1
+    }
+  ],
+  "scene": {
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 (0x00002786) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "buildings": 227,
+    "trees": 2724,
+    "waterAreas": 10,
+    "bridges": [
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 25.367899400620452
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 37.71456361937645
+      },
+      {
+        "name": "长桥",
+        "arches": 3,
+        "length": 30.464693072473356
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 12.323822012671249
+      },
+      {
+        "name": "练桥",
+        "arches": 1,
+        "length": 19.352633980933923
+      },
+      {
+        "name": "半壁桥",
+        "arches": 1,
+        "length": 35.56626211734949
+      },
+      {
+        "name": "石桥",
+        "arches": 1,
+        "length": 24.255458643365277
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 25.3233849435656
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 10.843012727097564
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 35.12788073596242
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 13.171262543886963
+      },
+      {
+        "name": "柳桥",
+        "arches": 1,
+        "length": 27.662040072995335
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 32.182506086381686
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 16.45531920079338
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 19.071289232770788
+      },
+      {
+        "name": "豳风桥",
+        "arches": 1,
+        "length": 18.464230717795946
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 14.357883722888891
+      },
+      {
+        "name": "玉带桥",
+        "arches": 1,
+        "length": 35.79748309588266
+      },
+      {
+        "name": "界湖桥",
+        "arches": 1,
+        "length": 27.723030029201283
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 26.971317227751488
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 27.549993901995716
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 30.57977411623576
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 22.03424906821188
+      },
+      {
+        "name": "玉带桥",
+        "arches": 1,
+        "length": 27.20285876521063
+      },
+      {
+        "name": "绣漪桥",
+        "arches": 1,
+        "length": 31.20036833115919
+      },
+      {
+        "name": "十七孔桥",
+        "arches": 17,
+        "length": 150
+      },
+      {
+        "name": "知鱼桥",
+        "arches": 1,
+        "length": 17.08016914436148
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 27.97566880344424
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 10.085170350569213
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 3.1577430231098824
+      },
+      {
+        "name": "园林桥",
+        "arches": 1,
+        "length": 34.082313683199416
+      },
+      {
+        "name": "镜桥",
+        "arches": 1,
+        "length": 12.888958452877375
+      },
+      {
+        "name": "石舫甲板",
+        "arches": 0,
+        "length": 30
+      },
+      {
+        "name": "石舫登舫桥",
+        "arches": 1,
+        "length": 12.388202654211291
+      }
+    ],
+    "stairs": 72,
+    "gardenGalleryBays": 110
+  },
+  "safeJumps": [
+    {
+      "id": "foxiang",
+      "p": [
+        -427.972,
+        -846.212
+      ],
+      "y": 30.95043677714232,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "paiyun",
+      "p": [
+        -422.573,
+        -774.0425
+      ],
+      "y": 11.480833333333337,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "corridor",
+      "p": [
+        -374.3105403588475,
+        -716.3856457631076
+      ],
+      "y": 7.650500591412678,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "bridge",
+      "p": [
+        -122.77249999999998,
+        63.00559353944898
+      ],
+      "y": 6.910002100339414,
+      "safe": true,
+      "water": true,
+      "bridge": true
+    },
+    {
+      "id": "boat",
+      "p": [
+        -795,
+        -779
+      ],
+      "y": 3.1042393749027735,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "renshou",
+      "p": [
+        84.9,
+        -697.0045
+      ],
+      "y": 8.780223447916665,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "leshou",
+      "p": [
+        -50.813,
+        -802.5145
+      ],
+      "y": 6.955434027777771,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "yulan",
+      "p": [
+        22.345,
+        -712.824
+      ],
+      "y": 6.469722222222233,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "suzhou",
+      "p": [
+        -423,
+        -1148
+      ],
+      "y": 1.2507409769462332,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "xiequ",
+      "p": [
+        223,
+        -974
+      ],
+      "y": 1.3486483713453734,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "west-dyke",
+      "p": [
+        -1017.164,
+        -218.782
+      ],
+      "y": 1.6011702151179228,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "huazhong",
+      "p": [
+        -689.266,
+        -802.1085
+      ],
+      "y": 14.405775892163543,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "north",
+      "p": [
+        -425.793,
+        -1207.393
+      ],
+      "y": 6.880341915000001,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "east",
+      "p": [
+        158,
+        -736
+      ],
+      "y": 6.519184027777768,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "new",
+      "p": [
+        61,
+        30
+      ],
+      "y": 2.3022283231973977,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    },
+    {
+      "id": "hanxu",
+      "p": [
+        -248.644,
+        -32.228500000000004
+      ],
+      "y": 1.2,
+      "safe": true,
+      "water": false,
+      "bridge": false
+    }
+  ],
+  "routes": {
+    "routes": [
+      {
+        "name": "长廊 728m",
+        "length": 728,
+        "blocked": []
+      },
+      {
+        "name": "十七孔桥 150m",
+        "length": 150,
+        "blocked": []
+      },
+      {
+        "name": "佛香阁侧阶",
+        "length": 33.37663853655727,
+        "blocked": []
+      },
+      {
+        "name": "佛香阁侧阶",
+        "length": 33.37663853655727,
+        "blocked": []
+      },
+      {
+        "name": "石舫登舫桥",
+        "length": 12.388202654211291,
+        "blocked": []
+      }
+    ],
+    "tests": {
+      "waterBlocked": true,
+      "hallBlocked": true,
+      "bridgeGroundSeparated": true
+    }
+  },
+  "walkInput": {
+    "p0": [
+      -374.3105403588475,
+      9.350500591412677,
+      -716.3856457631076
+    ],
+    "p": [
+      -372.7296023312679,
+      9.326666988775502,
+      -717.297480427646
+    ],
+    "height": 1.6999999999999993,
+    "mode": "walk"
+  },
+  "mobileTouch": {
+    "beforeDistance": 1386.9120375856573,
+    "afterDistance": 771.6879293302276,
+    "dpr": 2,
+    "viewport": "390×844",
+    "pinch": true
+  }
+}

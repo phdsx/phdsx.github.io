@@ -1,0 +1,255 @@
+{
+  "checked": "2026-09-30",
+  "sources": [
+    {
+      "title": "故宫博物院 · 建筑总览",
+      "url": "https://www.dpm.org.cn/explore/buildings.html",
+      "support": "城池753×961米、墙高10米、护城河52米；四门与外朝内廷分区",
+      "reliability": "机构公开尺寸，高；边界口径未附测绘图",
+      "license": "内容/影像版权归故宫博物院；事实转述"
+    },
+    {
+      "title": "故宫博物院 · 导览与开放区域图",
+      "url": "https://www.dpm.org.cn/Visit.html",
+      "support": "主要宫院、门、花园与相对位置；含临时开放公告",
+      "reliability": "位置关系高；插画比例低，不用于尺寸计算",
+      "license": "机构地图版权所有，仅链接与研究参考"
+    },
+    {
+      "title": "OpenStreetMap · 故宫边界与轮廓",
+      "url": "https://www.openstreetmap.org/relation/9511883",
+      "support": "WGS84建筑、城台、院墙、道路、水系轮廓；本地保存API快照",
+      "reliability": "地图估算，中低；高度和形制不作为建筑事实",
+      "license": "© OpenStreetMap contributors · ODbL 1.0；衍生layout.json遵循ODbL"
+    },
+    {
+      "title": "太和殿",
+      "url": "https://www.dpm.org.cn/explore/building/236465.html",
+      "support": "11×5开间、主体26.92米、台基8.13米、通高35.05米、重檐庑殿顶；多幅外观/构件照片",
+      "reliability": "机构建筑介绍，高；面宽未在此给出",
+      "license": "事实转述；照片不作为纹理"
+    },
+    {
+      "title": "太和门",
+      "url": "https://www.dpm.org.cn/explore/building/236439.html",
+      "support": "9×4开间、面积1300平方米、重檐歇山顶、前庭五座金水桥",
+      "reliability": "机构形制介绍，高；位置与长宽估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "中和殿",
+      "url": "https://www.dpm.org.cn/explore/building/236464.html",
+      "support": "3×3开间、正方形、580平方米、四角攒尖顶",
+      "reliability": "机构介绍，高；长度由面积开方估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "保和殿",
+      "url": "https://www.dpm.org.cn/explore/building/236434.html",
+      "support": "9×5开间、1240平方米、高29.50米、重檐歇山顶",
+      "reliability": "机构介绍，高；高度是否含台基待确认",
+      "license": "事实转述"
+    },
+    {
+      "title": "乾清宫",
+      "url": "https://www.dpm.org.cn/explore/building/236472.html",
+      "support": "9×5开间、1400平方米、台面至正脊20余米、重檐庑殿顶",
+      "reliability": "机构形制介绍，高；21米为估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "乾清门",
+      "url": "https://www.dpm.org.cn/explore/building/236473.html",
+      "support": "5×3开间、高约16米、台基1.5米、单檐歇山顶",
+      "reliability": "机构尺寸介绍，高；宽深估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "坤宁宫",
+      "url": "https://www.dpm.org.cn/explore/building/236487.html",
+      "support": "九间面阔、三间进深、重檐庑殿顶；后三宫台基2米",
+      "reliability": "机构形制介绍，高；门窗细节尚未逐项核对",
+      "license": "事实转述"
+    },
+    {
+      "title": "交泰殿",
+      "url": "https://www.dpm.org.cn/explore/building/236467.html",
+      "support": "独立方殿与后三宫空间关系",
+      "reliability": "机构参考；部分网页请求超时，另用青少版相同条目核对",
+      "license": "事实转述"
+    },
+    {
+      "title": "午门",
+      "url": "https://www.dpm.org.cn/explore/building/236454.html",
+      "support": "凹形城台、五凤楼、重檐庑殿顶和方亭形制",
+      "reliability": "机构形制介绍，高；分段长度估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "角楼",
+      "url": "https://www.dpm.org.cn/explore/building/236522.html",
+      "support": "中央方亭8.73米；外侧抱厦1.60米、内侧3.98米；复合十字平面",
+      "reliability": "机构尺寸介绍，高；七十二脊未复原",
+      "license": "事实转述"
+    },
+    {
+      "title": "钦安殿",
+      "url": "https://www.dpm.org.cn/explore/building/236494.html",
+      "support": "重檐盝顶、五间三间；已拆抱厦不纳入现状",
+      "reliability": "机构介绍，高；尺寸估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "官方青少版建筑资料",
+      "url": "https://young.dpm.org.cn/info/995",
+      "support": "机构同源资料与御花园140×80米；参考图片链接",
+      "reliability": "形制/尺寸高；地图标记为示意坐标，未用于米制布局",
+      "license": "事实转述，版权归故宫博物院"
+    },
+    {
+      "title": "武英殿",
+      "url": "https://www.dpm.org.cn/explore/building/236500.html",
+      "support": "前后五间三间歇山殿及连接廊；东西配殿",
+      "reliability": "形制高；地图位置估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "文华殿",
+      "url": "https://www.dpm.org.cn/explore/building/236531.html",
+      "support": "外朝东路、与武英殿遥对、前后殿格局",
+      "reliability": "机构参考，高；细部估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "Three.js 官方源码与许可",
+      "url": "https://github.com/mrdoob/three.js/tree/r180",
+      "support": "实时渲染、实例化、OrbitControls、几何合批实现；不用于建筑事实",
+      "reliability": "技术源码",
+      "license": "MIT"
+    },
+    {
+      "title": "弘义阁与体仁阁",
+      "url": "https://www.dpm.org.cn/explore/building/236491.html",
+      "support": "两层、腰檐与平座、上层庑殿屋顶；高度23.8米，另体仁阁条目25米",
+      "reliability": "机构形制高；两阁尺寸口径不同",
+      "license": "事实转述"
+    },
+    {
+      "title": "皇极殿",
+      "url": "https://www.dpm.org.cn/explore/building/236476.html",
+      "support": "宁寿宫区前部主殿及台基关系",
+      "reliability": "机构外观参考；模型尺寸估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "慈宁宫",
+      "url": "https://www.dpm.org.cn/explore/building/236504.html",
+      "support": "外西路宫院、屋顶与配殿",
+      "reliability": "机构外观参考；模型尺寸估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "养心殿",
+      "url": "https://www.dpm.org.cn/explore/building/236442.html",
+      "support": "前殿36×12米，三间面阔；前檐每间加两方柱，外观看似九间；明间与西次间卷棚抱厦",
+      "reliability": "机构数据高；本轮暖阁抱厦仍未精确复原",
+      "license": "事实转述"
+    },
+    {
+      "title": "万春亭和千秋亭",
+      "url": "https://www.dpm.org.cn/explore/building/236521.html",
+      "support": "四面抱厦、上圆下方、重檐攒尖顶",
+      "reliability": "机构形制高；尺寸估算",
+      "license": "事实转述"
+    },
+    {
+      "title": "景仁宫",
+      "url": "https://www.dpm.org.cn/explore/building/236509.html",
+      "support": "两进院；正殿五间歇山顶、双交四椀菱花门窗。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "承乾宫",
+      "url": "https://www.dpm.org.cn/explore/building/236438.html",
+      "support": "两进院；正殿五间歇山顶、五个走兽。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "永和宫",
+      "url": "https://www.dpm.org.cn/explore/building/236518.html",
+      "support": "正殿五间歇山顶，前接三间抱厦。抱厦保留地图轮廓，屋面尚未单独细化。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "钟粹宫",
+      "url": "https://www.dpm.org.cn/explore/building/236484.html",
+      "support": "五间歇山顶、前出廊；冰裂纹及步步锦窗。本模型窗格仅简化步步锦，未雕刻冰裂纹。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "景阳宫",
+      "url": "https://www.dpm.org.cn/explore/building/236511.html",
+      "support": "正殿三间庑殿顶，区别于东六宫其余五宫。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "永寿宫",
+      "url": "https://www.dpm.org.cn/explore/building/236450.html",
+      "support": "正殿五间歇山顶；双交四椀菱花门窗简化为菱形格网。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "翊坤宫",
+      "url": "https://www.dpm.org.cn/explore/building/236517.html",
+      "support": "正殿五间歇山顶、前后出廊；现存格局经体和殿与储秀宫相连。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "储秀宫",
+      "url": "https://www.dpm.org.cn/explore/building/236486.html",
+      "support": "正殿五间歇山顶、前出廊；采用晚清连通翊坤宫后的现存格局。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "太极殿",
+      "url": "https://www.dpm.org.cn/explore/building/236475.html",
+      "support": "正殿五间歇山顶、前后出廊；不增补已拆的长春宫宫门。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "长春宫",
+      "url": "https://www.dpm.org.cn/explore/building/236436.html",
+      "support": "正殿五间歇山顶、前出廊；与体元殿及太极殿连通。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    },
+    {
+      "title": "咸福宫",
+      "url": "https://www.dpm.org.cn/explore/building/236507.html",
+      "support": "正殿三间庑殿顶，与东六宫景阳宫相对；后殿同道堂仍属轮廓示意。",
+      "reliability": "机构形制与开间高；平面尺寸及构件估算低",
+      "license": "事实转述；图片仅研究，不作为纹理"
+    }
+  ],
+  "conflicts": [
+    "地图城墙height=4与故宫博物院10米冲突，采用官方10米。",
+    "官方导览是立体插画，建筑长度和院落深度有视觉变形；仅用来核对分区与相对顺序。位置取OSM轮廓仿射标定，不将其当测绘。",
+    "OSM有建筑标签实际代表院墙、台基、城门整体轮廓；按标签、名称与官方照片分类。未知复合轮廓作示意，保留数据以供进一步修正。",
+    "太和殿面宽：地图屋檐轮廓67.44米，按檐口两端各1.74米的估算扣减为63.96米；进深按官方面积除以估算面宽求得。檐口扣减未有测绘值，置信低。面积相等是约束结果，不构成实测精度。",
+    "保和殿官方高29.50米未明确同页面的台基口径，本模型暂按含8.13米共同台基解释，待测绘资料核验。",
+    "官方照片多为2020年及更早，地图为2026年抓取，不足以精确表现当前修缮、开放与植被状态。建筑现存格局为基准，不模拟临时施工。",
+    "Overpass主接口406，备用接口超时；使用OSM官方map API成功取得数据。部分官方网页请求超时，采用机构同源青少版和已成功取得的官方照片交叉核对。",
+    "官方图片无开放再分发许可，仅供本地研究核对。项目运行资源全部程序生成，无第三方贴图/GLB。",
+    "OSM承干宫/承干门为异写，建筑配置以官方承乾宫命名并保留承干宫别名；未修改原始轮廓。",
+    "养心殿前殿公开36×12米，地图屋檐包围框36.08×15.97米，二者口径不同；模型主体用官方柱网总尺寸并另加出檐，未知抱厦不冒充精细还原。"
+  ]
+}

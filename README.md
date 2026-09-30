@@ -17,6 +17,7 @@
 | --- | --- |
 | [在线工具](https://phdsx.github.io/tools.html) | 文本处理、图片处理、二维码、倒计时、拼音辅助和生活小工具 |
 | [网页游戏](https://phdsx.github.io/games.html) | 三国霸业、五子棋、军棋、前线指挥、星环塔防、风暴攻城、俄罗斯方块、潜艇大战、Parking Pulse、沙子分类等 |
+| [3D云游](https://phdsx.github.io/tours.html) | 按国家、地区分类的交互式三维景点：目前收录中国北京的天坛、故宫、颐和园 |
 | [博客](https://phdsx.github.io/blog.html) | Python、HTML、JavaScript 与 Markdown 学习记录 |
 | [小说](https://phdsx.github.io/novels/) | 支持章节导航、阅读进度和显示设置的在线阅读页 |
 | [软件作品](https://phdsx.github.io/software.html) | 自制软件与 Web 作品的版本发布入口 |
@@ -24,6 +25,12 @@
 | [品牌黑名单](https://phdsx.github.io/brand-blacklist/) | 支持搜索、分类、国家筛选和事件详情的专题记录页 |
 
 ## 精选作品
+
+### 文本差异比对
+
+比较两段文字的新增、删除和修改，支持四种空白处理规则、中文与 Emoji 字符高亮、差异导航和 TXT 报告。完全在浏览器本地处理，不自动保存输入。
+
+[立即使用](https://phdsx.github.io/tools/text/text-diff.html) · [开发与验证说明](docs/text-diff.md)
 
 ### EQ 单字拼音域代码生成器
 
@@ -45,7 +52,7 @@
 
 ## 项目特点
 
-- 纯静态页面，没有构建步骤和运行时依赖
+- 公开页面可纯静态部署；3D 场景附带构建好的浏览器版本
 - 使用原生 HTML、CSS、JavaScript 编写
 - 响应式布局，兼顾桌面端和移动端
 - 统一导航、分类入口和站内搜索
@@ -63,6 +70,7 @@
 ├─ *.html       稳定的公开页面入口
 ├─ novels/      小说目录与阅读器
 ├─ brand-blacklist/ 黑名单页面、JSON 数据库与本地图片
+├─ tours/       3D云游静态场景，按国家 / 地区 / 景点归档
 ├─ content/     按内容类型和主题分级保存的文章源内容
 ├─ assets/      页面直接加载的样式、脚本和站点图片
 ├─ scripts/     本地管理工具与站点校验脚本
@@ -113,3 +121,5 @@ Made with curiosity by **PHDSX**
 </div>
 
 全站导航层级由 assets/navigation.js 维护；工具/游戏分类使用 ?category= 参数，工具搜索使用 q 参数。新增或移动页面后运行 node scripts/check-navigation.mjs 和 node scripts/check-site-links.mjs。
+
+3D云游入口为 `tours.html`，国家、地区筛选使用 `?country=china&region=beijing`，景点静态页面按 `tours/<国家>/<地区>/<景点>/` 保存。三个场景的源码保留在 `tiantan/`、`forbidden-city/`、`summer-palace/`；修改场景后，在已安装各项目依赖的环境运行 `node scripts/build-tours.mjs`，将构建产物更新到公开目录。部署直接使用 `tours/`，无需浏览器端构建或开发服务器；场景内的资料说明与素材署名随静态版本保留。栏目缩略图来自本地三维场景截图，存放在 `assets/tours/`。

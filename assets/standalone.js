@@ -59,6 +59,7 @@
         ${navLink(root + 'index.html', 'home', '⌂', shellText('common.home', '首页'))}
         ${navLink(root + 'tools.html', 'tools', '⌘', shellText('common.tools', '工具'))}
         ${navLink(root + 'games.html', 'games', '◇', shellText('common.games', '游戏'))}
+        ${navLink(root + 'tours.html', 'tours', '◎', shellText('common.tours', '3D云游'))}
         ${navLink(root + 'blog.html', 'blog', '▤', shellText('common.blog', '博客'))}
         ${navLink(root + 'directory.html', 'directory', '☷', shellText('common.directory', '黄页'))}
         <span class="phdsx-shell__group-label">${shellText('common.reading', '阅读')}</span>

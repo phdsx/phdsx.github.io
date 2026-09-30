@@ -24,6 +24,7 @@
     ['index.html','首页','Home','house-door-fill',home],
     ['tools.html','在线工具','Tools','tools',tool || path === 'tools.html'],
     ['games.html','游戏厅','Games','controller',game || path === 'games.html'],
+    ['tours.html','3D云游','3D Tours','globe2',route.section === 'tours.html'],
     ['blog.html','博客笔记','Blog','journal-text',path.startsWith('blog')],
     ['novels/index.html','小说连载','Reading','book-fill',path.startsWith('novels/')],
     ['ai-radar.html','AI 雷达','AI Radar','bullseye',path === 'ai-radar.html']
@@ -149,6 +150,18 @@
       if (route.category === key) link.setAttribute('aria-current','location');
       contextual.append(link);
     });
+    if (route.family === 'tours') {
+      Object.entries(hierarchy.countries).forEach(([country,record]) => {
+        const link = document.createElement('a'); link.href = url(`tours.html?country=${country}`); link.textContent = record.names[en ? 1 : 0];
+        if (route.country === country && !route.region) link.setAttribute('aria-current','location');
+        contextual.append(link);
+        Object.entries(record.regions).forEach(([region,names]) => {
+          const child = document.createElement('a'); child.href = url(`tours.html?country=${country}&region=${region}`); child.textContent = `↳ ${names[en ? 1 : 0]}`;
+          if (route.country === country && route.region === region) child.setAttribute('aria-current','location');
+          contextual.append(child);
+        });
+      });
+    }
     document.querySelectorAll('.ubuntu-secondary a,.ubuntu-dock a').forEach(link => {
       if (link.href === url(route.section)) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
     });

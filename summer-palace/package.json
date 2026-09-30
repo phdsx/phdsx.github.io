@@ -1,0 +1,21 @@
+{
+  "name": "summer-palace-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "node scripts/check.mjs",
+    "test:browser": "node scripts/browser-test.mjs"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "playwright": "1.55.1",
+    "prettier": "3.6.2",
+    "vite": "7.3.6"
+  }
+}

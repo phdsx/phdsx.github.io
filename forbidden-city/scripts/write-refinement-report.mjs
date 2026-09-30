@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,''));
+let refs=read('research/reference-images.json');refs=refs.flatMap(x=>Array.isArray(x.value)?x.value:x);fs.writeFileSync('research/reference-images.json',JSON.stringify(refs,null,2)+'\n');
+const config=read('public/data/landmarks.json'),tests=read('evidence/refinement-tests.json');
+let doc=fs.readFileSync('docs/AUTHENTICITY.md','utf8');
+if(!doc.includes('|养心殿前殿通面阔/通进深|'))doc=doc.replace('|御花园南北/东西|','|养心殿前殿通面阔/通进深|36 × 12 m|36 × 12 m|0 m（配置参数）|官方三间柱网口径；屋檐另加、抱厦未精细复原|\n|御花园南北/东西|');
+doc=doc.replace('东西六宫、外东路宁寿宫','东西六宫配殿与后殿、外东路宁寿宫');
+const marker='\n## 2026-09-30 补充核对';doc=doc.split(marker)[0];
+doc+=`${marker}\n\n东西六宫11座正殿分别核对开间和屋顶；延禧宫继续标记未还原。景阳宫/咸福宫采用三间庑殿顶，其余九座采用五间歇山顶。官方形制依据高可信，以下宽深与高度全部为估算，不填写测绘精度。\n\n|正殿|模型主体宽×深m|主体高/台基m|屋顶/开间|估算依据|\n|---|---:|---:|---|---|\n`;
+for(const b of config.items.filter(b=>b.dimensionEvidence))doc+=`|${b.name}|${b.w}×${b.d}|${b.h}/${b.base}|${b.roof==='hip'?'庑殿':'歇山'}/${b.bays}|屋檐包围框各扣3m；高度按照片体量估算，低置信|\n`;
+doc+='\n承乾宫通过别名匹配地图“承干宫”，原始地图未改写。养心殿前殿36×12米、三间面阔、每间增加两方柱采用[官方资料](https://www.dpm.org.cn/explore/building/236442.html)；高度与等分柱距仍估算。明间/西次间卷棚抱厦、永和宫抱厦、各宫逐扇门窗、苏式/和玺彩画图案、后殿及配殿独立形制仍未完整细化。\n\n近景用局部坐标建立柱础、侧面柱列、分扇木裙板与简化窗格；瓦垄沿程序屋顶中央曲线实例化，屋角仍使用程序材质。菱形格网只是菱花纹的简化代理。移除没有逐项核实的通用铜缸和球形脊兽，真实器物、吻兽雕塑仍列未完成。午门主楼与文华/武英两殿分别加入近景加载，未假称翼楼各构件已核对。\n';
+fs.writeFileSync('docs/AUTHENTICITY.md',doc);
+let testdoc=fs.readFileSync('docs/TESTING.md','utf8');testdoc=testdoc.split('\n## 新增宫殿与缓存复测')[0];
+testdoc=testdoc.replace('参考原图26张',`参考原图${refs.filter(r=>r.file).length}张`);
+testdoc+=`\n## 新增宫殿与缓存复测\n\n时间：${tests.timestamp}，测试设备与上表相同，实际本地浏览器测试。\n\n${tests.checks.map(c=>`- ${c.pass?'通过':'失败'}：${c.name}`).join('\n')}\n\n|截图|官方参考|对照结论与限制|\n|---|---|---|\n|[11养心殿](../evidence/11-yangxin.png)|[养心殿](https://www.dpm.org.cn/explore/building/236442.html)|前殿36×12m、三间与前檐加柱已配置；两个卷棚抱厦仍未精细复原，后殿示意|\n|[12景仁宫](../evidence/12-jingren.png)|[景仁宫](https://www.dpm.org.cn/explore/building/236509.html)|五间歇山、独立月台和二进院位置保留；菱花格网简化、立面未配准|\n|[13景阳宫](../evidence/13-jingyang.png)|[景阳宫](https://www.dpm.org.cn/explore/building/236511.html)|三间庑殿与周围五间歇山体量区分；屋脊、斗栱和高度估算|\n|[14储秀宫](../evidence/14-chuxiu.png)|[储秀宫](https://www.dpm.org.cn/explore/building/236486.html)|五间歇山、与翊坤区院落联系保留；具体苏式彩画、门窗团寿纹未雕刻|\n|[15咸福宫](../evidence/15-xianfu.png)|[咸福宫](https://www.dpm.org.cn/explore/building/236507.html)|三间庑殿及对应东侧景阳位置保留；后殿同道堂和卡墙通道未独立细化|\n\n近景缓存回收测试遍历33个目标，最多18组；共享材质/纹理释放计数为0。构件几何、匾额私有纹理独立回收，修复共享程序瓦片材质被误释放的问题。浏览器视角截图用于空间/轮廓核对，不能代替现场精确匹配。新截图及本轮清单与早期阶段文件同目录保存。\n`;
+fs.writeFileSync('docs/TESTING.md',testdoc);
+console.log('Reports updated; reference images:',refs.filter(r=>r.file).length);

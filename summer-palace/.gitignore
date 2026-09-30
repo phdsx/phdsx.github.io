@@ -1,0 +1,6 @@
+node_modules/
+dist/
+# Official photographs are private research references, not redistribution assets.
+research/*.jpg
+research/materials/
+delivery/

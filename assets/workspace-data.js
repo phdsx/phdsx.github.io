@@ -2,6 +2,13 @@ window.PHDSX_TOOLS = [
   {
     "category": "text",
     "icon": "assets/icons/text-format.webp",
+    "label": "文本差异比对",
+    "description": "对比两段文字的新增、删除和修改，支持忽略空格与空白字符。",
+    "href": "tools/text/text-diff.html"
+  },
+  {
+    "category": "text",
+    "icon": "assets/icons/text-format.webp",
     "label": "JSON 格式化",
     "description": "校验、美化与压缩 JSON，查看结构树并保留数字精度。",
     "href": "tools/text/json-formatter.html"

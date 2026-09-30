@@ -43,6 +43,7 @@ function initSiteSidebar() {
         <a class="nav-link" href="${root}index.html"><span class="nav-symbol">⌂</span><span>${siteText('common.home', '首页')}</span></a>
         <a class="nav-link" href="${root}tools.html"><span class="nav-symbol">⌘</span><span>${siteText('common.tools', '工具')}</span></a>
         <a class="nav-link" href="${root}games.html"><span class="nav-symbol">◇</span><span>${siteText('common.games', '游戏')}</span></a>
+        <a class="nav-link" href="${root}tours.html"><span class="nav-symbol">◎</span><span>${siteText('common.tours', '3D云游')}</span></a>
       </div>
       <div class="nav-section">
         <span class="nav-section-label">${siteText('common.reading', '阅读')}</span>

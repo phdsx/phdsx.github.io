@@ -1,0 +1,54 @@
+.diff-tool{color:var(--ink,#29242c);font-family:Ubuntu,'Segoe UI','Microsoft YaHei',sans-serif}
+.diff-tool *{box-sizing:border-box}
+.diff-tool h1,.diff-tool h2,.diff-tool p{margin-top:0}
+.diff-eyebrow{color:#bc3c12;font-size:12px;letter-spacing:.06em}
+.diff-description{font-size:14px;color:#716972;line-height:1.7;margin-bottom:0}
+.diff-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.diff-tool .panel{min-width:0;padding:18px;border:1px solid #e2dcd7;border-radius:9px;background:var(--panel,#fff)}
+.diff-panel-head,.diff-actions,.diff-options,.diff-result-tools,.diff-pager{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.diff-panel-head,.diff-result-tools,.diff-pager{justify-content:space-between}
+.diff-panel-head{margin-bottom:12px}
+.diff-tool h2{font-size:17px;margin:0}
+.diff-tool button,.diff-tool select{font:inherit;font-size:13px;min-height:38px;padding:8px 12px;border:1px solid #d9d3ce;border-radius:6px;background:var(--panel-soft,#f6f2ef);color:inherit;cursor:pointer}
+.diff-tool button:hover:not(:disabled){background:#eee8e3;border-color:#b8aea5}
+.diff-tool button:disabled{opacity:.5;cursor:not-allowed}
+.diff-tool .primary{background:#e95420;color:#fff;border-color:#e95420}
+.diff-tool :is(button,textarea,select,input,.diff-output):focus-visible{outline:3px solid #bc3c12;outline-offset:3px}
+.diff-tool textarea{display:block;width:100%;min-height:230px;resize:vertical;font:14px/1.7 Consolas,'Microsoft YaHei',monospace;tab-size:4}
+.diff-note{font-size:12px;line-height:1.8;color:#716972;margin:10px 0 0;overflow-wrap:anywhere}
+.diff-controls{margin-top:16px}
+.diff-options{gap:16px;font-size:13px}
+.diff-options select{max-width:100%;margin-left:8px}
+.diff-check{display:flex;align-items:center;gap:4px;cursor:pointer}
+.diff-check input{accent-color:#e95420;width:17px;height:17px}
+.diff-controls>.diff-actions{margin-top:12px}
+.diff-status{font-size:13px;line-height:1.8;margin:16px 0;min-height:24px;overflow-wrap:anywhere}
+.diff-status[data-error=true]{color:#a32c1e;padding:10px;border-left:3px solid #be3929;background:#fff0ed}
+.diff-summary{font-weight:700;font-size:14px;line-height:1.7;margin-bottom:6px}
+.diff-result-tools{margin-top:14px;gap:12px}
+.diff-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.legend-add{color:#216936}.legend-delete{color:#a32c1e}.legend-modify{color:#92580c}
+#diff-position{font-size:12px;min-width:68px;text-align:center}
+.diff-column-heads{display:grid;grid-template-columns:1fr 1fr;margin-top:14px;border:1px solid #e2dcd7;border-bottom:0;background:var(--panel-soft,#f3f2f1);font-size:13px;font-weight:700}
+.diff-column-heads span{padding:10px 12px}
+.diff-column-heads span+span{border-left:1px solid #e2dcd7}
+.diff-output{max-height:600px;min-height:140px;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;border:1px solid #e2dcd7;background:var(--bg,#faf9f8);border-radius:0 0 6px 6px}
+.diff-empty{padding:38px 14px;text-align:center;font-size:13px;color:#716972;line-height:1.8}
+.diff-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-bottom:1px solid #e8e3df;scroll-margin-top:12px}
+.diff-row:last-child{border-bottom:0}
+.diff-row.current{outline:2px solid #e95420;outline-offset:-2px}
+.diff-cell{display:grid;grid-template-columns:40px 42px minmax(0,1fr);min-width:0;align-content:start;font:13px/1.9 Consolas,'Microsoft YaHei',monospace;padding:6px 0}
+.diff-cell+.diff-cell{border-left:1px solid #e2dcd7}
+.diff-cell[data-kind=add]{background:#edf8ef}.diff-cell[data-kind=delete]{background:#fff0ed}.diff-cell[data-kind=modify]{background:#fff7e8}
+.diff-line-number{color:#716972;text-align:right;padding:0 8px;font-size:12px;user-select:none}
+.diff-kind{font:11px/2.2 Ubuntu,'Microsoft YaHei',sans-serif;text-align:center;color:#716972;user-select:none}
+.diff-cell[data-kind=add] .diff-kind{color:#216936}.diff-cell[data-kind=delete] .diff-kind{color:#a32c1e}.diff-cell[data-kind=modify] .diff-kind{color:#92580c}
+.diff-text{display:block;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font:inherit;margin:0;padding:0 10px;min-width:0;tab-size:4;unicode-bidi:plaintext}
+.diff-token{font:inherit;white-space:pre-wrap}
+.diff-token.delete{color:#8e2318;background:#ffcec6;text-decoration:line-through;text-decoration-thickness:1px}
+.diff-token.add{color:#155727;background:#bfeac9;text-decoration:underline;text-decoration-thickness:2px}
+.diff-absent,.diff-empty-line{font:12px/2 Ubuntu,'Microsoft YaHei',sans-serif;color:#716972}
+.diff-pager{font-size:12px;margin-top:12px;line-height:1.8}
+.diff-tool [hidden]{display:none!important}
+@media(max-width:1000px){.diff-inputs{grid-template-columns:1fr}.diff-tool textarea{min-height:180px}}
+@media(max-width:700px){body.ubuntu-desktop.unified-tool .ubuntu-content>main.diff-tool{padding:18px 12px}.diff-tool .panel{padding:12px}.diff-tool button{min-height:42px;padding:8px 10px}.diff-panel-head{gap:8px}.diff-inputs{gap:12px}.diff-options>label:first-child{display:flex;flex-direction:column;align-items:flex-start;gap:6px}.diff-options select{margin-left:0}.diff-column-heads{display:none}.diff-row{grid-template-columns:1fr;border-bottom:3px solid #d9d3ce}.diff-cell{grid-template-columns:68px 42px minmax(0,1fr)}.diff-cell+.diff-cell{border-left:0;border-top:1px dashed #d9d3ce}.diff-line-number::before{content:attr(data-side);display:inline;font-size:11px;margin-right:4px}.diff-output{margin-top:12px;border-radius:6px;max-height:560px}.diff-result-tools{align-items:flex-start}.diff-text{padding:0 8px}}

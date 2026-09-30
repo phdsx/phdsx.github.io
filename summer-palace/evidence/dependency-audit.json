@@ -1,0 +1,7 @@
+{
+  "checkedOn": "2026-09-30",
+  "method": "npm audit --json, registry.npmjs.org, after compatible Vite upgrade",
+  "vite": "7.3.6",
+  "result": {"info":0,"low":0,"moderate":0,"high":0,"critical":0,"total":0},
+  "note": "Summary of the actual audit output; not a claim that the entire app has undergone a security audit."
+}
