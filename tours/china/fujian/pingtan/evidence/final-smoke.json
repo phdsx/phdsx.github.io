@@ -1,0 +1,13 @@
+{
+  "timestampUTC": "2026-10-06T18:51:49.379Z",
+  "base": "http://127.0.0.1:5187/",
+  "scale": {
+    "worldMetres": 5000,
+    "expectedPixels": 28.15756287914689,
+    "actualPixels": 28.15625
+  },
+  "errors": [],
+  "desktopScreenshot": "overview.png",
+  "mobileScreenshot": "mobile.png",
+  "note": "Final minimap scale-bar UI change. Existing scene and interaction test remains in test-results.json."
+}

@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/design-system.css?v=20260920a">
   <link rel="stylesheet" href="assets/ubuntu.css?v=20261001toursdock">
   <link rel="stylesheet" href="assets/tours.css?v=20261001tours">
-  <script src="assets/navigation.js?v=20261001tours"></script>
+  <script src="assets/navigation.js?v=20261007mawei"></script>
   <script defer src="assets/design-system.js?v=20261001toursdock"></script>
 </head>
 <body>
@@ -27,10 +27,10 @@
       </div>
       <form class="tours-filters" role="search" aria-label="搜索景点" hidden>
         <label><span data-i18n="tours.country">国家</span><select id="tour-country" aria-controls="tour-groups"><option value="" data-i18n="tours.allCountries">全部国家</option><option value="china">中国</option></select></label>
-        <label><span data-i18n="tours.region">地区</span><select id="tour-region" aria-controls="tour-groups" disabled><option value="" data-i18n="tours.allRegions">全部地区</option><option value="beijing">北京</option></select></label>
+        <label><span data-i18n="tours.region">地区</span><select id="tour-region" aria-controls="tour-groups" disabled><option value="" data-i18n="tours.allRegions">全部地区</option><option value="beijing">北京</option><option value="fujian">福建</option></select></label>
         <label class="tours-search"><span data-i18n="tours.search">搜索景点</span><input id="tour-search" type="search" placeholder="搜索景点或地标，例如：祈年殿、昆明湖" data-i18n-attr="placeholder:tours.placeholder" aria-controls="tour-groups" autocomplete="off"></label>
       </form>
-      <p id="tour-status" class="tours-status" role="status" aria-live="polite">共 3 个景点</p>
+      <p id="tour-status" class="tours-status" role="status" aria-live="polite">共 6 个景点</p>
       <div id="tour-groups">
         <section class="tour-country-group" data-country="china" aria-labelledby="china-title">
           <h2 id="china-title" class="tour-country-title"><a href="tours.html?country=china">中国</a><span>CHINA</span></h2>
@@ -65,6 +65,23 @@
                 <a class="tour-card-link" href="tours/china/beijing/beijing-zoo/index.html">
                   <div class="tour-card-preview"><img src="assets/tours/beijing-zoo.webp" alt="北京动物园三维参考场景运行截图" width="960" height="540" loading="lazy"><span>3D</span></div>
                   <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>北京</span></p><h4>北京动物园</h4><p class="tour-description" data-i18n="tours.beijingZoo">按公开地图漫游园区，查询有来源的场馆与动物分布资料。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
+            </div>
+          </section>
+          <section class="tour-region-group" data-region="fujian" aria-labelledby="fujian-title">
+            <div class="tour-region-heading"><h3 id="fujian-title"><a href="tours.html?country=china&amp;region=fujian">福建</a></h3><p>真实地图布局与有精度说明的建筑参考场景。</p></div>
+            <div class="tour-grid">
+              <article class="tour-card" data-tour="mawei-shipyard" data-keywords="马尾船政 福州 福建 绘事院 轮机车间 铁胁厂 工业遗产 博物馆 近似 地理资料 中国 Mawei Foochow Arsenal Shipyard Fujian China">
+                <a class="tour-card-link" href="tours/china/fujian/mawei-shipyard/index.html">
+                  <div class="tour-card-preview"><img src="tours/china/fujian/mawei-shipyard/evidence/01-overview.png" alt="马尾船政五大片区三维资料模型的实际运行截图" width="1440" height="960" loading="lazy"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>福建 · 福州</span></p><h4>马尾船政</h4><p class="tour-description">船厂、官街、马限山、旧港与罗星塔；有来源的布局和局部样板，支持全景鸟瞰、地面步行与来源核对。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
+              <article class="tour-card" data-tour="sanfang-qixiang" data-keywords="三坊七巷 福州 福建 南后街 衣锦坊 文儒坊 光禄坊 近似 地理资料 中国 Fuzhou Sanfang Qixiang Fujian China">
+                <a class="tour-card-link" href="tours/china/fujian/sanfang-qixiang/index.html">
+                  <div class="tour-card-preview"><img src="tours/china/fujian/sanfang-qixiang/evidence/01-overview.png" alt="三坊七巷地图轮廓资料模型的实际运行截图" width="1440" height="960" loading="lazy"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>福建 · 福州</span></p><h4>三坊七巷</h4><p class="tour-description">依真实街巷与建筑轮廓漫游；南后街约 150 米照片近似样板，附来源、估算和缺失说明。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
                 </a>
               </article>
             </div>

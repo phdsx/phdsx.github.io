@@ -1,0 +1,814 @@
+{
+  "generatedAt": "2026-10-07T13:20:39.913Z",
+  "algorithm": "SHA-256",
+  "scope": "All delivered project files, excluding this manifest itself and node_modules/.git. Runtime flag covers the main scene and its local dependencies, including optional PBR textures.",
+  "runtimeBytes": 8022869,
+  "totalBytes": 52691046,
+  "fileCount": 114,
+  "licenceRecords": [
+    "THIRD_PARTY_NOTICES.md",
+    "data/sources.json",
+    "textures/manifest.json",
+    "vendor/THREE-LICENSE.txt"
+  ],
+  "files": [
+    {
+      "path": "app.js",
+      "bytes": 16785,
+      "sha256": "7d37950eaacc401528be00f3fdd28ae90616ad8c5dd9110aeb97dbe631c60b3f",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "buildings.js",
+      "bytes": 9992,
+      "sha256": "5d07b8e4876a39e6fc7e80a362cf993e23230c494038971299e9f0ec35906502",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "city-scene.js",
+      "bytes": 4717,
+      "sha256": "42428add1eb2762359755d3e1ad213a8d3a452072ec1f644f6782eedcb2ee1b1",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "comparison.html",
+      "bytes": 6567,
+      "sha256": "4ef90b11d512c311a7b5a861e070e7419aefe3f2c158a4cc185c65b52eb40fc3",
+      "category": "application",
+      "runtime": false
+    },
+    {
+      "path": "data/layout.geojson",
+      "bytes": 76458,
+      "sha256": "f62f1f0845c38ee710524df93908e396cba1478709865cbfd0ada44f2cefa43b",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/osm-city-context.json",
+      "bytes": 378634,
+      "sha256": "533ee4d23c0d72057ac2c1aa0c323afbf417bb92b14924177233aae364188a34",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/osm-context.json",
+      "bytes": 42486,
+      "sha256": "67ab90ae096b7ee665fc306c77d8cd7845bfede09e8bcab9bbec240d9c67969a",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/osm-expansion-poi.json",
+      "bytes": 105394,
+      "sha256": "451c9bf1c2e4a95bd06633d171957835ba7df174953d34abbdc41b818f8ad089",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/osm-poi.json",
+      "bytes": 6059,
+      "sha256": "d1a8520442a06a63294c02d727a915d24adcd3c773913569ffda83786384fe61",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/osm-river-polygons.json",
+      "bytes": 264407,
+      "sha256": "468b8126edc83fd05f5905232e2dc8eee915af0129b6a712caed89cda9be3694",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/osm-water-query.json",
+      "bytes": 914,
+      "sha256": "b7eece3e774035b6cbcaee032891621141c84d2bd09377b854e8ae085d78952c",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/site.json",
+      "bytes": 1360102,
+      "sha256": "500eb475d0763ae0654d9a1265e6cc05a0f68dcee8708bdb4fd04464ebd30537",
+      "category": "geographic-data",
+      "runtime": true
+    },
+    {
+      "path": "data/sources.json",
+      "bytes": 12901,
+      "sha256": "e8f1395df7210baeb58bf4facf3c559ec5370fdd5d2b0694d4bbfaefdc7c090e",
+      "category": "geographic-data",
+      "runtime": true
+    },
+    {
+      "path": "data/terrain/14-13627-6966.png",
+      "bytes": 51977,
+      "sha256": "cf220a4a6c3b277e10ab155edc94c9a0654a0ef594181a4969a471350a0ac2d9",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/terrain/14-13628-6966.png",
+      "bytes": 68227,
+      "sha256": "9f206e35acb1fc1f6ec842ecc2563e5721aa5072cdddbd13bd4bb926a3e9c372",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/terrain/tiles.json",
+      "bytes": 487,
+      "sha256": "b6bef723b8b6a3d6c39b7159e71f95373070566949e300fdc02bf94280c0449e",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "data/terrain.json",
+      "bytes": 105384,
+      "sha256": "861905a9ef8be7cd7a7f235014bdbc11db22b95e0c7cb6a54b72c4689aa52eb3",
+      "category": "geographic-data",
+      "runtime": false
+    },
+    {
+      "path": "evidence/01-overview.png",
+      "bytes": 188483,
+      "sha256": "076c960f548aeb930ba63d76012fed6e4a85cfafdbd0409549a5bf66a1b5bdd7",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/02-huyuan-walk.png",
+      "bytes": 1498601,
+      "sha256": "70bb2f2c30af66cc27a621b9730538aad9bd69f5f22e66751fe1921e630455fe",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/03-huyuan-reference.png",
+      "bytes": 928632,
+      "sha256": "8a07be07493e06143001ea07d4cdbe7f462a1847b4a895eaf69310e13f9710f6",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/consulate-aerial-scene.png",
+      "bytes": 1804736,
+      "sha256": "18f20adb975e9eac0e12b494be0e6c19b2e91d7452acaba83a5e071674045f67",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/consulate-aerial.png",
+      "bytes": 1293836,
+      "sha256": "cda59131403fa718b995602de8e81abbba193881b5187b963105c4bf76ff2491",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/consulate-scene.png",
+      "bytes": 858852,
+      "sha256": "4e587c75f9251c058014ed36e3729284e4006a1c2e2fc7df5778527b72e93ab6",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/consulate-walk.png",
+      "bytes": 545617,
+      "sha256": "4cd68d4de3ee6eb2cea248dd7ac99eb4623b83cadffbcdd0845a5203c4bb7963",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/core-overview-scene.png",
+      "bytes": 1024134,
+      "sha256": "4eb676516f5a936b42dfddfaefc14d35d9483411845a6876a26ee40dd5b973b5",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/data-checks.json",
+      "bytes": 7211,
+      "sha256": "8b5be8fad7326509552d6e0b10df0c0b52f7f3faa349a678fc269620ba922fee",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/dock2-aerial-scene.png",
+      "bytes": 322608,
+      "sha256": "9da1e16b2c6b22631871610f5998c04a42424991bd87bbdf2473b359bf237864",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/dock2-aerial.png",
+      "bytes": 233438,
+      "sha256": "b7371bbcd41ae0264961977dbd6e29f7e76803d308e0d7bbcb356beb1e7bff88",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/dock2-scene.png",
+      "bytes": 268615,
+      "sha256": "a8aea20295e6d964077ed1c0fe1479fcf19cbde31913f71ed91365ca387315ac",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/dock2-walk.png",
+      "bytes": 195279,
+      "sha256": "3eb5635fc27e8debe05eb55a4a370ba94c8ffd89d68b3bb300dfb5a45eaddec1",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/engine-scene.png",
+      "bytes": 2073359,
+      "sha256": "b5ca8228b1619fd4ea128388cb01ca8493b157f55bd376cdfef870b9444d821a",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/engine-walk.png",
+      "bytes": 1151323,
+      "sha256": "b685468dc70ddc412d1c1f0eb716fe154f68c3279defe34c239616548e649c24",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/export.png",
+      "bytes": 2469986,
+      "sha256": "5194146a1b7307ce72c4add68861ef4337187adb0313eba2b3360a24cdd1dc61",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/frontSchool-aerial-scene.png",
+      "bytes": 985376,
+      "sha256": "15802a95315638fe909860f22aa2afb3581267ee47f9cf4482a8953e92106ddd",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/frontSchool-aerial.png",
+      "bytes": 654137,
+      "sha256": "b003986943cbbd6074a390e729c9df65545c6170b9419753a1dfba97a0036ef2",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/guanjie-scene.png",
+      "bytes": 138433,
+      "sha256": "8743bfb14915bf97fbbcc7790214c67596561959c689f05679843d3e9ed1cd89",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/guanjie-walk.png",
+      "bytes": 138490,
+      "sha256": "8a38e406573aabba936c1b41f8f4ba5124fef5acca2a73ecb31c47c228b64043",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/huyuan-reference-scene.png",
+      "bytes": 1509464,
+      "sha256": "17297f14174170ffb0c70981d7ce153e5c3d505b49b1d582d56a0ef006c1c8f9",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/huyuan-walk-scene.png",
+      "bytes": 2491413,
+      "sha256": "20c1e2fb97ffea2d52ddc32ee478588c8dce7fda5a195cc1ccb603bc0b96d1eb",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/iron-scene.png",
+      "bytes": 2042900,
+      "sha256": "b335b13dcd7f1f58294086473a471f0297640c5f33c342b2af41d8aa9c6a3196",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/iron-walk.png",
+      "bytes": 1128404,
+      "sha256": "143148916910023a20964769f1c74af3ad0d9eb4df14a17f645b166a5e20a743",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/luoxing-aerial-scene.png",
+      "bytes": 2044036,
+      "sha256": "a262fe2ba77e0a4c3320983857417810aed8f43bd1a9d7dca95cf32330289c0f",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/luoxing-aerial.png",
+      "bytes": 1501596,
+      "sha256": "14359a390054cbfc02626c57d1382c0912315b1cce6843f9b5573f279d6a70c0",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/luoxing-scene.png",
+      "bytes": 1612017,
+      "sha256": "b4c8fa5869713204e30792268ea298b3f86a891b241f0db60080da6af8432163",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/luoxing-walk.png",
+      "bytes": 1166443,
+      "sha256": "2b7e7d068243fc65af550e77170383183d6a7b31598d160448402b6b80ca906e",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/mobile-overview.png",
+      "bytes": 89972,
+      "sha256": "8d20bf58fa339be0b6104ccf3879d4a1fe7e0a18e0fe16231abc22e18cbf951e",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/mobile-touch.png",
+      "bytes": 325851,
+      "sha256": "7a739056a77b57ae0f8500c0e3becaab5dd32582bda58c7e4e646be6af534886",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/museum-scene.png",
+      "bytes": 2314625,
+      "sha256": "ee1ad313ea7c27c9b04c5fbf33b1b0903bc8311d5a7c6b10d38e2480b28a1421",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/museum-walk.png",
+      "bytes": 1291217,
+      "sha256": "6aeb5a0eaa97861a999deda89ec10f946288989d66db15fb3e92ed35ece322d1",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/overview-scene.png",
+      "bytes": 191151,
+      "sha256": "0bf901a1cf040c60b838b983d4041fd52868245ea4cfa25efc7bf24b3ea2f4e4",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/resource-failure.png",
+      "bytes": 31747,
+      "sha256": "f22398d39c448212962331a3925221011d4604e31c295f43ef79a928efe33dd8",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/responsive-checks.json",
+      "bytes": 420,
+      "sha256": "8bcf5b8b6b1eab50de1530dafa85a57d1ba709786dd2d01c79a6a70a27c485b6",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/sidebar-overview.png",
+      "bytes": 122832,
+      "sha256": "d7ab8642eb8b89edeb6b94a2fd0da3c36d3ad43d6331c63f0fe009a7c33a666b",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/test-results.json",
+      "bytes": 9189,
+      "sha256": "6180858f48af5fde27014cd8fb2d229abffd71f55a6de9dbd65f408f95385aec",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/tianhou-aerial-scene.png",
+      "bytes": 952425,
+      "sha256": "5af3609751d4c81a55f8133c99d40336376bccb9fd548aa78140cabf4bdf09ff",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/tianhou-aerial.png",
+      "bytes": 569683,
+      "sha256": "2142d2a4b30c8249c48dcca00961182e0da63a1807229e4f3894c311a94cc3d2",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/ui-390-selected.png",
+      "bytes": 274235,
+      "sha256": "a2c452f83e495f547bd5ac37702584d3466adccc7a3d1c1681c092ae12f7ba31",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/ui-676-list.png",
+      "bytes": 118475,
+      "sha256": "694f0bafe86e5757dd12fc5fbc26ffb9d62c3c50d98afa2ebcbb7ef4e0f04de0",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/ui-676-selected.png",
+      "bytes": 488953,
+      "sha256": "afa5c95c9155195f40df7eb4beebc28dd334ae96a05ea0c5293b00865026b3db",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/ui-844-landscape.png",
+      "bytes": 163570,
+      "sha256": "c90f2eef10eb52ae316f6d7d2f53671fc354d63f87a4aaa6b36b389aca87015c",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/ui-layout-results.json",
+      "bytes": 70837,
+      "sha256": "839a802cae330e2b4c6ef005034561cd6a7a3f8c9ecdbe83e70dc05f2f377f09",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/yamen-aerial-scene.png",
+      "bytes": 1623518,
+      "sha256": "120c047eeebd6e7361a311bde7cac6893d9ee207307af09a42128ffd9e60c728",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/yamen-aerial.png",
+      "bytes": 982721,
+      "sha256": "ac0d13c018c7efe0c1d55f8a72f5695268766c5e18e2b9d4a4d2edf21a49f9ae",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/zhaozhong-aerial-scene.png",
+      "bytes": 1159828,
+      "sha256": "bbaa490a1d418c2c637212f4ff156a59c48e1b156e3dda81daeb61481cc001af",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/zhaozhong-aerial.png",
+      "bytes": 800104,
+      "sha256": "d94b2f1d5ec94a9ae4b6272a9f6e37315ccbe597c6e0994d835517d77c02df59",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/zhaozhong-scene.png",
+      "bytes": 961536,
+      "sha256": "9c045f03515593c41ab382030c99f97872058c60d4d7d910ea851ec14d91a77b",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "evidence/zhaozhong-walk.png",
+      "bytes": 652529,
+      "sha256": "044db84240550714386d42a19ae3b63a4e7b9049df833f1f8f035536e00c6f2b",
+      "category": "verification",
+      "runtime": false
+    },
+    {
+      "path": "geo.js",
+      "bytes": 3405,
+      "sha256": "96c520cd1e1919b8377b5fd4a05551fd7b2eec5763ac7ab2c72883a025a58f64",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "geometry.js",
+      "bytes": 3560,
+      "sha256": "afe23f7426f79ab5512ddf025f47a971cf3f73991031d97f0b2bf7dc86630cb2",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "index.html",
+      "bytes": 6094,
+      "sha256": "707afac13a12a2e89ed1666edca8442edcd9fc4e9a2a6ad82768e9a68b5621a0",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "landmarks.js",
+      "bytes": 8701,
+      "sha256": "0175b4e0fc61f6f2d4149b64d828c58ed28de42bc9f2ff6988ffa34589ce20ca",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "materials.js",
+      "bytes": 5671,
+      "sha256": "75e443e2d604dd41893048782c8a2033385ae4034f9bda6cbc02f1f1aa72ec9f",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "navigation.js",
+      "bytes": 4964,
+      "sha256": "82d01a559405b39b6d31fc595deb164a872bef78dc987afb225dd040565a58bd",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "package.json",
+      "bytes": 387,
+      "sha256": "2b8899d837b9af62689540db3c26159e9e39ab1ad8aa22b7b3636a2ff2611ea2",
+      "category": "documentation",
+      "runtime": false
+    },
+    {
+      "path": "README.md",
+      "bytes": 12444,
+      "sha256": "1f524e6493c6311e2640e6e3cbd3f906c5fbad3ddd1264a3efefd725b183d447",
+      "category": "documentation",
+      "runtime": false
+    },
+    {
+      "path": "scene.js",
+      "bytes": 11931,
+      "sha256": "8c732015da330d195df7ebe7302a6315688b73a3bbafe5de4232f5c240260aaf",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "scripts/browser-test.mjs",
+      "bytes": 15018,
+      "sha256": "e2bbe7c45968a37af72b7b1d1e00a6267c91444eeec85199ae85f0e2e8aa007f",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/check.mjs",
+      "bytes": 3787,
+      "sha256": "30a2a5ead9d65a117986ab659f5fdfc108883605336ab20db063b351f5ac9826",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/decode-terrain.mjs",
+      "bytes": 3346,
+      "sha256": "54b793354010c67c8b053991d3602b70fa6d4baa2e6f5a5e5d452866f58a405d",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/expand-data.mjs",
+      "bytes": 16322,
+      "sha256": "30a6fa130f2f28482951aab8d2d5fb2a43d9a55deb4900aa2a89f0ed7e9d5f04",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/fetch-city.mjs",
+      "bytes": 1254,
+      "sha256": "7132b53b9d6d199d52929d7d053c6caa48d6020c0f712262d01c1e8edc7a3d88",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/fetch-expansion.mjs",
+      "bytes": 808,
+      "sha256": "7603eeb5a683389920d7db40d167b730073fcab55f46969aa499106ea03b3d6a",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/fetch-river.mjs",
+      "bytes": 621,
+      "sha256": "020cfd8181787376003855cc767ae684bd308796704b369be60a0eaa762c5072",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/fetch-terrain.mjs",
+      "bytes": 359,
+      "sha256": "c955faac6c32e331df227be738788d524641e6dbf0fe7b4e08f6c8640ab865e6",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/fetch-water.mjs",
+      "bytes": 598,
+      "sha256": "a7a971973dc02e0e671d5b26456dd9f935f001b7245b44a0e959dbe0ab7d6bb7",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/prepare-all.mjs",
+      "bytes": 71,
+      "sha256": "495e4cf5c6286aa64b11be32b8e5224065059b086f077b348fdab6c67f85863c",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/prepare-data.mjs",
+      "bytes": 7745,
+      "sha256": "59b350dbe3d2218ba58cb305ff19c999b977c3dd3d97c6004bcc533ce10a10f0",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/record-expansion-sources.mjs",
+      "bytes": 6781,
+      "sha256": "68e04edea8eac89bb55c115fddd5b3a435e5f9afe7b61b752dd68de24ba6ac4a",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/reference-expansion.mjs",
+      "bytes": 669,
+      "sha256": "a49be6e1ac70c63d4b0e53a916ef8497b84dbb8bedb6ef05fff5fe7ca71281d8",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/resources.mjs",
+      "bytes": 2268,
+      "sha256": "855c3ab563ec0f2b33895c5cfeb0f48a8ead1d69b2cbd19ec497abb71ac82226",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/serve.mjs",
+      "bytes": 1237,
+      "sha256": "85d00efdc3a41f315081675047d4437cf3d012df065edaaac87284438f1ebfbc",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "scripts/ui-layout-test.mjs",
+      "bytes": 6688,
+      "sha256": "bbf67f462249c438d697053b4f65dfab2aede59112d9411201dd3ff9bfb49770",
+      "category": "tooling",
+      "runtime": false
+    },
+    {
+      "path": "style.css",
+      "bytes": 8719,
+      "sha256": "c4bd9acaa12f2051dfc4dc1c4a8726adb2097c71549e57139fd28422ec69c356",
+      "category": "application",
+      "runtime": true
+    },
+    {
+      "path": "textures/bark-color.webp",
+      "bytes": 251664,
+      "sha256": "439171379b6241a8d49b14996f9ea4d106a1920fc7ae1fa4a4b7ab4e2e167484",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/bark-normalgl.webp",
+      "bytes": 392268,
+      "sha256": "a53b91f64d9d5ec10c72ed5ce556b2bf449f666aeed57642b14668d81b084cdb",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/bark-roughness.webp",
+      "bytes": 158766,
+      "sha256": "efb5d124a6b798e0f61f4e3d70de695e2c9d2cdc4d4f619d5e4422c25a18e0c6",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/brick-color.jpg",
+      "bytes": 1352974,
+      "sha256": "9d081cd13d764a012e0ba894d00bf438d4ce5c614b3b02d6a12709c4c4060709",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/brick-normalgl.jpg",
+      "bytes": 1930346,
+      "sha256": "384f9a65b4115c48cc9e303a193e1b00c86e87bda65db2eeacd77ade9ccb5fe5",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/brick-roughness.jpg",
+      "bytes": 437614,
+      "sha256": "4d135bc907e058cbbd7178a11344d33a427ee862771966ef755e258a94597484",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/manifest.json",
+      "bytes": 2948,
+      "sha256": "157331a08f08dc6df8f5ac5ef02032e4a136e7316952df8af79fc7bebc5dfc0c",
+      "category": "material",
+      "runtime": false
+    },
+    {
+      "path": "textures/paving-color.webp",
+      "bytes": 171844,
+      "sha256": "da7777a6b968a89439848255fa9b1b0dbb03dbe54402865a225daa290b81c33b",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/paving-normalgl.webp",
+      "bytes": 267786,
+      "sha256": "3b1aa46fd8a0477f8352c9057d6a19f79287ed48f4a245cf06d4d220ba76e9d7",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/paving-roughness.webp",
+      "bytes": 186994,
+      "sha256": "275aa9bbf4bac17d740162a64e39f5922fd9477039d179bffc8f263215a085c2",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/plaster-color.webp",
+      "bytes": 167376,
+      "sha256": "7b67a1dce949fa2ba3cc62eea8ce9044646c40cfaf1afcd135070a7d88f26bac",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/plaster-normalgl.webp",
+      "bytes": 286174,
+      "sha256": "e988880740695d65b270d06bdbe72bd53d7d6f3730b73fcfaa4b1f7b659fc376",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "textures/plaster-roughness.webp",
+      "bytes": 145408,
+      "sha256": "870ee7d52404eb5683a66feaf2da9f5ae3763b7fb870c89ba1cd9ca9bddd1a20",
+      "category": "material",
+      "runtime": true
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 3914,
+      "sha256": "3cacfa7a013b17e1265f7b11c674abdbb6f2070f370d97f22935d69c2f31914e",
+      "category": "documentation",
+      "runtime": false
+    },
+    {
+      "path": "vendor/BufferGeometryUtils.js",
+      "bytes": 35539,
+      "sha256": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+      "category": "dependency",
+      "runtime": true
+    },
+    {
+      "path": "vendor/OrbitControls.js",
+      "bytes": 38703,
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+      "category": "dependency",
+      "runtime": true
+    },
+    {
+      "path": "vendor/Reflector.js",
+      "bytes": 9476,
+      "sha256": "0908d87a7251268dd6d12310b9633f08fd3be9c6faf2e2a4076fce0e87bdd26d",
+      "category": "dependency",
+      "runtime": true
+    },
+    {
+      "path": "vendor/THREE-LICENSE.txt",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "category": "dependency",
+      "runtime": false
+    },
+    {
+      "path": "vendor/three.core.min.js",
+      "bytes": 381124,
+      "sha256": "61ba0df005b05991361d040d8ff670e1aadfd0ce7aeebd1fdb0725957a8957de",
+      "category": "dependency",
+      "runtime": true
+    },
+    {
+      "path": "vendor/three.module.js",
+      "bytes": 338908,
+      "sha256": "e2b5ee6bccd38fd6d8a2428546b83c5f2426d84b152ef82be8055556e3b40eb6",
+      "category": "dependency",
+      "runtime": true
+    },
+    {
+      "path": "viewer.css",
+      "bytes": 12363,
+      "sha256": "ee69b8771b5d181711110ecf7bef106398bc8a807e719e88b627fad254a785f4",
+      "category": "application",
+      "runtime": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "Bricks051",
+    "alias": "brick",
+    "source": "https://ambientcg.com/view?id=Bricks051",
+    "license": "CC0 1.0",
+    "periodMetres": 1.25,
+    "periodEvidence": "source published approx.1.25m x1.25m",
+    "files": [
+      "brick-color.jpg",
+      "brick-normalgl.jpg",
+      "brick-roughness.jpg"
+    ],
+    "changes": "unaltered downloaded 1K-JPG maps; runtime normal strength .6",
+    "retrieved": "2026-10-07",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "coverage": "generic material, NOT a site scan"
+  },
+  {
+    "id": "Bark007",
+    "alias": "bark",
+    "source": "https://ambientcg.com/view?id=Bark007",
+    "license": "CC0 1.0",
+    "download": "https://ambientcg.com/get?file=Bark007_1K-JPG.zip",
+    "textureSize": [
+      768,
+      768
+    ],
+    "periodMetres": 1.4,
+    "changes": "768px WebP maps reused from attributed repository assets without file edits in this project; inherited scan resampling. Runtime colour tint and normal strength are in materials.js.",
+    "retrieved": "2026-10-07",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "coverage": "generic material, NOT a site scan",
+    "files": [
+      "bark-color.webp",
+      "bark-normalgl.webp",
+      "bark-roughness.webp"
+    ]
+  },
+  {
+    "id": "PavingStones036",
+    "alias": "paving",
+    "source": "https://ambientcg.com/view?id=PavingStones036",
+    "license": "CC0 1.0",
+    "download": "https://ambientcg.com/get?file=PavingStones036_1K-JPG.zip",
+    "textureSize": [
+      768,
+      768
+    ],
+    "periodMetres": 2,
+    "changes": "768px WebP maps reused without file edits; inherited source manifest records desaturation and brightening of paving. Runtime colour tint is in materials.js.",
+    "retrieved": "2026-10-07",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "coverage": "generic material, NOT a site scan",
+    "files": [
+      "paving-color.webp",
+      "paving-normalgl.webp",
+      "paving-roughness.webp"
+    ]
+  },
+  {
+    "id": "Plaster004",
+    "source": "https://ambientcg.com/view?id=Plaster004",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "download": "https://ambientcg.com/get?file=Plaster004_1K-JPG.zip",
+    "retrieved": "2026-10-07",
+    "sourceArchiveSha256": "ac9fd63a9b1774c3912aed5feaceee61c8a552df9487929a2bc9618c6fd468cd",
+    "resolution": [
+      768,
+      768
+    ],
+    "periodMetres": 1,
+    "periodEvidence": "estimated",
+    "changes": "768px WebP maps reused from attributed sanfang-qixiang assets without file edits. Prior colour preprocessing was not independently reconstructed; unrelated wood-processing text in the inherited manifest does not describe this plaster asset. Runtime tint is in materials.js.",
+    "coverage": "generic material, NOT a site scan",
+    "alias": "plaster",
+    "files": [
+      "plaster-color.webp",
+      "plaster-normalgl.webp",
+      "plaster-roughness.webp"
+    ]
+  }
+]

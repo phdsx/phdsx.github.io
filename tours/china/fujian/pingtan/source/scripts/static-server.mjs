@@ -1,0 +1,6 @@
+import http from 'node:http';
+import path from 'node:path';
+import fs from 'node:fs';
+const root=path.resolve(process.argv[2]||'dist'),port=+(process.argv[3]||5187);
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.md':'text/plain; charset=utf-8','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.f32':'application/octet-stream','.u8':'application/octet-stream'};
+http.createServer((req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),file=path.resolve(root,'.'+pathname+(pathname.endsWith('/')?'index.html':''));if(file!==root&&!file.startsWith(root+path.sep)){res.writeHead(403);res.end('Forbidden');return;}if(!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);res.end('Resource not found');return;}res.writeHead(200,{'Content-Type':types[path.extname(file)]||'application/octet-stream','Cache-Control':'no-cache'});fs.createReadStream(file).pipe(res);}catch{res.writeHead(400);res.end('Invalid request');}}).listen(port,'127.0.0.1',()=>console.log(`Pingtan static preview: http://127.0.0.1:${port}/ (${root})`));

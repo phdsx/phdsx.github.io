@@ -1,4 +1,6 @@
 window.PHDSX_SEARCH_INDEX = [
+  { label: '马尾船政', href: 'tours/china/fujian/mawei-shipyard/index.html', type: '3D云游', keywords: '中国 福建 福州 马尾 船政 官街 马限山 旧港 罗星塔 昭忠祠 衙门 学堂 绘事院 轮机车间 铁胁厂 博物馆 工业遗产 真实布局 照片近似 三维 鸟瞰 步行 Mawei Foochow Arsenal Shipyard' },
+  { label: '三坊七巷', href: 'tours/china/fujian/sanfang-qixiang/index.html', type: '3D云游', keywords: '中国 福建 福州 南后街 三坊七巷 衣锦坊 文儒坊 光禄坊 地理资料 近似 三维 鸟瞰 步行 Fuzhou Sanfang Qixiang Fujian' },
   { label: '北京动物园', href: 'tours/china/beijing/beijing-zoo/index.html', type: '3D云游', keywords: '中国 北京 动物园 熊猫 狮虎山 长颈鹿 动物 物种 三维 鸟瞰 步行 Beijing Zoo animals panda lion China Beijing 3D' },
   { label: '3D云游', href: 'tours.html', type: '3D云游', keywords: '三维 云游 旅行 景点 国家 地区 中国 北京 3D tours travel China Beijing' },
   { label: '天坛', href: 'tours/china/beijing/tiantan/index.html', type: '3D云游', keywords: '中国 北京 祈年殿 皇穹宇 回音壁 圜丘 丹陛桥 三维 鸟瞰 步行 Temple of Heaven Tiantan China Beijing 3D' },

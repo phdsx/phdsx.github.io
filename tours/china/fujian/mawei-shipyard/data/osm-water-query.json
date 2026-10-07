@@ -1,0 +1,40 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-07T09:01:05Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+    {
+      "type": "relation",
+      "id": 569810,
+      "bounds": {
+        "minlat": 25.9845759,
+        "minlon": 119.2248344,
+        "maxlat": 26.110119,
+        "maxlon": 119.4429784
+      },
+      "tags": {
+        "natural": "water",
+        "type": "multipolygon",
+        "water": "river"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 2001109,
+      "bounds": {
+        "minlat": 25.9516065,
+        "minlon": 119.3950313,
+        "maxlat": 25.9913074,
+        "maxlon": 119.4740716
+      },
+      "tags": {
+        "natural": "water",
+        "type": "multipolygon",
+        "water": "river"
+      }
+    }
+  ]
+}

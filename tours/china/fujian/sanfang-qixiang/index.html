@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eeeae1"><meta name="description" content="基于 OpenStreetMap 真实街巷和建筑轮廓的福州三坊七巷米制三维资料模型，附 2023 年照片近似样板与精度说明。">
+  <title>三坊七巷 · 街巷之间</title>
+  <link rel="stylesheet" href="style.css"><link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+  <main id="scene" aria-label="三坊七巷三维场景"><canvas id="view" tabindex="0" aria-label="鸟瞰时拖动旋转，步行时拖动观察"></canvas><div id="labels" aria-hidden="true"></div></main>
+  <header class="topbar">
+    <a class="back" href="../../../../tours.html" title="返回云游目录" aria-label="返回云游目录">←</a>
+    <div class="brand"><span class="eyebrow">FUZHOU · 26°05′ N</span><h1>三坊七巷<span>街巷之间</span></h1></div>
+    <nav class="modes" aria-label="浏览模式"><button id="aerial" aria-pressed="true">俯瞰坊巷</button><button id="walk" aria-pressed="false">走进街巷</button></nav>
+    <button id="info-toggle" class="text-button" aria-expanded="false">资料与精度 <span>↗</span></button>
+  </header>
+  <aside class="places panel">
+    <button id="places-toggle" aria-expanded="true">坊巷寻路 <span>−</span></button>
+    <div id="places-body"><p class="quiet">沿南后街，读一座城。</p><div id="destinations"></div><div class="sample-note"><i></i><div><b>南后街 · 约 150 m 样板</b><span>叶氏民居至爱心树附近<br>立面依照片近似，尺寸待核准</span></div></div></div>
+  </aside>
+  <aside class="map-wrap panel"><div class="map-title"><span>坊巷位置</span><span id="compass">N ↑</span></div><canvas id="minimap" width="520" height="520" aria-label="可点击的小地图，北朝上，圆点为当前位置" role="img"></canvas><div class="map-scale"><span>点击定位</span><span>北朝上</span></div></aside>
+  <div class="settings panel"><button id="labels-toggle" aria-pressed="true">地名</button><button id="evidence-toggle" aria-pressed="false">精度图层</button><label>画质 <select id="quality" aria-label="画质"><option value="low">节能</option><option value="medium" selected>均衡</option><option value="high">精细</option></select></label><button id="capture" title="保存当前三维画面">截图 ↓</button></div>
+  <footer class="statusbar"><span class="status-dot"></span><span id="location">全区鸟瞰</span><span class="divider">/</span><span id="coordinates">1 单位 = 1 米</span><span id="perf">准备场景…</span></footer>
+  <div id="hint" class="hint">拖动旋转 · 滚轮缩放 · 右键平移</div><div class="accuracy-badge">地理资料模型 · 立面与高度近似</div><div id="warning" hidden role="status"></div>
+  <button id="look" class="look" hidden>点击进入鼠标观察</button>
+  <div id="touch-controls" hidden><div class="pad"><button data-move="forward" aria-label="向前">↑</button><button data-move="left" aria-label="向左">←</button><button data-move="backward" aria-label="向后">↓</button><button data-move="right" aria-label="向右">→</button></div><span>拖动画面观察</span></div>
+  <aside id="info" class="info panel" hidden aria-label="资料与精度说明"><div class="info-head"><span class="eyebrow">EVIDENCE / SOURCES</span><button id="info-close" aria-label="关闭资料面板">×</button></div><h2>先看资料，再看复原。</h2><p>这是有地理依据的建筑资料模型。尚不能证明全区达到 1:1 或实景摄影级精度。</p><div class="evidence-key"><span><i class="data"></i>地图轮廓 / 真实位置</span><span><i class="approx"></i>照片近似 / 估算</span><span><i class="missing"></i>立面资料缺失</span></div><div id="data-summary"></div><h3>2023 年照片与近似机位</h3><p class="quiet">照片 GPS 是拍摄点，非建筑测绘点。朝向、距离和尺度未标定；以下仅为视觉比较。</p><div id="references"></div><h3>统一坐标与资料时期</h3><p>OSM 使用 WGS84；局部原点为 119.292° E、26.086° N，X 向东、Z 向南、Y 向上。未使用 GCJ-02 或 BD-09 地图。地面暂按水平面处理。</p><p>立面参考为 2023 年 8–10 月；地图是 2026-10-07 获取的异步更新快照。二者不是同一时点的完整记录。2017 年航拍仅辅助研究历史屋顶格局。</p><h3>仍缺少的资料</h3><p>逐栋测绘高度、沿街门牌对应、现状屋顶与院落图、道路边界及宽度、地形高程、铺装实测、2023 年完整立面序列。样板中门窗、屋脊、瓦片、木材、老化和树冠尺度均为估算。未确认的院落与商铺内部不开放进入。</p><p>未用随机街道或随机房屋补全空白。空地可能是地图漏绘，不能据此判断真实场地为空。</p><a href="docs/evidence.html" target="_blank" rel="noopener">查看交付截图与对照 →</a><a href="README.md" target="_blank" rel="noopener">工程、运行与数据说明 →</a><h3>地图和建筑资料</h3><p>© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors · ODbL</a><br><a href="https://www.ccdi.gov.cn/yaowen/201709/t20170918_149579.html" target="_blank" rel="noopener">中央纪委国家监委 · 2017-09-19</a>：街巷名称、院落与马鞍墙特征。<br><a href="https://ciav.icomos.org/wp-content/uploads/2021/07/newsletter-2021-y12-n48.pdf" target="_blank" rel="noopener">ICOMOS CIAV · 2021-06</a>：传统街区建筑研究（仅引用事实，未再分发图像）。</p></aside>
+  <div id="loading" role="status"><span class="eyebrow">SANFANG QIXIANG</span><h2>进入坊巷之间</h2><p id="load-message">读取本地地理资料…</p><progress id="progress" max="100" value="5"></progress><small>真实地图轮廓 · 米制尺度 · 照片近似样板</small></div>
+  <div id="error" hidden role="alert"><b>场景暂时无法加载</b><p id="error-message"></p><button onclick="location.reload()">重新加载</button><a href="docs/layout-map.png">打开已核实的布局图</a></div>
+  <noscript><div class="no-js">请启用 JavaScript。<a href="docs/layout-map.png">也可查看布局图</a>。</div></noscript>
+  <script>
+    if(location.pathname === '/' || location.pathname === '/index.html'){const back=document.querySelector('.back');back.href='docs/evidence.html';back.title='查看交付记录';back.setAttribute('aria-label','查看交付记录');}
+    window.showFailure = message => { document.querySelector('#loading').hidden = true; document.querySelector('#error').hidden = false; document.querySelector('#error-message').textContent = message; };
+    if(location.protocol === 'file:') showFailure('请通过本地 HTTP 服务打开此项目。运行 npm start 后访问 http://127.0.0.1:5190；直接双击 HTML 会阻止 ES 模块和 JSON 加载。');
+    else import('./app.js').catch(error => showFailure('读取模块或初始化 WebGL 失败：' + error.message + '。请检查本地 vendor 文件，并使用支持 WebGL2 的浏览器。'));
+  </script>
+</body>
+</html>

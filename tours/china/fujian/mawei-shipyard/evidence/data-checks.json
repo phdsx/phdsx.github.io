@@ -1,0 +1,345 @@
+{
+  "date": "2026-10-07 Asia/Shanghai",
+  "checks": [
+    {
+      "name": "index.html exists",
+      "passed": true
+    },
+    {
+      "name": "app.js exists",
+      "passed": true
+    },
+    {
+      "name": "scene.js exists",
+      "passed": true
+    },
+    {
+      "name": "buildings.js exists",
+      "passed": true
+    },
+    {
+      "name": "materials.js exists",
+      "passed": true
+    },
+    {
+      "name": "navigation.js exists",
+      "passed": true
+    },
+    {
+      "name": "geo.js exists",
+      "passed": true
+    },
+    {
+      "name": "style.css exists",
+      "passed": true
+    },
+    {
+      "name": "viewer.css exists",
+      "passed": true
+    },
+    {
+      "name": "vendor/three.module.js exists",
+      "passed": true
+    },
+    {
+      "name": "vendor/three.core.min.js exists",
+      "passed": true
+    },
+    {
+      "name": "vendor/OrbitControls.js exists",
+      "passed": true
+    },
+    {
+      "name": "vendor/BufferGeometryUtils.js exists",
+      "passed": true
+    },
+    {
+      "name": "vendor/Reflector.js exists",
+      "passed": true
+    },
+    {
+      "name": "vendor/THREE-LICENSE.txt exists",
+      "passed": true
+    },
+    {
+      "name": "data/osm-context.json exists",
+      "passed": true
+    },
+    {
+      "name": "data/osm-poi.json exists",
+      "passed": true
+    },
+    {
+      "name": "data/site.json exists",
+      "passed": true
+    },
+    {
+      "name": "data/layout.geojson exists",
+      "passed": true
+    },
+    {
+      "name": "data/sources.json exists",
+      "passed": true
+    },
+    {
+      "name": "app.js parses",
+      "passed": true
+    },
+    {
+      "name": "buildings.js parses",
+      "passed": true
+    },
+    {
+      "name": "city-scene.js parses",
+      "passed": true
+    },
+    {
+      "name": "geo.js parses",
+      "passed": true
+    },
+    {
+      "name": "geometry.js parses",
+      "passed": true
+    },
+    {
+      "name": "landmarks.js parses",
+      "passed": true
+    },
+    {
+      "name": "materials.js parses",
+      "passed": true
+    },
+    {
+      "name": "navigation.js parses",
+      "passed": true
+    },
+    {
+      "name": "scene.js parses",
+      "passed": true
+    },
+    {
+      "name": "metre unit declared",
+      "passed": true
+    },
+    {
+      "name": "62 sourced building or compound records",
+      "passed": true
+    },
+    {
+      "name": "every building has footprint and provenance",
+      "passed": true
+    },
+    {
+      "name": "source coverage/date/licence recorded",
+      "passed": true
+    },
+    {
+      "name": "five precinct shortcuts and 16 destinations",
+      "passed": true
+    },
+    {
+      "name": "expanded window spans all five precinct anchors",
+      "passed": true
+    },
+    {
+      "name": "source river polygons and city roads retained",
+      "passed": true
+    },
+    {
+      "name": "finite terrain grid",
+      "passed": true
+    },
+    {
+      "name": "Maxian hill supported by archived DEM",
+      "passed": true
+    },
+    {
+      "name": "Luoxing hill supported by archived DEM",
+      "passed": true
+    },
+    {
+      "name": "WGS84 local origin",
+      "passed": true
+    },
+    {
+      "name": "ENU round-trip <6mm mathematical error",
+      "passed": true
+    },
+    {
+      "name": "ENU round-trip <6mm mathematical error",
+      "passed": true
+    },
+    {
+      "name": "ENU round-trip <6mm mathematical error",
+      "passed": true
+    },
+    {
+      "name": "ENU round-trip <6mm mathematical error",
+      "passed": true
+    },
+    {
+      "name": "绘事院与前场 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "轮机车间北立面 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "铁胁厂玻璃保护外壳 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "船政书局 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "博物馆新馆 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "最忆船政剧场 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "闽江滨水步道 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "船政官街 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "总理船政衙门 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "船政前后学堂 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "船政天后宫 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "昭忠祠 · 马江海战纪念馆 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "马限山 · 英国副领事署 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "圣教医院建筑群 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "旧港 · 二号船坞 has safe walking destination",
+      "passed": true
+    },
+    {
+      "name": "罗星塔公园 has safe walking destination",
+      "passed": true
+    }
+  ],
+  "failures": [],
+  "registration": [
+    {
+      "id": "engine",
+      "planCentrePixels": [
+        573,
+        848
+      ],
+      "planCentreMetres": [
+        10.245665994406481,
+        -31.400580892650844
+      ],
+      "osmVertexMeanMetres": [
+        9.774239330219306,
+        -28.986563884642013
+      ],
+      "differenceMetres": 2.46
+    },
+    {
+      "id": "iron",
+      "planCentrePixels": [
+        1328,
+        842
+      ],
+      "planCentreMetres": [
+        -44.96145144602296,
+        -200.18943124179654
+      ],
+      "osmVertexMeanMetres": [
+        -46.1322270644987,
+        -208.4114814752152
+      ],
+      "differenceMetres": 8.3
+    },
+    {
+      "id": "library",
+      "planCentrePixels": [
+        795,
+        846
+      ],
+      "planCentreMetres": [
+        -6.040261046667741,
+        -81.01439030308254
+      ],
+      "osmVertexMeanMetres": [
+        -6.045072817112542,
+        -83.94952976277496
+      ],
+      "differenceMetres": 2.94
+    },
+    {
+      "id": "theatre",
+      "planCentrePixels": [
+        1114,
+        500
+      ],
+      "planCentreMetres": [
+        -106.34639967549101,
+        -127.82739355972072
+      ],
+      "osmVertexMeanMetres": [
+        -108.85563319660025,
+        -132.47784972718216
+      ],
+      "differenceMetres": 5.28
+    },
+    {
+      "id": "pipe15",
+      "planCentrePixels": [
+        649,
+        602
+      ],
+      "planCentreMetres": [
+        -50.311810422435805,
+        -30.88448366707532
+      ],
+      "osmVertexMeanMetres": [
+        -52.77114394305822,
+        -32.63544760603013
+      ],
+      "differenceMetres": 3.02
+    },
+    {
+      "id": "pipe18",
+      "planCentrePixels": [
+        589,
+        395
+      ],
+      "planCentreMetres": [
+        -92.42592502201634,
+        -2.6692258610883606
+      ],
+      "osmVertexMeanMetres": [
+        -95.5499842859987,
+        -3.5178707094925836
+      ],
+      "differenceMetres": 3.24
+    }
+  ],
+  "registrationLimit": "These differences compare two non-survey sources and manually read centres; not absolute geolocation accuracy or as-built dimension errors."
+}

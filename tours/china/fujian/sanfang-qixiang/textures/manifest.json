@@ -1,0 +1,51 @@
+[
+  {
+    "id": "Wood066",
+    "source": "https://ambientcg.com/view?id=Wood066",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "download": "https://ambientcg.com/get?file=Wood066_1K-JPG.zip",
+    "retrieved": "2026-10-07",
+    "sourceArchiveSha256": "df2226dfec75777b4e4ad9db0694cfaf9a04588dcb8a4f9b4687d79fd3355c51",
+    "resolution": [
+      768,
+      768
+    ],
+    "periodMetres": 0.4,
+    "periodEvidence": "published nominal 40 cm",
+    "changes": "resized to 768 WebP; wood colour saturation 0.7 and brightness 0.8",
+    "coverage": "generic material, NOT a site scan"
+  },
+  {
+    "id": "Plaster004",
+    "source": "https://ambientcg.com/view?id=Plaster004",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "download": "https://ambientcg.com/get?file=Plaster004_1K-JPG.zip",
+    "retrieved": "2026-10-07",
+    "sourceArchiveSha256": "ac9fd63a9b1774c3912aed5feaceee61c8a552df9487929a2bc9618c6fd468cd",
+    "resolution": [
+      768,
+      768
+    ],
+    "periodMetres": 1,
+    "periodEvidence": "estimated",
+    "changes": "resized to 768 WebP; wood colour saturation 0.7 and brightness 0.8",
+    "coverage": "generic material, NOT a site scan"
+  },
+  {
+    "id": "Bark007",
+    "source": "https://ambientcg.com/view?id=Bark007",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "retrieved": "2026-10-07",
+    "changes": "reuse of locally attributed 768 WebP maps in beijing-zoo/public/textures; unmodified",
+    "resolution": [
+      768,
+      768
+    ],
+    "periodMetres": 1.4,
+    "periodEvidence": "estimate",
+    "coverage": "generic bark, NOT a site scan"
+  }
+]

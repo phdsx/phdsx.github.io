@@ -11,9 +11,11 @@
   };
   const item = (href, names) => ({href, zh:names[0], en:names[1]});
   const countries = {
-    china: { names:['中国','China'], regions:{ beijing:['北京','Beijing'] } }
+    china: { names:['中国','China'], regions:{ beijing:['北京','Beijing'], fujian:['福建','Fujian'] } }
   };
   const destinations = {
+    'mawei-shipyard':['马尾船政','Mawei Shipyard Heritage'],
+    'sanfang-qixiang':['三坊七巷','Sanfang Qixiang'],
     tiantan:['天坛','Temple of Heaven'],
     'forbidden-city':['故宫','Forbidden City'],
     'summer-palace':['颐和园','Summer Palace'],

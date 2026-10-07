@@ -1,0 +1,61 @@
+{
+  "errors": [],
+  "stats": [
+    {
+      "id": "jingsha",
+      "clearance": 50.83887190854875,
+      "sourceHeight": 0.5888719085454772,
+      "draws": 189,
+      "triangles": 685480
+    },
+    {
+      "id": "xianren",
+      "clearance": 226.4415318816183,
+      "sourceHeight": 11.017763757056024,
+      "draws": 27,
+      "triangles": 278010
+    },
+    {
+      "id": "shipaiyang",
+      "clearance": 72.00000000000001,
+      "sourceHeight": 0,
+      "draws": 23,
+      "triangles": 181191
+    },
+    {
+      "id": "houyan",
+      "clearance": 108.47487155017242,
+      "sourceHeight": 3.474871550172404,
+      "draws": 219,
+      "triangles": 1132839
+    },
+    {
+      "id": "xiangbi",
+      "clearance": 759.9999999999999,
+      "sourceHeight": 0,
+      "draws": 210,
+      "triangles": 474134
+    },
+    {
+      "id": "nanzhai",
+      "clearance": 244.7879997183042,
+      "sourceHeight": 103.08460545880693,
+      "draws": 92,
+      "triangles": 652172
+    },
+    {
+      "id": "jiangjun",
+      "clearance": 334.76151540699004,
+      "sourceHeight": 84.76151540699009,
+      "draws": 162,
+      "triangles": 319989
+    },
+    {
+      "id": "aoqian",
+      "clearance": 217.065917123454,
+      "sourceHeight": 6.054082119220183,
+      "draws": 199,
+      "triangles": 941333
+    }
+  ]
+}

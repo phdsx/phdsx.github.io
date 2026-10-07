@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-07T09:46:17.976Z",
+  "checks": [
+    {
+      "viewport": [
+        1440,
+        960
+      ],
+      "fit": true
+    },
+    {
+      "viewport": [
+        676,
+        884
+      ],
+      "fit": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "fit": true
+    }
+  ],
+  "limitations": "Headless viewport and touch emulation on the same PC; not physical mobile performance"
+}

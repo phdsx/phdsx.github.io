@@ -1,0 +1,224 @@
+[
+  {
+    "id": "osm",
+    "title": "OpenStreetMap / Overpass 原始轮廓与点位",
+    "url": "https://www.openstreetmap.org/way/1231603257",
+    "date": "数据基准 2026-10-07T07:05:18Z；各要素编辑日期见osm-context.json",
+    "license": "ODbL 1.0；© OpenStreetMap contributors",
+    "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "coverage": "船厂核心区及周边；WGS84",
+    "files": [
+      "osm-context.json",
+      "osm-poi.json",
+      "layout.geojson",
+      "site.json"
+    ],
+    "use": "轮廓、定位和道路中心线；标签须与官方资料交叉核对；地图不是地籍测量。"
+  },
+  {
+    "id": "architect",
+    "title": "华清安地 + 福建省建筑设计研究院：船厂片区一期竣工项目",
+    "url": "https://www.archiposition.com/items/20240731025855",
+    "date": "2024-08-01发表；2019—2022设计；2023建成；照片具体拍摄日未提供",
+    "license": "设计单位授权有方发布；摄影 ©李逸、陈夏滨；图纸 ©梁章旋工作室。未发现开放再分发许可。",
+    "coverage": "一期核心区总平面、建筑图纸、竣工航拍与立面照片",
+    "use": "只作事实核对与独立建模考证；照片图纸不随项目再分发、不烘入材质。"
+  },
+  {
+    "id": "xmu",
+    "title": "厦门大学建筑与土木工程学院：船政文化城实地建筑观察",
+    "url": "https://archt.xmu.edu.cn/info/1013/14533.htm",
+    "date": "2025-02-14发表；自摄图片拍摄日未明示",
+    "license": "未发现开放素材许可；仅链接和事实考证",
+    "coverage": "核心片区、铁胁厂、绘事院与轮机厂现代外观",
+    "use": "铁胁厂约8.7m高、3排15根钢柱、陶砖和釉玻璃模数；现代保护外壳确认。"
+  },
+  {
+    "id": "official-scope",
+    "title": "马尾区政府：一座“城”与它的向海图强梦",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/zfxxgkzdgz/ggtywh/whycbh/202212/t20221216_4508798.htm",
+    "date": "2022-12-16；只用于范围及改造背景",
+    "license": "官方公开资料；未发现照片素材开放许可",
+    "coverage": "文化城约111公顷及五大片区、船厂核心区",
+    "use": "区分文化城整体与首期核心区，确认一期活化场馆。"
+  },
+  {
+    "id": "official-2026",
+    "title": "马尾区政府：中国船政文化城",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/ztzl/mwqjwjcw/ljdt/xsxxxjysjjd/202603/t20260311_5294115.htm",
+    "date": "2026-03-11",
+    "license": "官方公开文字核对；未复制图片",
+    "coverage": "绘事院、轮机车间和铁胁厂",
+    "use": "核对建筑身份及两层砖木结构；文中1689m²描述并非本项目单体测量依据。"
+  },
+  {
+    "id": "official-architecture",
+    "title": "马尾区政府：船政建筑群“中轴线”由何构成",
+    "url": "https://www.mawei.gov.cn/xjwz/zjmw/rwls/202508/t20250806_5058367.htm",
+    "date": "页面显示2025-01-29；URL归档2025-08（两者不同，采用页面显示日期）",
+    "license": "公开文字核对；未复制图片",
+    "coverage": "绘事院、轮机厂、钟楼、现代复建衙门与天后宫",
+    "use": "绘事院七开间、砖墙、四坡屋顶、女儿墙与壁柱；钟楼身份可确认但本期未核准精确位置。"
+  },
+  {
+    "id": "official-plan",
+    "title": "马尾区政府：第一批传统风貌建筑保护图则——起运机班组",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/gggs/tzgg/202412/P020241218611085854351.pdf",
+    "date": "2024-12发布；测绘日期未核实",
+    "license": "官方公开；未复制图纸",
+    "coverage": "起运机班组单体；不等同于一期总平面起运车间",
+    "use": "取得有测绘附件的资料线索；本期未将不同名称的厂房强行对应。"
+  },
+  {
+    "id": "three",
+    "title": "Three.js r180",
+    "url": "https://github.com/mrdoob/three.js/tree/r180",
+    "date": "本地Three.js 0.180.0及同版OrbitControls/BufferGeometryUtils",
+    "license": "MIT；许可证随vendor交付",
+    "coverage": "渲染依赖",
+    "use": "本地离线依赖；运行时无需CDN、地图密钥或网络接口。"
+  },
+  {
+    "id": "original-assets",
+    "title": "原创米制纹理 + CC0 通用 PBR 贴图",
+    "url": "./materials.js",
+    "date": "2026-10-07",
+    "license": "程序部分原创；通用扫描贴图 CC0 1.0",
+    "coverage": "砖、屋瓦、铺装、木材、金属及植被",
+    "use": "砖、铺装、抹灰及树皮使用 CC0 通用扫描，非本场地扫描；屋瓦、木材、金属及植被为程序生成；树的位置来自总平面，形态估算。"
+  },
+  {
+    "id": "cc0",
+    "title": "ambientCG：Bricks051 / PavingStones036 / Bark007 / Plaster004",
+    "url": "https://docs.ambientcg.com/license/",
+    "date": "Bricks051 发布2020-06-21；本项目获取或复用2026-10-07",
+    "license": "CC0 1.0；允许使用与再分发",
+    "coverage": "通用材质，非场地采样",
+    "use": "1K或768px基础色、OpenGL法线和粗糙度；brick 1.25m公开模数，其他纹理物理覆盖尺度估计。"
+  },
+  {
+    "id": "osm-expanded",
+    "title": "OpenStreetMap：五大片区、连接道路及滨水轮廓",
+    "url": "https://www.openstreetmap.org/relation/20140073",
+    "date": "获取2026-10-07；建筑/道路基准2026-10-07T08:59:06Z，POI基准08:57:06Z；水域镜像基准2026-05-06T03:25:00Z",
+    "license": "ODbL 1.0；© OpenStreetMap contributors",
+    "licenseUrl": "https://www.openstreetmap.org/copyright",
+    "coverage": "119.438–119.4557°E / 25.9818–25.996°N建模窗口，原始查询有更宽覆盖",
+    "files": [
+      "osm-city-context.json",
+      "osm-expansion-poi.json",
+      "osm-river-polygons.json",
+      "osm-water-query.json",
+      "site.json",
+      "layout.geojson"
+    ],
+    "use": "现有建筑轮廓、关系院落、127条道路、公园、水池、二号船坞、罗星塔中心及闽江水域；道路宽度与无标签高度估算。水域快照早于其他地图，未声称同日测绘。"
+  },
+  {
+    "id": "terrain",
+    "title": "Mapzen Terrain Tiles / AWS Open Data：公开高程档案",
+    "url": "https://registry.opendata.aws/terrain-tiles/",
+    "date": "获取2026-10-07；历史合成数据，本地输入版本/测量年份未识别，不能视为2026现状高程",
+    "license": "全球SRTM/GMTED2010：USGS；ETOPO1：NOAA，公开地形数据，按提供者署名条款使用。详见Tilezen attribution。",
+    "licenseUrl": "https://github.com/tilezen/joerd/blob/master/docs/attribution.md",
+    "coverage": "z14 Terrarium瓦片13627/6966与13628/6966，覆盖五片区窗口",
+    "files": [
+      "terrain/tiles.json",
+      "terrain/14-13627-6966.png",
+      "terrain/14-13628-6966.png",
+      "terrain.json",
+      "site.json"
+    ],
+    "use": "解码R×256+G+B/256−32768；EPSG:3857采样转换WGS84/ENU；减去原点样本6.616391m；源约30m或更粗，6m网格仅增加显示细分；建筑平台、共用地坪、岸线和池/坞坑局部修整。SRTM/GMTED2010 data courtesy of the U.S. Geological Survey. Global ETOPO1 terrain data U.S. National Oceanic and Atmospheric Administration. Mapzen / Tilezen。"
+  },
+  {
+    "id": "guanjie-2026",
+    "title": "马尾区政府：百年船政官街 今朝焕新启幕",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/ztzl/jczwgk/sdly/ggwhfw/gkqk/ggfw/202606/t20260617_5335181.htm",
+    "date": "页面日期2026-05-01；URL归档2026-06",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "2026官街更新与开放活动",
+    "use": "确认采用现代开放状态；街道中心线有地图支持，更新后的商铺逐栋屋顶/立面暂缺，不生成虚构商铺。"
+  },
+  {
+    "id": "maxian",
+    "title": "马尾区政府：马限山近代建筑群",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/zfxxgkzdgz/ggtywh/whycbh/202604/t20260422_5312026.htm",
+    "date": "2026-04-22",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "英国副领事署、梅园监狱、圣教医院及院长公寓",
+    "use": "核对建筑名称、层数、朝向描述和保留状态；采用现代OSM轮廓，通用门窗仅形制近似。监狱上部与地下两层，本模型未开放或复原地下层。"
+  },
+  {
+    "id": "zhaozhong",
+    "title": "马尾区政府：马江海战炮台、烈士墓及昭忠祠简介",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/zfxxgkzdgz/ggtywh/whycbh/202105/t20210506_4091931.htm",
+    "date": "页面2021-01-11；URL归档2021-05",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "昭忠祠、烈士墓与墓亭文字介绍",
+    "use": "昭忠祠面阔25.1m、进深37m、五开间、院落与风火山墙；据此校正长短轴。墓/炮台精确定位与现状细节未建模。"
+  },
+  {
+    "id": "luoxing-photo",
+    "title": "福州市自然资源和规划局：罗星塔——在马尾的“中国塔”",
+    "url": "https://zygh.fuzhou.gov.cn/zwgk/ztzl/fzcssx/202203/t20220314_4325196.htm",
+    "date": "2022-03-14；摄影拍摄日未明示",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "罗星塔尺寸、石塔实景照片与公园概述",
+    "use": "七层八角石塔、底径8.6m、31.5m口径；拱洞、金属栏杆与铁球顶照片近似。未恢复塔内漫游。"
+  },
+  {
+    "id": "luoxing-dimensions",
+    "title": "马尾区政府：罗星塔简介",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/zfxxgkzdgz/ggtywh/whycbh/202110/t20211028_4216873.htm",
+    "date": "页面2021-10-19；URL归档2021-10",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "罗星塔形制与尺寸",
+    "use": "核对底径8.6m及七层八角。该文写通高30m，与规划局31.5m有口径差异；模型采用31.5m并记录差异，未以测量消除。"
+  },
+  {
+    "id": "rebuilt-compounds",
+    "title": "马尾区政府：船政建筑介绍",
+    "url": "https://www.mawei.gov.cn/xjwz/zjmw/rwls/201807/t20180724_2535980.htm",
+    "date": "2018-07-24",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "现代复建的总理船政衙门及前后学堂",
+    "use": "确认复建身份和两层廊式学堂；OSM提供现代轮廓，屋顶及重复开间按文字近似，不混用原址历史布局。"
+  },
+  {
+    "id": "dock2",
+    "title": "马尾区政府：船政二号船坞",
+    "url": "https://www.mawei.gov.cn/xjwz/zjmw/rwls/202004/t20200429_3264168.htm",
+    "date": "2020-04-29",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "马限山西侧岸边二号船坞",
+    "use": "与OSM way1412425917核对名称和位置。一号船坞未与其混同。坞坑显示深度1.4m估算，未把历史设计尺寸冒充现代测量。"
+  },
+  {
+    "id": "river-corridor",
+    "title": "马尾区政府：大力推进滨江旅游休闲廊道提升",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/gzdt/mwyw/202305/t20230529_4610677.htm",
+    "date": "2023-05-29",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "罗星塔至港区等滨江联系",
+    "use": "用于核对现代滨江连接背景；没有加入不明装饰船、随机起重机或新造码头。"
+  },
+  {
+    "id": "conservation-2026",
+    "title": "马尾区政府：船政文物相关修缮信息",
+    "url": "https://www.mawei.gov.cn/xjwz/zwgk/zfxxgk/dfbmptlj/zfjzfgzbm/whtyj/fdzdgknr/yzdgkdqtxx/202607/t20260722_5349195.htm",
+    "date": "2026-07-22",
+    "license": "官方公开文字及实景考证；未发现照片开放再分发许可，图片不随项目交付",
+    "coverage": "钟楼、一号船坞及马限山修缮信息",
+    "use": "确认对象存在及修缮背景；钟楼和一号船坞的准确边界仍缺，本次不按想象放置。"
+  },
+  {
+    "id": "tour-guide",
+    "title": "船政文化游览导图（补充参考）",
+    "url": "https://www.fjczwh.com/Home/Visit",
+    "date": "访问2026-10-07；绘制/更新日期未明示",
+    "license": "非开放许可；地图署名池忠诚，标注福建船政文化管理委员会；不随项目再分发",
+    "coverage": "包含五片区及其外天马山等游览对象",
+    "use": "仅辅助理解整体游览联系。网站运营身份未独立认证，透视手绘图不作为地理配准或建模尺寸依据。"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "pingtan-geographic-scene",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5186",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 5186",
+    "check": "node scripts/check.mjs",
+    "test:browser": "node scripts/browser-test.mjs"
+  },
+  "dependencies": { "three": "0.180.0" },
+  "devDependencies": { "vite": "7.3.6", "playwright": "1.55.1" }
+}

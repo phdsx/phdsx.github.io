@@ -1,0 +1,317 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-07T07:05:18Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 11422163729,
+  "lat": 25.9951406,
+  "lon": 119.4396796,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "船政",
+    "name:en": "Foochow Arsenal",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "node",
+  "id": 12487569843,
+  "lat": 25.9932418,
+  "lon": 119.4428241,
+  "tags": {
+    "entrance": "yes",
+    "name": "船政西大门",
+    "name:en": "West Entrance"
+  }
+},
+{
+  "type": "node",
+  "id": 13496601032,
+  "lat": 25.9880800,
+  "lon": 119.4447559,
+  "tags": {
+    "ceremonial_gate": "paifang",
+    "man_made": "ceremonial_gate",
+    "name": "船政文化公园"
+  }
+},
+{
+  "type": "node",
+  "id": 13583988460,
+  "lat": 25.9949524,
+  "lon": 119.4394271,
+  "tags": {
+    "bus": "yes",
+    "highway": "bus_stop",
+    "name": "船政",
+    "name:en": "Foochow Arsenal",
+    "public_transport": "platform"
+  }
+},
+{
+  "type": "way",
+  "id": 435073674,
+  "center": {
+    "lat": 25.9916028,
+    "lon": 119.4448695
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "船政格致园"
+  }
+},
+{
+  "type": "way",
+  "id": 441552241,
+  "center": {
+    "lat": 25.9939233,
+    "lon": 119.4402630
+  },
+  "tags": {
+    "access": "no",
+    "bicycle": "yes",
+    "foot": "yes",
+    "highway": "pedestrian",
+    "name": "船政官街",
+    "name:en": "Shipyard St"
+  }
+},
+{
+  "type": "way",
+  "id": 1148505930,
+  "center": {
+    "lat": 25.9925845,
+    "lon": 119.4416508
+  },
+  "tags": {
+    "access": "permit",
+    "addr:housenumber": "53",
+    "addr:street": "联安支路",
+    "building": "yes",
+    "building:levels": "4",
+    "fee": "no",
+    "museum": "maritime",
+    "name": "中国船政文化博物馆",
+    "name:en": "China Museum of Foochow Arsenal 1866",
+    "name:zh": "中国船政文化博物馆",
+    "name:zh-Hans": "中国船政文化博物馆",
+    "name:zh-Hant": "中國船政文化博物館",
+    "opening_hours": "Tu-Su 09:00-17:00",
+    "phone": "+86 591 8398 3253",
+    "tourism": "museum",
+    "website": "https://www.zgczwhbwg.com/"
+  }
+},
+{
+  "type": "way",
+  "id": 1231603257,
+  "center": {
+    "lat": 25.9905083,
+    "lon": 119.4431389
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "船政绘事院",
+    "name:en": "Foochow Arsenal Design & Darwing Department"
+  }
+},
+{
+  "type": "way",
+  "id": 1231603258,
+  "center": {
+    "lat": 25.9907933,
+    "lon": 119.4432463
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "船政轮机车间",
+    "name:en": "Foochow Arsenal Engine Workshop"
+  }
+},
+{
+  "type": "way",
+  "id": 1232799917,
+  "center": {
+    "lat": 25.9928680,
+    "lon": 119.4453614
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "building": "yes",
+    "name": "船政社区居民委员会"
+  }
+},
+{
+  "type": "way",
+  "id": 1259590523,
+  "center": {
+    "lat": 25.9923895,
+    "lon": 119.4426782
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "船政铁协厂",
+    "name:en": "Foochow Arsenal Steel Frame Workshop"
+  }
+},
+{
+  "type": "way",
+  "id": 1412425920,
+  "center": {
+    "lat": 25.9871867,
+    "lon": 119.4453491
+  },
+  "tags": {
+    "highway": "pedestrian",
+    "layer": "-1",
+    "name": "船政复兴之路隧道",
+    "old_name": "马限山人防隧道",
+    "tunnel": "yes",
+    "was:military": "trench",
+    "was:trench": "dugout"
+  }
+},
+{
+  "type": "way",
+  "id": 1412425921,
+  "center": {
+    "lat": 25.9892449,
+    "lon": 119.4441408
+  },
+  "tags": {
+    "area": "yes",
+    "museum": "maritime",
+    "name": "中国船政文化城",
+    "operator": "福建船政文化管理委员会",
+    "tourism": "attraction",
+    "website": "http://czwh.org.cn/"
+  }
+},
+{
+  "type": "way",
+  "id": 1470977337,
+  "center": {
+    "lat": 25.9855694,
+    "lon": 119.4448121
+  },
+  "tags": {
+    "addr:housenumber": "53",
+    "addr:street": "联安支路",
+    "amenity": "post_office",
+    "building": "yes",
+    "name": "船政邮局",
+    "name:en": "Foochow Arsenal Post Office"
+  }
+},
+{
+  "type": "way",
+  "id": 1470977341,
+  "center": {
+    "lat": 25.9912661,
+    "lon": 119.4430785
+  },
+  "tags": {
+    "building": "yes",
+    "name": "船政书局",
+    "name:en": "Foochow Arsenal Shipbuilding Library",
+    "shop": "books"
+  }
+},
+{
+  "type": "way",
+  "id": 1470977342,
+  "center": {
+    "lat": 25.9917041,
+    "lon": 119.4420517
+  },
+  "tags": {
+    "amenity": "theatre",
+    "building": "yes",
+    "name": "最忆船政剧场",
+    "name:en": "Theatre of The Glory Belongs to Foochow Arsenal"
+  }
+},
+{
+  "type": "way",
+  "id": 1470977344,
+  "center": {
+    "lat": 25.9908029,
+    "lon": 119.4426118
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "船政管加课"
+  }
+},
+{
+  "type": "way",
+  "id": 1470977357,
+  "center": {
+    "lat": 25.9872222,
+    "lon": 119.4442445
+  },
+  "tags": {
+    "landuse": "religious",
+    "name": "船政天后宫",
+    "religion": "chinese_folk"
+  }
+},
+{
+  "type": "relation",
+  "id": 20140073,
+  "center": {
+    "lat": 25.9932238,
+    "lon": 119.4441080
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "船政衙门",
+    "name:en": "Foochow Arsenal Shipyard Yamen",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20140074,
+  "center": {
+    "lat": 25.9921400,
+    "lon": 119.4447768
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "船政前学堂",
+    "name:en": "Foochow Arsenal Shipbuilding School",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 20140075,
+  "center": {
+    "lat": 25.9906267,
+    "lon": 119.4456062
+  },
+  "tags": {
+    "building": "yes",
+    "historic": "building",
+    "name": "船政后学堂",
+    "name:en": "Foochow Arsenal Naval School",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}

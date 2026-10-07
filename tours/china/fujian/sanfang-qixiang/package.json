@@ -1,0 +1,9 @@
+{
+  "name": "sanfang-qixiang-geographic-model",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {"start": "node scripts/serve.mjs", "check": "node scripts/check.mjs", "test:browser": "node scripts/browser-test.mjs"},
+  "dependencies": {},
+  "devDependencies": {"playwright": "1.55.1"}
+}

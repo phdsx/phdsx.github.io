@@ -1,0 +1,23 @@
+{
+  "base": "http://127.0.0.1:5188/",
+  "ready": true,
+  "errors": [],
+  "assetsMatch": true,
+  "sourceIncluded": true,
+  "checkedPaths": [
+    "docs/ACCEPTANCE.md",
+    "docs/ACCURACY.md",
+    "docs/SOURCES.md",
+    "docs/LANDSCAPES.md",
+    "data/landmarks.json",
+    "evidence/map-alignment.png",
+    "evidence/jingsha-close.png",
+    "evidence/xianren-close.png",
+    "source/index.html",
+    "source/public/data/geography.json",
+    "source/public/data/landmarks.json",
+    "source/research/north.osm",
+    "source/src/main.js",
+    "source/src/landmarks.js"
+  ]
+}

@@ -1,0 +1,401 @@
+{
+  "dateLocal": "2026-10-07 Asia/Shanghai",
+  "timestampUTC": "2026-10-07T13:19:06.564Z",
+  "device": {
+    "os": "Windows_NT 10.0.26200",
+    "cpu": "13th Gen Intel(R) Core(TM) i5-13600KF",
+    "ramGB": 31.8
+  },
+  "browser": "151.0.7922.34",
+  "viewport": [
+    1440,
+    960
+  ],
+  "pixelRatio": 1,
+  "base": "http://127.0.0.1:5191/",
+  "checks": [
+    {
+      "name": "local resources load without blank screen",
+      "passed": true
+    },
+    {
+      "name": "zero-duration initial camera is finite",
+      "passed": true
+    },
+    {
+      "name": "sample exterior roof slopes face upward",
+      "passed": true
+    },
+    {
+      "name": "aerial skips unnecessary reflection passes",
+      "passed": true
+    },
+    {
+      "name": "five precinct shortcuts visible",
+      "passed": true
+    },
+    {
+      "name": "overview labels show five precincts without full landmark clutter",
+      "passed": true
+    },
+    {
+      "name": "wide-area depth buffer supports metre-scale separation",
+      "passed": true
+    },
+    {
+      "name": "factory detail overview remains available",
+      "passed": true
+    },
+    {
+      "name": "orbit drag rotates view",
+      "passed": true
+    },
+    {
+      "name": "orbit wheel zoom works",
+      "passed": true
+    },
+    {
+      "name": "walking eye height 1.65m",
+      "passed": true
+    },
+    {
+      "name": "walking start outside walls and pools",
+      "passed": true
+    },
+    {
+      "name": "W moves at walking speed",
+      "passed": true
+    },
+    {
+      "name": "engine jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "engine eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "iron jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "iron eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "library jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "library eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "museum jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "museum eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "theatre jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "theatre eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "quay jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "quay eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "guanjie jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "guanjie eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "yamen jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "yamen eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "frontSchool jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "frontSchool eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "tianhou jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "tianhou eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "zhaozhong jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "zhaozhong eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "consulate jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "consulate eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "hospitalA jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "hospitalA eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "dock2 jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "dock2 eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "luoxing jump safe and finite",
+      "passed": true
+    },
+    {
+      "name": "luoxing eye follows local ground",
+      "passed": true
+    },
+    {
+      "name": "precinct shortcut targets Luoxing tower",
+      "passed": true
+    },
+    {
+      "name": "expanded river and ponds block walking",
+      "passed": true
+    },
+    {
+      "name": "mountain walk remains above elevated ground",
+      "passed": true
+    },
+    {
+      "name": "walking stops outside actual rendered wall",
+      "passed": true
+    },
+    {
+      "name": "wall prevents continued forward movement",
+      "passed": true
+    },
+    {
+      "name": "platform ground height raises eye correctly",
+      "passed": true
+    },
+    {
+      "name": "place label toggle",
+      "passed": true
+    },
+    {
+      "name": "geographic outline evidence toggle",
+      "passed": true
+    },
+    {
+      "name": "low profile disables shadows and reflection",
+      "passed": true
+    },
+    {
+      "name": "PNG export includes rendered canvas",
+      "passed": true
+    },
+    {
+      "name": "minimap click moves destination",
+      "passed": true
+    },
+    {
+      "name": "source and boundary dialog opens",
+      "passed": true
+    },
+    {
+      "name": "touch defaults to low quality",
+      "passed": true
+    },
+    {
+      "name": "touch movement pad visible",
+      "passed": true
+    },
+    {
+      "name": "touch pad moves camera",
+      "passed": true
+    },
+    {
+      "name": "390px viewport has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "missing geographic data produces named error",
+      "passed": true
+    },
+    {
+      "name": "optional texture has explicit procedural fallback",
+      "passed": true
+    },
+    {
+      "name": "failed dependency displays error instead of permanent loader",
+      "passed": true
+    },
+    {
+      "name": "no normal-run JS or console errors",
+      "passed": true
+    },
+    {
+      "name": "no normal-run failed requests",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "failures": [],
+  "performance": [
+    {
+      "label": "均衡 · 五大片区鸟瞰",
+      "sampleSeconds": 3,
+      "frames": 180,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCallsAllPasses": 473,
+      "trianglesAllPasses": 622246,
+      "textures": 31,
+      "geometries": 255,
+      "quality": "balanced",
+      "pixelRatio": 1,
+      "reflectionVisible": 0
+    },
+    {
+      "label": "均衡 · 绘事院步行",
+      "sampleSeconds": 3,
+      "frames": 180,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCallsAllPasses": 163,
+      "trianglesAllPasses": 549453,
+      "textures": 32,
+      "geometries": 275,
+      "quality": "balanced",
+      "pixelRatio": 1,
+      "reflectionVisible": 1
+    },
+    {
+      "label": "均衡 · 绘事院近似实景机位",
+      "sampleSeconds": 3,
+      "frames": 180,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCallsAllPasses": 182,
+      "trianglesAllPasses": 558531,
+      "textures": 32,
+      "geometries": 275,
+      "quality": "balanced",
+      "pixelRatio": 1,
+      "reflectionVisible": 1
+    },
+    {
+      "label": "均衡 · 旧港近景",
+      "sampleSeconds": 3,
+      "frames": 180,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCallsAllPasses": 220,
+      "trianglesAllPasses": 516523,
+      "textures": 35,
+      "geometries": 297,
+      "quality": "balanced",
+      "pixelRatio": 1,
+      "reflectionVisible": 0
+    },
+    {
+      "label": "均衡 · 罗星塔公园",
+      "sampleSeconds": 3,
+      "frames": 180,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.7,
+      "drawCallsAllPasses": 430,
+      "trianglesAllPasses": 627251,
+      "textures": 35,
+      "geometries": 297,
+      "quality": "balanced",
+      "pixelRatio": 1,
+      "reflectionVisible": 0
+    },
+    {
+      "label": "节能 · 绘事院",
+      "sampleSeconds": 3,
+      "frames": 180,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCallsAllPasses": 123,
+      "trianglesAllPasses": 374047,
+      "textures": 35,
+      "geometries": 316,
+      "quality": "low",
+      "pixelRatio": 1,
+      "reflectionVisible": 0
+    },
+    {
+      "label": "精细 · 绘事院",
+      "sampleSeconds": 3,
+      "frames": 180,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.7,
+      "drawCallsAllPasses": 172,
+      "trianglesAllPasses": 603521,
+      "textures": 35,
+      "geometries": 316,
+      "quality": "high",
+      "pixelRatio": 1,
+      "reflectionVisible": 1
+    }
+  ],
+  "limitations": "Headless Chromium desktop rendering. 390x844 mobile is touch emulation on the same PC, not a physical phone. FPS is measured requestAnimationFrame throughput; software checks do not establish geographic accuracy.",
+  "readyMs": 2977,
+  "scene": {
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 (0x00002786) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "threeRevision": "180",
+    "buildings": 62,
+    "treeLocations": 177,
+    "eyeHeight": 1.65
+  },
+  "wallCollision": {
+    "position": [
+      -10.931828420725452,
+      1.65,
+      3.4412391670782596
+    ],
+    "blocked": false
+  }
+}

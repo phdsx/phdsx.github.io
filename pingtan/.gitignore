@@ -1,0 +1,16 @@
+node_modules/
+dist/
+research/*.hgt
+research/*.hgt.gz
+research/coast-mask.u8
+research/coast-distance.f32
+research/beigang*.jpg
+research/beigang*.html
+evidence/photo-comparison-local.png
+.lockgen/
+*.zip
+research/water-mask.u8
+research/water-distance.f32
+research/train-reference.*
+
+research/*-reference.*

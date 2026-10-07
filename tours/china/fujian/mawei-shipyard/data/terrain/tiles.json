@@ -1,0 +1,24 @@
+{
+  "bbox": [
+    119.438,
+    25.9818,
+    119.4557,
+    25.996
+  ],
+  "tiles": [
+    {
+      "x": 13627,
+      "y": 6966,
+      "z": 14,
+      "url": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/14/13627/6966.png",
+      "file": "data/terrain/14-13627-6966.png"
+    },
+    {
+      "x": 13628,
+      "y": 6966,
+      "z": 14,
+      "url": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/14/13628/6966.png",
+      "file": "data/terrain/14-13628-6966.png"
+    }
+  ]
+}

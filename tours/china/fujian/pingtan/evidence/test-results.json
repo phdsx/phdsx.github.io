@@ -1,0 +1,388 @@
+{
+  "testDateLocal": "2026-10-07 Asia/Shanghai",
+  "timestampUTC": "2026-10-07T03:08:43.232Z",
+  "base": "http://127.0.0.1:5187/",
+  "browser": "151.0.7922.34",
+  "device": {
+    "os": "Windows_NT 10.0.26200",
+    "cpu": "13th Gen Intel(R) Core(TM) i5-13600KF",
+    "logicalCpuCount": 20,
+    "ramGB": 31.8
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 960,
+    "dpr": 1
+  },
+  "mode": "Local Windows desktop, headless Chromium, hardware WebGL. Mobile emulation is not a real phone.",
+  "errors": [],
+  "requests": [],
+  "failures": [],
+  "checks": [
+    "Real-data initial scene and overview",
+    "Data categories, source links, help and keyboard dialog close",
+    "Mouse orbit / wheel",
+    "52 mapped beaches; 81 offshore / 99 onshore; photo-reference double-deck train and illustrative 800m route",
+    "All 15 destinations, source/approximate classifications and smooth transitions",
+    "Landscape search, 19-entry disclosure, metre-scale 43m well, close-view cameras, finite landmark meshes",
+    "Photo-reference sample, detailed roof, PBR surfaces, high quality",
+    "Local-date time and solar direction",
+    "Free flight, WASD, Q/E, H reset and minimum 2.5m terrain clearance",
+    "Minimap landmark positioning",
+    "PNG export",
+    "390×844 touch emulation, low profile, pinch, tap destination, touch flight",
+    "Required data failure names missing resource; optional imagery failure retains real geometry"
+  ],
+  "performance": [
+    {
+      "label": "全岛鸟瞰",
+      "quality": "medium",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 210,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCalls": 303,
+      "triangles": 416347,
+      "geometries": 315,
+      "textures": 6,
+      "pixelRatio": 1
+    },
+    {
+      "label": "龙王头观光车近景",
+      "quality": "medium",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 210,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCalls": 168,
+      "triangles": 933589,
+      "geometries": 621,
+      "textures": 17,
+      "pixelRatio": 1
+    },
+    {
+      "label": "镜沙洞口近景",
+      "quality": "medium",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 210,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCalls": 33,
+      "triangles": 1080363,
+      "geometries": 629,
+      "textures": 17,
+      "pixelRatio": 1
+    },
+    {
+      "label": "仙人井近景",
+      "quality": "medium",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 211,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.7,
+      "drawCalls": 25,
+      "triangles": 281210,
+      "geometries": 620,
+      "textures": 17,
+      "pixelRatio": 1
+    },
+    {
+      "label": "北港石厝近景",
+      "quality": "high",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 210,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.7,
+      "drawCalls": 212,
+      "triangles": 534573,
+      "geometries": 617,
+      "textures": 17,
+      "pixelRatio": 1
+    },
+    {
+      "label": "北港区域 / low",
+      "quality": "low",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 210,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCalls": 329,
+      "triangles": 945759,
+      "geometries": 655,
+      "textures": 17,
+      "pixelRatio": 1
+    },
+    {
+      "label": "北港区域 / medium",
+      "quality": "medium",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 210,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.8,
+      "drawCalls": 344,
+      "triangles": 1303893,
+      "geometries": 655,
+      "textures": 17,
+      "pixelRatio": 1
+    },
+    {
+      "label": "北港区域 / high",
+      "quality": "high",
+      "sampleSeconds": 3.5,
+      "sampleFrames": 210,
+      "meanFrameMs": 16.67,
+      "observedRafFps": 60,
+      "p95FrameMs": 16.7,
+      "drawCalls": 358,
+      "triangles": 1339189,
+      "geometries": 645,
+      "textures": 17,
+      "pixelRatio": 1
+    }
+  ],
+  "firstReadyMs": 1502,
+  "scene": {
+    "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 (0x00002786) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "terrainTiles": 246,
+    "sourceCoastVertices": 3779,
+    "buildings": 394,
+    "renderedRoads": 4532,
+    "vegetationInstances": 13667,
+    "turbines": 180,
+    "places": [
+      {
+        "id": "beigang",
+        "lonLat": [
+          119.82432632411741,
+          25.586249305803875
+        ],
+        "source": "OSM residential w611166527; buildings w611957434, w611957440"
+      },
+      {
+        "id": "changjiang",
+        "lonLat": [
+          119.77427820845793,
+          25.635732220198484
+        ],
+        "source": "OSM named beach w990631702, including intertidal polygon; representative polygon centre"
+      },
+      {
+        "id": "longwang",
+        "lonLat": [
+          119.80540605951174,
+          25.510565807278347
+        ],
+        "source": "OSM beach w390385570; 2024 Pingtan news report for red electric train, approximately 800m/three stops; track coordinates not surveyed"
+      },
+      {
+        "id": "offshore",
+        "lonLat": [
+          119.81516673313297,
+          25.638108108702042
+        ],
+        "source": "Centroid of north-eastern OSM offshore generator cluster, not relocated land turbines"
+      },
+      {
+        "id": "tannan",
+        "lonLat": [
+          119.8225430282402,
+          25.469946132649223
+        ],
+        "source": "OSM named beach w990631701; nearby geography and MCT Tannanwan reference"
+      },
+      {
+        "id": "north-rock",
+        "lonLat": [
+          119.7832632981143,
+          25.6651929040241
+        ],
+        "source": "Actual OSM northern coast node near x0/z-15000; regional rocky-headland references, no exact geological survey"
+      },
+      {
+        "id": "jingsha",
+        "lonLat": [
+          119.80880680503563,
+          25.61899669658879
+        ],
+        "source": "OSM coast node at east end of beaches w1285652150/w1285652151; regional interpretation, not surveyed cave mouth"
+      },
+      {
+        "id": "xianren",
+        "lonLat": [
+          119.87358241492579,
+          25.55194385778363
+        ],
+        "source": "OSM viewpoint n5931451116 and adjacent source coastline; approximate well centre"
+      },
+      {
+        "id": "shipaiyang",
+        "lonLat": [
+          119.67972500513623,
+          25.58332252712082
+        ],
+        "source": "OSM closed reef ring near the reported coarse location 25°35.0′N 119°40.8′E; no independently surveyed precision"
+      },
+      {
+        "id": "houyan",
+        "lonLat": [
+          119.85483784893766,
+          25.459720113469004
+        ],
+        "source": "OSM coast way w1180027916, unchanged footprint"
+      },
+      {
+        "id": "xiangbi",
+        "lonLat": [
+          119.69068594844858,
+          25.434970028534103
+        ],
+        "source": "OSM beach w511682172, region corroborated by official tourism map and EOX 2016 imagery"
+      },
+      {
+        "id": "jiangjun",
+        "lonLat": [
+          119.76825529715238,
+          25.413116197442022
+        ],
+        "source": "OSM peak n9153646223; Skadi DEM"
+      },
+      {
+        "id": "nanzhai",
+        "lonLat": [
+          119.73720000114439,
+          25.465499999506285
+        ],
+        "source": "Approximate regional interpretation corroborated by official tourist inventory and Amap B024F057H0; not surveyed rock positions"
+      },
+      {
+        "id": "aoqian",
+        "lonLat": [
+          119.84301919800342,
+          25.46477680050498
+        ],
+        "source": "OSM bus stop n10581560550 serves as harbour area locator, not quay survey"
+      },
+      {
+        "id": "junshan",
+        "lonLat": [
+          119.81366731529663,
+          25.600281735323243
+        ],
+        "source": "Maximum of downloaded Skadi land DEM grid; no elevation exaggeration"
+      }
+    ],
+    "projection": "EPSG:32650 / WGS84 UTM zone 50N",
+    "peak": {
+      "x": 3220,
+      "z": -7860,
+      "height": 430.3960266113281
+    }
+  },
+  "cameraClearance": [
+    {
+      "place": "beigang",
+      "clearance": 443.7101433327754
+    },
+    {
+      "place": "changjiang",
+      "clearance": 1658.614368529733
+    },
+    {
+      "place": "longwang",
+      "clearance": 324.59619547856863
+    },
+    {
+      "place": "offshore",
+      "clearance": 410.00000303162267
+    },
+    {
+      "place": "tannan",
+      "clearance": 381.6760563224184
+    },
+    {
+      "place": "north-rock",
+      "clearance": 240.00000000030462
+    },
+    {
+      "place": "jingsha",
+      "clearance": 50.83887190854585
+    },
+    {
+      "place": "xianren",
+      "clearance": 226.4415318816183
+    },
+    {
+      "place": "shipaiyang",
+      "clearance": 72.00000000000001
+    },
+    {
+      "place": "houyan",
+      "clearance": 108.47487155017242
+    },
+    {
+      "place": "xiangbi",
+      "clearance": 759.9999999999999
+    },
+    {
+      "place": "jiangjun",
+      "clearance": 334.76151540699004
+    },
+    {
+      "place": "nanzhai",
+      "clearance": 244.7879997183042
+    },
+    {
+      "place": "aoqian",
+      "clearance": 217.0659171234546
+    },
+    {
+      "place": "junshan",
+      "clearance": 1220.3960266113281
+    }
+  ],
+  "coasts": {
+    "beaches": 52,
+    "rocks": 720,
+    "sea": 81,
+    "land": 99,
+    "changjiangRetained": true,
+    "train": {
+      "length": 800,
+      "stops": 3,
+      "vehicles": 1,
+      "classification": "reference-based illustrative alignment, NOT measured route"
+    }
+  },
+  "landscapes": {
+    "inventoryEntries": 19,
+    "destinations": 15,
+    "invalidVertices": 0,
+    "wellDepth": 43,
+    "wellBottom": 0.14,
+    "originalDemAtWell": 11.017763757056024,
+    "regionGroups": 5
+  },
+  "flight": {
+    "mode": "fly",
+    "minimumClearance": 2.5
+  },
+  "mobile": {
+    "kind": "Chromium touch/DPR emulation, same RTX4070, NOT physical phone",
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "defaultQuality": "low",
+    "drawingPixelRatio": 1,
+    "pinchChanged": true,
+    "touchFlightChanged": true
+  }
+}

@@ -6,6 +6,8 @@
 
 | 路径或组件 | 许可证 | 说明 |
 | --- | --- | --- |
+| `tours/china/fujian/mawei-shipyard/` | MIT / ODbL 1.0 / CC0 1.0 / 公共高程提供者条款 | 同版 Three.js 离线模块、OSM轮廓与衍生数据、Mapzen高程（USGS / NOAA）及ambientCG通用PBR。现场摄影和图纸仅链接考证，未随项目再分发。逐项许可见该目录 `THIRD_PARTY_NOTICES.md`、`data/sources.json` 和 `textures/manifest.json`。 |
+| `tours/china/fujian/sanfang-qixiang/` 中的第三方软件、地图、照片及材质 | MIT / ODbL 1.0 / CC BY 4.0 / CC BY-SA 4.0 / CC0 1.0 | Three.js 本地依赖、OSM 原始快照与衍生数据、Wikimedia 参考照片和裁切细节、ambientCG 通用 PBR 材质。逐项来源、作者、日期、覆盖范围及变更见该目录 `SOURCES.md`、`data/sources.json` 和 `textures/manifest.json`。 |
 | `tours/china/beijing/*/assets/` 中的 Three.js 0.180.0 | MIT License | 3D云游场景使用本地打包的 Three.js；各景点目录附 `THREE-LICENSE.txt`。 |
 | `tours/china/beijing/*/data/` 中的 OpenStreetMap 衍生地图数据 | ODbL 1.0 | 原始贡献者署名和资料说明保留在场景界面及各景点的 `SOURCES.md` 中。 |
 | `tours/china/beijing/summer-palace/textures/` | CC0 1.0 | ambientCG 材质经缩放和调色，素材来源见该场景的 `SOURCES.md` 和 `textures/manifest.json`。 |
