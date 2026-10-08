@@ -1,0 +1,7 @@
+.git/
+.github/
+.local-tools/
+.worker/
+**/node_modules/
+**/.wrangler/
+**/.sites-runtime/

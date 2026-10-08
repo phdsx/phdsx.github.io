@@ -1,0 +1,1 @@
+{"name":"north-garden-geospatial-scene","version":"0.1.0","private":true,"type":"module","description":"Source-backed metric reconstruction prototype of Beijing National Botanical Garden North Garden","scripts":{"start":"node server.mjs","build":"node scripts/build.mjs","check":"node scripts/validate.mjs"},"engines":{"node":">=18"}}

@@ -17,7 +17,7 @@
 | --- | --- |
 | [在线工具](https://phdsx.github.io/tools.html) | 文本处理、图片处理、二维码、倒计时、拼音辅助和生活小工具 |
 | [网页游戏](https://phdsx.github.io/games.html) | 三国霸业、五子棋、军棋、前线指挥、星环塔防、风暴攻城、俄罗斯方块、潜艇大战、Parking Pulse、沙子分类等 |
-| [3D云游](https://phdsx.github.io/tours.html) | 按国家、地区分类的交互式三维景点：天坛、故宫、颐和园、北京动物园（资料参考场景） |
+| [3D云游](https://phdsx.github.io/tours.html) | 按国家、地区分类的交互式三维景点，含香山、国家植物园北园、西宁野生动物园及福建平潭海坛岛 |
 | [博客](https://phdsx.github.io/blog.html) | Python、HTML、JavaScript 与 Markdown 学习记录 |
 | [小说](https://phdsx.github.io/novels/) | 支持章节导航、阅读进度和显示设置的在线阅读页 |
 | [软件作品](https://phdsx.github.io/software.html) | 自制软件与 Web 作品的版本发布入口 |
@@ -122,4 +122,10 @@ Made with curiosity by **PHDSX**
 
 全站导航层级由 assets/navigation.js 维护；工具/游戏分类使用 ?category= 参数，工具搜索使用 q 参数。新增或移动页面后运行 node scripts/check-navigation.mjs 和 node scripts/check-site-links.mjs。
 
+2026-10-08 导入的香山、国家植物园北园与西宁野生动物园分别位于 `tours/china/beijing/xiangshan/`、`tours/china/beijing/north-garden/` 和 `tours/china/qinghai/xining-zoo/`。入口提供站点导航，场景、来源说明、许可和原始数据保留在各项目内。
+
+宝可梦视野地图位于 `tools/lifestyle/pokemon-map/index.html`，归入在线工具的「生活与趣味」。静态页面和图片已随仓库提供；修改 React 源码后，运行 `npm --prefix tools/lifestyle/pokemon-map/deployment ci` 和 `npm --prefix tools/lifestyle/pokemon-map/deployment run build`，检查使用该目录的 `npm test`。构建同时更新 `.worker/site.mjs`；根目录的 Cloudflare `wrangler.jsonc` 仅将该工具的 `/tools/lifestyle/pokemon-map/api/*` 交给数据服务，其他页面仍由静态资源提供。本地预览使用 `node scripts/serve-site.mjs 8194`，同时提供页面与数据接口；纯 GitHub Pages 无数据接口时会提示服务未连接。来源授权与固定参考目录的原采集日期保持明确标注。
+
 3D云游入口为 `tours.html`，国家、地区筛选使用 `?country=china&region=beijing`，景点静态页面按 `tours/<国家>/<地区>/<景点>/` 保存。场景源码保留在 `tiantan/`、`forbidden-city/`、`summer-palace/`、`beijing-zoo/`；修改场景后，在已安装各项目依赖的环境运行 `node scripts/build-tours.mjs`，将构建产物更新到公开目录。仅更新动物园可运行 `node scripts/build-tours.mjs --only beijing-zoo`。部署直接使用 `tours/`，无需浏览器端构建或开发服务器；场景内的资料说明与素材署名随静态版本保留。栏目缩略图来自本地三维场景截图，存放在 `assets/tours/`。动物园的精度、物种依据、素材许可及测试记录见 [项目说明](beijing-zoo/README.md)。
+
+平潭入口位于「3D云游 → 中国 → 福建 → 平潭 · 海坛岛」，源码在 `pingtan/`，静态版本在 `tours/china/fujian/pingtan/`。在 `pingtan/` 运行 `npm run build` 与 `python scripts/package-static.py` 更新公开目录和独立下载包。场景身份标识在站点路径下可返回福建景点目录；地理依据和近似、缺失清单随页面保留。

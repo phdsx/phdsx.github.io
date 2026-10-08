@@ -1,0 +1,10 @@
+Copernicus: see COP-DEM-NOTICE.txt and COP-DEM-LICENSE.pdf for the full required notices.
+
+Copernicus DSM: © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018, provided under COPERNICUS by the European Union and ESA; all rights reserved.
+
+OSM geographic source and derived database: © OpenStreetMap contributors, ODbL 1.0.
+https://opendatacommons.org/licenses/odbl/1-0/
+
+Poly Haven textures: CC0 1.0, https://polyhaven.com/license
+
+Photographs: see assets/references/photo-attribution.json and SOURCES.md.

@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-08 Asia/Shanghai",
+  "base": "http://127.0.0.1:5191/",
+  "passed": true,
+  "errors": [],
+  "checks": [
+    "Fujian has three destinations; all regions have eleven",
+    "Pingtan preview image loads",
+    "Jingsha keyword returns Pingtan",
+    "Card opens actual ready 3D scene",
+    "Scene returns to Fujian directory",
+    "English card label and global search registration"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "fps": 9.756486072118362,
+  "frameTimeMeanMs": 102.49591836734685,
+  "frames": 49,
+  "seconds": 5,
+  "renderer": "WebKit WebGL",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "viewport": [
+    1280,
+    720
+  ],
+  "pixelRatio": 1,
+  "quality": "medium",
+  "mode": "walk",
+  "triangles": 1023545,
+  "calls": 92,
+  "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x000046A6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "logicalProcessors": 16,
+  "date": "2026-10-03",
+  "timestamp": "2026-10-03T00:21:25.989Z",
+  "warmupSeconds": 2
+}

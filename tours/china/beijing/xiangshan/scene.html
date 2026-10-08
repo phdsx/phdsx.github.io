@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="基于 Copernicus DSM 和 OpenStreetMap 的北京香山公园米制三维游览。附数据来源与精度边界。">
+  <title>香山 · 秋日山行</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2332362d'/%3E%3Cpath d='M9 47 28 18l11 17 6-9 12 21' fill='none' stroke='%23dfaa64' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js","three/addons/":"./assets/vendor/"}}</script>
+</head>
+<body>
+  <canvas id="scene" aria-label="香山公园三维场景，可拖动旋转或在步行模式下沿路移动"></canvas>
+  <header class="mast"><div class="seal">香<br>山</div><div><div class="eyebrow">BEIJING · FRAGRANT HILLS</div><h1>秋日山行</h1><div class="subtitle">北京香山公园 <span>39°59′ N · 116°11′ E</span></div></div></header>
+  <nav class="top-actions" aria-label="浏览模式"><button id="orbit" class="active" aria-pressed="true">◉ <span>全园鸟瞰</span></button><button id="walk" aria-pressed="false">↟ <span>步行游览</span></button><button id="info" aria-label="资料与精度说明">ⓘ</button></nav>
+  <div id="poi-labels"></div>
+  <aside class="location"><div id="location-kicker">西山 · 秋色</div><h2 id="location-name">层林之间</h2><p id="location-description">从山麓向西，沿真实步道读懂香山的高差。</p><div class="tags"><span id="evidence">真实地形 · 近似景观</span><span id="altitude">米制场景</span></div></aside>
+  <div class="side-tools"><button id="home" aria-label="回到全园默认视角" title="回到全园">⌂</button><button id="labels" aria-label="切换景点标注" aria-pressed="true" title="景点标注">标</button><button id="route" aria-label="切换登山路线" aria-pressed="false" title="登山路线">⌁</button><button id="quality" title="切换画质">高</button><button id="fullscreen" aria-label="全屏" title="全屏">⛶</button></div>
+  <div class="compass" aria-label="正北方向"><div id="north-arrow">N<br><span>↑</span></div></div>
+  <footer>
+    <div class="destinations" aria-label="景点跳转"><span class="dest-label">寻 景</span><button data-poi="east">01 <b>东门</b></button><button data-poi="hall">02 <b>勤政殿</b></button><button data-poi="lake">03 <b>静翠湖</b></button><button data-poi="villa">04 <b>双清别墅</b></button><button data-poi="peak">05 <b>香炉峰</b></button></div>
+    <div class="footline"><span id="controls-help">拖动旋转 · 滚轮缩放 · 右键平移</span><span id="performance">加载真实地形…</span><span class="credit">© OSM contributors · Copernicus DEM</span></div>
+  </footer>
+  <div id="toast" role="status"></div>
+  <div id="walk-pad" hidden><button data-key="KeyW" aria-label="前进">↑</button><div><button data-key="KeyA" aria-label="左移">←</button><button data-key="KeyS" aria-label="后退">↓</button><button data-key="KeyD" aria-label="右移">→</button></div></div>
+  <div id="loading" role="status"><div class="load-seal">香 山</div><h2>沿山而行</h2><p id="load-text">读取地形与路径</p><progress id="load-progress" max="100" value="2"></progress><small>真实地理 · 秋日下午 · 1 单位 = 1 米</small><div id="load-error" hidden></div></div>
+  <dialog id="data-dialog"><button id="close-info" class="close" aria-label="关闭">×</button><div class="eyebrow">ABOUT THIS RECONSTRUCTION</div><h2>看见香山，也看见数据的边界。</h2><p>这是可交互的地理与景观原型，<strong>尚非摄影级或测绘级 1∶1 成品</strong>。重点近景为勤政殿前区，其他区域逐步完善。</p><dl><dt>有数据支撑</dt><dd>Copernicus GLO-30 DSM；OSM 公园边界、道路中心线、勤政殿和水体轮廓。WGS84 → UTM 50N，局部米制坐标，无高度夸张。</dd><dt>照片近似 / 场景推测</dt><dd>勤政殿屋面、门窗、柱梁与殿前石桥按照片概括；高度、台基、水位、石阶和无标签的道路宽度未经测量。植被为程序化景观配置，无单木调查依据。</dd><dt>仍然缺少</dt><dd>官方测绘边界、裸地 DTM / 激光点云、实测建筑尺寸、逐级石阶及院落竣工图、现场植被分布和可授权的香山扫描模型。东门、双清院落及山顶建筑未精细重建。</dd></dl><div class="data-pairs"><span>原始采样<br><b>1″ ≈ 24 × 31 m</b></span><span>高程类型<br><b>DSM · EGM2008</b></span><span>模型单位<br><b>1 unit = 1 m</b></span></div><p class="fine">地形以 20 米网格双线性重采样显示，不增加测量精度。DSM 含树冠影响；局部建筑基座和水岸为可游览性作了未测量的地面整平。屏幕里的秋色、光照和材质是美术近似。</p><p><a href="SOURCES.md" target="_blank">数据与素材来源 ↗</a>　<a href="ACCURACY.md" target="_blank">精度及完成清单 ↗</a></p><p class="fine">Produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. <a href="assets/licenses/COP-DEM-NOTICE.txt" target="_blank">完整数据许可声明</a></p><div class="references"><figure><img src="assets/references/hall-autumn.jpg" alt="勤政殿前栏杆、台阶与秋叶参考照片"><figcaption>勤政殿 · 果布 / CC BY-SA 3.0</figcaption></figure><figure><img src="assets/references/hall-bridge.jpg" alt="勤政殿前石桥与门窗参考照片"><figcaption>殿前石桥 · Chen Zhi / CC BY 3.0</figcaption></figure></div></dialog>
+  <script>window.addEventListener('error',e=>{if(window.sceneReady)return;const d=document.getElementById('load-error');d.hidden=false;d.textContent='场景未能启动：'+e.message+'。请使用本地 HTTP 服务打开，并检查 assets 目录是否完整。';});if(location.protocol==='file:'){document.getElementById('load-error').hidden=false;document.getElementById('load-error').textContent='请先运行 start.bat 或 python -m http.server 8000，再打开 http://localhost:8000；直接双击 HTML 会被浏览器阻止读取地形数据。';}</script>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

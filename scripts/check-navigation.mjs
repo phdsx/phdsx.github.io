@@ -28,7 +28,7 @@ assert.equal(resolve('tours.html','?country=china&region=beijing').parent.href,'
 assert.equal(resolve('tours.html','?country=__proto__&region=beijing').country,null);
 assert.equal(resolve('tours.html','?country=china&region=unknown').region,null);
 assert.equal(resolve('tours.html','?region=beijing').region,null);
-for (const [slug,name] of [['tiantan','天坛'],['forbidden-city','故宫'],['summer-palace','颐和园']]) {
+for (const [slug,name] of [['tiantan','天坛'],['forbidden-city','故宫'],['summer-palace','颐和园'],['xiangshan','香山'],['north-garden','国家植物园北园']]) {
   const path = `tours/china/beijing/${slug}/index.html`;
   const tour = resolve(path);
   assert.equal(tour.section,'tours.html');
@@ -36,6 +36,14 @@ for (const [slug,name] of [['tiantan','天坛'],['forbidden-city','故宫'],['su
   assert.equal(tour.crumbs.map(crumb => crumb.zh).join(' / '),`首页 / 3D云游 / 中国 / 北京 / ${name}`);
   await access(new URL('../'+path,import.meta.url));
 }
+const xining = resolve('tours/china/qinghai/xining-zoo/index.html');
+assert.equal(xining.parent.href,'tours.html?country=china&region=qinghai');
+assert.equal(xining.crumbs.map(crumb => crumb.zh).join(' / '),'首页 / 3D云游 / 中国 / 青海 / 西宁野生动物园');
+await access(new URL('../tours/china/qinghai/xining-zoo/index.html',import.meta.url));
+const pokemon = resolve('tools/lifestyle/pokemon-map/index.html');
+assert.equal(pokemon.parent.href,'tools.html?category=lifestyle');
+assert.equal(pokemon.crumbs.at(-1).zh,'宝可梦视野地图');
+await access(new URL('../tools/lifestyle/pokemon-map/index.html',import.meta.url));
 for (const section of Object.keys(sections)) await access(new URL('../'+section,import.meta.url));
 for (const family of Object.keys(categories)) await access(new URL('../'+family+'.html',import.meta.url));
 console.log('Navigation checks passed: root, categories, deep links, aliases, invalid queries, article and chapter parents.');

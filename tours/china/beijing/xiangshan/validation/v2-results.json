@@ -1,0 +1,91 @@
+{
+  "version": "2",
+  "date": "2026-10-04",
+  "checks": {
+    "masonrySurface": {
+      "sampleCount": 41,
+      "maxDifference": 1.003805957111581e-05,
+      "errors": [],
+      "waterOutsideBridgeBlocked": true,
+      "bridgeAccessible": true,
+      "profile": {
+        "umin": -14.7,
+        "umax": 20.81398041719165,
+        "vmin": 10.7,
+        "vmax": 32.297073871172444,
+        "deckY": 130.39208477805792,
+        "bridgeStart": 20.721169329922276,
+        "bridgeEnd": 28.476140327163883,
+        "bridgeHalfWidth": 1.8,
+        "archRise": 0.68,
+        "poolLocal": [
+          [
+            19.71398041719165,
+            22.409442052639005
+          ],
+          [
+            15.823425113717171,
+            28.29707387117244
+          ],
+          [
+            -7.978849724066483,
+            27.513463287648182
+          ],
+          [
+            -11.207514614116498,
+            20.859330434469104
+          ],
+          [
+            19.71398041719165,
+            22.409442052639005
+          ]
+        ]
+      }
+    },
+    "reflections": {
+      "hall": {
+        "reflectionActive": 625875864,
+        "reflectionUpdates": 1,
+        "resolution": 512,
+        "mode": "cached planar reflection"
+      },
+      "stationary": {
+        "reflectionActive": 625875864,
+        "reflectionUpdates": 1,
+        "resolution": 512,
+        "mode": "cached planar reflection"
+      },
+      "moved": {
+        "reflectionActive": 625875864,
+        "reflectionUpdates": 2,
+        "resolution": 512,
+        "mode": "cached planar reflection"
+      },
+      "low": {
+        "reflectionActive": null,
+        "reflectionUpdates": 2,
+        "resolution": 512,
+        "mode": "environment only"
+      },
+      "lake": {
+        "reflectionActive": 605775489,
+        "reflectionUpdates": 4,
+        "resolution": 512,
+        "mode": "cached planar reflection"
+      }
+    },
+    "bridgeKeyboardWalk": {
+      "local": [
+        3.023175647598464e-07,
+        31.89396932992202
+      ],
+      "eye": 1.6800000000000068,
+      "position": [
+        741.9439652852049,
+        132.07208477805793,
+        -73.0071806412593
+      ]
+    }
+  },
+  "consoleErrors": []
+}

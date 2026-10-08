@@ -1,8 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "www",
+  "main": ".worker/site.mjs",
   "compatibility_date": "2026-08-31",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/tools/lifestyle/pokemon-map/api/*"]
   }
 }

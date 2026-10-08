@@ -4,6 +4,18 @@
   const languages = { zh: 'zh-CN', en: 'en' };
   const languageAliases = { zh: 'zh', 'zh-cn': 'zh', chinese: 'zh', en: 'en', 'en-us': 'en', english: 'en' };
   const messages = {
+    'tours.pingtanName': ['平潭 · 海坛岛', 'Pingtan · Haitan Island'],
+    'tours.pingtan': ['沿真实岸线与地形鸟瞰、飞行，探访北港、镜沙和仙人井；局部地貌为参考近似，附来源与缺失说明。', 'Fly over mapped coastline and terrain, and explore Beigang, Jingsha and Xianren Well, with approximate local models, sources and missing-data notes.'],
+    'tours.qinghai': ['青海', 'Qinghai'],
+    'tours.xiangshanName': ['香山', 'Fragrant Hills'],
+    'tours.northGardenName': ['国家植物园北园', 'China National Botanical Garden · North Garden'],
+    'tours.xiningZooName': ['西宁野生动物园', 'Xining Wildlife Park'],
+    'tours.xiangshan': ['沿真实地形与步道探索勤政殿、静翠湖和香炉峰，查看场景来源与精度说明。', 'Explore mapped paths and terrain around Qinzheng Hall, Jingcui Lake and Xianglu Peak, with sources and accuracy notes.'],
+    'tours.northGarden': ['鸟瞰或步行探索北园、温室与湖畔，查看开放地图和地形重建的依据。', 'Explore the north garden, greenhouse and lakes on foot or from above, with map and terrain sources.'],
+    'tours.xiningZoo': ['在公开地图与高程构成的三维园区中漫游，核对地点资料与还原边界。', 'Explore a 3D park based on public maps and elevation, with place records and reconstruction limits.'],
+    'tours.returnQinghai': ['返回青海景点', 'Back to Qinghai tours'],
+    'tools.pokemonName': ['宝可梦视野地图', 'Pokémon Viewport Map'],
+    'tools.pokemonDescription': ['按地图视野查看宝可梦、道馆和补给站，支持地区数据源与筛选。', 'Browse Pokémon, gyms and PokéStops in the map viewport, with regional sources and filters.'],
     'common.tours': ['3D云游', '3D Tours'],
     'tours.china': ['中国', 'China'],
     'tours.beijing': ['北京', 'Beijing'],

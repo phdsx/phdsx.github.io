@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#172822"><title>西宁野生动物园 · 空间资料核对</title>
+  <meta name="description" content="基于公开地图与高程的西宁野生动物园 Three.js 空间核对工程。明确标注资料来源、未确认内容和还原边界。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23172822'/%3E%3Cpath d='M5 24L13 8l5 10 4-7 6 13' fill='none' stroke='%23d8c498' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js"}}</script>
+</head>
+<body>
+  <main id="app">
+    <div id="viewport" aria-label="园区三维地形与地图，可旋转、缩放、平移"></div>
+    <header class="topbar">
+      <div class="identity"><span class="brand-mark" aria-hidden="true">山</span><div><h1>西宁野生动物园</h1><span class="eyebrow">空间资料核对 <i></i> XINING WILDLIFE PARK</span></div></div>
+      <nav class="modes" aria-label="参观模式"><button id="orbit-mode" class="active" aria-pressed="true">鸟瞰全园</button><button id="walk-mode" aria-pressed="false">步行核对</button></nav>
+      <div class="top-actions"><button id="layer-toggle" aria-expanded="false" aria-controls="layers">图层</button><button id="help-open" aria-label="操作说明">?</button></div>
+    </header>
+    <aside class="places-panel panel" id="places-panel">
+      <div class="panel-heading"><span class="eyebrow">园区地点</span><button id="places-toggle" aria-expanded="true" aria-label="收起地点列表">−</button></div>
+      <div id="places-content"><div id="places-list"></div><p class="panel-footnote">地点来自公开地图，需现场复核。</p></div>
+    </aside>
+    <section id="layers" class="panel layers hidden" aria-label="显示设置">
+      <h2>显示设置</h2>
+      <label><input type="checkbox" id="show-roads" checked> 道路中心线与参考宽度</label>
+      <label><input type="checkbox" id="show-buildings" checked> 建筑占地轮廓</label>
+      <label><input type="checkbox" id="show-labels" checked> 地点标记</label>
+      <label><input type="checkbox" id="show-contours" checked> 10 米等高线</label>
+      <label>画质 <select id="quality"><option value="low">低 · 移动设备</option><option value="medium" selected>中 · 推荐</option><option value="high">高 · 桌面显卡</option></select></label>
+      <p>地形着色只表示高程。当前没有现场植被与材质贴图。</p>
+    </section>
+    <div id="poi-labels" aria-hidden="true"></div>
+    <section class="survey-note"><span class="status-label">资料核对版</span><span>米制地形与平面布局</span><button id="evidence-open">查看还原边界</button></section>
+    <aside class="detail-panel panel hidden" id="detail-panel" aria-live="polite"><button class="close" id="detail-close" aria-label="关闭地点详情">×</button><span class="eyebrow" id="detail-type">社区地图 · 待核验</span><h2 id="detail-name"></h2><p id="detail-text"></p><dl id="detail-facts"></dl><a id="detail-source" target="_blank" rel="noopener noreferrer">打开地图来源 ↗</a><button class="primary" id="detail-visit">到附近道路</button></aside>
+    <div class="bottom-left"><div class="view-title"><span class="eyebrow" id="view-index">01 / 全园</span><h2 id="view-name">沿山势，读懂园区</h2></div><div class="legend"><span><i class="road"></i>道路线位</span><span><i class="building"></i>建筑轮廓</span><span><i class="boundary"></i>园区边界</span></div><p id="controls-hint">拖动旋转 · 滚轮缩放 · 右键平移</p><div class="telemetry"><span id="position">坐标加载中</span><span id="performance">— FPS</span></div></div>
+    <aside class="minimap panel"><div class="map-heading"><span>园区概览</span><button id="reset-view" title="返回全园">全园</button></div><canvas id="map" width="560" height="380" aria-label="园区小地图，显示位置和朝向"></canvas><div class="map-bottom"><span>WGS84 / 米</span><span id="map-scale">100 m</span></div></aside>
+    <div class="walk-tools hidden" id="walk-tools"><button id="pointer-lock">锁定鼠标</button><span>Esc 退出锁定</span></div>
+    <div id="joystick" class="joystick hidden" aria-label="触控移动"><div></div></div>
+    <div id="crosshair" class="hidden" aria-hidden="true">+</div>
+    <div id="toast" class="hidden" role="status"></div>
+    <footer><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors · ODbL</a><span>高程：Mapzen · USGS · NOAA</span><span>资料获取 2026.10.02</span></footer>
+    <section id="loading" class="loading" aria-live="polite"><div class="load-card"><span class="eyebrow">XINING / SPATIAL STUDY</span><h2>正在载入园区资料</h2><p id="load-status">准备本地数据与渲染模块</p><progress id="load-progress" max="100" value="0"></progress><span id="load-counter">0 / 9 项核心资源</span><div id="load-error" class="hidden"><p></p><button onclick="location.reload()">重新加载</button></div></div></section>
+  </main>
+  <dialog id="help-dialog"><button class="close dialog-close" aria-label="关闭说明">×</button><span class="eyebrow">操作说明</span><h2>自由查看，逐项核对</h2><div class="help-grid"><div><h3>鸟瞰全园</h3><p>鼠标左键拖动旋转，滚轮缩放，右键拖动平移。触屏用单指旋转、双指缩放和平移。</p></div><div><h3>步行核对</h3><p>WASD 或方向键移动，拖动景观转向。可点击“锁定鼠标”，按 Esc 随时退出。触屏用左下摇杆移动、拖动空白景观转向。</p></div></div><p>相机眼高 1.65 米。步行限制在已录入的参考道路上，并阻挡建筑轮廓、水面与园区边界；不代表现场通行许可。桥梁及员工通道不参与步行。</p><p>点击地点或小地图可定位；跳转落点会吸附到附近可行走道路。</p></dialog>
+  <dialog id="evidence-dialog"><button class="close dialog-close" aria-label="关闭还原说明">×</button><span class="eyebrow">还原依据与边界</span><h2>尺度明确，精度有边界</h2><div class="evidence-summary"><strong>1 单位 = 1 米</strong><span>这是坐标单位约定，不是测绘精度承诺。</span></div><h3>当前有依据的部分</h3><ul><li>OSM 社区记录的园区边界、道路中心线、部分建筑占地轮廓。</li><li>Mapzen 高程瓦片解码得到的地形。10 米为采样网格间距，底层 DEM 精度及现场误差未核验。</li></ul><p>社区地图边界面积约 53.0 公顷；市政府 2020 年介绍为 1500 亩（约 100 公顷）。范围或统计口径尚未核清，当前边界不能视为测绘边界。</p><h3>可核实的公开来源</h3><ul><li><a href="https://www.xining.gov.cn/zjxn/xnst/ztgy/202105/t20210521_148088.html" target="_blank" rel="noopener noreferrer">西宁市政府：园区介绍（页面日期 2020-12-15）</a></li><li><a href="http://www.qinghai.gov.cn/msfw/system/2021/05/01/010381965.shtml" target="_blank" rel="noopener noreferrer">青海省政府：新大门启用（2021-05-01）</a></li><li><a href="https://news.qq.com/rain/a/20260421A06VL600" target="_blank" rel="noopener noreferrer">园方：北侧道路施工公告（2026-04-21）</a></li></ul><h3>尚未确认的部分</h3><p>道路宽度暂用 6 米 / 2.5 米作为显示与导航参数；不代表实测。建筑只画贴地轮廓，不推测高度。没有生成门楼、立面、围栏、植被和动物。</p><p>真实主入口机位、季节、天气与拍摄时间未确定。默认先展示鸟瞰全园。中性日光用于读图，不模拟已确认的现场时刻。</p><p>高程来源署名：Mapzen；SRTM / GMTED2010 数据由 U.S. Geological Survey 提供，全球 ETOPO1 来自 U.S. National Oceanic and Atmospheric Administration。<a href="./assets/data/terrain-attribution.txt" target="_blank" rel="noopener noreferrer">完整数据署名与说明</a>。</p><h3>完成写实版本最需要的资料</h3><ol><li>带比例尺、北向与日期的园区导览图或正射影像。</li><li>主入口正面、道路转角、指定展区各一组原始照片及拍摄位置。</li><li>入口宽高、道路宽度、建筑檐高、场地高差与围栏位置。</li><li>具有使用授权的植物、动物模型与材质。</li></ol><p class="muted">当前为可继续建模的资料核对工程，未达到写实成品与三机位照片验收要求。</p></dialog>
+  <script type="module" src="./js/bootstrap.js"></script>
+</body></html>

@@ -1,0 +1,26 @@
+{
+  "version": "2",
+  "date": "2026-10-04",
+  "checks": [
+    {
+      "file": "assets/geo/height.f32",
+      "unchangedFromV1": true,
+      "sha256": "c6565ab6aadf2e8a968b241dd790bb23fa453460a107933fda38ada1a76205b9"
+    },
+    {
+      "file": "assets/geo/scene.json",
+      "unchangedFromV1": true,
+      "sha256": "4a9c2571e79eada93ab76521e480f46befb1994eba59b057228ebbc6f89cc2cf"
+    },
+    {
+      "file": "assets/geo/osm-source.json",
+      "unchangedFromV1": true,
+      "sha256": "114d9bd815c795299188e577663435cd2ed2df92a08d79c68158b649406ea862"
+    },
+    {
+      "file": "geographic-validation.json",
+      "unchangedFromV1": true,
+      "sha256": "d95034c029a7ec2aa90c7980f99de03a9014ba0c8652677e39576aeae586d1f5"
+    }
+  ]
+}

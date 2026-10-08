@@ -1,0 +1,108 @@
+{
+  "data": {
+    "finiteHeights": 225951,
+    "textureMd5Matches": 15,
+    "boundaryClosed": true,
+    "roads": 387,
+    "roadsWithMeasuredWidthTags": 0,
+    "scale": 1
+  },
+  "orbitDragAndZoom": true,
+  "landmarkPresets": [
+    {
+      "key": "east",
+      "position": [
+        822.729,
+        144.108,
+        -68.938
+      ],
+      "clearance": 21.12074009685699
+    },
+    {
+      "key": "hall",
+      "position": [
+        769.5492663976402,
+        139.64208477805792,
+        -80.28016541341216
+      ],
+      "clearance": 14.5982250576549
+    },
+    {
+      "key": "lake",
+      "position": [
+        779.08,
+        146.1374862560174,
+        72.011
+      ],
+      "clearance": 18.799999999999997
+    },
+    {
+      "key": "villa",
+      "position": [
+        664.987,
+        230.797,
+        437.98199999999997
+      ],
+      "clearance": 24.912881721766723
+    },
+    {
+      "key": "peak",
+      "position": [
+        -823.113,
+        634.787,
+        -151.88099999999997
+      ],
+      "clearance": 71.87620330704999
+    }
+  ],
+  "walkingFromEast": {
+    "startDistanceToEastM": 0.0,
+    "travelledM": 2.5340959032052086
+  },
+  "walkSurface": {
+    "eyeHeight": 1.678806499730399,
+    "distanceToRoad": 0.13106121737423954
+  },
+  "lowQualityDedicatedSample": {
+    "fps": 59.26450100616972,
+    "samples": 268,
+    "state": {
+      "ready": true,
+      "flying": false,
+      "mode": "orbit",
+      "quality": "low",
+      "camera": [
+        1729.999999999999,
+        1170.0000000000005,
+        1419.9999999999998
+      ],
+      "target": [
+        -70,
+        330,
+        -120
+      ],
+      "fps": 59.34131144298289,
+      "frameSamples": 300,
+      "drawCalls": 113,
+      "triangles": 466238,
+      "trees": 50650,
+      "water": {
+        "reflectionActive": null,
+        "reflectionUpdates": 4,
+        "resolution": 512,
+        "mode": "environment only"
+      },
+      "errors": [],
+      "viewport": [
+        1100,
+        760
+      ],
+      "pixelRatio": 0.7,
+      "three": "170",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+    }
+  },
+  "blockedRemoteRequests": [],
+  "touchPoiAndDialog": true,
+  "missingCoreAssetMessage": "加载失败：geo/height.f32 (404)。请检查本地服务和 assets 文件夹；刷新可重新尝试。"
+}

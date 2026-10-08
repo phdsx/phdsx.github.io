@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/design-system.css?v=20260920a">
   <link rel="stylesheet" href="assets/ubuntu.css?v=20261001toursdock">
   <link rel="stylesheet" href="assets/tours.css?v=20261001tours">
-  <script src="assets/navigation.js?v=20261007mawei"></script>
+  <script src="assets/navigation.js?v=20261008pingtan"></script>
   <script defer src="assets/design-system.js?v=20261001toursdock"></script>
 </head>
 <body>
@@ -27,10 +27,10 @@
       </div>
       <form class="tours-filters" role="search" aria-label="搜索景点" hidden>
         <label><span data-i18n="tours.country">国家</span><select id="tour-country" aria-controls="tour-groups"><option value="" data-i18n="tours.allCountries">全部国家</option><option value="china">中国</option></select></label>
-        <label><span data-i18n="tours.region">地区</span><select id="tour-region" aria-controls="tour-groups" disabled><option value="" data-i18n="tours.allRegions">全部地区</option><option value="beijing">北京</option><option value="fujian">福建</option></select></label>
+        <label><span data-i18n="tours.region">地区</span><select id="tour-region" aria-controls="tour-groups" disabled><option value="" data-i18n="tours.allRegions">全部地区</option><option value="beijing">北京</option><option value="fujian">福建</option><option value="qinghai">青海</option></select></label>
         <label class="tours-search"><span data-i18n="tours.search">搜索景点</span><input id="tour-search" type="search" placeholder="搜索景点或地标，例如：祈年殿、昆明湖" data-i18n-attr="placeholder:tours.placeholder" aria-controls="tour-groups" autocomplete="off"></label>
       </form>
-      <p id="tour-status" class="tours-status" role="status" aria-live="polite">共 6 个景点</p>
+      <p id="tour-status" class="tours-status" role="status" aria-live="polite">共 11 个景点</p>
       <div id="tour-groups">
         <section class="tour-country-group" data-country="china" aria-labelledby="china-title">
           <h2 id="china-title" class="tour-country-title"><a href="tours.html?country=china">中国</a><span>CHINA</span></h2>
@@ -67,10 +67,22 @@
                   <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>北京</span></p><h4>北京动物园</h4><p class="tour-description" data-i18n="tours.beijingZoo">按公开地图漫游园区，查询有来源的场馆与动物分布资料。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
                 </a>
               </article>
+              <article class="tour-card" data-tour="xiangshan" data-keywords="香山 秋日山行 勤政殿 静翠湖 双清别墅 香炉峰 中国 北京 Fragrant Hills Xiangshan Beijing">
+                <a class="tour-card-link" href="tours/china/beijing/xiangshan/index.html">
+                  <div class="tour-card-preview"><img src="tours/china/beijing/xiangshan/validation/01-overview.png" alt="香山三维场景运行截图" width="960" height="540" loading="lazy"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>北京</span></p><h4 data-i18n="tours.xiangshanName">香山</h4><p class="tour-description" data-i18n="tours.xiangshan">沿真实地形与步道探索勤政殿、静翠湖和香炉峰，查看场景来源与精度说明。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
+              <article class="tour-card" data-tour="north-garden" data-keywords="国家植物园 北园 温室 卧佛寺 樱桃沟 中国 北京 National Botanical Garden North Garden Beijing">
+                <a class="tour-card-link" href="tours/china/beijing/north-garden/index.html">
+                  <div class="tour-card-preview"><img src="tours/china/beijing/north-garden/docs/screenshots/overview.jpg" alt="国家植物园北园三维场景运行截图" width="960" height="540" loading="lazy"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>北京</span></p><h4 data-i18n="tours.northGardenName">国家植物园北园</h4><p class="tour-description" data-i18n="tours.northGarden">鸟瞰或步行探索北园、温室与湖畔，查看开放地图和地形重建的依据。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
             </div>
           </section>
           <section class="tour-region-group" data-region="fujian" aria-labelledby="fujian-title">
-            <div class="tour-region-heading"><h3 id="fujian-title"><a href="tours.html?country=china&amp;region=fujian">福建</a></h3><p>真实地图布局与有精度说明的建筑参考场景。</p></div>
+            <div class="tour-region-heading"><h3 id="fujian-title"><a href="tours.html?country=china&amp;region=fujian">福建</a></h3><p>真实地图布局与有精度说明的建筑、海岛参考场景。</p></div>
             <div class="tour-grid">
               <article class="tour-card" data-tour="mawei-shipyard" data-keywords="马尾船政 福州 福建 绘事院 轮机车间 铁胁厂 工业遗产 博物馆 近似 地理资料 中国 Mawei Foochow Arsenal Shipyard Fujian China">
                 <a class="tour-card-link" href="tours/china/fujian/mawei-shipyard/index.html">
@@ -84,6 +96,23 @@
                   <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>福建 · 福州</span></p><h4>三坊七巷</h4><p class="tour-description">依真实街巷与建筑轮廓漫游；南后街约 150 米照片近似样板，附来源、估算和缺失说明。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
                 </a>
               </article>
+              <article class="tour-card" data-tour="pingtan" data-keywords="平潭 海坛岛 福建 海岛 海岸 沙滩 北港 石厝 龙王头 小火车 长江澳 海上风机 镜沙 仙人井 石牌洋 猴研岛 象鼻湾 君山 将军山 南寨山 澳前 鸟瞰 飞行 地理资料 近似 中国 Pingtan Haitan Island Fujian China">
+                <a class="tour-card-link" href="tours/china/fujian/pingtan/index.html">
+                  <div class="tour-card-preview"><img src="assets/tours/pingtan.webp" alt="平潭海坛岛真实地理数据三维场景的运行截图" width="960" height="540" loading="lazy"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>福建 · 平潭</span></p><h4 data-i18n="tours.pingtanName">平潭 · 海坛岛</h4><p class="tour-description" data-i18n="tours.pingtan">沿真实岸线与地形鸟瞰、飞行，探访北港、镜沙和仙人井；局部地貌为参考近似，附来源与缺失说明。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
+            </div>
+          </section>
+          <section class="tour-region-group" data-region="qinghai" aria-labelledby="qinghai-title">
+            <div class="tour-region-heading"><h3 id="qinghai-title"><a href="tours.html?country=china&amp;region=qinghai">青海</a></h3><p data-i18n="tours.help">拖动旋转、滚轮缩放，也可切换步行模式。</p></div>
+            <div class="tour-grid">
+              <article class="tour-card" data-tour="xining-zoo" data-keywords="西宁 野生动物园 地形 地图 资料 核对 中国 青海 Xining Zoo Wildlife Park Qinghai">
+                <a class="tour-card-link" href="tours/china/qinghai/xining-zoo/index.html">
+                  <div class="tour-card-preview"><img src="tours/china/qinghai/xining-zoo/docs/screenshots/01-overview.png" alt="西宁野生动物园三维场景运行截图" width="960" height="540" loading="lazy"><span>3D</span></div>
+                  <div class="tour-card-body"><p class="tour-location"><span>中国</span> · <span>青海</span></p><h4 data-i18n="tours.xiningZooName">西宁野生动物园</h4><p class="tour-description" data-i18n="tours.xiningZoo">在公开地图与高程构成的三维园区中漫游，核对地点资料与还原边界。</p><span class="tour-action" data-i18n="tours.enter">开始云游 →</span></div>
+                </a>
+              </article>
             </div>
           </section>
         </section>
@@ -92,7 +121,7 @@
     </section>
   </main>
   <footer class="site-footer"><span>PHDSX © 2026</span><nav aria-label="页脚导航"><a href="index.html">首页</a><a href="tours.html">3D云游</a></nav></footer>
-  <script src="assets/i18n.js?v=20261001tours"></script>
+  <script src="assets/i18n.js?v=20261008pingtan"></script>
   <script src="assets/site.js?v=20261001tours"></script>
   <script src="assets/tours.js?v=20261001tours"></script>
 </body>

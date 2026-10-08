@@ -1,0 +1,12 @@
+{
+  "name": "xining-zoo-spatial-study",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check dist/js/main.js && node --check dist/js/spatial.js && node --check dist/js/surfaces.js && node --check dist/js/bootstrap.js",
+    "test:surfaces": "node tools/surface-check.mjs"
+  },
+  "description": "Evidence-based Three.js spatial study; not a completed photorealistic reconstruction"
+}

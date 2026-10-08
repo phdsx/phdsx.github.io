@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-03",
+  "timestamp": "2026-10-03T00:28:24.535Z",
+  "counts": {
+    "buildings": 29,
+    "water": 7,
+    "roads": 429,
+    "trees": 8029
+  },
+  "maxRoundtripDegrees": 1.4210854715202004e-14,
+  "maxGeometryErrorMetres": 0.0006890605971867665,
+  "maxRenderedGroundHeightErrorMetres": 8.188476385839749e-7,
+  "buildingCollisionSamples": 28,
+  "waterCollisionSamples": 7,
+  "minimumTreeCrownClearanceMetres": 3.0102343691713553,
+  "southGardenExcluded": true,
+  "distanceChecks": [
+    {
+      "from": {
+        "id": "286251933",
+        "name": "国家植物园南门",
+        "lon": 116.2035258,
+        "lat": 39.9935088,
+        "local": [
+          87.605,
+          831.782
+        ],
+        "timestamp": "2025-12-14T12:40:38Z",
+        "version": "6"
+      },
+      "to": {
+        "id": "286251830",
+        "name": "北纬40度",
+        "lon": 116.2023833,
+        "lat": 39.9997499,
+        "local": [
+          -9.965,
+          138.804
+        ],
+        "timestamp": "2008-08-08T14:29:36Z",
+        "version": "1"
+      },
+      "referenceMetres": 699.8125906762797,
+      "sceneMetres": 699.8131274733278,
+      "errorMetres": 0.0005367970480847362,
+      "errorPercent": 0.00007670582885140581,
+      "interpretation": "Coordinate pipeline check against OSM WGS84. Not an independent surveyed ground truth."
+    },
+    {
+      "from": {
+        "id": "286251830",
+        "name": "北纬40度",
+        "lon": 116.2023833,
+        "lat": 39.9997499,
+        "local": [
+          -9.965,
+          138.804
+        ],
+        "timestamp": "2008-08-08T14:29:36Z",
+        "version": "1"
+      },
+      "to": {
+        "id": "2274622928",
+        "name": "曹雪芹纪念馆",
+        "lon": 116.2066813,
+        "lat": 39.9977461,
+        "local": [
+          357.069,
+          361.287
+        ],
+        "timestamp": "2013-04-21T05:08:13Z",
+        "version": "1"
+      },
+      "referenceMetres": 429.200378754509,
+      "sceneMetres": 429.20000284832247,
+      "errorMetres": -0.0003759061865480362,
+      "errorPercent": -0.00008758291118914514,
+      "interpretation": "Coordinate pipeline check against OSM WGS84. Not an independent surveyed ground truth."
+    },
+    {
+      "from": {
+        "id": "2274622928",
+        "name": "曹雪芹纪念馆",
+        "lon": 116.2066813,
+        "lat": 39.9977461,
+        "local": [
+          357.069,
+          361.287
+        ],
+        "timestamp": "2013-04-21T05:08:13Z",
+        "version": "1"
+      },
+      "to": {
+        "id": "402451101",
+        "name": "水源头",
+        "lon": 116.193172,
+        "lat": 40.0111272,
+        "local": [
+          -796.425,
+          -1124.513
+        ],
+        "timestamp": "2013-01-22T03:10:15Z",
+        "version": "2"
+      },
+      "referenceMetres": 1880.9968549276966,
+      "sceneMetres": 1880.997088789879,
+      "errorMetres": 0.0002338621823128051,
+      "errorPercent": 0.000012432885344818637,
+      "interpretation": "Coordinate pipeline check against OSM WGS84. Not an independent surveyed ground truth."
+    }
+  ]
+}

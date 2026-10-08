@@ -1,0 +1,257 @@
+{
+  "browser": "154.0.4258.53",
+  "overview": {
+    "ready": true,
+    "flying": false,
+    "mode": "orbit",
+    "quality": "high",
+    "camera": [
+      1729.999999999999,
+      1170.0000000000005,
+      1419.9999999999998
+    ],
+    "target": [
+      -70,
+      330,
+      -120
+    ],
+    "fps": 36.84556282261091,
+    "frameSamples": 258,
+    "drawCalls": 113,
+    "triangles": 466238,
+    "trees": 50650,
+    "water": {
+      "reflectionActive": null,
+      "reflectionUpdates": 0,
+      "resolution": 512,
+      "mode": "environment only"
+    },
+    "errors": [],
+    "viewport": [
+      1440,
+      900
+    ],
+    "pixelRatio": 1,
+    "three": "170",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+  },
+  "consoleErrors": [],
+  "httpErrors": [],
+  "hall": {
+    "ready": true,
+    "flying": false,
+    "mode": "orbit",
+    "quality": "high",
+    "camera": [
+      769.5492663976402,
+      139.64208477805803,
+      -80.28016541341208
+    ],
+    "target": [
+      720.1227636163461,
+      133.64208477805792,
+      -71.2236306008732
+    ],
+    "fps": 28.938534552610257,
+    "frameSamples": 300,
+    "drawCalls": 98,
+    "triangles": 792038,
+    "trees": 50650,
+    "water": {
+      "reflectionActive": 625875864,
+      "reflectionUpdates": 3,
+      "resolution": 512,
+      "mode": "cached planar reflection"
+    },
+    "errors": [],
+    "viewport": [
+      1440,
+      900
+    ],
+    "pixelRatio": 1,
+    "three": "170",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+  },
+  "walk": {
+    "before": {
+      "ready": true,
+      "flying": false,
+      "mode": "walk",
+      "quality": "high",
+      "camera": [
+        768.729,
+        126.90756921754668,
+        -80.938
+      ],
+      "target": [
+        710.156,
+        135.14208477805792,
+        -70.409
+      ],
+      "fps": 16.369737811366054,
+      "frameSamples": 300,
+      "drawCalls": 101,
+      "triangles": 802238,
+      "trees": 50650,
+      "water": {
+        "reflectionActive": null,
+        "reflectionUpdates": 36,
+        "resolution": 512,
+        "mode": "environment only"
+      },
+      "errors": [],
+      "viewport": [
+        1440,
+        900
+      ],
+      "pixelRatio": 1,
+      "three": "170",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+    },
+    "after": {
+      "ready": true,
+      "flying": false,
+      "mode": "walk",
+      "quality": "high",
+      "camera": [
+        766.0989168780136,
+        126.9845737852764,
+        -80.75345007736907
+      ],
+      "target": [
+        710.156,
+        135.14208477805792,
+        -70.409
+      ],
+      "fps": 14.989657136575763,
+      "frameSamples": 300,
+      "drawCalls": 101,
+      "triangles": 802238,
+      "trees": 50650,
+      "water": {
+        "reflectionActive": null,
+        "reflectionUpdates": 36,
+        "resolution": 512,
+        "mode": "environment only"
+      },
+      "errors": [],
+      "viewport": [
+        1440,
+        900
+      ],
+      "pixelRatio": 1,
+      "three": "170",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+    }
+  },
+  "lowQuality": {
+    "ready": true,
+    "flying": false,
+    "mode": "orbit",
+    "quality": "low",
+    "camera": [
+      1729.999999999999,
+      1170.0000000000005,
+      1419.9999999999998
+    ],
+    "target": [
+      -70,
+      330,
+      -120
+    ],
+    "fps": 18.933895459651865,
+    "frameSamples": 300,
+    "drawCalls": 114,
+    "triangles": 466238,
+    "trees": 50650,
+    "water": {
+      "reflectionActive": null,
+      "reflectionUpdates": 38,
+      "resolution": 512,
+      "mode": "environment only"
+    },
+    "errors": [],
+    "viewport": [
+      1440,
+      900
+    ],
+    "pixelRatio": 0.7,
+    "three": "170",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+  },
+  "mobile": {
+    "ready": true,
+    "flying": false,
+    "mode": "orbit",
+    "quality": "low",
+    "camera": [
+      1729.999999999999,
+      1170.0000000000005,
+      1419.9999999999998
+    ],
+    "target": [
+      -70,
+      330,
+      -120
+    ],
+    "fps": 35.340684195646034,
+    "frameSamples": 300,
+    "drawCalls": 81,
+    "triangles": 384316,
+    "trees": 50650,
+    "water": {
+      "reflectionActive": null,
+      "reflectionUpdates": 38,
+      "resolution": 512,
+      "mode": "environment only"
+    },
+    "errors": [],
+    "viewport": [
+      390,
+      844
+    ],
+    "pixelRatio": 0.7,
+    "three": "170",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+  },
+  "mobileJump": {
+    "ready": true,
+    "flying": false,
+    "mode": "orbit",
+    "quality": "low",
+    "camera": [
+      -823.1130000000003,
+      634.787,
+      -151.8810000000001
+    ],
+    "target": [
+      -83.11300000000006,
+      320,
+      -176.881
+    ],
+    "fps": 66.26173384870238,
+    "frameSamples": 300,
+    "drawCalls": 63,
+    "triangles": 431210,
+    "trees": 50650,
+    "water": {
+      "reflectionActive": null,
+      "reflectionUpdates": 38,
+      "resolution": 512,
+      "mode": "environment only"
+    },
+    "errors": [],
+    "viewport": [
+      390,
+      844
+    ],
+    "pixelRatio": 0.7,
+    "three": "170",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0"
+  },
+  "dialogVisible": true,
+  "gpu": {
+    "renderer": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x000046A6) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "vendor": "Google Inc. (Intel)"
+  }
+}

@@ -11,9 +11,13 @@
   };
   const item = (href, names) => ({href, zh:names[0], en:names[1]});
   const countries = {
-    china: { names:['中国','China'], regions:{ beijing:['北京','Beijing'], fujian:['福建','Fujian'] } }
+    china: { names:['中国','China'], regions:{ beijing:['北京','Beijing'], fujian:['福建','Fujian'], qinghai:['青海','Qinghai'] } }
   };
   const destinations = {
+    'pingtan':['平潭 · 海坛岛','Pingtan · Haitan Island'],
+    'xiangshan':['香山','Fragrant Hills'],
+    'north-garden':['国家植物园北园','China National Botanical Garden · North Garden'],
+    'xining-zoo':['西宁野生动物园','Xining Wildlife Park'],
     'mawei-shipyard':['马尾船政','Mawei Shipyard Heritage'],
     'sanfang-qixiang':['三坊七巷','Sanfang Qixiang'],
     tiantan:['天坛','Temple of Heaven'],
@@ -36,6 +40,7 @@
     return {family:'tours',section:'tours.html',category:null,country,region,crumbs,parent:crumbs.at(-2)};
   }
   const titles = {
+    'pokemon-map':['宝可梦视野地图','Pokémon Viewport Map'],
     'text-diff':['文本差异比对','Text diff'],
     'image-compressor':['图片压缩','Image compressor'], 'image-cropper':['图片裁剪','Image cropper'], 'batch-image-cropper':['批量图片裁剪','Batch image cropper'], 'image-watermark-editor':['图片水印与 EXIF 编辑器','Watermark & EXIF editor'],
     'case-converter':['大小写转换','Case converter'], 'text-deduplicator':['文本去重','Text deduplicator'], 'text-formatter':['文本格式化','Text formatter'], 'json-formatter':['JSON 格式化','JSON formatter'], 'word-counter':['字数统计','Word counter'], 'qr-generator':['二维码生成','QR generator'],

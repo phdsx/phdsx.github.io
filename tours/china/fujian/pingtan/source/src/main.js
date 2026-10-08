@@ -16,6 +16,14 @@ let quality=mobile?'low':'medium',renderer;
 function progress(f,message){$('progress').style.width=`${Math.round(f*100)}%`;$('load-count').textContent=`${Math.round(f*100)}%`;$('load-message').textContent=message;}
 function warn(message){if(!warnings.includes(message))warnings.push(message);$('error-banner').hidden=false;$('error-message').textContent=warnings.join('；');}
 async function boot(){
+ // The same static build runs independently and inside the website directory.
+ // Link the existing identity back to its region only in the site context.
+ if(/\/tours\/china\/fujian\/pingtan\/(?:index\.html)?$/.test(location.pathname)){
+  const identity=document.querySelector('.identity');
+  identity.href='../../../../tours.html?country=china&region=fujian';
+  identity.title='返回3D云游 · 福建';identity.setAttribute('aria-label','返回3D云游 · 中国 · 福建');
+  identity.querySelector('small').textContent='← 3D云游 · 福建 / 海坛岛';
+ }
  progress(.02,'读取真实地理资料');const assets=new Assets(progress,warn);
  try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:mobile?'default':'high-performance',preserveDrawingBuffer:true});}
  catch(e){throw Error('无法创建 WebGL 2 场景。请检查浏览器硬件加速、显卡驱动或改用支持 WebGL 2 的浏览器。'+e.message);}

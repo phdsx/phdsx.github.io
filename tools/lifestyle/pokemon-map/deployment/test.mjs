@@ -1,0 +1,14 @@
+import { build } from 'esbuild';
+import { mkdir } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+const deployment = path.dirname(fileURLToPath(import.meta.url));
+const app = path.resolve(deployment, '..');
+const output = path.join(app, '.sites-runtime/tests/pokemon.test.mjs');
+const apiOutput = path.join(app, '.sites-runtime/tests/api.test.mjs');
+await mkdir(path.dirname(output), { recursive: true });
+await build({ entryPoints: [path.join(app, 'tests/pokemon.test.ts')], bundle: true, platform: 'node', format: 'esm', outfile: output, nodePaths: [path.join(deployment, 'node_modules')] });
+await build({ entryPoints: [path.join(deployment, 'api.test.ts')], bundle: true, platform: 'node', format: 'esm', outfile: apiOutput, nodePaths: [path.join(deployment, 'node_modules')] });
+const result = spawnSync(process.execPath, ['--test', output, apiOutput], { stdio: 'inherit' });
+process.exit(result.status ?? 1);

@@ -1,5 +1,12 @@
 window.PHDSX_TOOLS = [
   {
+    "category": "lifestyle",
+    "icon": "tools/lifestyle/pokemon-map/public/favicon.svg",
+    "label": "宝可梦视野地图",
+    "description": "按地图视野查看宝可梦、道馆和补给站，支持地区数据源与筛选。",
+    "href": "tools/lifestyle/pokemon-map/index.html"
+  },
+  {
     "category": "text",
     "icon": "assets/icons/text-format.webp",
     "label": "文本差异比对",

@@ -1,0 +1,21 @@
+{
+  "name": "phdsx-pokemon-map-deployment",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ../../../../scripts/serve-site.mjs",
+    "build": "node build.mjs",
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "@turf/boolean-point-in-polygon": "7.4.0",
+    "lucide-react": "1.31.0",
+    "maplibre-gl": "6.13.0",
+    "polygon-clipping": "0.15.7",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}

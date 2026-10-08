@@ -6,6 +6,10 @@
 
 | 路径或组件 | 许可证 | 说明 |
 | --- | --- | --- |
+| `tours/china/fujian/pingtan/` 与 `assets/tours/pingtan.webp` | MIT / ODbL 1.0 / CC BY 4.0 / CC0 1.0 / 公共高程提供者条款 | Three.js、OSM 地理数据、2016 EOxCloudless / Copernicus Sentinel 影像、Skadi 高程及 ambientCG 材质；预览图为本地场景截图。来源、精度与还原边界见该目录 `docs/SOURCES.md`、`docs/ACCURACY.md` 和 `data/sources.json`。版权参考照片未随项目分发。 |
+| `tours/china/beijing/xiangshan/` | MIT / ODbL 1.0 / CC0 / CC BY / CC BY-SA / Copernicus DEM 条款 | 保留 Three.js、OSM、高程、Poly Haven 材质与参考照片的来源及许可；详见该目录 `SOURCES.md`、`assets/licenses/` 和照片署名。 |
+| `tours/china/beijing/north-garden/` 与 `tours/china/qinghai/xining-zoo/` | MIT / ODbL 1.0 / 公共高程提供者条款 | Three.js、OSM 衍生数据、Mapzen 高程；各目录保留来源、地形署名与还原边界说明。 |
+| `tools/lifestyle/pokemon-map/` | 组件按原许可；宝可梦形象归其原权利人 | 保留 MapLibre 许可和 `DATA_SOURCES.md`。宝可梦配图来源为 PokéAPI sprites，不因本站许可改变；数据来源、覆盖与访问限制见项目说明。React、Lucide、Turf 和 polygon-clipping 的许可随构建依赖保留，打包资源保留许可注释。 |
 | `tours/china/fujian/mawei-shipyard/` | MIT / ODbL 1.0 / CC0 1.0 / 公共高程提供者条款 | 同版 Three.js 离线模块、OSM轮廓与衍生数据、Mapzen高程（USGS / NOAA）及ambientCG通用PBR。现场摄影和图纸仅链接考证，未随项目再分发。逐项许可见该目录 `THIRD_PARTY_NOTICES.md`、`data/sources.json` 和 `textures/manifest.json`。 |
 | `tours/china/fujian/sanfang-qixiang/` 中的第三方软件、地图、照片及材质 | MIT / ODbL 1.0 / CC BY 4.0 / CC BY-SA 4.0 / CC0 1.0 | Three.js 本地依赖、OSM 原始快照与衍生数据、Wikimedia 参考照片和裁切细节、ambientCG 通用 PBR 材质。逐项来源、作者、日期、覆盖范围及变更见该目录 `SOURCES.md`、`data/sources.json` 和 `textures/manifest.json`。 |
 | `tours/china/beijing/*/assets/` 中的 Three.js 0.180.0 | MIT License | 3D云游场景使用本地打包的 Three.js；各景点目录附 `THREE-LICENSE.txt`。 |

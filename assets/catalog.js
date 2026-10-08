@@ -1,4 +1,9 @@
 window.PHDSX_SEARCH_INDEX = [
+  { label: '平潭 · 海坛岛', href: 'tours/china/fujian/pingtan/index.html', type: '3D云游', keywords: '中国 福建 平潭 海坛岛 海岛 海岸 沙滩 北港 石厝 龙王头 小火车 长江澳 海上风机 镜沙 仙人井 石牌洋 猴研岛 象鼻湾 君山 将军山 南寨山 澳前 鸟瞰 飞行 Pingtan Haitan Island Fujian China' },
+  { label: '香山', href: 'tours/china/beijing/xiangshan/index.html', type: '3D云游', keywords: '中国 北京 香山 公园 秋日山行 勤政殿 静翠湖 双清别墅 香炉峰 地形 鸟瞰 步行 Fragrant Hills Xiangshan Beijing' },
+  { label: '国家植物园北园', href: 'tours/china/beijing/north-garden/index.html', type: '3D云游', keywords: '中国 北京 国家植物园 北园 温室 卧佛寺 樱桃沟 植物园 地形 鸟瞰 步行 National Botanical Garden North Garden Beijing' },
+  { label: '西宁野生动物园', href: 'tours/china/qinghai/xining-zoo/index.html', type: '3D云游', keywords: '中国 青海 西宁 野生动物园 地形 地图 资料 核对 鸟瞰 步行 Xining Zoo Wildlife Park Qinghai' },
+  { label: '宝可梦视野地图', href: 'tools/lifestyle/pokemon-map/index.html', type: '工具', keywords: '生活 趣味 宝可梦 精灵 地图 视野 Pokemon Pokémon GO PokéMap NYC 道馆 补给站 团体战 火箭队 纽约 伦敦 新加坡 悉尼 温哥华 旧金山' },
   { label: '马尾船政', href: 'tours/china/fujian/mawei-shipyard/index.html', type: '3D云游', keywords: '中国 福建 福州 马尾 船政 官街 马限山 旧港 罗星塔 昭忠祠 衙门 学堂 绘事院 轮机车间 铁胁厂 博物馆 工业遗产 真实布局 照片近似 三维 鸟瞰 步行 Mawei Foochow Arsenal Shipyard' },
   { label: '三坊七巷', href: 'tours/china/fujian/sanfang-qixiang/index.html', type: '3D云游', keywords: '中国 福建 福州 南后街 三坊七巷 衣锦坊 文儒坊 光禄坊 地理资料 近似 三维 鸟瞰 步行 Fuzhou Sanfang Qixiang Fujian' },
   { label: '北京动物园', href: 'tours/china/beijing/beijing-zoo/index.html', type: '3D云游', keywords: '中国 北京 动物园 熊猫 狮虎山 长颈鹿 动物 物种 三维 鸟瞰 步行 Beijing Zoo animals panda lion China Beijing 3D' },

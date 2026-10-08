@@ -1,0 +1,45 @@
+{
+  "retrieved": "2026-10-02",
+  "osm_license": "ODbL-1.0",
+  "terrain_attribution": "elevation-license.txt",
+  "files": [
+    {
+      "file": "boundary.osm",
+      "sha256": "a4c419e7009060afc1abc9d3b224f4d4ed8a665025cb0a3c4a2fe99db0859112",
+      "bytes": 29291
+    },
+    {
+      "file": "dem_3370_1550.png",
+      "sha256": "9ab8873bbaa07fcf9bdb47d6fc3f9f019a4c0944956b0772d71da0b4e3a43633",
+      "bytes": 37288
+    },
+    {
+      "file": "dem_3370_1551.png",
+      "sha256": "492c06639166d05765d43926d77cfe6c0ac8c1c729933a17778ad8aff8c73e17",
+      "bytes": 27019
+    },
+    {
+      "file": "elevation-license.txt",
+      "sha256": "2ce4d3414b4592d17ad56a5af57feb480686ddcfb0a3e4ea0b566d28cde13567",
+      "bytes": 12300
+    },
+    {
+      "file": "osm_map.osm",
+      "sha256": "d51457867ab0945b5f22369e44ddeed83c2740140abb3bdba0c1706872f31962",
+      "bytes": 3225617
+    },
+    {
+      "file": "west.osm",
+      "sha256": "b64563d0247fbf1fdb2c27cef042d25838f90b191d4e2cd6dbb9b291c10b5510",
+      "bytes": 533249
+    }
+  ],
+  "requests": {
+    "osm_map.osm": "https://api.openstreetmap.org/api/0.6/map?bbox=116.195,39.987,116.226,40.018",
+    "west.osm": "https://api.openstreetmap.org/api/0.6/map?bbox=116.190,39.991,116.196,40.013",
+    "boundary.osm": "https://api.openstreetmap.org/api/0.6/relation/8758747/full",
+    "dem_3370_1550.png": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/12/3370/1550.png",
+    "dem_3370_1551.png": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/12/3370/1551.png",
+    "elevation-license.txt": "https://raw.githubusercontent.com/tilezen/joerd/master/docs/attribution.md"
+  }
+}
