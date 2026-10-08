@@ -8,3 +8,12 @@ language: zh-CN #中国人嘛，用中文
 
 
 theme: jekyll-theme-cayman
+exclude:
+  - tours/china/beijing/tiantan/source
+  - tours/china/beijing/forbidden-city/source
+  - tours/china/beijing/summer-palace/source
+  - tours/china/beijing/beijing-zoo/source
+  - tours/china/beijing/yuanmingyuan/source
+  - tours/china/fujian/pingtan/source
+  - "**/node_modules"
+  - .local-tools

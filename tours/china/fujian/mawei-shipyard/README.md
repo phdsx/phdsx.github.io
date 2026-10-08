@@ -112,6 +112,6 @@ npm run test:ui
 npm run resources
 ```
 
-本机复用仓库`pingtan/node_modules/playwright`和已有Chromium。其他环境可单独安装Playwright及Chromium，或设置`PLAYWRIGHT_MODULE`绝对模块路径与`CHROMIUM_PATH`。更新文件后运行resources刷新清单；清单不包含自身、node_modules和.git。
+本机复用仓库`tours/china/fujian/pingtan/source/node_modules/playwright`和已有Chromium。其他环境可单独安装Playwright及Chromium，或设置`PLAYWRIGHT_MODULE`绝对模块路径与`CHROMIUM_PATH`。更新文件后运行resources刷新清单；清单不包含自身、node_modules和.git。
 
 继续精细还原需要授权正射影像、各栋平立剖、公共区域红线、独立控制点、背立面近照及逐项尺寸校核。本版首先补足用户指出的**范围缺失**，其余区域的完成程度明确保留为布局与形制。

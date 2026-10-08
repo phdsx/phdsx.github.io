@@ -41,10 +41,10 @@ console.log(`本地引用检查通过，共扫描 ${files.length} 个 HTML/CSS �
 async function collect(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   for (const entry of entries) {
-    if (entry.name.startsWith('.') || entry.name === 'docs' || entry.name === 'content' || entry.name === 'scripts') continue;
+    if (entry.name.startsWith('.') || ['docs', 'content', 'scripts', 'source', 'node_modules', 'manager'].includes(entry.name)) continue;
     const fullPath = path.join(directory, entry.name);
     if (entry.isDirectory()) {
-      if (directory === root && !['tools', 'games', 'novels', 'brand-blacklist', 'tours'].includes(entry.name)) continue;
+      if (directory === root && !['assets', 'tools', 'games', 'novels', 'brand-blacklist', 'tours'].includes(entry.name)) continue;
       await collect(fullPath);
     } else if (/\.(?:html|css)$/i.test(entry.name)) {
       files.push(fullPath);

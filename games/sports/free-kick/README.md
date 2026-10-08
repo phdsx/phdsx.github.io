@@ -24,7 +24,7 @@
 在仓库根目录运行：
 
 ```sh
-node scripts/build-free-kick.mjs
+node games/sports/free-kick/scripts/build-free-kick.mjs
 node --test games/sports/free-kick/physics.test.mjs games/sports/free-kick/file-entry.test.mjs
 ```
 

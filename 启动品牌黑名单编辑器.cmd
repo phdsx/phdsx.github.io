@@ -11,7 +11,7 @@ pause
 exit /b 1
 
 :run_service
-"%NODE_EXE%" "%~dp0scripts\start-brand-blacklist.mjs" %*
+"%NODE_EXE%" "%~dp0brand-blacklist\scripts\start-brand-blacklist.mjs" %*
 set "EXIT_CODE=%errorlevel%"
 if not "%EXIT_CODE%"=="0" pause
 endlocal & exit /b %EXIT_CODE%

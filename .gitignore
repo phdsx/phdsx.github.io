@@ -1,1 +1,4 @@
 .local-tools/
+**/__pycache__/
+*.py[cod]
+*.log

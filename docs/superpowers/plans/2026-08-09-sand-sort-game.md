@@ -38,7 +38,7 @@
 - `Games/sand-sort-renderer.test.mjs`：布局尺寸和命中测试。
 - `Games/sand-sort-session.test.mjs`：会话、撤销和免费工具测试。
 - `games.html`：新增沙子分类入口，不改其他卡片。
-- `design-qa.md`：源站与本地实现的视觉、交互及网络检查记录。
+- `docs/audit/ubuntu-theme.md`：源站与本地实现的视觉、交互及网络检查记录。
 
 ---
 
@@ -1025,7 +1025,7 @@ git commit -m "feat: build playable sand sort game"
 
 **Files:**
 - Modify: `games.html` inside `.card-grid`, after the Parking Pulse card.
-- Create: `design-qa.md`
+- Create: `docs/audit/ubuntu-theme.md`
 
 **Interfaces:**
 - Consumes: `Games/sand-sort-assets/game-cover.png` and the runnable page from Task 5.
@@ -1102,7 +1102,7 @@ final result: passed
 - [ ] **Step 7: 提交入口与通过的 QA 报告**
 
 ```bash
-git add games.html design-qa.md
+git add games.html docs/audit/ubuntu-theme.md
 git commit -m "chore: link and verify sand sort game"
 ```
 

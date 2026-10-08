@@ -30,7 +30,7 @@
 
 比较两段文字的新增、删除和修改，支持四种空白处理规则、中文与 Emoji 字符高亮、差异导航和 TXT 报告。完全在浏览器本地处理，不自动保存输入。
 
-[立即使用](https://phdsx.github.io/tools/text/text-diff.html) · [开发与验证说明](docs/text-diff.md)
+[立即使用](https://phdsx.github.io/tools/text/text-diff.html) · [开发与验证说明](tools/text/docs/text-diff.md)
 
 ### EQ 单字拼音域代码生成器
 
@@ -62,18 +62,22 @@
 
 ## 文件结构
 
-当前界面采用 Ubuntu 桌面风格。公共窗口与导航由 `assets/design-system.js` 管理，主题样式位于 `assets/ubuntu.css`，配图、字体和图标位于 `assets/ubuntu/`。首页保留站内搜索及六个常用工具；手机端使用可展开导航。独立工具和游戏使用紧凑窗口栏，保留原有工作区。设计对照与回归记录见 [`design-qa.md`](design-qa.md)。
+当前界面采用 Ubuntu 桌面风格。公共窗口与导航由 `assets/design-system.js` 管理，主题样式位于 `assets/ubuntu.css`，配图、字体和图标位于 `assets/ubuntu/`。首页保留站内搜索及六个常用工具；手机端使用可展开导航。独立工具和游戏使用紧凑窗口栏，保留原有工作区。设计对照与回归记录见 [`docs/audit/ubuntu-theme.md`](docs/audit/ubuntu-theme.md)。
 
-仓库按“公开入口、可维护内容、静态资源、维护脚本”分层：
+仓库按页面栏目归档，公开入口地址保持稳定。页面专用资源、源码和维护脚本靠近对应页面；根目录的 `assets/` 与 `scripts/` 保留全站共享文件。完整约定及本次清理清单见 [项目目录说明](docs/project-structure.md)。
 
 ```text
 ├─ *.html       稳定的公开页面入口
 ├─ novels/      小说目录与阅读器
 ├─ brand-blacklist/ 黑名单页面、JSON 数据库与本地图片
-├─ tours/       3D云游静态场景，按国家 / 地区 / 景点归档
+├─ tours/       3D云游，按国家 / 地区 / 景点归档
+│  └─ china/…/景点/
+│     ├─ index.html / scene.html   公开页面和运行资源
+│     └─ source/                  对应 Vite 源码、构建脚本及研究依据
 ├─ content/     按内容类型和主题分级保存的文章源内容
-├─ assets/      页面直接加载的样式、脚本和站点图片
-├─ scripts/     本地管理工具与站点校验脚本
+├─ assets/      全站共享资源及 blog / ai-radar / games / tours 专用资源
+├─ scripts/     全站预览、导航与链接校验、景点批量构建
+├─ docs/        项目说明、历史设计记录与归档截图
 ├─ games/
 │  ├─ board/    棋盘游戏
 │  ├─ arcade/   街机游戏
@@ -91,7 +95,7 @@
    └─ media/    媒体工具
 ```
 
-详细的内容分类规则见 [`content/README.md`](content/README.md)。品牌黑名单的数据结构、本地管理和图片归档规则见 [`brand-blacklist/README.md`](brand-blacklist/README.md)。
+工具和游戏的专用脚本位于各页面的 `scripts/` 子目录；品牌黑名单编辑器位于 `brand-blacklist/manager/`，启动与数据校验脚本位于 `brand-blacklist/scripts/`。日志和 Python 缓存不提交到 Git。详细的内容分类规则见 [`content/README.md`](content/README.md)。品牌黑名单的数据结构、本地管理和图片归档规则见 [`brand-blacklist/README.md`](brand-blacklist/README.md)。
 
 
 ## AI 雷达数据说明
@@ -126,6 +130,6 @@ Made with curiosity by **PHDSX**
 
 宝可梦视野地图位于 `tools/lifestyle/pokemon-map/index.html`，归入在线工具的「生活与趣味」。静态页面和图片已随仓库提供；修改 React 源码后，运行 `npm --prefix tools/lifestyle/pokemon-map/deployment ci` 和 `npm --prefix tools/lifestyle/pokemon-map/deployment run build`，检查使用该目录的 `npm test`。构建同时更新 `.worker/site.mjs`；根目录的 Cloudflare `wrangler.jsonc` 仅将该工具的 `/tools/lifestyle/pokemon-map/api/*` 交给数据服务，其他页面仍由静态资源提供。本地预览使用 `node scripts/serve-site.mjs 8194`，同时提供页面与数据接口；纯 GitHub Pages 无数据接口时会提示服务未连接。来源授权与固定参考目录的原采集日期保持明确标注。
 
-3D云游入口为 `tours.html`，国家、地区筛选使用 `?country=china&region=beijing`，景点静态页面按 `tours/<国家>/<地区>/<景点>/` 保存。场景源码保留在 `tiantan/`、`forbidden-city/`、`summer-palace/`、`beijing-zoo/`；修改场景后，在已安装各项目依赖的环境运行 `node scripts/build-tours.mjs`，将构建产物更新到公开目录。仅更新动物园可运行 `node scripts/build-tours.mjs --only beijing-zoo`。部署直接使用 `tours/`，无需浏览器端构建或开发服务器；场景内的资料说明与素材署名随静态版本保留。栏目缩略图来自本地三维场景截图，存放在 `assets/tours/`。动物园的精度、物种依据、素材许可及测试记录见 [项目说明](beijing-zoo/README.md)。
+3D云游入口为 `tours.html`，国家、地区筛选使用 `?country=china&region=beijing`，景点静态页面按 `tours/<国家>/<地区>/<景点>/` 保存。场景源码保留在 `tours/china/beijing/tiantan/source/`、`tours/china/beijing/forbidden-city/source/`、`tours/china/beijing/summer-palace/source/`、`tours/china/beijing/beijing-zoo/source/`；修改场景后，在已安装各项目依赖的环境运行 `node scripts/build-tours.mjs`，将构建产物更新到公开目录。仅更新动物园可运行 `node scripts/build-tours.mjs --only beijing-zoo`。部署直接使用 `tours/`，无需浏览器端构建或开发服务器；场景内的资料说明与素材署名随静态版本保留。栏目缩略图来自本地三维场景截图，存放在 `assets/tours/`。动物园的精度、物种依据、素材许可及测试记录见 [项目说明](tours/china/beijing/beijing-zoo/source/README.md)。
 
-平潭入口位于「3D云游 → 中国 → 福建 → 平潭 · 海坛岛」，源码在 `pingtan/`，静态版本在 `tours/china/fujian/pingtan/`。在 `pingtan/` 运行 `npm run build` 与 `python scripts/package-static.py` 更新公开目录和独立下载包。场景身份标识在站点路径下可返回福建景点目录；地理依据和近似、缺失清单随页面保留。
+平潭入口位于「3D云游 → 中国 → 福建 → 平潭 · 海坛岛」，源码在 `tours/china/fujian/pingtan/source/`，静态版本在 `tours/china/fujian/pingtan/`。在 `tours/china/fujian/pingtan/source/` 运行 `npm run build` 与 `python scripts/package-static.py` 更新公开目录和独立下载包。场景身份标识在站点路径下可返回福建景点目录；地理依据和近似、缺失清单随页面保留。

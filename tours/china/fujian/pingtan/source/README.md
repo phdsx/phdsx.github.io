@@ -7,7 +7,7 @@
 需要 Node.js 20.19+ 或 22.12+，支持 WebGL 2 的浏览器。锁定 Three.js 0.180.0、Vite 7.3.6，Playwright 1.55.1 仅用于测试。
 
 ```powershell
-cd D:\code\html\phdsx.github.io\pingtan
+cd tours/china/fujian/pingtan/source
 npm ci
 npm run dev
 ```
@@ -26,7 +26,7 @@ node scripts/static-server.mjs dist 5187
 ## 文件
 
 ```text
-pingtan/
+tours/china/fujian/pingtan/source/
 ├── index.html                    开发入口
 ├── package.json / package-lock.json
 ├── src/

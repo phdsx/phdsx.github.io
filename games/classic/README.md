@@ -5,10 +5,10 @@
 修改 Three.js 场景后，在仓库根目录运行：
 
 ```sh
-node scripts/build-classic-3d.mjs
+node games/classic/scripts/build-classic-3d.mjs
 node games/classic/classic-3d.test.cjs
 node games/classic/classic.test.cjs
-node scripts/test-difference-browser.mjs
+node games/puzzle/difference/scripts/test-difference-browser.mjs
 ```
 
 WebGL 初始化或渲染失败时，页面会继续显示原有 Canvas 画面。

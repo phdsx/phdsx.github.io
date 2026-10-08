@@ -1,7 +1,7 @@
 from pathlib import Path
 from PIL import Image,ImageEnhance
 import json
-B=Path(__file__).resolve().parents[1]; p=B.parent/'summer-palace/research/materials/PavingStones036/PavingStones036_1K-JPG_Color.jpg'
+B=Path(__file__).resolve().parents[1]; p=B.parents[2]/'beijing/summer-palace/source/research/materials/PavingStones036/PavingStones036_1K-JPG_Color.jpg'
 im=Image.open(p).convert('RGB').resize((768,768),Image.Resampling.LANCZOS)
 im=ImageEnhance.Color(im).enhance(.22)
 im.save(B/'public/textures/wall-color.webp',quality=92)

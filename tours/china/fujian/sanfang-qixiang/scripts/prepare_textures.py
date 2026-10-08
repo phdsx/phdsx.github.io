@@ -34,7 +34,7 @@ for alias,asset in [('wood','Wood066'),('plaster','Plaster004')]:
                      'coverage':'generic material, NOT a site scan'})
 manifest.append({'id':'Bark007','source':'https://ambientcg.com/view?id=Bark007','license':'CC0 1.0',
                  'licenseUrl':'https://docs.ambientcg.com/license/','retrieved':'2026-10-07',
-                 'changes':'reuse of locally attributed 768 WebP maps in beijing-zoo/public/textures; unmodified',
+                 'changes':'reuse of locally attributed 768 WebP maps in tours/china/beijing/beijing-zoo/source/public/textures; unmodified',
                  'resolution':[768,768],'periodMetres':1.4,'periodEvidence':'estimate','coverage':'generic bark, NOT a site scan'})
 (root/'textures/manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
 print('6 CC0 PBR maps prepared; source archive hashes recorded')

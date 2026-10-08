@@ -1,6 +1,6 @@
 # 沙子分类 · 三维版
 
-直接打开 `index.html`，或在仓库根目录运行 `node scripts/serve-sand-sort.mjs` 后访问 `http://127.0.0.1:8177/games/puzzle/sand-sort/`。
+直接打开 `index.html`，或在仓库根目录运行 `node games/puzzle/sand-sort/scripts/serve-sand-sort.mjs` 后访问 `http://127.0.0.1:8177/games/puzzle/sand-sort/`。
 
 ## 实现
 
@@ -14,13 +14,13 @@
 
 ## 构建与检查
 
-修改模块后运行 `node scripts/build-sand-sort.mjs`。它将 Three.js 和游戏模块打包成普通脚本，并内嵌三张材质图片，使本地文件不依赖模块跨源加载或外部 CDN。
+修改模块后运行 `node games/puzzle/sand-sort/scripts/build-sand-sort.mjs`。它将 Three.js 和游戏模块打包成普通脚本，并内嵌三张材质图片，使本地文件不依赖模块跨源加载或外部 CDN。
 
 测试：`node --test games/puzzle/sand-sort/*.test.mjs`（在仓库根目录执行）。
 
 `preview-webgl.gif` 为浏览器真实动画的截图序列。`comparison-final.png` 左侧为确认的概念图，右侧为实际游戏。两者的沙色和瓶内分配不同，因为实际截图来自可玩的第 12 关。
 
-背景由确认图移除瓶子、沙流和界面后生成。沙粒纹理与玻璃细节由原图提取；提取脚本位于仓库 `scripts` 目录。Bootstrap 与 Lucide 图标许可见 `assets/icons`。
+背景由确认图移除瓶子、沙流和界面后生成。沙粒纹理与玻璃细节由原图提取；提取脚本位于本游戏的 `scripts/` 目录。Bootstrap 与 Lucide 图标许可见 `assets/icons`。
 
 ## 已知边界
 

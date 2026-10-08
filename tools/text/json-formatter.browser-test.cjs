@@ -14,7 +14,7 @@ const fs = require('node:fs/promises');
     page.on('pageerror', error => errors.push(error.message));
     const base = process.env.JSON_TEST_URL || 'http://127.0.0.1:8177';
     const url = base + '/tools/text/json-formatter.html';
-    const evidence = path.resolve(__dirname, '../../audit-evidence/json-formatter');
+    const evidence = path.resolve(__dirname, '../../docs/audit/evidence/json-formatter');
     await fs.mkdir(evidence, { recursive: true });
     await page.goto(url);
     const input = page.locator('#json-input');

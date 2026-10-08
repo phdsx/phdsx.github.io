@@ -9,6 +9,9 @@ brand-blacklist/
 ├─ database/
 │  └─ blacklist.json   分类、记录和数据库更新时间
 ├─ assert/             上传或从网络拉取后本地化的事件图片
+├─ manager/            本地编辑器与服务端
+├─ scripts/            启动和数据库校验脚本
+├─ brand-blacklist.js  公开页面交互
 ├─ index.html          公开列表页
 └─ detail.html         公开详情页
 ```
@@ -33,7 +36,7 @@ brand-blacklist/
 在仓库根目录运行：
 
 ```powershell
-node scripts/validate-brand-blacklist.mjs
+node brand-blacklist/scripts/validate-brand-blacklist.mjs
 ```
 
 校验器会检查 JSON 格式、重复 ID、日期、分类引用、来源 URL，以及数据库中引用的本地图片是否存在。

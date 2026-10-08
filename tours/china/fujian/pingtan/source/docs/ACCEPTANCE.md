@@ -1,6 +1,6 @@
 # 实际验收记录
 
-测试日期：2026-10-07 Asia/Shanghai。实际静态构建 URL：http://127.0.0.1:5187/。原始记录：[test-results.json](../../evidence/test-results.json)。以下截图均来自真实运行的浏览器，没有使用概念渲染或生成图片。
+测试日期：2026-10-07 Asia/Shanghai。实际静态构建 URL：http://127.0.0.1:5187/。原始记录：[test-results.json](../evidence/test-results.json)。以下截图均来自真实运行的浏览器，没有使用概念渲染或生成图片。
 
 5km 比例尺按实际米制方位图缩放。桌面与触屏模拟截图来自本轮测试。锁文件此前在隔离目录通过 npm ci 安装验证。
 
@@ -12,17 +12,17 @@
 
 ## 截图
 
-- [全岛鸟瞰](../../evidence/overview.png)
-- [北港区域](../../evidence/beigang.png) / [石厝近景](../../evidence/stone-close.png)
-- [长江澳](../../evidence/changjiang.png) / [龙王头](../../evidence/longwang.png)
-- [镜沙区域](../../evidence/jingsha.png) / [洞内近景](../../evidence/jingsha-close.png)
-- [仙人井](../../evidence/xianren.png) / [井底近景](../../evidence/xianren-close.png)
-- [石牌洋](../../evidence/shipaiyang.png) / [猴研岛](../../evidence/houyan.png) / [象鼻湾](../../evidence/xiangbi.png)
-- [自由飞行](../../evidence/flight.png) / [早晨太阳方向](../../evidence/morning.png)
-- [触屏模拟](../../evidence/mobile.png) / [数据披露](../../evidence/data-disclosure.png) / [加载失败](../../evidence/resource-failure.png)
-- [同范围参考影像与真实场景对齐](../../evidence/map-alignment.png)
+- [全岛鸟瞰](../evidence/overview.png)
+- [北港区域](../evidence/beigang.png) / [石厝近景](../evidence/stone-close.png)
+- [长江澳](../evidence/changjiang.png) / [龙王头](../evidence/longwang.png)
+- [镜沙区域](../evidence/jingsha.png) / [洞内近景](../evidence/jingsha-close.png)
+- [仙人井](../evidence/xianren.png) / [井底近景](../evidence/xianren-close.png)
+- [石牌洋](../evidence/shipaiyang.png) / [猴研岛](../evidence/houyan.png) / [象鼻湾](../evidence/xiangbi.png)
+- [自由飞行](../evidence/flight.png) / [早晨太阳方向](../evidence/morning.png)
+- [触屏模拟](../evidence/mobile.png) / [数据披露](../evidence/data-disclosure.png) / [加载失败](../evidence/resource-failure.png)
+- [同范围参考影像与真实场景对齐](../evidence/map-alignment.png)
 
-![同范围参考对照](../../evidence/map-alignment.png)
+![同范围参考对照](../evidence/map-alignment.png)
 
 ## 与参考资料的对照
 
@@ -30,7 +30,7 @@
 
 西南填海和港区边缘可以看到新岸线与旧影像不重合。没有通过拉伸坐标或绘制假影像消除这项差异。渲染色调、海面和环境光与原始影像不同，不属于地理定位误差。
 
-本次海岸补充：52处真实沙滩多边形，修复长江澳潮间带误筛；81海上/99陆上点位、海上机组入口；龙王头双层红色观光车、800m三站示意轨迹；坛南湾与北部岩岸。新截图：[海上风机](../../evidence/offshore.png)、[小火车近景](../../evidence/train-close.png)、[坛南湾](../../evidence/tannan.png)、[北部岩岸](../../evidence/north-rock.png)。车辆参考新闻照片，未取得真实轨迹控制点。
+本次海岸补充：52处真实沙滩多边形，修复长江澳潮间带误筛；81海上/99陆上点位、海上机组入口；龙王头双层红色观光车、800m三站示意轨迹；坛南湾与北部岩岸。新截图：[海上风机](../evidence/offshore.png)、[小火车近景](../evidence/train-close.png)、[坛南湾](../evidence/tannan.png)、[北部岩岸](../evidence/north-rock.png)。车辆参考新闻照片，未取得真实轨迹控制点。
 
 本轮统一扩展为15处定位、19项景观覆盖清单，按北/东/南/西岸和内陆分组，可搜索名称。新增镜沙、仙人井、石牌洋、猴研岛、象鼻湾、将军山、南寨山、澳前及DEM君山峰位。镜沙洞口和仙人井中心只是区域约位，近景表面为参考建模；仙人井官方报道约50m口径、43m井深用于模型尺度，不能将源DEM约11m的粗表面当作真实井口测量。参见 [各景观依据、分类与资料缺口](LANDSCAPES.md)。海陆掩膜边缘的白缝、镜沙近景相机穿过洞顶和仙人井井缘浮点尖刺在截图核对后修复。
 
