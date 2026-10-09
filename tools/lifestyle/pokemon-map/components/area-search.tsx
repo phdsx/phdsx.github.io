@@ -4,6 +4,7 @@ import { MapPin, Search } from "lucide-react";
 import { SOURCE_NAMES } from "@/lib/pokemon/model";
 import { SOURCE_CHOICES, type SourceChoice } from "@/lib/pokemon/source-selection";
 import { NEW_YORK_PLACES, RADAR_LAYERS, RADAR_LAYER_LABELS, radarQuery, type RadarLayer, type RadarQuery } from "@/lib/pokemon/radar-search";
+import { usesBrowserRadar } from "@/lib/pokemon/radar-client";
 
 export function AreaSearch({ source, onSource, onSearch, loading, started }: {
   source: SourceChoice; onSource: (source: SourceChoice) => void; onSearch: (query: RadarQuery) => void; loading: boolean; started: boolean;
@@ -30,7 +31,7 @@ export function AreaSearch({ source, onSource, onSearch, loading, started }: {
       </div>
       <div className="area-place-row"><span><MapPin size={14} />纽约地点</span><div className="area-places">{NEW_YORK_PLACES.map(place => <button type="button" key={place.name} title={`${place.lat.toFixed(6)}, ${place.lng.toFixed(6)}`} aria-pressed={lat === place.lat.toFixed(6) && lng === place.lng.toFixed(6)} onClick={() => { setLat(place.lat.toFixed(6)); setLng(place.lng.toFixed(6)); setError(""); }}>{place.name}<small>{place.lat.toFixed(6)}, {place.lng.toFixed(6)}</small></button>)}</div></div>
       {error && <p className="area-search-error" role="alert">{error}</p>}
-      <p className="area-search-help">{!started ? "填写坐标或点击地点，再点击搜索。搜索前不获取数据。" : "修改地点、半径或类别后，点击搜索应用；自动刷新沿用上次搜索条件。"}{source === "radar" ? " 每 5 分钟刷新；筛选和移动地图使用当前结果。" : " 其他来源使用原有区域快照；半径与类别在本地筛选。"}</p>
+      <p className="area-search-help">{!started ? "填写坐标或点击地点，再点击搜索。搜索前不获取数据。" : "修改地点、半径或类别后，点击搜索应用；自动刷新沿用上次搜索条件。"}{source === "radar" ? " 每 5 分钟刷新；筛选和移动地图使用当前结果。" : " 其他来源使用原有区域快照；半径与类别在本地筛选。"}{source === "radar" && usesBrowserRadar() && <> 查询坐标经 <a href="https://jina.ai/reader/" target="_blank" rel="noreferrer">Jina Reader</a> 转发至 iFlowGo。</>}</p>
     </form>
   </section>;
 }

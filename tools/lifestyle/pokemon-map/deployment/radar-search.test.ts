@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { apiResponse, API_PREFIX } from "./api";
 import { DEFAULT_FILTERS, matches } from "../lib/pokemon/model";
 import { RADAR_LIMIT, radarQuery, radarSearchUrl, inRadarRadius, parseRadarSnapshot, mergeRadarSnapshot, emptyRadarSnapshot } from "../lib/pokemon/radar-search";
-import { radarApiUrl } from "../lib/pokemon/use-radar-search";
+import { radarApiUrl, requestRadarSnapshot } from "../lib/pokemon/radar-client";
 import { REFRESH_INTERVAL, SnapshotSchedule } from "../lib/pokemon/snapshot";
 
 const query = radarQuery("40.758", "-73.9855", "2", ["spawns", "raids", "quests"]);
@@ -131,4 +131,90 @@ test("static hosting can address a configured live service without reading fixed
     if (descriptor) Object.defineProperty(globalThis, "document", descriptor);
     else Reflect.deleteProperty(globalThis, "document");
   }
+});
+
+async function inBrowser(baseURI: string, origin: string, run: () => Promise<void>) {
+  const descriptor = Object.getOwnPropertyDescriptor(globalThis, "document"), originalFetch = globalThis.fetch;
+  Object.defineProperty(globalThis, "document", { configurable: true, value: { baseURI, querySelector: () => origin ? { content: origin } : null } });
+  try { await run(); }
+  finally {
+    globalThis.fetch = originalFetch;
+    if (descriptor) Object.defineProperty(globalThis, "document", descriptor);
+    else Reflect.deleteProperty(globalThis, "document");
+  }
+}
+function readerResponse(data: unknown = { ...payload(), center: { lat: query.lat, lon: query.lng }, radius_km: query.radiusKm }) {
+  return Response.json({ code: 200, data: { content: JSON.stringify(data) } });
+}
+
+test("unconfigured GitHub Pages reads original nearby JSON through the browser without requesting a missing API", async () => {
+  await inBrowser("https://phdsx.github.io/tools/lifestyle/pokemon-map/scene.html", "", async () => {
+    const calls: string[] = [], controller = new AbortController();
+    const data = { ...payload(), center: { lat: query.lat, lon: query.lng }, radius_km: query.radiusKm };
+    data.spawns[0].expires_at = new Date(Date.now() + 600000).toISOString();
+    globalThis.fetch = async (input, init) => {
+      calls.push(String(input));
+      assert.equal(init?.signal, controller.signal);
+      assert.equal(init?.credentials, "omit");
+      assert.equal(init?.referrerPolicy, "no-referrer");
+      assert.equal(init?.cache, "no-store");
+      const headers = new Headers(init?.headers);
+      assert.equal(headers.get("Accept"), "application/json");
+      assert.equal(headers.get("X-No-Cache"), "true");
+      assert.equal(headers.get("Authorization"), null);
+      return readerResponse(data);
+    };
+    const snapshot = await requestRadarSnapshot(query, true, controller.signal);
+    assert.deepEqual(calls, [`https://r.jina.ai/${radarSearchUrl(query).href}`]);
+    assert.equal(snapshot.result.records[0].rawId, "1558102612379828246");
+    assert.equal(snapshot.result.records[0].iv, 0);
+    assert.equal(snapshot.quests.records.length, 1);
+    assert.deepEqual(snapshot.query, query);
+    assert.match(snapshot.result.message, /Jina Reader/);
+  });
+});
+
+test("other static hosts fall back after API 404 or HTML, while real API failures stay visible", async () => {
+  await inBrowser("https://static.example.test/tools/lifestyle/pokemon-map/scene.html", "", async () => {
+    for (const missing of [() => new Response("missing", { status: 404 }), () => new Response("<html>static</html>", { headers: { "Content-Type": "text/html" } })]) {
+      const calls: string[] = [];
+      globalThis.fetch = async input => { calls.push(String(input)); return calls.length === 1 ? missing() : readerResponse(); };
+      await requestRadarSnapshot(query);
+      assert.equal(calls.length, 2);
+      assert.match(calls[0], /^https:\/\/static\.example\.test\/tools\/lifestyle\/pokemon-map\/api\/radar-search\?/);
+      assert.match(calls[1], /^https:\/\/r\.jina\.ai\//);
+    }
+    let calls = 0;
+    globalThis.fetch = async () => { calls++; return new Response("unavailable", { status: 502 }); };
+    await assert.rejects(requestRadarSnapshot(query), /HTTP 502/);
+    assert.equal(calls, 1);
+  });
+});
+
+test("a configured live service takes precedence on Pages and is not silently replaced", async () => {
+  await inBrowser("https://phdsx.github.io/tools/lifestyle/pokemon-map/scene.html", "https://map-api.example.test", async () => {
+    const calls: string[] = [];
+    globalThis.fetch = async input => { calls.push(String(input)); return Response.json(emptyRadarSnapshot(query)); };
+    await requestRadarSnapshot(query, true);
+    assert.equal(calls.length, 1);
+    assert.equal(new URL(calls[0]).origin, "https://map-api.example.test");
+    assert.equal(new URL(calls[0]).searchParams.get("refresh"), "1");
+    globalThis.fetch = async () => new Response("missing", { status: 404 });
+    await assert.rejects(requestRadarSnapshot(query), /配置的坐标搜索服务地址无效/);
+  });
+});
+
+test("browser transport rejects wrong-area, malformed and rate-limited responses", async () => {
+  await inBrowser("https://phdsx.github.io/tools/lifestyle/pokemon-map/scene.html", "", async () => {
+    globalThis.fetch = async () => readerResponse({ ...payload(), center: { lat: 0, lon: 0 }, radius_km: 2 });
+    await assert.rejects(requestRadarSnapshot(query), /搜索范围不匹配/);
+    globalThis.fetch = async () => readerResponse({ ...payload(), center: { lat: query.lat, lon: query.lng }, radius_km: 5 });
+    await assert.rejects(requestRadarSnapshot(query), /搜索范围不匹配/);
+    globalThis.fetch = async () => Response.json({ code: 200, data: { content: "<html>failed</html>" } });
+    await assert.rejects(requestRadarSnapshot(query), /JSON 不完整/);
+    globalThis.fetch = async () => Response.json({ code: 200, data: {} });
+    await assert.rejects(requestRadarSnapshot(query), /未返回有效/);
+    globalThis.fetch = async () => new Response("rate limited", { status: 429 });
+    await assert.rejects(requestRadarSnapshot(query), /暂时限流/);
+  });
 });

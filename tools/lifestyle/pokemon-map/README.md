@@ -10,7 +10,7 @@ GitHub Pages 版本现在支持由 GitHub Actions 采集并发布静态数据快
 
 搜索后每五分钟按上次提交条件刷新，显示倒计时并支持手动刷新。修改输入不会改变正在自动刷新的搜索；再次搜索才应用新条件。每次打开仍需重新搜索。地图、列表和数量使用相同的视野与筛选；宝可梦支持名称、编号、IV、CP、等级、形态、剩余时间筛选，团体战与任务支持地点名称筛选。刷新失败保留同一次搜索的缓存，换地点不沿用旧地点记录，到期宝可梦和团体战在本地移除。
 
-实时查询由本地服务 / Cloudflare Worker 的 `api/radar-search` 转发。纯 GitHub Pages 不能执行任意坐标查询，上游也未开放跨域；需配置 `POKEMON_RADAR_API_ORIGIN` 连接已部署的 Worker，见 [部署说明](deployment/README.md#实时坐标搜索)。没有连接时明确提示，绝不使用固定试点快照冒充本次搜索。旧有区域来源保留，也只在点击搜索后开始读取。
+本地服务 / Cloudflare Worker 使用 `api/radar-search`。GitHub Pages 无需配置后端：前端 JavaScript 经 Jina Reader 读取 iFlowGo 的原始 JSON，校验查询中心与半径后沿用统一的数据解析、筛选和五分钟刷新。页面标明转发来源；公开通道限流或失败时显示错误并保留同次查询的可用缓存。也可配置 `POKEMON_RADAR_API_ORIGIN` 优先连接自有服务，见 [部署说明](deployment/README.md#实时坐标搜索)。旧有区域来源保留，也只在点击搜索后开始读取。
 
 以下原有来源规则适用于区域快照模式；iFlowGo 坐标搜索的团体战与其他已选类别一起每五分钟更新。
 

@@ -15,7 +15,7 @@ npm start
 
 `npm start` 启动仓库级预览服务，默认地址为 `http://127.0.0.1:8194/tools/lifestyle/pokemon-map/index.html`；也可在仓库根目录运行 `node scripts/serve-site.mjs 8194`。该服务同时提供静态文件和数据接口。Windows 使用随源码保留的标准 PowerShell 匿名 HTTP 传输读取 PogoMap 目录。
 
-地图 worker、宝可梦配图、API 和快照地址使用页面相对路径。本地预览服务或 Cloudflare Worker 提供实时接口；GitHub Pages 使用下面的定时静态快照。浏览器不直接请求缺少 CORS 的上游。授权、限流和访问失败保留来源状态，PogoMap 的固定参考目录继续标明采集日期。
+地图 worker、宝可梦配图、API 和快照地址使用页面相对路径。本地预览服务或 Cloudflare Worker 提供实时接口；GitHub Pages 的旧有区域来源使用下面的定时静态快照，任意坐标搜索使用文末的 JavaScript 查询通道。浏览器不直接请求缺少 CORS 的上游。授权、限流和访问失败保留来源状态，PogoMap 的固定参考目录继续标明采集日期。
 
 仅从上游新建匿名会话，不读取或转发访客 Cookie 和授权头。道馆目录按打开时读取且共享一分钟请求缓存，宝可梦与动态设施保持原五分钟刷新规则。
 
@@ -47,7 +47,13 @@ npm run export:data
 
 新增 `GET /tools/lifestyle/pokemon-map/api/radar-search?lat=40.758&lon=-73.9855&radius_km=2&layers=spawns,raids,quests`。接口先校验坐标、1–15 km 半径和类别，再转发至公开 iFlowGo nearby；仅接受固定上游，忽略访客 Cookie 与授权头。同参数共享五分钟缓存与在途请求，手动刷新遵守两秒最小间隔，最多保留 64 组缓存。页面在用户点击搜索后启动五分钟定时器；其他来源保持原有缓存策略。
 
-本地 `npm start` 和 Cloudflare Worker 同时提供这个实时接口，无需额外配置。GitHub Pages 本身没有计算后端，且 iFlowGo 未提供跨域响应头，不能用静态文件实现任意坐标搜索。要在 GitHub Pages 使用它，先将本仓库 Worker 部署到可访问的服务域名，再在仓库 **Settings → Secrets and variables → Actions → Variables** 设置 `POKEMON_RADAR_API_ORIGIN` 为该域名（例如 `https://your-worker.workers.dev`）。Pages 工作流构建时自动写入页面 meta 配置；公开搜索接口提供 CORS。此配置不包含凭证。
+本地 `npm start` 和 Cloudflare Worker 同时提供这个实时接口，无需额外配置。**GitHub Pages 也无需自建服务或配置密钥**：前端 JavaScript 自动跳过不存在的 `/api/radar-search`，以 `Accept: application/json` 请求 `https://r.jina.ai/` 加固定 iFlowGo nearby 地址，解析响应中 `data.content` 的原始 JSON。其他静态站点在本地 API 返回 404/HTML 后使用相同通道；真实 API 的 502 等服务错误不会被掩盖。
+
+每次读取使用 `X-No-Cache: true`，避免 Reader 缓存超过地图五分钟刷新间隔；请求随搜索切换而取消，不携带 Cookie、授权头或页面 Referer。返回中心和半径必须与用户查询一致；原始字符串 ID、消失时间、各类别和 800 条上限沿用 iFlowGo 解析器，不使用生成式提取或静态试点数据。搜索前不请求，筛选和移动地图仍只读取缓存。
+
+查询坐标和半径会经第三方 Jina Reader 转发至 iFlowGo，页面显示此通道来源。公开服务可能限流或不可用，失败时显示实际错误，同一次查询的旧缓存按原规则保留，过期记录仍移除。服务说明：[Jina Reader 的 JSON、缓存与速率限制](https://jina.ai/reader/)。
+
+如果已有自有服务，可在仓库 **Settings → Secrets and variables → Actions → Variables** 设置 `POKEMON_RADAR_API_ORIGIN` 为该域名（例如 `https://your-worker.workers.dev`），优先使用它。Pages 工作流构建时自动写入页面 meta 配置；公开搜索接口提供 CORS。此配置不包含凭证。
 
 手动构建可使用：
 
@@ -56,4 +62,4 @@ $env:POKEMON_RADAR_API_ORIGIN = 'https://your-worker.workers.dev'
 npm run build
 ```
 
-未配置服务的纯静态版本会明确提示“当前站点未连接坐标搜索服务”；不会把纽约固定试点或其他发布快照当作用户新地点的实时结果。区域来源仍可使用上节的静态快照。没有执行自动部署。
+默认构建不要求 `POKEMON_RADAR_API_ORIGIN`；推送后由原有 Pages 工作流发布即可使用 JavaScript 查询通道。区域来源仍可使用上节的静态快照。
