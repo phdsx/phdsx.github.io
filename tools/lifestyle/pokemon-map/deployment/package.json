@@ -5,6 +5,9 @@
   "scripts": {
     "start": "node ../../../../scripts/serve-site.mjs",
     "build": "node build.mjs",
+    "export:data": "node export-data.mjs",
+    "typecheck": "tsc --project tsconfig.json",
+    "check:workflow": "node check-workflow.mjs",
     "test": "node test.mjs"
   },
   "dependencies": {
@@ -16,6 +19,11 @@
     "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "esbuild": "0.25.12"
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "esbuild": "0.25.12",
+    "typescript": "5.9.3",
+    "yaml": "2.8.3"
   }
 }

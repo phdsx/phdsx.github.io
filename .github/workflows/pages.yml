@@ -1,0 +1,70 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+  schedule:
+    - cron: '2-57/5 * * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: tools/lifestyle/pokemon-map/deployment/package-lock.json
+      - uses: actions/configure-pages@v5
+      - name: Install map build dependencies
+        run: npm ci --prefix tools/lifestyle/pokemon-map/deployment
+      - name: Test and build map
+        working-directory: tools/lifestyle/pokemon-map/deployment
+        env:
+          POKEMON_RADAR_API_ORIGIN: ${{ vars.POKEMON_RADAR_API_ORIGIN }}
+        run: |
+          npm run typecheck
+          npm run check:workflow
+          npm test
+          npm run build
+      - name: Package static site
+        run: node scripts/package-pages.mjs
+      - name: Collect public map data
+        run: node tools/lifestyle/pokemon-map/deployment/export-data.mjs .pages-build/tools/lifestyle/pokemon-map/data
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .pages-build
+          retention-days: 1
+      - name: Publish site and map snapshots
+        id: deployment
+        uses: actions/deploy-pages@v4
+      # Keep frequent map updates from accumulating large deployment artifacts.
+      - name: Remove uploaded artifact after deployment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
+              owner: context.repo.owner, repo: context.repo.repo, run_id: context.runId
+            });
+            for (const artifact of artifacts.filter(item => item.name === 'github-pages')) {
+              await github.rest.actions.deleteArtifact({
+                owner: context.repo.owner, repo: context.repo.repo, artifact_id: artifact.id
+              });
+            }

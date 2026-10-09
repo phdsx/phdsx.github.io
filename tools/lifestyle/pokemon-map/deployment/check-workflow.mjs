@@ -1,0 +1,20 @@
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { parseDocument } from 'yaml';
+import assert from 'node:assert/strict';
+
+const file = fileURLToPath(new URL('../../../../.github/workflows/pages.yml', import.meta.url));
+const document = parseDocument(await readFile(file, 'utf8'));
+assert.deepEqual(document.errors, []);
+const workflow = document.toJS();
+assert.ok(workflow.on.push.branches.includes('master'));
+assert.ok(workflow.on.schedule.length);
+assert.equal(workflow.permissions.pages, 'write');
+assert.equal(workflow.permissions['id-token'], 'write');
+const steps = workflow.jobs.deploy.steps;
+const collect = steps.findIndex(step => step.run?.includes('export-data.mjs'));
+const upload = steps.findIndex(step => step.uses?.startsWith('actions/upload-pages-artifact@'));
+const deploy = steps.findIndex(step => step.uses?.startsWith('actions/deploy-pages@'));
+assert.ok(collect >= 0 && upload > collect && deploy > upload);
+assert.equal(steps[upload].with.path, '.pages-build');
+console.log('Pages workflow YAML and collection → upload → deployment order verified.');

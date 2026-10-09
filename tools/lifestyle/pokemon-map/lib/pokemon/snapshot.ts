@@ -3,9 +3,10 @@ import type { FacilityResults } from "./facilities";
 import { EXTRA_SOURCES, type ExtraFacilities } from "./extra-feeds";
 
 export const REFRESH_INTERVAL = 5 * 60 * 1000;
-export const SOURCES: Source[] = ["nyc", "pgc", ...EXTRA_SOURCES];
-export type SnapshotResults = Record<Source, SourceResult>;
-export interface Snapshot { results: SnapshotResults; facilities: FacilityResults; extraFacilities: ExtraFacilities; completedAt: number; nextUpdateAt: number }
+export type SnapshotSource = Exclude<Source, "radar">;
+export const SOURCES: SnapshotSource[] = ["nyc", "pgc", ...EXTRA_SOURCES];
+export type SnapshotResults = Record<SnapshotSource, SourceResult>;
+export interface Snapshot { results: SnapshotResults; facilities: FacilityResults; extraFacilities: ExtraFacilities; completedAt: number; nextUpdateAt: number; delivery?: { mode: "published"; generatedAt: number } }
 export const emptyResult = (source: Source): SourceResult => ({ source, status: "idle", records: [], message: "", updatedAt: null, fetchedAt: null, coverage: "unknown" });
 export const emptyResults = (): SnapshotResults => Object.fromEntries(SOURCES.map(s=>[s,emptyResult(s)])) as SnapshotResults;
 

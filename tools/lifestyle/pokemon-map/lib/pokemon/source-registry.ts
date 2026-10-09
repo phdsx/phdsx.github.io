@@ -34,7 +34,7 @@ export function sourceOwns(source:Source,lng:number,lat:number,radarNYC=false) {
   return false;
 }
 export function inSourceWindow(source:Source,lng:number,lat:number) {
-  if(source==="pgc")return true;
+  if(source==="pgc" || source==="radar")return true;
   if(!inBounds({lng,lat},windowBounds[source]!))return false;
   if(REGIONAL_SOURCES.includes(source as RegionalSource))return inBounds({lng,lat},OPERATING_WINDOWS[source as RegionalSource]);
   return booleanPointInPolygon([lng,lat],feature(regions[source]!));
@@ -52,7 +52,7 @@ export function planSources(bounds:Bounds,radarNYC=false) {
   return out;
 }
 export function planSingleSource(bounds:Bounds,source:Source):Feature<MultiPolygon>|null {
-  const area=splitBounds(bounds).flatMap(b=>source==="pgc"?rectangle(b):polygonClipping.intersection(rectangle(b),regions[source]!));
+  const area=splitBounds(bounds).flatMap(b=>source==="pgc" || source==="radar"?rectangle(b):polygonClipping.intersection(rectangle(b),regions[source]!));
   return area.length?feature(area as polygonClipping.MultiPolygon):null;
 }
 export function radarUrl(source:"radarSF"|"radarNYC") {

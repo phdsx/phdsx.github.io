@@ -1,9 +1,9 @@
 import type {Feature,MultiPolygon} from "geojson";
 export type RegionalSource = "london" | "singapore" | "sydney" | "vancouver";
 export type PokeMapSource = "nyc" | RegionalSource;
-export type Source = PokeMapSource | "pgc" | "radarSF" | "radarNYC";
-export const SOURCE_NAMES: Record<Source, string> = { nyc: "NYC PokéMap", pgc: "Pokémon GO Coordinates", london: "London PoGo Map", singapore: "SG PokéMap", sydney: "Sydney PoGo Map", vancouver: "Van PokéMap", radarSF: "iFlowGo · 旧金山试点", radarNYC: "iFlowGo · 纽约试点" };
-export const SOURCE_TAGS: Record<Source, string> = {nyc:"NYC",pgc:"PGC",london:"London",singapore:"SG",sydney:"Sydney",vancouver:"Van",radarSF:"Radar SF",radarNYC:"Radar NYC"};
+export type Source = PokeMapSource | "pgc" | "radarSF" | "radarNYC" | "radar";
+export const SOURCE_NAMES: Record<Source, string> = { nyc: "NYC PokéMap", pgc: "Pokémon GO Coordinates", london: "London PoGo Map", singapore: "SG PokéMap", sydney: "Sydney PoGo Map", vancouver: "Van PokéMap", radarSF: "iFlowGo · 旧金山试点", radarNYC: "iFlowGo · 纽约试点", radar: "iFlowGo · 坐标搜索" };
+export const SOURCE_TAGS: Record<Source, string> = {nyc:"NYC",pgc:"PGC",london:"London",singapore:"SG",sydney:"Sydney",vancouver:"Van",radarSF:"Radar SF",radarNYC:"Radar NYC",radar:"iFlowGo"};
 export interface Bounds { west: number; east: number; south: number; north: number }
 export interface Spawn {
   id: string; source: Source; rawId: string | null; name: string | null; dex: number | null;

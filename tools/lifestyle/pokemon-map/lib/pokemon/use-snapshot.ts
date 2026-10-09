@@ -1,8 +1,8 @@
 "use client";
-import { fetchApi } from "./deployment";
+import { fetchApi, PUBLISHED_TRANSPORT } from "./deployment";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RequestGate } from "./model";
-import { emptyResults, mergeSnapshot, SnapshotSchedule, SOURCES, type Snapshot } from "./snapshot";
+import { emptyResults, mergeSnapshot, REFRESH_INTERVAL, SnapshotSchedule, SOURCES, type Snapshot } from "./snapshot";
 import { emptyFacilities, mergeFacilities, FACILITY_FEEDS, type FacilityResults } from "./facilities";
 import { EXTRA_SOURCES,emptyExtraFacilities,mergeExtraFacilities } from "./extra-feeds";
 import { SNAPSHOT_GZIP,readSnapshotResponse } from "./json-response";
@@ -13,6 +13,7 @@ export function useSpawnSnapshot(enabled: boolean) {
   const [extraFacilities,setExtraFacilities] = useState(emptyExtraFacilities);
   const [refreshing, setRefreshing] = useState(false), [now, setNow] = useState(Date.now());
   const [nextUpdateAt, setNextUpdateAt] = useState<number | null>(null);
+  const [publishedAt, setPublishedAt] = useState<number | null>(null);
   const gate = useRef(new RequestGate()), schedule = useRef(new SnapshotSchedule());
   const refresh = useCallback(async (manual = false) => {
     if (!schedule.current.begin()) return;
@@ -27,7 +28,12 @@ export function useSpawnSnapshot(enabled: boolean) {
       if (!SOURCES.every(s => Array.isArray(snapshot.results?.[s]?.records))) throw new Error("数据快照格式不合法");
       if (!FACILITY_FEEDS.every(s => Array.isArray(snapshot.facilities?.[s]?.records))) throw new Error("设施快照格式不合法");
       if(!EXTRA_SOURCES.every(s=>["quests","activities"].every(k=>Array.isArray(snapshot.extraFacilities?.[s]?.[k as "quests"|"activities"]?.records))))throw new Error("补充设施快照格式不合法");
-      if (Number.isFinite(snapshot.nextUpdateAt)) nextDeadline = snapshot.nextUpdateAt;
+      if (response.headers.get(PUBLISHED_TRANSPORT) === "published") {
+        if (!Number.isFinite(snapshot.delivery?.generatedAt)) throw new Error("定时快照缺少采集时间");
+        setPublishedAt(snapshot.delivery!.generatedAt);
+        // An older published deadline must not cause a request every second.
+        nextDeadline = Date.now() + REFRESH_INTERVAL;
+      } else if (Number.isFinite(snapshot.nextUpdateAt)) nextDeadline = snapshot.nextUpdateAt;
       setResults(previous => mergeSnapshot(previous, snapshot.results));
       setFacilities(previous => mergeFacilities(previous, snapshot.facilities));
       setExtraFacilities(previous=>mergeExtraFacilities(previous,snapshot.extraFacilities));
@@ -44,10 +50,10 @@ export function useSpawnSnapshot(enabled: boolean) {
     }
   }, []);
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) { setRefreshing(false); setNextUpdateAt(null); return; }
     void refresh();
     const timer = setInterval(() => { const t = Date.now(); setNow(t); if (schedule.current.due(t)) void refresh(); }, 1000);
     return () => { clearInterval(timer); gate.current.invalidate(); schedule.current.refreshing = false; };
   }, [enabled, refresh]);
-  return { results, facilities, extraFacilities, refreshing, now, nextUpdateAt, refresh };
+  return { results, facilities, extraFacilities, refreshing, now, nextUpdateAt, publishedAt, refresh };
 }

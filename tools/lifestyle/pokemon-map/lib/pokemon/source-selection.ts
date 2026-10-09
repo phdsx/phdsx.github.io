@@ -1,7 +1,7 @@
 import type { Bounds, Source, Spawn } from "./model";
 import { planSources, planSingleSource, sourceOwns, inSourceWindow } from "./source-registry";
 
-export const SOURCE_CHOICES = ["auto","nyc","radarNYC","radarSF","london","singapore","sydney","vancouver","pgc"] as const;
+export const SOURCE_CHOICES = ["radar","auto","nyc","radarNYC","radarSF","london","singapore","sydney","vancouver","pgc"] as const;
 export type SourceChoice = typeof SOURCE_CHOICES[number];
 export const SOURCE_CHOICE_STORAGE = "pokemon-map:spawn-source";
 export function validSourceChoice(value:unknown):value is SourceChoice {

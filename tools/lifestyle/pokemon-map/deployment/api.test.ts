@@ -3,7 +3,10 @@ import assert from "node:assert/strict";
 import worker from "../../../../worker/site";
 import { API_PREFIX } from "./api";
 import { SNAPSHOT_GZIP, readSnapshotResponse } from "../lib/pokemon/json-response";
-import { fetchApi } from "../lib/pokemon/deployment";
+import { fetchApi, PUBLISHED_TRANSPORT } from "../lib/pokemon/deployment";
+import { collectPublishedData, PUBLISHED_ROUTES } from "./published-data";
+import { emptyResults } from "../lib/pokemon/snapshot";
+import { gzipSync } from "node:zlib";
 
 test("worker leaves other site routes with static assets and rejects invalid API requests", async () => {
   const calls: string[] = [];
@@ -18,7 +21,7 @@ test("worker leaves other site routes with static assets and rejects invalid API
   assert.equal(post.headers.get("Allow"), "GET");
 });
 
-test("missing API stays a clear service error instead of attempting cross-origin source requests", async () => {
+test("missing API checks published data and reports an unpublished snapshot without calling upstreams", async () => {
   const original = globalThis.fetch;
   const calls: string[] = [];
   globalThis.fetch = async input => {
@@ -26,9 +29,97 @@ test("missing API stays a clear service error instead of attempting cross-origin
     return new Response("Not found", { status: 404 });
   };
   try {
-    await assert.rejects(fetchApi("/api/snapshot"), /数据服务尚未连接/);
-    assert.deepEqual(calls, ["/api/snapshot"]);
+    await assert.rejects(fetchApi("/api/snapshot"), /快照尚未发布/);
+    assert.deepEqual(calls, ["/api/snapshot", "/data/snapshot.json.gz"]);
   } finally { globalThis.fetch = original; }
+});
+
+test("GitHub Pages reads nested gzip snapshots and ignores the API refresh query", async () => {
+  const originalFetch = globalThis.fetch;
+  const documentDescriptor = Object.getOwnPropertyDescriptor(globalThis, "document");
+  Object.defineProperty(globalThis, "document", { configurable: true, value: { baseURI: "https://phdsx.github.io/tools/lifestyle/pokemon-map/scene.html" } });
+  const payload = { source: "nyc", records: [{ rawId: "9007199254740993123", raw: { form: 48 } }] };
+  const calls: string[] = [];
+  globalThis.fetch = async (input, init) => {
+    calls.push(String(input));
+    assert.equal(init?.credentials, "omit");
+    return new Response(gzipSync(JSON.stringify(payload)), { headers: { "Content-Type": "application/octet-stream" } });
+  };
+  try {
+    for (const route of PUBLISHED_ROUTES) {
+      const response = await fetchApi(`/api/${route}?refresh=1`);
+      assert.equal(response.headers.get(PUBLISHED_TRANSPORT), "published");
+      assert.deepEqual(await readSnapshotResponse(response), payload);
+    }
+    assert.deepEqual(calls, PUBLISHED_ROUTES.map(route => `https://phdsx.github.io/tools/lifestyle/pokemon-map/data/${route}.json.gz`));
+    await assert.rejects(fetchApi("/api/unknown"), /接口不存在/);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (documentDescriptor) Object.defineProperty(globalThis, "document", documentDescriptor);
+    else Reflect.deleteProperty(globalThis, "document");
+  }
+});
+
+test("static fallback handles HTML rewrites and leaves actual API failures visible", async () => {
+  const original = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => ++calls === 1
+    ? new Response("<html>static rewrite</html>", { headers: { "Content-Type": "text/html" } })
+    : new Response(gzipSync('{"records":[]}'));
+  try {
+    assert.deepEqual(await readSnapshotResponse(await fetchApi("/api/gym-directory")), { records: [] });
+    assert.equal(calls, 2);
+    globalThis.fetch = async () => new Response('{"message":"service unavailable"}', { status: 502, headers: { "Content-Type": "application/json" } });
+    assert.equal((await fetchApi("/api/snapshot")).status, 502);
+  } finally { globalThis.fetch = original; }
+});
+
+test("static feeds without gzip support use JSON and preserve old acquisition times", async () => {
+  const originalFetch = globalThis.fetch;
+  const decompression = Object.getOwnPropertyDescriptor(globalThis, "DecompressionStream");
+  Object.defineProperty(globalThis, "DecompressionStream", { configurable: true, value: undefined });
+  const capturedAt = Date.now() - 600000;
+  const calls: string[] = [];
+  globalThis.fetch = async input => {
+    calls.push(String(input));
+    return calls.length === 1 ? new Response("missing", { status: 404 }) : Response.json({ source: "nyc", records: [], fetchedAt: capturedAt });
+  };
+  try {
+    const value = await readSnapshotResponse(await fetchApi("/api/gym-raids")) as { stale: boolean; fetchedAt: number };
+    assert.deepEqual(calls, ["/api/gym-raids", "/data/gym-raids.json"]);
+    assert.equal(value.stale, true);
+    assert.equal(value.fetchedAt, capturedAt);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (decompression) Object.defineProperty(globalThis, "DecompressionStream", decompression);
+    else Reflect.deleteProperty(globalThis, "DecompressionStream");
+  }
+});
+
+test("published exports keep actual capture times, source failures and raw IDs", async () => {
+  const capturedAt = Date.now() - 10 * 60 * 1000;
+  const results = emptyResults();
+  results.nyc = { ...results.nyc, status: "success", fetchedAt: capturedAt, records: [] };
+  results.pgc = { ...results.pgc, status: "authorization", message: "坐标锁定" };
+  const data = await collectPublishedData(async request => {
+    const route = new URL(request.url).pathname.split("/api/")[1];
+    return Response.json(route === "snapshot" ? { results, completedAt: capturedAt, nextUpdateAt: capturedAt + 300000 } : {
+      source: "pogomap", records: [{ rawId: "9007199254740993123", raw: { id: "9007199254740993123" } }], fetchedAt: capturedAt, message: "本次打开取得的目录",
+    });
+  });
+  const snapshot = data.snapshot as { delivery: { generatedAt: number }; results: typeof results };
+  assert.equal(snapshot.delivery.generatedAt, capturedAt);
+  assert.equal(snapshot.results.nyc.fetchedAt, capturedAt);
+  assert.equal(snapshot.results.nyc.stale, true);
+  assert.equal(snapshot.results.pgc.status, "authorization");
+  assert.equal(snapshot.results.pgc.records.length, 0);
+  const directory = data["gym-directory"] as { records: { rawId: string; raw: { id: string } }[] };
+  assert.equal(directory.records[0].raw.id, "9007199254740993123");
+});
+
+test("a failed collection does not publish an empty replacement for all Pokemon sources", async () => {
+  await assert.rejects(collectPublishedData(async () => Response.json({ results: emptyResults() })), /停止发布/);
+  await assert.rejects(collectPublishedData(async () => new Response("unavailable", { status: 502 })), /采集失败/);
 });
 
 test("nested snapshot endpoint returns decodable gzip and honest upstream failures without visitor credentials", async () => {

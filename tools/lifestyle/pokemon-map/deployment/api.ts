@@ -3,6 +3,8 @@ import { requestPogoGyms, requestPogoStops } from "../lib/pokemon/pogomap-provid
 import { requestGymRaids } from "../lib/pokemon/facility-provider";
 import { requestRegionalGyms } from "../lib/pokemon/extra-provider";
 import { snapshotResponse } from "../lib/pokemon/json-response";
+import { radarQuery } from "../lib/pokemon/radar-search";
+import { requestRadarSearch } from "../lib/pokemon/radar-provider";
 
 export const API_PREFIX = "/tools/lifestyle/pokemon-map/api/";
 const directoryCache = new Map<string, { until: number; result: Promise<unknown> }>();
@@ -20,6 +22,16 @@ export async function apiResponse(request: Request): Promise<Response> {
   const headers = { "Cache-Control": "no-store" };
   if (request.method !== "GET") return Response.json({ message: "仅支持 GET" }, { status: 405, headers: { ...headers, Allow: "GET" } });
   switch (route) {
+    case "radar-search": {
+      const radarHeaders = { ...headers, "Access-Control-Allow-Origin": "*" };
+      let query;
+      try {
+        query = radarQuery(url.searchParams.get("lat") ?? "", url.searchParams.get("lon") ?? "", url.searchParams.get("radius_km") ?? "", (url.searchParams.get("layers") ?? "").split(",").filter(Boolean));
+      } catch (error) {
+        return Response.json({ message: error instanceof Error ? error.message : "搜索参数不合法" }, { status: 400, headers: radarHeaders });
+      }
+      return Response.json(await requestRadarSearch(query, url.searchParams.get("refresh") === "1"), { headers: radarHeaders });
+    }
     case "snapshot": return snapshotResponse(await requestSnapshot(url.searchParams.get("refresh") === "1"), request);
     case "gym-directory": return Response.json(await directory("gym"), { headers });
     case "stop-directory": return Response.json(await directory("stop"), { headers });

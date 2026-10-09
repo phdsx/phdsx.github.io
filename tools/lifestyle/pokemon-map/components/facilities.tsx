@@ -9,8 +9,8 @@ import { FACILITY_SOURCE_NAMES, LAYER_LABELS, FACILITY_FEEDS, FEED_LABELS, gymDi
 export function VenueIcon({kind,team}:{kind:"gym"|"stop"|"rocket";team?:number|null}) {
   return <span className={`venue-icon ${kind} team-${team ?? "unknown"}`} aria-hidden="true">{kind==="gym"?<TowerControl size={27}/>:kind==="stop"?<CircleDot size={27}/>:<b>R</b>}</span>;
 }
-export function LayerBar({layers,counts,onToggle}:{layers:Layers;counts:Record<ResultKind,number>;onToggle:(kind:ResultKind)=>void}) {
-  return <nav className="layer-bar" aria-label="地图图层"><span className="layer-caption">显示图层</span>{(Object.keys(LAYER_LABELS) as ResultKind[]).map(kind=><label key={kind} className={`layer-switch ${kind}`}><input type="checkbox" aria-label={`${LAYER_LABELS[kind]}图层`} checked={layers[kind]} onChange={()=>onToggle(kind)}/><span>{LAYER_LABELS[kind]}</span><b>{counts[kind]}</b></label>)}</nav>;
+export function LayerBar({layers,counts,onToggle,radar=false}:{layers:Layers;counts:Record<ResultKind,number>;onToggle:(kind:ResultKind)=>void;radar?:boolean}) {
+  return <nav className="layer-bar" aria-label="地图图层" data-radar={radar}><span className="layer-caption">显示图层</span>{(Object.keys(LAYER_LABELS) as ResultKind[]).filter(kind=>!radar || kind!=="rocket").map(kind=><label key={kind} className={`layer-switch ${kind}`}><input type="checkbox" aria-label={`${LAYER_LABELS[kind]}图层`} checked={layers[kind]} onChange={()=>onToggle(kind)}/><span>{radar && kind === "gym" ? "团体战" : radar && kind === "stop" ? "补给站任务" : LAYER_LABELS[kind]}</span><b>{counts[kind]}</b></label>)}</nav>;
 }
 const feedStatus:Record<string,string>={idle:"等待更新",loading:"更新中",success:"缓存就绪",partial:"部分快照",error:"更新失败",authorization:"需要授权","rate-limit":"来源限流",uncovered:"数据源未覆盖"};
 export function FacilityStatus({facilities,nyc,pgc}:{facilities:FacilityResults;nyc:boolean;pgc:boolean}) {
@@ -21,8 +21,8 @@ export function GymDirectoryStatus({directory,bounds,nyc}:{directory:FeedResult<
   const status = directory.status === "authorization" ? "服务端访问被拒绝" : directory.status === "partial" ? "社区目录已取得" : feedStatus[directory.status];
   return <div className="gym-directory-status" aria-label="PogoMap 道馆来源状态"><div><strong>PogoMap.info</strong><span className={`inline-state ${nyc?directory.status:"uncovered"}`}>{nyc?status:"当前地区快照未取得"}</span></div><p>{nyc?reference?`本次读取失败，显示固定参考快照。${directory.message}`:directory.message||"本次打开读取一次，地图移动和刷新按钮使用现有目录":"地图内尚无此地区道馆快照，可查看官网。"}</p><div className="gym-directory-footer"><small>{!nyc?"此地区目录尚未取得":reference?`参考采集 ${new Date(directory.referenceAt!).toLocaleString("zh-CN",{hour12:false})} · 不保证完整` : directory.fetchedAt?`目录取得 ${new Date(directory.fetchedAt).toLocaleString("zh-CN",{hour12:false})} · 打开时读取一次`:"目录尚未取得"}</small><a href={pogoMapLink(bounds)} target="_blank" rel="noreferrer">在 PogoMap 查看此区域<ExternalLink size={12}/></a></div></div>;
 }
-export function ResultTabs({kind,counts,onChange}:{kind:ResultKind;counts:Record<ResultKind,number>;onChange:(kind:ResultKind)=>void}) {
-  return <div className="result-tabs" role="tablist" aria-label="结果类型">{(Object.keys(LAYER_LABELS) as ResultKind[]).map(k=><button role="tab" aria-selected={kind===k} key={k} onClick={()=>onChange(k)}>{k==="gym"?"Gym":k==="stop"?"Stop":LAYER_LABELS[k]}<b>{counts[k]}</b></button>)}</div>;
+export function ResultTabs({kind,counts,onChange,radar=false}:{kind:ResultKind;counts:Record<ResultKind,number>;onChange:(kind:ResultKind)=>void;radar?:boolean}) {
+  return <div className="result-tabs" data-radar={radar} role="tablist" aria-label="结果类型">{(Object.keys(LAYER_LABELS) as ResultKind[]).filter(k=>!radar || k!=="rocket").map(k=><button role="tab" aria-selected={kind===k} key={k} onClick={()=>onChange(k)}>{k==="gym"?radar?"团体战":"Gym":k==="stop"?radar?"任务":"Stop":LAYER_LABELS[k]}<b>{counts[k]}</b></button>)}</div>;
 }
 const activityName=(a:StopActivity)=>a.activity==="rocket"?`${a.opponent??"角色未知"} · ${a.typeName??"属性未知"}`:a.activity==="kecleon"?"变隐龙活动":a.activity==="gold"?"金币活动":a.activity==="showcase"?"展示赛":a.activity==="npc"?"NPC 活动":"活动类型未知";
 function gymSummary(g:Gym,now:number) {

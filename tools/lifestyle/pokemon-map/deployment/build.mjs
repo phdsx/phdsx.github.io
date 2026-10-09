@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 const deployment = path.dirname(fileURLToPath(import.meta.url));
 const app = path.resolve(deployment, '..');
 const root = path.resolve(app, '../../..');
+const radarApiOrigin = process.env.POKEMON_RADAR_API_ORIGIN?.trim() ?? '';
+if (radarApiOrigin && !/^https?:$/.test(new URL(radarApiOrigin).protocol)) throw new Error('POKEMON_RADAR_API_ORIGIN must be an HTTP(S) origin');
+const radarApiMeta = radarApiOrigin ? `<meta name="pokemon-radar-api-origin" content="${new URL(radarApiOrigin).origin}">` : '';
 const options = { bundle: true, minify: true, legalComments: 'eof', target: 'es2022', nodePaths: [path.join(deployment, 'node_modules')], alias: { '@': app }, jsx: 'automatic' };
 await mkdir(path.join(app, 'assets'), { recursive: true });
 for (const file of await readdir(path.join(app, 'assets'))) {
@@ -21,7 +24,7 @@ for (const name of dependencies) {
   }
 }
 await writeFile(path.join(app, 'scene.html'), `<!doctype html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#087c85"><title>宝可梦视野地图</title><link rel="icon" href="public/favicon.svg"><link rel="stylesheet" href="assets/app.css"></head><body><div id="root"></div><script type="module" src="assets/app.js"></script><noscript>请启用 JavaScript 以使用宝可梦地图。</noscript></body></html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#087c85">${radarApiMeta}<title>宝可梦视野地图</title><link rel="icon" href="public/favicon.svg"><link rel="stylesheet" href="assets/app.css"></head><body><div id="root"></div><script type="module" src="assets/app.js"></script><noscript>请启用 JavaScript 以使用宝可梦地图。</noscript></body></html>
 `);
 await mkdir(path.join(root, '.worker'), { recursive: true });
 await build({ ...options, entryPoints: [path.join(root, 'worker/site.ts')], outfile: path.join(root, '.worker/site.mjs'), format: 'esm', platform: 'browser' });

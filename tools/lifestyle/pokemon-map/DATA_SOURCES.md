@@ -1,5 +1,24 @@
 # 数据来源核实与限制
 
+## iFlowGo 自定义坐标查询（2026-10-09）
+
+- 来源：[PoGo Radar](https://pokecoords.iflowgo.com/)。读取公开 `app.js?v=20260805-4` 和 `api-config.js?v=20260729-3` 核实协议；未执行下载脚本。
+- GET `/iflowgopokecoords/api/v1/nearby` 参数为 `lat`、`lon`、`radius_km`、`layers=spawns,raids,quests`、`limit`。本站允许 1–15 km，按用户选择发送类别，每类最多 800 条；达到上限明确提示可能截断。搜索不受原有纽约 / 旧金山 2 km 试点限制，返回位置仍按实际圆形半径检查。
+- 本次时代广场 40.758000,-73.985500、2 km、limit=3 的真实请求同时返回 3 条宝可梦、3 条团体战、3 条任务，取得非空团体战结构。这是验证时点数量，不代表完整性或覆盖。
+- 宝可梦使用已有 Radar 映射；团体战：`id`→原始 ID，`gym_name`→地点，`raid_level`→等级，`raid_pokemon_id`→首领编号，`raid_battle_at` / `raid_end_at`→带时区起止时间，`lat` / `lon`→坐标。首领缺失和队伍未知均保留未知，不虚构实时占领。
+- 任务保留 `id`、`pokestop_name`、`quest_title`、`quest_rewards` 和全部 raw 字段；没有核实任务截止时间，保持未知。没有火箭队类别。长 ID 始终保留字符串，拒绝已丢失精度的数字 ID。
+- `generated_at` 只代表响应生成时间，不能冒充扫描观测时间。上游没有公布完整扫描覆盖。过期宝可梦及团体战不进入结果，异常坐标被拒绝。
+- 初始坐标为空，所有数据 Hook 在搜索前关闭；快捷地点只填值。搜索后每五分钟刷新同一组已提交参数；本地筛选、地图移动、类别图层开关都不请求上游。同查询临时失败保留旧缓存，新查询清空旧记录，授权失败清除记录。
+- 带 `Origin: https://phdsx.github.io` 的实际响应没有 `Access-Control-Allow-Origin`。任意坐标实时查询必须经本站 API；Worker 对公开匿名坐标搜索提供 CORS，静态客户端可在构建时指定服务地址。纯静态快照不能支持任意用户坐标，不回退到固定试点数据。
+
+## GitHub Pages 静态快照适配（2026-10-08）
+
+已实测 GitHub Pages 的 `/tools/lifestyle/pokemon-map/api/snapshot` 返回 HTTP 404；NYC `query2.php` 返回 HTTP 200，但没有 `Access-Control-Allow-Origin`，不能由本站浏览器可靠直连。新增 GitHub Actions 定时采集，将现有五个接口的实际响应保存为 JSON / gzip 文件并随站点部署。纯静态页面读取这些文件，API 部署仍走原接口。
+
+定时快照保留每个来源的实际 `fetchedAt`、原始 ID、raw 字段及授权/限流状态。页面明确区分采集时间和读取时间，旧快照不会因刷新改变采集时间；宝可梦与活动的到期裁剪继续在本地执行。Actions 安排五分钟采集，但任务与部署可能延迟，页面刷新只取得最近发布版本。全部宝可梦来源失败时停止部署，保留线上原版本。首次启用与检查步骤见 `deployment/README.md`。
+
+本地真实静态导出取得 NYC 1648、London 527、SG 675、Sydney 1173、Van 297、Radar SF 195、Radar NYC 159 条当时未到期记录；PGC 保持 `authorization`、0 条记录，不导出锁定坐标。该次采集完成于 2026-10-08 23:01:42（Asia/Shanghai），数字仅为验证时点记录，不能作为长期固定数据。
+
 核实日期：2026-10-08（Asia/Shanghai）。页面只展示上游实际返回、符合地理归属的记录；宝可梦坐标锁定时不绘制。PogoMap 社区坐标按实际公开脚本解码，不能保证位置精度。新取得的社区目录与先前固定参考快照分别处理，测试夹具不会进入网页。宝可梦、Stop 任务和火箭队每 5 分钟更新快照，静态社区 Stop 在打开时读取一次；道馆社区目录和团体战在打开页面时读取一次，之后仅在缓存中筛选。展示始终受当前地图视野限制。
 
 ## NYC PokéMap

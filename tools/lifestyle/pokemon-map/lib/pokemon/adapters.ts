@@ -23,7 +23,7 @@ export function adaptNYC(raw: Raw, source: PokeMapSource = "nyc"): Spawn | null 
   const expiresAt=timestamp(raw.despawn);
   return {id:recordId(source,rawId,dex,form,p.lat,p.lng,expiresAt),source,rawId,name:str(raw.name)??nameLookup[String(dex)]??null,dex,form,...p,iv,cp:numeric(raw.cp),level:numeric(raw.level),expiresAt,expiryVerified:null,raw};
 }
-export function adaptRadar(raw: Raw, source: "radarSF" | "radarNYC"): Spawn | null {
+export function adaptRadar(raw: Raw, source: "radarSF" | "radarNYC" | "radar"): Spawn | null {
   const p=point(raw.lat,raw.lon),dex=numeric(raw.pokemon_id);
   // Preserve long provider IDs as strings; reject numbers that already lost precision.
   const rawId=typeof raw.id==="string" && raw.id.trim()?raw.id:typeof raw.id==="number" && Number.isSafeInteger(raw.id)?String(raw.id):null;
@@ -44,7 +44,7 @@ export function adaptPGC(raw: Raw): Spawn | null {
 export function parsePayload(source: Source, payload: unknown) {
   if(!payload || typeof payload!=="object" || Array.isArray(payload))throw Error("响应格式不符合已核实的数据结构");
   const data=payload as Raw;
-  const radar=source==="radarSF"||source==="radarNYC";
+  const radar=source==="radarSF"||source==="radarNYC"||source==="radar";
   const rows=source==="pgc"?data.rows:radar?data.spawns:data.pokemons;
   if(!Array.isArray(rows))throw Error("响应缺少出现记录数组");
   const locked=source==="pgc" && data.coordinates_locked===true;
