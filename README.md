@@ -20,7 +20,7 @@
 | [3D云游](https://phdsx.github.io/tours.html) | 按国家、地区分类的交互式三维景点，含香山、国家植物园北园、西宁野生动物园及福建平潭海坛岛 |
 | [博客](https://phdsx.github.io/blog.html) | Python、HTML、JavaScript 与 Markdown 学习记录 |
 | [小说](https://phdsx.github.io/novels/) | 支持章节导航、阅读进度和显示设置的在线阅读页 |
-| [软件作品](https://phdsx.github.io/software.html) | 自制软件与 Web 作品的版本发布入口 |
+| [软件作品](https://phdsx.github.io/software.html) | 自制软件发布与优秀软件推荐 |
 | [AI 雷达](https://phdsx.github.io/ai-radar.html) | 模型能力评分与 Codex 重置预测聚合 |
 | [品牌黑名单](https://phdsx.github.io/brand-blacklist/) | 支持搜索、分类、国家筛选和事件详情的专题记录页 |
 

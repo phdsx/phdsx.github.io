@@ -15,10 +15,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#2c2929">
-  <meta name="description" content="PHDSX 软件作品发布页，集中展示版本、平台、更新时间和使用入口。">
-  <title>软件作品发布 - PHDSX</title>
+  <meta name="description" content="PHDSX 软件作品，分为自制软件与优秀软件推荐，汇集作品发布、使用说明和软件精选。">
+  <title>软件作品 - PHDSX</title>
   <link rel="stylesheet" href="assets/site.css?v=20260829a">
-  <link rel="stylesheet" href="assets/collections.css?v=20260829a">
+  <link rel="stylesheet" href="assets/collections.css?v=20261010recommendations">
 <link rel="stylesheet" href="assets/design-system.css?v=20260920a">
 <link rel="stylesheet" href="assets/ubuntu.css?v=20261001toursdock">
 <script src="assets/navigation.js?v=20261008imports"></script>
@@ -28,25 +28,125 @@
   <header class="site-header"></header>
   <main>
     <section class="section">
-      <div class="collection-hero">
-        <div><p class="collection-kicker">SOFTWARE RELEASES</p><h1>软件作品发布</h1><p>集中发布自制软件和浏览器工具，展示当前版本、适用平台与最近更新时间。</p></div>
-        <div class="collection-stat"><strong>1</strong><span>当前已发布作品</span></div>
+      <div class="collection-hero software-hero">
+        <div><p class="collection-kicker">SOFTWARE</p><h1 data-i18n="common.software">软件作品</h1><p data-i18n="software.lede">探索独立开发的自制软件，也发现值得一试的优秀软件。</p></div>
+        <div class="software-overview">
+          <div class="collection-stat"><strong>1</strong><span data-i18n="software.publishedSelfMade">已发布自制软件</span></div>
+          <div class="collection-stat"><strong>2</strong><span data-i18n="software.curatedCount">已收录推荐软件</span></div>
+        </div>
       </div>
-      <div class="software-list">
-        <article class="software-release">
-          <div class="software-mark" aria-hidden="true">EQ</div>
-          <div>
-            <h2>EQ 单字拼音域代码生成器</h2>
-            <p>为 Word 文档逐字生成拼音 EQ 域代码，支持声调符号、声调数字、逐字校验、复制和 TXT 导出。</p>
-            <div class="software-meta"><span>版本 1.0.0</span><span>Web</span><span>效率工具</span><span>无需安装</span></div>
-          </div>
-          <div class="software-actions"><small>更新于 2026-08-29</small><a class="button" href="tools/document/eq-pinyin-code.html">在线使用</a></div>
-        </article>
-      </div>
+      <nav class="software-section-links" aria-label="软件分区" data-i18n-attr="aria-label:software.sections">
+        <a class="button" href="#self-made" data-i18n="software.selfMade">自制软件</a>
+        <a class="button" href="#recommendations" data-i18n="software.recommendations">优秀软件推荐</a>
+      </nav>
+      <section class="software-section" id="self-made" aria-labelledby="self-made-title">
+        <div class="software-section-head">
+          <h2 id="self-made-title" data-i18n="software.selfMade">自制软件</h2>
+          <p data-i18n="software.selfMadeDescription">自己动手开发的实用软件与浏览器工具，提供版本信息和使用入口。</p>
+        </div>
+        <div class="software-list">
+          <article class="software-release">
+            <div class="software-mark" aria-hidden="true">EQ</div>
+            <div>
+              <h3>EQ 单字拼音域代码生成器</h3>
+              <p data-i18n="software.eqDescription">为 Word 文档逐字生成拼音 EQ 域代码，支持声调符号、声调数字、逐字校验、复制和 TXT 导出。</p>
+              <div class="software-meta"><span data-i18n="software.eqVersion">版本 1.0.0</span><span>Web</span><span>效率工具</span><span>无需安装</span></div>
+            </div>
+            <div class="software-actions"><small>更新于 2026-08-29</small><a class="button" href="tools/document/eq-pinyin-code.html">在线使用</a></div>
+          </article>
+        </div>
+      </section>
+      <section class="software-section" id="recommendations" aria-labelledby="recommendations-title">
+        <div class="software-section-head">
+          <h2 id="recommendations-title" data-i18n="software.recommendations">优秀软件推荐</h2>
+          <p data-i18n="software.recommendationsDescription">分享值得一试的优秀软件，介绍适用场景、支持平台与项目发行入口。</p>
+          <p class="software-checked" data-i18n="software.checked">资料核对：2026-10-10。以下为项目公开资料整理，版本与兼容性以项目说明为准。</p>
+        </div>
+        <div class="software-list">
+          <article class="software-release software-recommendation" id="diplay" aria-labelledby="diplay-title">
+            <div class="software-recommendation-head">
+              <div class="software-mark software-mark--diplay" aria-hidden="true">DP</div>
+              <div>
+                <h3 id="diplay-title">DiPlay</h3>
+                <p data-i18n="software.diplaySubtitle">安卓车机 CarPlay 接收器</p>
+                <div class="software-meta"><span>Android 7.1+</span><span>CarPlay</span><span data-i18n="software.preview">公开预览版</span></div>
+              </div>
+            </div>
+            <p data-i18n="software.diplayDescription">让兼容的比亚迪安卓车机接收 iPhone 的 CarPlay，适合希望在原车屏幕使用导航、音乐与电话的用户。</p>
+            <dl class="software-facts">
+              <div><dt data-i18n="software.maintainer">维护者</dt><dd>shihabal3amri</dd></div>
+              <div><dt data-i18n="software.verifiedVersion">核对版本 / 发布日期</dt><dd data-i18n="software.diplayVersion">0.2.16（公开预览） · 2026-10-09</dd></div>
+              <div><dt data-i18n="software.requirements">运行要求</dt><dd data-i18n="software.diplayRequirements">允许安装 APK 的比亚迪车机，Android 7.1+（API 25+），配合 iPhone 使用。</dd></div>
+              <div><dt data-i18n="software.license">使用与源码</dt><dd data-i18n="software.diplayLicense">开源，GPL-3.0；部分界面组件涉及 AGPL-3.0，详见项目许可。</dd></div>
+            </dl>
+            <div class="software-feature-block">
+              <h4 data-i18n="software.features">主要功能</h4>
+              <ul class="software-features">
+                <li data-i18n="software.diplayFeatureConnection">提供 USB 有线、车机热点、Wi-Fi Direct 和同一局域网等连接方式。</li>
+                <li data-i18n="software.diplayFeatureDisplay">可调分辨率、帧率、图标与文字大小，提供中文界面和深浅主题。</li>
+                <li data-i18n="software.diplayFeatureVehicle">部分固件支持仪表 / HUD 导航；可选车辆数据功能需要已授权的网络 ADB。</li>
+              </ul>
+            </div>
+            <p class="software-recommendation-note" data-i18n="software.diplayNote">兼容性说明：未经 Apple 认证；Android 7.1–8.1 尚待实车确认，其他汽车品牌不在支持范围内，未来 iOS 兼容性也不保证。</p>
+            <details class="software-install">
+              <summary data-i18n="software.installAndConnect">安装与连接</summary>
+              <ol>
+                <li data-i18n="software.diplayInstallDownload">停车后从发行页获取 DiPlay-0.2.16.apk，按车机允许的方式安装；APK 安装在车机上，手机端无需安装。</li>
+                <li data-i18n="software.diplayInstallPermissions">关闭其他手机投屏应用，按实际使用功能授权蓝牙、Wi-Fi 和麦克风等权限；核心 CarPlay 连接不要求 ADB。</li>
+                <li data-i18n="software.diplayInstallConnection">无线连接可在设置中配置车机热点并与 iPhone 配对；有线连接需使用支持数据传输的 USB 端口和数据线。具体步骤见安装文档。</li>
+              </ol>
+            </details>
+            <div class="software-recommendation-links">
+              <a class="button primary" href="https://github.com/shihabal3amri/DiPlay/releases" target="_blank" rel="noopener noreferrer" data-i18n="software.downloadApk">下载 APK</a>
+              <a class="button" href="https://github.com/shihabal3amri/DiPlay" target="_blank" rel="noopener noreferrer" data-i18n="software.project">项目介绍</a>
+              <a class="button" href="https://github.com/shihabal3amri/DiPlay/blob/main/docs/INSTALL.md" target="_blank" rel="noopener noreferrer" data-i18n="software.installDocs">安装文档</a>
+            </div>
+          </article>
+          <article class="software-release software-recommendation" id="hongguo-desktop" aria-labelledby="hongguo-title">
+            <div class="software-recommendation-head">
+              <div class="software-mark software-mark--hongguo" aria-hidden="true">HG</div>
+              <div>
+                <h3 id="hongguo-title" data-i18n="software.hongguoName">红果短剧电脑版</h3>
+                <p data-i18n="software.hongguoSubtitle">渠道有数独立维护的非官方 Windows 短剧播放器</p>
+                <div class="software-meta"><span>Windows 10 / 11 x64</span><span data-i18n="software.freeToUse">免费使用</span><span data-i18n="software.noEmulator">无需安卓模拟器</span></div>
+              </div>
+            </div>
+            <p data-i18n="software.hongguoDescription">在 Windows 电脑上搜索短剧、收藏片单并接着上次观看，直接安装桌面程序即可使用，适合习惯用电脑追剧的用户。</p>
+            <dl class="software-facts">
+              <div><dt data-i18n="software.maintainer">维护者</dt><dd data-i18n="software.hongguoMaintainer">渠道有数（独立维护）</dd></div>
+              <div><dt data-i18n="software.verifiedVersion">核对版本 / 发布日期</dt><dd>1.0.12 · 2026-10-07</dd></div>
+              <div><dt data-i18n="software.requirements">运行要求</dt><dd data-i18n="software.hongguoRequirements">Windows 10 / 11，x64（64 位）；需要 Microsoft WebView2 运行环境。</dd></div>
+              <div><dt data-i18n="software.license">使用与源码</dt><dd data-i18n="software.hongguoLicense">免费使用；此仓库用于发行和反馈，应用源码未公开。</dd></div>
+            </dl>
+            <div class="software-feature-block">
+              <h4 data-i18n="software.features">主要功能</h4>
+              <ul class="software-features">
+                <li data-i18n="software.hongguoFeatureBrowse">按分类浏览、搜索剧名、手动选集，并按标题查找同系列的其他季。</li>
+                <li data-i18n="software.hongguoFeaturePlayback">支持自动连播、最高 3 倍速、本机收藏和观看进度续播。</li>
+                <li data-i18n="software.hongguoFeatureHotkey">可自定义老板键（默认 Ctrl+Shift+B），隐藏时暂停、恢复窗口后续播。</li>
+              </ul>
+            </div>
+            <p class="software-recommendation-note" data-i18n="software.hongguoNote">使用说明：收藏和观看记录仅保存在当前电脑，不与手机 App 或其他电脑同步；剧集与播放可用性取决于内容来源和网络情况。</p>
+            <details class="software-install">
+              <summary data-i18n="software.installAndUpdate">安装与更新</summary>
+              <ol>
+                <li data-i18n="software.hongguoInstallDownload">从发行页下载 hongguo-1.0.12-windows-x86_64-setup.exe（约 108.6 MiB）；源码 ZIP、.sig 和 latest.json 并非安装包。</li>
+                <li data-i18n="software.hongguoInstallRuntime">按提示安装。缺少 WebView2 时安装程序会联网补装；补装失败可从微软官网获取 x64 版 WebView2 Runtime 后重试。</li>
+                <li data-i18n="software.hongguoInstallUpdate">更新前在软件设置中完全退出程序，再运行安装包。当前安装包未配置 Windows 发布者代码签名，请对照原发行页的来源和 SHA-256 摘要核验文件。</li>
+              </ol>
+            </details>
+            <div class="software-recommendation-links">
+              <a class="button primary" href="https://github.com/waligoraamodio288-rgb/hongguo-desktop-releases/releases/latest" target="_blank" rel="noopener noreferrer" data-i18n="software.downloadWindows">下载 Windows 版</a>
+              <a class="button" href="https://github.com/waligoraamodio288-rgb/hongguo-desktop-releases" target="_blank" rel="noopener noreferrer" data-i18n="software.project">项目介绍</a>
+              <a class="button" href="https://github.com/waligoraamodio288-rgb/hongguo-desktop-releases/issues" target="_blank" rel="noopener noreferrer" data-i18n="software.feedback">问题反馈</a>
+            </div>
+          </article>
+        </div>
+      </section>
     </section>
   </main>
-  <footer class="site-footer"><span>PHDSX 个人主页</span><span>软件作品 · 持续发布</span></footer>
-  <script src="assets/i18n.js?v=20261008imports"></script>
+  <footer class="site-footer"><span>PHDSX 个人主页</span><span data-i18n="software.footer">自制软件 · 优秀软件推荐</span></footer>
+  <script src="assets/i18n.js?v=20261010recommendations"></script>
   <script src="assets/site.js?v=20261001tours"></script>
 </body>
 </html>

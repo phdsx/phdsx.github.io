@@ -50,7 +50,11 @@ window.PHDSX_SEARCH_INDEX = [
   { label: 'Python 教程笔记', href: 'blog-post.html?src=content%2Fblog%2Fpython%2Fpython-tutorial.md', type: '博客', keywords: 'Python 教程 学习 笔记' },
   { label: '站点更新记录', href: 'blog-post.html?src=content%2Fblog%2Fsite%2Fsite-update.md', type: '博客', keywords: '站点 网站 更新 记录' },
   { label: '常用电话黄页', href: 'directory.html', type: '黄页', keywords: '电话 黄页 联系方式 中国移动 客服' },
-  { label: '软件作品发布', href: 'software.html', type: '软件', keywords: '软件 作品 发布 版本 下载 在线使用 Web 工具' },
+  { label: '软件作品', href: 'software.html', type: '软件', keywords: '软件 作品 发布 版本 下载 在线使用 Web 工具 自制 推荐' },
+  { label: '自制软件', href: 'software.html#self-made', type: '软件', keywords: '自制 原创 软件 作品 发布 版本 在线使用 Web 工具' },
+  { label: '优秀软件推荐', href: 'software.html#recommendations', type: '软件', keywords: '优秀 软件 推荐 精选 实用 官方 入口' },
+  { label: 'DiPlay', href: 'software.html#diplay', type: '软件', keywords: '软件 推荐 CarPlay 比亚迪 安卓 车机 Android iPhone 有线 无线 导航' },
+  { label: '红果短剧电脑版', href: 'software.html#hongguo-desktop', type: '软件', keywords: '软件 推荐 红果 短剧 桌面 电脑版 Windows 播放器 渠道有数' },
   { label: 'AI 雷达', href: 'ai-radar.html', type: '雷达', keywords: 'AI 雷达 CodexRadar 综合智能 软件工程 视觉推理 Codex Reset 预测 Next 48 hours Forecast pulse' },
   { label: '品牌黑名单', href: 'brand-blacklist/index.html', type: '黑名单', keywords: '品牌 黑名单 名称 模糊搜索 分类 国家 入黑原因 事件' },
   { label: '示例品牌演示记录', href: 'brand-blacklist/detail.html?id=demo-brand-record', type: '黑名单', keywords: '示例品牌 演示记录 详细入黑事件 非真实数据' }
