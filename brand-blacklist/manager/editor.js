@@ -221,6 +221,7 @@
     if (!details.length) throw new Error('详细经过至少需要一段');
     if (draftImages.some((image) => !image.alt.trim())) throw new Error('每张图片都必须填写替代文字');
     return {
+      ...database.records.find((item) => item.id === originalId),
       id: fields.id.value.trim(),
       isDemo: fields.isDemo.checked,
       name: fields.name.value.trim(),

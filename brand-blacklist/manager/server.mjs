@@ -172,6 +172,8 @@ function validateRecord(record, categories, label) {
     if (typeof record[key] !== 'string' || !record[key].trim()) throw new Error(`${record.name || label}：${key} 为必填文本`);
   });
   if (!idPattern.test(record.id)) throw new Error(`${record.name}：ID 只能包含小写英文、数字和连字符`);
+  if (record.eventId !== undefined && (typeof record.eventId !== 'string' || !idPattern.test(record.eventId))) throw new Error(`${record.name}：eventId 只能包含小写英文、数字和连字符`);
+  if (record.eventDateNote !== undefined && typeof record.eventDateNote !== 'string') throw new Error(`${record.name}：eventDateNote 必须是文本`);
   validateDate(record.listedAt, `${record.name}：入黑日期`);
   validateDate(record.eventDate, `${record.name}：事件日期`);
   validateCategory(record.category, categories.brandCategories, `${record.name}：品牌分类`);

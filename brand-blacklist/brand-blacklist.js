@@ -122,6 +122,12 @@
     const sources = (record.sources || []).length
       ? `<ol class="blacklist-source-list">${record.sources.map((source, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span><a href="${escapeAttribute(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}</a></li>`).join('')}</ol>`
       : '<p class="blacklist-source-empty">此记录暂未附外部来源链接。</p>';
+    const relatedRecords = record.eventId
+      ? database.records.filter((item) => item.id !== record.id && item.eventId === record.eventId)
+      : [];
+    const relatedBrands = relatedRecords.length
+      ? `<section><div class="blacklist-section-label"><span>RELATED BRANDS</span><h2>同一事件涉及品牌</h2></div><ol class="blacklist-source-list">${relatedRecords.map((item, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span><a href="detail.html?id=${encodeURIComponent(item.id)}">${escapeHtml(item.name)}</a></li>`).join('')}</ol></section>`
+      : '';
     const images = (record.images || []).length
       ? `<section class="blacklist-evidence"><div class="blacklist-section-label"><span>EVIDENCE</span><h2>事件图片</h2></div><div class="blacklist-image-grid">${record.images.map((item) => `<figure><a href="${escapeAttribute(item.src)}" target="_blank" rel="noopener"><img src="${escapeAttribute(item.src)}" alt="${escapeAttribute(item.alt)}" loading="lazy"></a>${item.caption ? `<figcaption>${escapeHtml(item.caption)}</figcaption>` : ''}</figure>`).join('')}</div></section>`
       : '';
@@ -137,7 +143,7 @@
       <dl class="blacklist-facts">
         <div><dt>品牌分类</dt><dd>${escapeHtml(categoryLabel(record.category))}</dd></div>
         <div><dt>所属国家或地区</dt><dd>${escapeHtml(record.country || '未标注')}</dd></div>
-        <div><dt>事件日期</dt><dd>${escapeHtml(formatDate(record.eventDate))}</dd></div>
+        <div><dt>事件日期</dt><dd>${escapeHtml(formatDate(record.eventDate))}${record.eventDateNote ? `（${escapeHtml(record.eventDateNote)}）` : ''}</dd></div>
         <div><dt>原因分类</dt><dd>${escapeHtml(categoryLabel(record.reason))}</dd></div>
       </dl>
       <div class="blacklist-detail-layout">
@@ -149,6 +155,7 @@
         </article>
         <aside class="blacklist-detail-side">
           <section><div class="blacklist-section-label"><span>TIMELINE</span><h2>事件时间线</h2></div><ol class="blacklist-timeline">${timeline}</ol></section>
+          ${relatedBrands}
           <section><div class="blacklist-section-label"><span>SOURCES</span><h2>信息来源</h2></div>${sources}</section>
         </aside>
       </div>`;
@@ -164,6 +171,18 @@
     const list = document.querySelector('[data-blacklist-list]');
     const count = document.querySelector('[data-blacklist-count]');
     const detail = document.querySelector('[data-blacklist-detail]');
+    if (location.protocol === 'file:') {
+      const message = '浏览器无法通过 file:// 直接读取本地 JSON 数据库。请先双击仓库根目录的“启动品牌黑名单编辑器.cmd”，再使用管理台右上角的“预览公开页面”。';
+      const preview = '<a href="http://127.0.0.1:8770/brand-blacklist/">打开本地预览</a>';
+      if (error) {
+        error.hidden = false;
+        error.innerHTML = `${escapeHtml(message)} ${preview}`;
+      }
+      if (list) list.setAttribute('aria-busy', 'false');
+      if (count) count.textContent = '请通过本地预览打开页面';
+      if (detail) detail.innerHTML = `<div class="blacklist-not-found"><span>!</span><h1>请通过本地预览打开品牌档案</h1><p>${escapeHtml(message)}</p>${preview}</div>`;
+      return;
+    }
     if (error) error.hidden = false;
     if (list) list.setAttribute('aria-busy', 'false');
     if (count) count.textContent = '数据库读取失败';

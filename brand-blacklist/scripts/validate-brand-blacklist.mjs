@@ -22,6 +22,8 @@ for (const [index, record] of (database.records || []).entries()) {
     if (typeof record?.[key] !== 'string' || !record[key].trim()) fail(`${label}: ${key} 为必填文本`);
   }
   if (!idPattern.test(record?.id || '')) fail(`${label}: id 格式不正确`);
+  if (record.eventId !== undefined && (typeof record.eventId !== 'string' || !idPattern.test(record.eventId))) fail(`${label}: eventId 格式不正确`);
+  if (record.eventDateNote !== undefined && typeof record.eventDateNote !== 'string') fail(`${label}: eventDateNote 必须是文本`);
   if (ids.has(record?.id)) fail(`${label}: id 重复`);
   ids.add(record?.id);
   validateDate(record?.listedAt, `${label}: listedAt`);
