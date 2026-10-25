@@ -40,6 +40,7 @@
     return {family:'tours',section:'tours.html',category:null,country,region,crumbs,parent:crumbs.at(-2)};
   }
   const titles = {
+    'bilibili-downloader':['视频在线解析 · 多平台下载','Online video downloader'],
     'pokemon-map':['宝可梦视野地图','Pokémon Viewport Map'],
     'text-diff':['文本差异比对','Text diff'],
     'image-compressor':['图片压缩','Image compressor'], 'image-cropper':['图片裁剪','Image cropper'], 'batch-image-cropper':['批量图片裁剪','Batch image cropper'], 'image-watermark-editor':['图片水印与 EXIF 编辑器','Watermark & EXIF editor'],

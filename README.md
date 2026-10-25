@@ -32,6 +32,12 @@
 
 [立即使用](https://phdsx.github.io/tools/text/text-diff.html) · [开发与验证说明](tools/text/docs/text-diff.md)
 
+### 视频在线解析 · 多平台下载
+
+粘贴 B站、抖音、小红书或 YouTube 链接，自动识别平台、选择清晰度并下载 MP4。B站保留分 P 和 App 扫码登录；新增三平台通过 yt-dlp / FFmpeg 服务解析和合并，支持完整分享文字、短链接、Shorts 及可选平台 Cookie。平台访问限制仍然适用。纯 GitHub Pages 无法提供数据接口，部署要求和实际验证范围见 [多平台服务说明](tools/media/service/README.md)。
+
+[工具入口](https://phdsx.github.io/tools/media/bilibili-downloader.html) · [运行、部署与验证说明](tools/media/README.md)
+
 ### EQ 单字拼音域代码生成器
 
 为 Word 文档逐字生成拼音 EQ 域代码，支持声调符号、声调数字、逐字校验、复制和 TXT 导出。

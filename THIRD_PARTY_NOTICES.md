@@ -18,6 +18,9 @@
 | `tours/china/beijing/beijing-zoo/source/public/textures/` 与对应公开目录 | CC0 1.0 | 复用 ambientCG 的四组 PBR 纹理，见 `tours/china/beijing/beijing-zoo/source/docs/ASSETS.md` 和材质清单。 |
 | `tours/china/beijing/beijing-zoo/source/public/models/lion.glb` 与对应公开目录 | CC BY-NC 4.0 / 内嵌 CC BY-NC-SA 4.0 | kenchoo 的 Lion。保留署名、非商业及相同方式共享条件；文件未修改。许可版本差异、原作者页面及下载镜像见 `tours/china/beijing/beijing-zoo/source/docs/ASSETS.md`。此动物资产不适用本站代码的 AGPL 许可。 |
 | `assets/vendor/jsdiff-8.0.3/` | BSD-3-Clause | [jsdiff 8.0.3](https://github.com/kpdecker/jsdiff/tree/v8.0.3)，仅复用 Myers 差异算法的 `base.js` 和 `array.js`；文件未修改，版本和校验值见该目录 README，完整许可证见 [`LICENSE`](assets/vendor/jsdiff-8.0.3/LICENSE)。 |
+| `assets/vendor/mediabunny-1.62.1/` | MPL-2.0 | [Mediabunny](https://github.com/Vanilagy/mediabunny) 原版浏览器模块，用于 B 站视频音轨封装；完整许可、固定版本来源及校验值随目录保留。 |
+| `assets/vendor/js-md5-0.8.3/` | MIT License | [js-md5](https://github.com/emn178/js-md5)，用于 B 站 WBI 签名；增加 ESM 包装并选择便携实现，完整许可和上游版权声明保留。 |
+| `tools/utility/vendor/qrcode.min.js` | MIT License | [QRCode.js](https://github.com/davidshimjs/qrcodejs)，站内二维码生成器与 B 站扫码登录共用本地模块；完整许可见 `LICENSE.qrcodejs`。 |
 | `games/strategy/xiuxian/` | CC BY-NC 4.0 | 原作谦君（Jun Qian），[源项目](https://github.com/setube/vue-xiuxiangame)。2026-09-27 适配本站子目录静态托管，移除上游统计脚本、PWA 和构建混淆。游戏代码与素材仍按 CC BY-NC 4.0 授权，仅供非商业使用；完整许可见 [`LICENSE`](games/strategy/xiuxian/LICENSE)。 |
 | `games/arcade/fruit-ninja/` | Apache License 2.0 | 完整许可证见 [`games/arcade/fruit-ninja/LICENSE`](games/arcade/fruit-ninja/LICENSE)。 |
 | `games/arcade/fruit-ninja/scripts/all.js` 中保留许可头的组件 | MIT License | 许可和版权声明已保留在源文件中。 |

@@ -1,5 +1,12 @@
 window.PHDSX_TOOLS = [
   {
+    "category": "media",
+    "icon": "assets/icons/video-player.webp",
+    "label": "视频在线解析 · 多平台下载",
+    "description": "支持 B站、抖音、小红书和 YouTube，选择清晰度并下载 MP4。",
+    "href": "tools/media/bilibili-downloader.html"
+  },
+  {
     "category": "lifestyle",
     "icon": "tools/lifestyle/pokemon-map/public/favicon.svg",
     "label": "宝可梦视野地图",

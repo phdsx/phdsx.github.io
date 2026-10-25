@@ -1,4 +1,5 @@
 window.PHDSX_SEARCH_INDEX = [
+  { label: '视频在线解析 · 多平台下载', href: 'tools/media/bilibili-downloader.html', type: '工具', keywords: '媒体 视频 在线解析 下载 B站 抖音 小红书 youtube shorts 哔哩哔哩 bilibili b23 BV AV MP4 高清 分辨率 清晰度 1080P 4K 分P douyin xiaohongshu video downloader' },
   { label: '平潭 · 海坛岛', href: 'tours/china/fujian/pingtan/index.html', type: '3D云游', keywords: '中国 福建 平潭 海坛岛 海岛 海岸 沙滩 北港 石厝 龙王头 小火车 长江澳 海上风机 镜沙 仙人井 石牌洋 猴研岛 象鼻湾 君山 将军山 南寨山 澳前 鸟瞰 飞行 Pingtan Haitan Island Fujian China' },
   { label: '香山', href: 'tours/china/beijing/xiangshan/index.html', type: '3D云游', keywords: '中国 北京 香山 公园 秋日山行 勤政殿 静翠湖 双清别墅 香炉峰 地形 鸟瞰 步行 Fragrant Hills Xiangshan Beijing' },
   { label: '国家植物园北园', href: 'tours/china/beijing/north-garden/index.html', type: '3D云游', keywords: '中国 北京 国家植物园 北园 温室 卧佛寺 樱桃沟 植物园 地形 鸟瞰 步行 National Botanical Garden North Garden Beijing' },

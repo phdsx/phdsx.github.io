@@ -10,6 +10,8 @@ assert.equal(resolve('tools/text/json-formatter.html').parent.href,'tools.html?c
 assert.equal(resolve('tools/text/json-formatter.html').crumbs.at(-1).zh,'JSON 格式化');
 assert.equal(resolve('tools/text/text-diff.html').parent.href,'tools.html?category=text');
 assert.equal(resolve('tools/text/text-diff.html').crumbs.at(-1).zh,'文本差异比对');
+assert.equal(resolve('tools/media/bilibili-downloader.html').parent.href,'tools.html?category=media');
+assert.equal(resolve('tools/media/bilibili-downloader.html').crumbs.at(-1).zh,'视频在线解析 · 多平台下载');
 assert.equal(resolve('tools/fun/lightning-calculator.html').parent.href,'tools.html?category=lifestyle');
 assert.equal(resolve('games/board/junqi/index.html').parent.href,'games.html?category=board');
 assert.equal(resolve('games/strategy/storm-siege/index.html').parent.href,'games.html?category=strategy');
