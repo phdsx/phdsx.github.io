@@ -9,7 +9,7 @@ const definitions = {
   ImageCount: { label: '图像计数', rank: 4 }
 };
 
-export const metadataArgs = ['-json', '-G1', '-a', '-s', '-q', '-q',
+export const metadataArgs = ['-json', '-G1', '-a', '-s', '-m', '-q', '-q',
   '-Make', '-Model', '-LensModel', '-DateTimeOriginal', '-FileType',
   '-ExifToolVersion', '-Warning', '-Error', ...Object.keys(definitions).map(tag => '-' + tag)];
 

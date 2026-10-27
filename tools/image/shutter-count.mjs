@@ -1,4 +1,4 @@
-import { validateFile } from './shutter-count-core.mjs';
+import { validateFile } from './shutter-count-core.mjs?v=20261027a';
 
 const $ = id => document.getElementById(id);
 let worker, timer, currentFile, report = '', generation = 0;
@@ -68,7 +68,7 @@ function read(file) {
   status('正在加载解析器并读取照片，请稍候。照片留在本机，可以随时取消。');
   const fail = message => { if (token !== generation) return; stop(); status(message, true); };
   try {
-    worker = new Worker(new URL('./shutter-count-worker.mjs', import.meta.url), { type: 'module' });
+    worker = new Worker(new URL('./shutter-count-worker.mjs?v=20261027a', import.meta.url), { type: 'module' });
     worker.onmessage = ({ data }) => {
       if (token !== generation || data.stage) return;
       if (data.error) { fail(data.error); return; }
@@ -76,7 +76,7 @@ function read(file) {
     };
     worker.onerror = () => fail('解析器加载失败。请检查网络，或使用新版浏览器重试。');
     worker.onmessageerror = () => fail('照片传递失败，请重新选择文件。');
-    timer = setTimeout(() => fail('读取超时，请换一张较小的原片后重试。'), 90000);
+    timer = setTimeout(() => fail('读取超过 3 分钟，请检查浏览器是否仍在运行，或尝试另一张相机原片。'), 180000);
     worker.postMessage(file);
   } catch { fail('无法启动本地解析器，请通过网站地址打开本工具并重试。'); }
 }

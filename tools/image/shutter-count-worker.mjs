@@ -1,5 +1,5 @@
 import { parseMetadata } from '../../assets/vendor/exiftool-wasm-1.0.4/index.js';
-import { metadataArgs, summarizeMetadata } from './shutter-count-core.mjs';
+import { metadataArgs, summarizeMetadata } from './shutter-count-core.mjs?v=20261027a';
 
 // The bundled reader's relative WASM URL is resolved against its own directory,
 // rather than against the worker/page. No photo bytes are sent over the network.
@@ -16,7 +16,11 @@ self.onmessage = async ({ data: file }) => {
       },
       transform: JSON.parse
     });
-    if (!result.success) throw new Error('照片无法解析，请确认文件完整，并使用相机原片。');
+    if (!result.success) {
+      // Keep ExifTool's diagnostics: a generic failure hides the actual cause.
+      const detail = String(result.error || '').trim().slice(0, 400);
+      throw new Error('照片解析失败。' + (detail ? `解析器提示：${detail}` : '请确认文件完整，并使用相机原片。'));
+    }
     const tags = result.data?.[0];
     if (tags?.['ExifTool:Error']) throw new Error('文件损坏或格式无法识别，请重新从存储卡复制原片。');
     self.postMessage({ result: summarizeMetadata(tags) });

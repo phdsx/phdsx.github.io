@@ -67,15 +67,17 @@ test('the shipped WASM engine reads Nikon maker notes from binary TIFF bytes', a
   globalThis.importScripts = () => {};
   const { parseMetadata, dispose } = await import('../../../assets/vendor/exiftool-wasm-1.0.4/index.js');
   try {
-    const result = await parseMetadata(new File([nikonFixture()], 'synthetic.tif'), {
-      args: metadataArgs, transform: JSON.parse,
-      fetch: async () => new Response(await readFile(new URL('../../../assets/vendor/exiftool-wasm-1.0.4/zeroperl-mqcadjqm.wasm', import.meta.url)))
-    });
-    assert.equal(result.success, true, result.error);
-    const summary = summarizeMetadata(result.data[0]);
-    assert.equal(summary.make, 'NIKON');
-    assert.equal(summary.counters[0]?.value, 526);
-    assert.equal(summary.counters[0]?.key, 'Nikon:ShutterCount');
+    for (const file of [new File([nikonFixture()], 'synthetic.tif'), new File([nikonFixture(), new Uint8Array(70 * 1024 * 1024)], '照片 70MB.tif')]) {
+      const result = await parseMetadata(file, {
+        args: metadataArgs, transform: JSON.parse,
+        fetch: async () => new Response(await readFile(new URL('../../../assets/vendor/exiftool-wasm-1.0.4/zeroperl-mqcadjqm.wasm', import.meta.url)))
+      });
+      assert.equal(result.success, true, result.error);
+      const summary = summarizeMetadata(result.data[0]);
+      assert.equal(summary.make, 'NIKON');
+      assert.equal(summary.counters[0]?.value, 526);
+      assert.equal(summary.counters[0]?.key, 'Nikon:ShutterCount');
+    }
   } finally {
     await dispose();
     if (old === undefined) delete globalThis.importScripts; else globalThis.importScripts = old;

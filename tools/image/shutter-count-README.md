@@ -4,7 +4,7 @@
 
 参考 [ExifTool](https://github.com/exiftool/exiftool/tree/13.59) 和 [colorhythm/exiftool-wasm](https://github.com/colorhythm/exiftool-wasm)，采用固定版本 1.0.4（ExifTool 13.59），静态托管即可使用，无后端接口。通过 HTTP(S) 打开，不支持直接双击 HTML。
 
-照片仅交给浏览器 Worker，既不上传，也不存储在 localStorage / IndexedDB。解析器按需同源加载，约 24.91 MiB。取消、替换照片、清除和离开页面会终止 Worker。每次只读一张，限制 200 MiB 和 90 秒。
+照片仅交给浏览器 Worker，既不上传，也不存储在 localStorage / IndexedDB。解析器按需同源加载，约 24.91 MiB。取消、替换照片、清除和离开页面会终止 Worker。每次只读一张，限制 200 MiB 和 3 分钟。忽略 ExifTool 可忽略的轻微错误，解析失败时显示解析器的提示。
 
 只接受厂商备注中的 `MechanicalShutterCount`、`ShutterCount`、`ShutterCount2/3`、`ImageCount`。优先显示机械计数，并完整列出其他可用计数和原始字段名。不使用 `ImageNumber`、文件名编号、标准 IFD 或 XMP 中的同名字段猜测次数。零值合法；缺失、负值、非整数和不安全整数不会作为计数显示。不同机型计数含义不同，无法据此预测快门寿命；拍摄后的新增次数也无法由旧照片获知。
 
