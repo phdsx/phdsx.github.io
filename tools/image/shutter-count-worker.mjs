@@ -6,13 +6,15 @@ import { metadataArgs, summarizeMetadata } from './shutter-count-core.mjs?v=2026
 const wasmURL = new URL('../../assets/vendor/exiftool-wasm-1.0.4/zeroperl-mqcadjqm.wasm', import.meta.url);
 self.onmessage = async ({ data: file }) => {
   try {
-    self.postMessage({ stage: 'reading' });
+    self.postMessage({ stage: 'loading' });
     const result = await parseMetadata(file, {
       args: metadataArgs,
       fetch: async () => {
         const response = await fetch(wasmURL);
         if (!response.ok) throw new Error('解析器下载失败，请检查网络后重试。');
-        return response;
+        const bytes = await response.arrayBuffer();
+        self.postMessage({ stage: 'reading' });
+        return new Response(bytes);
       },
       transform: JSON.parse
     });

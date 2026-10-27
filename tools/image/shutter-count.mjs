@@ -1,11 +1,10 @@
 import { validateFile } from './shutter-count-core.mjs?v=20261027a';
 
 const $ = id => document.getElementById(id);
-let worker, timer, currentFile, report = '', generation = 0;
+let worker, currentFile, report = '', generation = 0;
 function stop() {
   generation++;
   worker?.terminate(); worker = null;
-  clearTimeout(timer);
   $('cancel').hidden = true;
   $('result-panel').setAttribute('aria-busy', 'false');
 }
@@ -68,15 +67,20 @@ function read(file) {
   status('正在加载解析器并读取照片，请稍候。照片留在本机，可以随时取消。');
   const fail = message => { if (token !== generation) return; stop(); status(message, true); };
   try {
-    worker = new Worker(new URL('./shutter-count-worker.mjs?v=20261027a', import.meta.url), { type: 'module' });
+    worker = new Worker(new URL('./shutter-count-worker.mjs?v=20261028a', import.meta.url), { type: 'module' });
     worker.onmessage = ({ data }) => {
-      if (token !== generation || data.stage) return;
+      if (token !== generation) return;
+      if (data.stage) {
+        status(data.stage === 'loading'
+          ? '正在下载本地解析器（约 25 MiB），首次使用可能需要较长时间。照片不会上传。'
+          : '解析器加载完成，正在读取原片。大文件可能需要较长时间，可以随时取消。');
+        return;
+      }
       if (data.error) { fail(data.error); return; }
       stop(); display(data.result);
     };
     worker.onerror = () => fail('解析器加载失败。请检查网络，或使用新版浏览器重试。');
     worker.onmessageerror = () => fail('照片传递失败，请重新选择文件。');
-    timer = setTimeout(() => fail('读取超过 3 分钟，请检查浏览器是否仍在运行，或尝试另一张相机原片。'), 180000);
     worker.postMessage(file);
   } catch { fail('无法启动本地解析器，请通过网站地址打开本工具并重试。'); }
 }

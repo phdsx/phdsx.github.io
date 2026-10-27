@@ -8,6 +8,11 @@ def inventory(raw):
     def visit(blob,start,end,owner='root'):
         for kind,body,full,offset,frame in tags(blob,start,end):
             char=placed_character(kind,body)
+            if kind==39 and u16(body,0)==60006:continue # new instrument-label overlay
+            if kind==12 and owner in ('sprite:162','sprite:169','sprite:173','sprite:502') and frame==1 and b'zhFlapBackground' in body:continue
+            if kind==26 and owner in ('sprite:162','sprite:169','sprite:173','sprite:502') and char in (60000,60001,60002):continue
+            if kind==26 and owner=='sprite:233' and char==60006:continue
+            if kind==28 and owner=='sprite:233' and u16(body,0)==60000:continue
             if kind in (7,34,39) and u16(body,0) in PROMOTIONS:
                 removed.append((owner,kind,u16(body,0)));continue
             if char in PROMOTIONS:

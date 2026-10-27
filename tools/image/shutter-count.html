@@ -16,7 +16,7 @@
   <script src="../../assets/navigation.js?v=20261026shutter"></script>
   <script defer src="../../assets/design-system.js?v=20261001toursdock"></script>
   <script defer src="../../assets/i18n.js?v=20261026shutter"></script>
-  <script type="module" src="shutter-count.mjs?v=20261027a"></script>
+  <script type="module" src="shutter-count.mjs?v=20261028a"></script>
 </head>
 <body>
   <header class="site-header"></header>
@@ -36,7 +36,7 @@
           <button id="choose" class="primary" type="button">选择照片</button>
           <input id="photo-file" type="file" accept=".jpg,.jpeg,.tif,.tiff,.nef,.nrw,.arw,.sr2,.srf,.cr2,.cr3,.crw,.raf,.pef,.dng,.orf,.rw2,.srw,.rwl,.heic,.heif,.hif" hidden>
         </div>
-        <p class="shutter-note">单张上限 200 MiB。首次读取需加载约 25 MiB 的本地解析器，可能需要几秒钟。</p>
+        <p class="shutter-note">单张上限 200 MiB。首次读取需下载约 25 MiB 的解析器；大文件处理可能需要较长时间，可随时取消。</p>
         <p id="file-info" class="shutter-file" hidden></p>
         <div class="shutter-actions"><button id="cancel" type="button" hidden>取消读取</button><button id="reset" type="button" hidden>清除结果</button></div>
         <p id="status" class="shutter-status" role="status" aria-live="polite">准备就绪。照片不会上传，也不会保存在本站。</p>
