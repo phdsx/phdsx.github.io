@@ -1,10 +1,10 @@
 {
   "tests": [
     "Original SWF boots into Chinese menu with 670×450 stage, 24 fps and 31 root frames",
-    "Real keyboard accelerated plane; speed instrument changed (24490 pixels)",
+    "Real keyboard accelerated plane; speed instrument changed (19840 pixels)",
     "P pauses while the game frame has focus; resume works",
     "Sound toggle and reload to original menu work",
-    "Native two-finger touch sends simultaneous throttle and pitch; cancellation releases both",
+    "Native two-finger touch changes the speed indicator (3068 pixels); cancellation releases both",
     "320 / 390 / 720 / 1080 layouts fit and touch targets are at least 44 px"
   ],
   "errors": [],

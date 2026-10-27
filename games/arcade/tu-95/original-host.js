@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id),frame=$('game-frame');
+  if(location.protocol==='file:'){$('loading-title').textContent='请使用本地网站服务';$('loading-text').textContent='请在项目根目录运行 node scripts/serve-site.mjs，然后从游戏厅打开。';$('status').textContent='需要 HTTP 服务';frame.removeAttribute('src');return;}
   let ready=false,paused=false,sound=false;const sources=new Map(),taps=new Map();
   const runtime=()=>{try{return frame.contentWindow.TU95Runtime;}catch{return null;}};
   function release(){sources.clear();for(const timer of taps.values())clearTimeout(timer);taps.clear();runtime()?.clear();document.querySelectorAll('[data-hold]').forEach(b=>b.classList.remove('held'));}
