@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#192d50">
+  <meta name="description" content="重温经典三维弹球：太空军校生。原版球台、物理碰撞、任务和音效，支持键盘与触屏操作。">
+  <title>三维弹球 · 太空军校生 - PHDSX</title>
+  <link rel="icon" href="cover.webp" type="image/webp">
+  <link rel="stylesheet" href="../../../assets/design-system.css?v=20260920a">
+  <link rel="stylesheet" href="../../../assets/ubuntu.css?v=20261001toursdock">
+  <link rel="stylesheet" href="pinball.css?v=20261026">
+  <script src="../../../assets/navigation.js?v=20261026pinball"></script>
+  <script defer src="../../../assets/i18n.js?v=20261026pinball"></script>
+  <script defer src="../../../assets/design-system.js?v=20261001toursdock"></script>
+  <script defer src="pinball.js?v=20261026"></script>
+</head>
+<body>
+  <main class="pinball-page">
+    <header class="pinball-heading">
+      <div><p class="eyebrow">THE CLASSIC RETURNS · 1995</p><h1>三维弹球<span>太空军校生</span></h1><p class="intro">熟悉的球台，再来一局。</p></div>
+      <a class="back-link" href="../../../games.html?category=arcade">← 返回游戏</a>
+    </header>
+
+    <section class="machine" id="machine" aria-label="太空军校生弹球游戏">
+      <div class="machine-title"><span aria-hidden="true">◈</span><strong>3D Pinball <span>— Space Cadet</span></strong><span class="title-badge">经典版</span></div>
+      <nav class="machine-toolbar" aria-label="游戏操作">
+        <button id="new-game" type="button" disabled>新游戏 <kbd>F2</kbd></button>
+        <button id="pause" type="button" disabled aria-pressed="false">暂停 <kbd>P</kbd></button>
+        <button id="sound" type="button" disabled aria-pressed="true">声音：开</button>
+        <button id="fullscreen" type="button">全屏 <span aria-hidden="true">⛶</span></button>
+      </nav>
+      <div class="playfield">
+        <iframe id="game-frame" src="runtime.html?v=20261026" title="三维弹球：太空军校生球台" allow="autoplay; fullscreen" tabindex="0"></iframe>
+        <div class="game-overlay" id="overlay">
+          <div class="overlay-card"><span class="overlay-orbit" aria-hidden="true">◈</span><h2 id="overlay-title">正在准备球台</h2><p id="load-status" role="status" aria-live="polite">首次加载约 7 MB，请稍候…</p><progress id="load-progress" max="100" aria-label="游戏加载进度"></progress><button id="start" type="button" hidden>开始游戏 <span aria-hidden="true">→</span></button><button id="retry" type="button" hidden>重新加载</button></div>
+        </div>
+      </div>
+      <div class="touch-controls" aria-label="键盘和触屏击球控制">
+        <button type="button" data-hold="left" disabled><span>左挡板</span><kbd>Z / ←</kbd></button>
+        <button class="launch-control" type="button" data-hold="launch" disabled><span>按住蓄力 · 松开发射</span><kbd>空格</kbd></button>
+        <button type="button" data-hold="right" disabled><span>右挡板</span><kbd>/ / →</kbd></button>
+      </div>
+      <div class="machine-status"><span id="game-status" role="status">正在加载</span><span>3D PINBALL · SPACE CADET</span></div>
+    </section>
+
+    <section class="field-guide" aria-label="游戏说明">
+      <div><span class="guide-number">01</span><h2>发射，接住，再得分</h2><p>按住空格蓄力，松开发球。用左右挡板接住落下的球，击中缓冲器、靶标和坡道来累积得分。每局 3 颗球。</p></div>
+      <div><span class="guide-number">02</span><h2>接受你的太空任务</h2><p>击中任务靶标后，送球进入发射坡道接受任务。留意球台右侧的原版消息面板，完成任务，逐步晋升军衔。</p></div>
+      <details><summary>更多操作与来源</summary><p><kbd>Z</kbd> / <kbd>←</kbd> 左挡板，<kbd>/</kbd> / <kbd>→</kbd> 右挡板，<kbd>空格</kbd> 发球。<kbd>X</kbd> / <kbd>.</kbd> / <kbd>↑</kbd> 分别从左、右、下方晃动球台；晃动过度会触发 TILT，挡板暂时失效。</p><div class="nudge-controls"><button type="button" data-hold="nudgeLeft" disabled>左晃台 X</button><button type="button" data-hold="nudgeUp" disabled>上晃台 ↑</button><button type="button" data-hold="nudgeRight" disabled>右晃台 .</button></div><p><kbd>P</kbd> / <kbd>F3</kbd> 暂停，<kbd>F2</kbd> 新游戏，<kbd>F5</kbd> 切换声音。切换标签页时自动暂停。</p><p>基于 <a href="https://github.com/alula/SpaceCadetPinball" target="_blank" rel="noopener noreferrer">SpaceCadetPinball 浏览器移植</a>，引擎采用 MIT 许可。原版游戏及图像、音频属于原权利人；本站为独立适配。<a href="README.md">来源与许可说明</a></p></details>
+    </section>
+  </main>
+</body>
+</html>

@@ -12,6 +12,10 @@ test('preview serves nested static resources with correct MIME and protects loca
   assert.equal(module.status, 200);
   assert.match(module.headers.get('Content-Type'), /text\/javascript/);
   assert.equal(module.body, null);
+  const pinball = await assetResponse(new Request(base + '/games/arcade/space-cadet-pinball/engine/SpaceCadetPinball.wasm', { method: 'HEAD' }));
+  assert.equal(pinball.status, 200);
+  assert.equal(pinball.headers.get('Content-Type'), 'application/wasm');
+  assert.equal(pinball.headers.get('Content-Length'), '4539452');
   for (const target of ['/.git/config', '/.worker/site.mjs', '/tools/lifestyle/pokemon-map/deployment/node_modules/react/package.json', '/%2e%2e%5cREADME.md']) {
     assert.equal((await assetResponse(new Request(base + target))).status, 404);
   }

@@ -7,12 +7,15 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import worker from '../.worker/site.mjs';
 import { videoServiceResponse, MEDIA_API_PREFIX } from '../tools/media/service/video-service.mjs';
+import { shareAccountResponse, SHARE_API_PATH } from '../worker/share-account.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const apiPrefix = '/tools/lifestyle/pokemon-map/api/';
 // Local sessions last until this process restarts. Never write this key to disk.
 const bilibiliSessionSecret = process.env.BILIBILI_SESSION_SECRET || randomBytes(32).toString('hex');
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.geojson': 'application/geo+json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.md': 'text/plain; charset=utf-8', '.txt': 'text/plain; charset=utf-8', '.pdf': 'application/pdf', '.glb': 'model/gltf-binary' };
+
+mime['.wasm'] = 'application/wasm';
 
 export async function assetResponse(request) {
   if (!['GET', 'HEAD'].includes(request.method)) return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
@@ -44,6 +47,7 @@ async function localDirectory(kind) {
 
 export async function siteResponse(request) {
   const pathname = new URL(request.url).pathname;
+  if (pathname === SHARE_API_PATH) return shareAccountResponse(request);
   if (pathname.startsWith(MEDIA_API_PREFIX)) return videoServiceResponse(request);
   if (process.platform === 'win32' && request.method === 'GET' && [apiPrefix + 'gym-directory', apiPrefix + 'stop-directory'].includes(pathname)) {
     const kind = pathname.endsWith('gym-directory') ? 'gym' : 'stop';

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {writeFile,access} from 'node:fs/promises';
 import path from 'node:path';
 import {setImmediate} from 'node:timers/promises';
+import {setTimeout as delay} from 'node:timers/promises';
 import {createVideoService,normalizeVideo,cookiesToNetscape,MEDIA_API_PREFIX} from '../service/video-service.mjs';
 const fixture={id:'jNQXAC9IVRw',title:'A video',duration:1,uploader:'Tester',formats:[{format_id:'v',url:'https://r1.googlevideo.com/videoplayback?test=1',height:1080,width:1920,vcodec:'avc1.640028',acodec:'none',tbr:2000,ext:'mp4'},{format_id:'a',url:'https://r1.googlevideo.com/videoplayback?audio=1',vcodec:'none',acodec:'mp4a.40.2',abr:128,ext:'m4a'},{format_id:'bad',url:'https://127.0.0.1/secret',height:2160,vcodec:'avc',acodec:'aac'}]};
 function req(action,body,cookie='',headers={}){return new Request('https://tool.example'+MEDIA_API_PREFIX+action,{method:body?'POST':'GET',headers:{...(body?{'Content-Type':'application/json'}:{}),...(cookie?{Cookie:cookie}:{}),...headers},...(body?{body:JSON.stringify(body)}:{})});}
@@ -25,10 +26,36 @@ test('Resolve creates browser-bound session without exposing URLs or cookies',as
   const forbidden=await service(req('jobs',{sessionId:data.sessionId,formatId:'v'}));assert.equal(forbidden.status,404);
   const invalid=await service(req('jobs',{sessionId:data.sessionId,formatId:'invalid'},cookie));assert.equal(invalid.status,400);
 });
+
+test('QR sessions automatically reach only their platform extractor and logout leaves other providers intact',async()=>{
+  const seen=[],accounts=new Map();
+  const auth={async cleanup(){},async action(owner,platform,action){const key=owner+platform;if(action==='qrcode')accounts.set(key,platform+'-private');if(action==='logout')accounts.delete(key);return {platform,loggedIn:accounts.has(key),...(accounts.has(key)?{user:{name:platform+' account'}}:{})};},async cookieFor(owner,platform){const value=accounts.get(owner+platform);return value?'session='+value:'';}};
+  const inspect=(config,onEvent)=>{seen.push(config);onEvent({event:'info',info:{id:'test',title:'Video',formats:[{format_id:'direct',url:config.extractor==='Douyin'?'https://v1.douyinvod.com/video.mp4':'https://sns-video.xhscdn.com/video.mp4',ext:'mp4',height:720,vcodec:'avc1',acodec:'aac'}]}});return {done:Promise.resolve(),cancel(){}};};
+  const service=createVideoService({runner:inspect,auth});
+  const initial=await service(req('auth/status'));const cookie=initial.headers.get('set-cookie').split(';')[0];
+  for(const platform of ['douyin','xiaohongshu'])assert.equal((await service(req(`auth/${platform}/qrcode`,{},cookie))).status,200);
+  assert.equal((await service(req('auth/douyin/qrcode'))).status,405);
+  const dy=await service(req('resolve',{url:'https://www.douyin.com/video/7699779226500753338'},cookie));
+  const data=await dy.json();assert.equal(dy.status,200);assert.match(seen.at(-1).cookieText,/douyin-private/);assert.ok(!seen.at(-1).cookieText.includes('xiaohongshu-private'));
+  assert.ok(!JSON.stringify(data).includes('private'));
+  await service(req('resolve',{url:'https://www.xiaohongshu.com/explore/65f123456789012345678901',cookie:'manual=override'},cookie));
+  assert.match(seen.at(-1).cookieText,/manual\toverride/);assert.ok(!seen.at(-1).cookieText.includes('private'));
+  await service(req('auth/douyin/logout',{},cookie));
+  assert.equal((await service(req('jobs',{sessionId:data.sessionId,formatId:'direct'},cookie))).status,404);
+  const states=await(await service(req('auth/status',null,cookie))).json();assert.equal(states.platforms.douyin.loggedIn,false);assert.equal(states.platforms.xiaohongshu.loggedIn,true);
+  const stranger=await(await service(req('auth/status'))).json();assert.equal(stranger.platforms.xiaohongshu.loggedIn,false);
+  assert.equal((await service(req('auth/douyin/poll',{},cookie,{Origin:'https://evil.example'}))).status,403);
+});
+
+test('One unavailable login provider never prevents restoring the other platform state',async()=>{
+  const service=createVideoService({auth:{async cleanup(){},async action(owner,platform){if(platform==='douyin')throw new Error('temporary');return {platform,loggedIn:true,user:{name:'小红书账号'}};}}});
+  const response=await service(req('auth/status'));const data=await response.json();
+  assert.equal(response.status,200);assert.equal(data.platforms.douyin.unavailable,true);assert.equal(data.platforms.xiaohongshu.loggedIn,true);
+});
 test('Download lifecycle serves ready file and ranges; release removes it',async()=>{
   const service=createVideoService({runner});const {data,cookie}=await resolve(service);
   const created=await service(req('jobs',{sessionId:data.sessionId,formatId:'v'},cookie));const job=await created.json();
-  let state;for(let i=0;i<30;i++){await setImmediate();state=await(await service(req('jobs/'+job.id,null,cookie))).json();if(state.state==='ready')break;}
+  let state;for(let i=0;i<100;i++){await delay(10);state=await(await service(req('jobs/'+job.id,null,cookie))).json();if(state.state==='ready'||state.state==='error')break;}
   assert.equal(state.state,'ready');assert.equal(state.size,5);
   const file=await service(req('jobs/'+job.id+'/file',null,cookie,{Range:'bytes=1-3'}));assert.equal(file.status,206);assert.deepEqual([...new Uint8Array(await file.arrayBuffer())],[2,3,4]);
   assert.equal((await service(req('jobs/'+job.id+'/file'))).status,404);

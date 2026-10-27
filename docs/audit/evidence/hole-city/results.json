@@ -1,0 +1,147 @@
+{
+  "playing": {
+    "score": 19,
+    "x": 16.9289694375894,
+    "z": -31.696727078192044,
+    "status": "playing",
+    "calls": 119,
+    "triangles": 20410
+  },
+  "checks": [
+    "WebGL city starts",
+    "Keyboard moves the player",
+    "Starter items can be swallowed and scored",
+    "Pause freezes the countdown",
+    "Mouse directs the hole",
+    "Timed round reaches a populated results screen",
+    "Replay creates a fresh timed round",
+    "Free mode removes opponents",
+    "Free mode hides competitive rankings",
+    "Sound control toggles",
+    "390x844: no horizontal overflow",
+    "390x844: start action remains visible",
+    "720x1280: no horizontal overflow",
+    "720x1280: start action remains visible",
+    "1080x2400: no horizontal overflow",
+    "1080x2400: start action remains visible",
+    "360x640: no horizontal overflow",
+    "360x640: start action remains visible",
+    "Touch drag displays the joystick",
+    "Touch joystick moves the hole",
+    "Touch release clears joystick",
+    "No browser runtime exceptions",
+    "Game makes no external or advertising requests"
+  ],
+  "errors": [],
+  "external": [],
+  "profiles": [
+    {
+      "width": 390,
+      "height": 844,
+      "layout": {
+        "overflow": false,
+        "button": {
+          "x": 39,
+          "y": 581.140625,
+          "width": 312,
+          "height": 56,
+          "top": 581.140625,
+          "right": 351,
+          "bottom": 637.140625,
+          "left": 39
+        },
+        "menu": {
+          "x": 14,
+          "y": 178.859375,
+          "width": 362,
+          "height": 547.28125,
+          "top": 178.859375,
+          "right": 376,
+          "bottom": 726.140625,
+          "left": 14
+        }
+      }
+    },
+    {
+      "width": 720,
+      "height": 1280,
+      "layout": {
+        "overflow": false,
+        "button": {
+          "x": 153,
+          "y": 817.125,
+          "width": 414,
+          "height": 56,
+          "top": 817.125,
+          "right": 567,
+          "bottom": 873.125,
+          "left": 153
+        },
+        "menu": {
+          "x": 120,
+          "y": 375.875,
+          "width": 480,
+          "height": 594.25,
+          "top": 375.875,
+          "right": 600,
+          "bottom": 970.125,
+          "left": 120
+        }
+      }
+    },
+    {
+      "width": 1080,
+      "height": 2400,
+      "layout": {
+        "overflow": false,
+        "button": {
+          "x": 333,
+          "y": 1377.125,
+          "width": 414,
+          "height": 56,
+          "top": 1377.125,
+          "right": 747,
+          "bottom": 1433.125,
+          "left": 333
+        },
+        "menu": {
+          "x": 300,
+          "y": 935.875,
+          "width": 480,
+          "height": 594.25,
+          "top": 935.875,
+          "right": 780,
+          "bottom": 1530.125,
+          "left": 300
+        }
+      }
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "layout": {
+        "overflow": false,
+        "button": {
+          "x": 40,
+          "y": 426.78125,
+          "width": 280,
+          "height": 56,
+          "top": 426.78125,
+          "right": 320,
+          "bottom": 482.78125,
+          "left": 40
+        },
+        "menu": {
+          "x": 14,
+          "y": 144.21875,
+          "width": 332,
+          "height": 412.5625,
+          "top": 144.21875,
+          "right": 346,
+          "bottom": 556.78125,
+          "left": 14
+        }
+      }
+    }
+  ]
+}

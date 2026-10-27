@@ -16,7 +16,9 @@ test('QR account state stays with its own provider, independent of manual creden
   sessions.setQrUser('bilibili',{name:'B站账号',vip:true});
   sessions.setCredential('douyin','douyin-cookie');sessions.clearCredential('douyin');
   assert.equal(sessions.get('bilibili').qrUser.name,'B站账号');
-  for(const platform of ['douyin','xiaohongshu','youtube']){assert.equal(sessions.get(platform).qrUser,null);assert.throws(()=>sessions.setQrUser(platform,{name:'B站账号'}));}
+  for(const platform of ['douyin','xiaohongshu']){assert.equal(sessions.get(platform).qrUser,null);sessions.setQrUser(platform,{name:platform+'账号'});assert.equal(sessions.get(platform).qrUser.name,platform+'账号');}
+  assert.throws(()=>sessions.setQrUser('youtube',{name:'其他账号'}));
+  sessions.setQrUser('douyin',null);assert.equal(sessions.get('xiaohongshu').qrUser.name,'xiaohongshu账号');
   const copy=sessions.get('bilibili');copy.qrUser.name='changed';assert.equal(sessions.get('bilibili').qrUser.name,'B站账号');
 });
 test('Page memory retains manual credentials without timers and a refreshed page starts empty',()=>{

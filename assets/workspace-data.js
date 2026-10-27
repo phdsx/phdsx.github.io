@@ -1,5 +1,19 @@
 window.PHDSX_TOOLS = [
   {
+    "category": "image",
+    "icon": "assets/icons/image-watermark.webp",
+    "label": "相机快门次数",
+    "description": "本地读取相机原片中的快门次数、机械快门次数与图像计数。",
+    "href": "tools/image/shutter-count.html"
+  },
+  {
+    "category": "media",
+    "icon": "assets/icons/video-player.webp",
+    "label": "分享链接账号识别",
+    "description": "解析抖音分享人 UID，查询昵称、抖音号与公开主页，区分分享人与作者。",
+    "href": "tools/media/share-account.html"
+  },
+  {
     "category": "media",
     "icon": "assets/icons/video-player.webp",
     "label": "视频在线解析 · 多平台下载",

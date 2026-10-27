@@ -1,0 +1,86 @@
+{
+  "checks": [
+    "WASM and local resources load; explicit start screen pauses simulation",
+    "start opens the ball table and unlocks audio",
+    "canvas uses the iframe aspect ratio without clipping flippers",
+    "left flipper produces a measured pixel response within 100 ms",
+    "ten identical keyboard flipper cycles produce identical held/released results",
+    "right-arrow input reaches the native right-flipper binding",
+    "native engine sustains at least 30 rendered frames per second during play",
+    "pause stops native simulation and rendering",
+    "P resumes even when the toolbar held keyboard focus",
+    "F5 updates the shell sound state",
+    "sound toggle reaches the native engine",
+    "new-game button delivers F2 and returns to play",
+    "tab visibility handler automatically pauses the game",
+    "fullscreen opens the game and controls together",
+    "fullscreen retains native focus and continues rendering the table",
+    "360×640: no horizontal overflow",
+    "360×640: complete table fits the canvas",
+    "390×844: no horizontal overflow",
+    "390×844: complete table fits the canvas",
+    "720×1280: no horizontal overflow",
+    "720×1280: complete table fits the canvas",
+    "1080×2400: no horizontal overflow",
+    "1080×2400: complete table fits the canvas",
+    "no uncaught JavaScript errors",
+    "no missing local resources",
+    "two real touch contacts hold both flippers simultaneously",
+    "touch cancellation releases both button states",
+    "touch cancellation releases both native flipper inputs",
+    "touch launch holds and releases the native plunger",
+    "WASM load failure shows retry and disables gameplay",
+    "retry recovers after a failed WASM download",
+    "game appears in the arcade category",
+    "existing category filtering still works"
+  ],
+  "measurements": {
+    "inputToPixelMs": 11,
+    "flipperPixelCycles": [
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      },
+      {
+        "heldDifference": 3735,
+        "restDifference": 0
+      }
+    ],
+    "consistentFlipperCycles": 10,
+    "engineFps": 56.04072891436619
+  },
+  "errors": [],
+  "missing": []
+}

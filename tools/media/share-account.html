@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="ubuntu-boot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2c2929">
+  <meta name="description" content="解析抖音分享链接中的账号线索，保留中间跳转并区分分享来源、内容作者与设备字段。">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'self'; form-action 'none'; object-src 'none'; base-uri 'self'">
+  <title>分享链接账号识别 - PHDSX</title>
+  <style>html.ubuntu-boot{background:#2c001e url('../../assets/ubuntu/wallpaper.webp') center/cover fixed no-repeat}html.ubuntu-boot body{visibility:hidden}</style>
+  <script>document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.remove('ubuntu-boot'),{once:true})</script>
+  <noscript><style>html.ubuntu-boot body{visibility:visible}</style></noscript>
+  <link rel="stylesheet" href="../../assets/standalone.css?v=20260824a">
+  <link rel="stylesheet" href="../../assets/design-system.css?v=20260920a">
+  <link rel="stylesheet" href="../../assets/ubuntu.css?v=20261001toursdock">
+  <link rel="stylesheet" href="styles/share-account.css?v=20261026b">
+  <script src="../../assets/navigation.js?v=20261026share"></script>
+  <script defer src="../../assets/design-system.js?v=20261001toursdock"></script>
+  <script defer src="scripts/share-account-browser.js?v=20261026b"></script>
+</head>
+<body>
+  <header class="site-header"></header>
+  <main class="share-tool ubuntu-tool-main" id="main-content">
+    <header class="intro">
+      <p class="eyebrow">媒体工具 <span>抖音链接</span></p>
+      <h1>分享链接账号识别</h1>
+      <p>粘贴抖音分享文案，解析分享人 UID，并查询公开主页。</p>
+    </header>
+    <p id="file-help" class="file-help" hidden>当前通过本地文件打开，可直接分析长链接中的分享人 UID。自动展开短链与查询主页需要启动本站服务：在项目目录运行 <code>node scripts/serve-site.mjs 8194</code>，然后<a href="http://127.0.0.1:8194/tools/media/share-account.html">打开工具页面 ↗</a>。</p>
+    <div class="share-layout">
+      <div>
+        <section class="share-panel" aria-labelledby="input-title">
+          <div class="panel-top"><h2 id="input-title"><label for="share-input">分享链接或完整文案</label></h2><button type="button" class="text-button" id="sample">试用示例</button></div>
+          <textarea id="share-input" maxlength="8192" rows="6" placeholder="粘贴「复制此链接，打开抖音…」的整段文字，或 https://v.douyin.com/…" spellcheck="false" autocomplete="off" aria-describedby="input-help"></textarea>
+          <p class="help" id="input-help">支持 v.douyin.com 短链接、视频长链接和用户主页。每次解析一条。</p>
+          <div class="actions"><button type="button" class="primary" id="analyze">识别账号线索 <span aria-hidden="true">↗</span></button><button type="button" id="clear">清空</button><label class="local-option"><input type="checkbox" id="local-only"> 仅本地分析</label></div>
+          <p class="privacy">账号字段在本地解析。展开短链和查询公开主页时，会将链接或 UID 发送给本站服务，再访问抖音与字节跳动官方接口；不使用你的登录账号，不自动保存输入。勾选“仅本地分析”可关闭这些请求。</p>
+          <details class="manual"><summary>已有跳转后的长链接？</summary><label for="expanded-input">补充长链接（可选）</label><textarea id="expanded-input" maxlength="8192" rows="3" placeholder="粘贴短链接在浏览器中跳转后的抖音地址" autocomplete="off" spellcheck="false"></textarea><p class="help">仅用于补充字段。最终地址可能已经丢失分享信息；手动补充的链接无法验证与原链接的关系。</p></details>
+        </section>
+        <p id="status" role="status" aria-live="polite">准备就绪，粘贴一条抖音分享链接开始。</p>
+        <section class="share-panel result" id="result" hidden aria-labelledby="result-title">
+          <div class="panel-top"><h2 id="result-title">识别结果</h2><button type="button" id="copy-report">复制报告</button></div>
+          <div class="verdict" id="verdict" tabindex="-1"><span id="result-tag" class="tag"></span><h3 id="result-heading"></h3><p id="result-description"></p></div>
+          <div id="account-list"></div>
+          <div class="video-line" id="video-line"></div>
+          <details id="clue-details" open><summary>字段证据 <span id="field-count"></span></summary><div id="fields" class="field-list"></div></details>
+          <details><summary>完整跳转链 <span id="hop-count"></span></summary><ol id="chain" class="chain"></ol></details>
+          <p class="help">链接参数可以修改或被再次转发。即使包含账号字段，也不能证明它属于当前向你发送链接的人。</p>
+        </section>
+      </div>
+      <aside class="share-sidebar">
+        <section class="share-panel"><p class="eyebrow">识别依据</p><h2>从分享信息，找到账号。</h2><ol class="steps"><li><strong>保留第一次跳转</strong><p>分享信息可能在最终视频页被丢弃，中间地址也需要保留。</p></li><li><strong>解析分享人 UID</strong><p>从 activity_info 中读取 social_share_user_id，与作者字段分开展示。</p></li><li><strong>匹配公开主页</strong><p>用分享人 UID 查询昵称、抖音号和主页；查询失败仍保留 UID。</p></li></ol></section>
+        <section class="share-panel limits"><h2>为什么有些链接查不到？</h2><p>部分链接没有 <code>activity_info</code>。如果只有 <code>u_code</code>、签名或设备标识，就无法用这套方法确认分享人。</p><p>解析原理参考 <a href="https://github.com/tu95/FindYou" target="_blank" rel="noopener noreferrer">FindYou 开源项目 ↗</a>。链接被再次转发后，可能仍然指向最初的分享账号。</p></section>
+      </aside>
+    </div>
+    <noscript><p>请启用 JavaScript 使用此工具。</p></noscript>
+  </main>
+</body>
+</html>

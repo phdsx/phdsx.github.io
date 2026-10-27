@@ -18,6 +18,6 @@
   const status = document.getElementById('parse-status');
   status.textContent = fileMessage();
   status.dataset.error = 'true';
-  for (const id of ['parse-button', 'paste-button', 'video-url', 'sessdata', 'clear-login', 'qr-login-button', 'platform-cookie']) document.getElementById(id).disabled = true;
+  for (const id of ['parse-button', 'paste-button', 'video-url', 'sessdata', 'clear-login', 'qr-login-button', 'platform-cookie', 'auth-platform', 'clear-platform-session', 'douyin-login-button', 'xiaohongshu-login-button']) document.getElementById(id).disabled = true;
   document.getElementById('parse-form').addEventListener('submit', event => event.preventDefault());
 }());

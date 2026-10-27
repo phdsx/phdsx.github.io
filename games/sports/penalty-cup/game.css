@@ -1,0 +1,19 @@
+@charset "UTF-8";
+:root{color-scheme:dark;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;color:#e9f1fa;background:#071a2c}
+*{box-sizing:border-box}body{min-width:280px;margin:0}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}[hidden]{display:none!important}
+button:focus-visible,a:focus-visible{outline:3px solid #ffdb3b;outline-offset:4px}
+.game-page{width:min(100%,1060px);margin:0 auto;padding:14px 20px 20px}
+.game-toolbar{height:58px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.back-link{justify-self:start;display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:13px;color:#aebed0}.back-link:hover{color:#fff}
+h1{margin:0;color:#f3f7fd;font-size:19px;font-weight:700;letter-spacing:1px}
+.fullscreen{justify-self:end;min-height:44px;padding:8px 13px;border:1px solid #30475d;border-radius:6px;color:#e2edf7;background:#122a40;font-size:13px}.fullscreen:hover{background:#1c3852}.fullscreen span{margin-left:7px;font-size:17px;vertical-align:-1px}
+.game-viewport{position:relative;width:100%;aspect-ratio:16/9;margin-top:7px;overflow:hidden;background:#000;box-shadow:0 14px 45px #0005}
+iframe{display:block;width:100%;height:100%;border:0;background:#000}
+.load-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#071a2c}.load-card{width:min(320px,90%);padding:20px;text-align:center}.load-card p{margin:14px 0 0;font-size:17px;font-weight:600}.load-card .load-detail{color:#9daec1;font-size:13px;font-weight:400;line-height:1.8}
+.loading-spinner{display:inline-block;width:28px;height:28px;border:3px solid #385066;border-top-color:#ffdb3b;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.load-card button{margin-top:18px;min-height:44px;padding:9px 22px;border:0;border-radius:6px;background:#ffda33;color:#342a04;font-size:14px;font-weight:700}
+.host-status{min-height:20px;margin:8px 0 0;color:#b9c6d6;text-align:right;font-size:12px}.host-status:empty{display:none}.noscript{padding:14px;text-align:center;font-size:14px}
+.game-page:fullscreen{display:flex;flex-direction:column;align-items:center;width:100%;height:100%;overflow:auto;background:#071a2c;padding:max(8px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+.game-page:fullscreen .game-toolbar{width:min(100%,1200px);flex-shrink:0}.game-page:fullscreen .game-viewport{flex-shrink:0;width:min(100%,calc((100svh - 90px)*1.7777778));margin:auto 0}.game-page:fullscreen .host-status{flex-shrink:0}
+@media(max-width:600px){.game-page{padding:8px 0 12px}.game-toolbar{height:54px;padding:0 12px;gap:8px}.back-link{gap:5px;font-size:12px}h1{font-size:16px;letter-spacing:0}.fullscreen{padding:7px 9px;font-size:12px}.fullscreen span{display:none}.game-viewport{margin-top:0}.load-card{padding:10px}.load-card p{font-size:15px;margin-top:10px}.load-card .load-detail{margin-top:6px;font-size:12px}.host-status{padding:0 12px}.game-page:fullscreen{padding:max(4px,env(safe-area-inset-top)) max(4px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left))}.game-page:fullscreen .game-toolbar{height:48px}.game-page:fullscreen .game-viewport{width:min(100%,calc((100svh - 60px)*1.7777778))}}
+@media(prefers-reduced-motion:reduce){.loading-spinner{animation:none}}

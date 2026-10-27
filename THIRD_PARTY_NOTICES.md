@@ -4,8 +4,17 @@
 
 ## 已识别的独立许可内容
 
+`games/arcade/tu-95/` 包含 [TU-95 原游戏](https://www.silvergames.com/zh/tu-95)的汉化和去推广版本；原程序、美术、音乐归其原权利人，未发现独立再分发许可证，不因本站许可改变。使用本地 Ruffle 运行时（MIT 或 Apache-2.0，详细第三方声明见 `engine/LICENSE-Ruffle-Web.md`）；中文字形来自 Noto Sans CJK SC（SIL OFL 1.1，`engine/OFL-NotoSansCJK.txt`）。来源、校验和及改动范围见游戏目录 README。旧独立原型与其 AI 素材仍保存在同目录，供回退。
+
 | 路径或组件 | 许可证 | 说明 |
 | --- | --- | --- |
+| `games/arcade/hill-climb/runtime/` 与 `cover.png` | 原游戏程序与素材归 Fingersoft 等原权利人；未发现独立再分发许可证 | 基于 [Hill Climb Racing Lite](https://poki.com/zh/g/hill-climb-racing-lite) 1.3.0 的 Defold/WebAssembly 构建；本地修改为中文、免广告奖励和离线平台适配。原版程序、图像、音频及商标不因本站 AGPL 改变权利归属；来源、校验和修改边界见该游戏的 `REA_FINDINGS.md`。新增中文字形来自 Noto Sans SC，采用 SIL OFL 1.1，许可证见 `runtime/NotoSansSC-OFL.txt`。 |
+| `games/arcade/hole-city/runtime/` 与 `cover.jpg` | 原游戏程序与素材归 Voodoo 等原权利人；未发现独立再分发许可证 | 基于 [Hole.io](https://poki.com/zh/g/hole-io) 的 WebGL 2.20.4 构建；本地补充简体中文、去广告桥接及中文字体图集。原游戏程序、图像、模型和音频不因本站 AGPL 而改变权利归属；来源与响应 SHA-256 见该目录 `runtime/source-manifest.json`。中文补字来自 Google Noto Sans SC，采用 SIL OFL 1.1，许可证随附于 `runtime/NotoSansSC-OFL.txt`。 |
+| `games/sports/penalty-cup/play/` 与 `cover.png` | 原游戏素材及程序归原权利人；未发现独立再分发许可证 | 基于 [Penalty Shooters 2](https://poki.com/zh/g/penalty-shooters-2)，原作者 10x10games。保留原版 Construct 运行时、球队数据、人物、场景和音频；本地修改为中文显示、广告接口离线替代和适配入口。文件来源、SHA-256 和分析边界见游戏目录 `source-manifest.json` 与 `README.md`。原游戏资源不因本站源码许可改变权利归属。 |
+| `games/arcade/super-mario/upstream/` 与该游戏封面 | 源代码 MIT；原版图像、声音及游戏设计归 Nintendo 所有 | 基于 [reruns/mario](https://github.com/reruns/mario)，Copyright (c) 2017 Garrett Johnson。完整保留 MIT 许可及上游 README；本地修改、来源压缩包 SHA-256 见游戏目录 `README.md`。精灵、音频与其截图封面不因源码采用 MIT 或本站 AGPL 而改变原有权利。 |
+| `games/arcade/space-cadet-pinball/engine/` | 引擎 MIT；原版游戏数据权利归原权利人 | [alula/SpaceCadetPinball](https://github.com/alula/SpaceCadetPinball) 的 WebAssembly 浏览器移植，基于 Andrey Muzychenko 的反编译引擎；保留完整 MIT 许可、下载来源和 SHA-256。球台、字体、图像与音频不适用 MIT 或本站 AGPL 许可。本站适配及原版资源边界见该目录 `README.md`。 |
+| `assets/vendor/exiftool-wasm-1.0.4/` | Apache-2.0 / MIT / Perl 原许可 | colorhythm 的 ExifTool WebAssembly 封装及 zeroperl、Perl、ExifTool 13.59；用于本地读取相机快门次数。保留原版文件、许可证、来源和 SHA-256，详见该目录 README。 |
+| `tools/media/service/package.json` 中的 Playwright | Apache-2.0 | [Playwright](https://github.com/microsoft/playwright)，用于隔离的抖音、小红书官方扫码浏览器；依赖固定在 lockfile，安装包保留 LICENSE / NOTICE。Chromium 单独下载并适用自身第三方许可，不随源码提交。未复制 MediaCrawler 源码。 |
 | `tours/china/fujian/pingtan/` 与 `assets/tours/pingtan.webp` | MIT / ODbL 1.0 / CC BY 4.0 / CC0 1.0 / 公共高程提供者条款 | Three.js、OSM 地理数据、2016 EOxCloudless / Copernicus Sentinel 影像、Skadi 高程及 ambientCG 材质；预览图为本地场景截图。来源、精度与还原边界见该目录 `docs/SOURCES.md`、`docs/ACCURACY.md` 和 `data/sources.json`。版权参考照片未随项目分发。 |
 | `tours/china/beijing/xiangshan/` | MIT / ODbL 1.0 / CC0 / CC BY / CC BY-SA / Copernicus DEM 条款 | 保留 Three.js、OSM、高程、Poly Haven 材质与参考照片的来源及许可；详见该目录 `SOURCES.md`、`assets/licenses/` 和照片署名。 |
 | `tours/china/beijing/north-garden/` 与 `tours/china/qinghai/xining-zoo/` | MIT / ODbL 1.0 / 公共高程提供者条款 | Three.js、OSM 衍生数据、Mapzen 高程；各目录保留来源、地形署名与还原边界说明。 |

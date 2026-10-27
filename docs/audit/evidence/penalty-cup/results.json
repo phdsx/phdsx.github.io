@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "Chinese team selection and desktop menu fit the pitch",
+    "Real pointer hold/release scores and alternates into goalkeeper control",
+    "Three complete matches advance through the final and persist the trophy",
+    "Overcharging misses; no goalkeeper input concedes a goal",
+    "Keyboard shot, pause/resume and focus loss cancel held input safely",
+    "Elimination, reselection, all difficulties and sound controls work",
+    "Reload retains championship history and corrupt storage falls back safely",
+    "320/390/720/1080 mobile menus and controls have no horizontal overflow",
+    "Touch hold shoots, touch cancel resets and a real touch dive saves",
+    "Game requests only local resources; no external ads, SDKs, failed requests or console errors",
+    "Game directory includes the card and Sports filter finds it"
+  ],
+  "errors": [],
+  "failures": [],
+  "externalGameRequests": 0
+}

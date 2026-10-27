@@ -1,0 +1,22 @@
+.shutter-tool{color:#29242c;font-family:Ubuntu,'Microsoft YaHei',system-ui,sans-serif}
+.shutter-tool *{box-sizing:border-box}
+.shutter-tool [hidden]{display:none!important}
+.shutter-heading{margin-bottom:24px}.shutter-tool h1{margin:0 0 10px}.shutter-heading>p:last-child{color:#716972;line-height:1.7}
+.shutter-eyebrow{font-size:12px;color:#b43a13;letter-spacing:.06em}
+.shutter-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.shutter-panel{min-width:0;background:#fff;border:1px solid #e2dcd7;border-radius:9px;padding:22px}
+.shutter-tool h2{font-size:17px;margin:0 0 18px}.shutter-tool h3{font-size:15px;margin:0 0 10px}
+.shutter-drop{border:2px dashed #d6cec6;border-radius:8px;background:#faf8f6;text-align:center;padding:28px 16px}.shutter-drop.dragging{border-color:#e95420;background:#fff0e9}
+.shutter-aperture{display:block;font-size:56px;line-height:1.2;color:#ba461e;margin-bottom:15px}.shutter-drop p{color:#716972;font-size:13px;line-height:1.9;margin:0 0 20px}
+.shutter-tool button{font:inherit;font-size:13px;border:1px solid #d6cec6;border-radius:6px;min-height:40px;padding:9px 15px;background:#f6f2ef;color:#29242c;cursor:pointer}
+.shutter-tool button:hover{background:#eee7e1}.shutter-tool .primary{background:#e95420;border-color:#e95420;color:#fff}.shutter-tool .primary:hover{background:#c63c0f}
+.shutter-tool :focus-visible{outline:3px solid #bc3c12;outline-offset:3px}.shutter-note,.shutter-file,.shutter-status{font-size:12px;line-height:1.8;color:#716972;overflow-wrap:anywhere}
+.shutter-file{padding:10px;background:#f7f4f1;border-radius:6px;color:#29242c}.shutter-status{min-height:44px;margin-bottom:0}.shutter-status.error{color:#a03214}.shutter-actions{display:flex;gap:8px;flex-wrap:wrap}
+.shutter-panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.shutter-panel-head h2{margin:0}.shutter-badge{font-size:11px;border-radius:20px;background:#edf5ee;padding:5px 10px;color:#2a6438}
+.shutter-empty{text-align:center;color:#716972;padding:65px 12px}.shutter-empty span{font-size:52px;color:#bcb3aa}.shutter-empty p{font-size:13px;line-height:1.8}
+.shutter-count{font-size:clamp(32px,5vw,58px);line-height:1.2;letter-spacing:-.03em;font-weight:700;margin:0 0 14px;color:#b43a13;overflow-wrap:anywhere}.shutter-count.missing{font-size:30px;color:#716972}
+.shutter-explanation{font-size:13px;line-height:1.9;color:#716972}.shutter-details{margin:20px 0}.shutter-details>div{display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid #eee8e3;font-size:13px}.shutter-details dt{color:#716972}.shutter-details dd{margin:0;overflow-wrap:anywhere}
+.shutter-counters{display:grid;gap:8px;margin-bottom:18px}.shutter-counter{padding:10px 12px;background:#f7f4f1;border-radius:6px;font-size:13px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.shutter-counter small{display:block;color:#716972;font-size:11px;overflow-wrap:anywhere}.shutter-counter strong{font-size:16px}
+.shutter-help{margin-top:20px}.shutter-help-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.shutter-help-grid p,.shutter-source{font-size:12px;line-height:1.9;color:#716972}.shutter-source{border-top:1px solid #eee8e3;padding-top:14px;margin:10px 0 0}.shutter-tool a{color:#b43a13}
+@media(max-width:900px){.shutter-workspace{grid-template-columns:1fr}.shutter-help-grid{grid-template-columns:1fr;gap:10px}.shutter-empty{padding:25px 10px}}
+@media(max-width:600px){body.ubuntu-desktop.unified-tool .ubuntu-content>main.shutter-tool{padding:18px 12px}.shutter-panel{padding:16px}.shutter-drop{padding:20px 10px}.shutter-workspace{gap:14px}}

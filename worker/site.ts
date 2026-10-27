@@ -1,9 +1,11 @@
 import { apiResponse, API_PREFIX } from "../tools/lifestyle/pokemon-map/deployment/api";
 import { videoApiResponse, VIDEO_API_PREFIX } from "./bilibili.mjs";
 import { mediaGateway, MEDIA_API_PREFIX } from "./video-gateway.mjs";
+import { shareAccountResponse, SHARE_API_PATH } from "./share-account.mjs";
 
 export default {
   async fetch(request: Request, env: { ASSETS: { fetch(request: Request): Promise<Response> }; BILIBILI_SESSION_SECRET?: string; VIDEO_SERVICE_URL?: string; VIDEO_SERVICE_KEY?: string }): Promise<Response> {
+    if (new URL(request.url).pathname === SHARE_API_PATH) return shareAccountResponse(request);
     if (new URL(request.url).pathname.startsWith(MEDIA_API_PREFIX)) return mediaGateway(request,env);
     if (new URL(request.url).pathname.startsWith(VIDEO_API_PREFIX)) return videoApiResponse(request, fetch, env);
     if (new URL(request.url).pathname.startsWith(API_PREFIX)) {

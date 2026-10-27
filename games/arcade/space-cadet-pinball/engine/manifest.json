@@ -1,0 +1,13 @@
+{
+  "project": "https://github.com/alula/SpaceCadetPinball",
+  "downloaded": "2026-10-26",
+  "modified": false,
+  "engineLicense": "MIT",
+  "gameDataLicense": "Original game assets remain the property of their respective rights holders; not covered by the engine MIT license.",
+  "files": [
+    { "file": "SpaceCadetPinball.js", "url": "https://alula.github.io/SpaceCadetPinball/SpaceCadetPinball.js", "bytes": 218317, "sha256": "7b79176a84fda4463f53d0bf3588aac57596d63715166904ad32dd3978db5610" },
+    { "file": "SpaceCadetPinball.wasm", "url": "https://alula.github.io/SpaceCadetPinball/SpaceCadetPinball.wasm", "bytes": 4539452, "sha256": "842e7313bf64f22bf1b0214ced3d143a13e5b0f06113996a3b4a19e6f7c1c857" },
+    { "file": "SpaceCadetPinball.data", "url": "https://alula.github.io/SpaceCadetPinball/SpaceCadetPinball.data", "bytes": 2285418, "sha256": "53eea8defa123fc74d602fb89fea87afdaedd93ab8d106f46c75130ce5afd902" },
+    { "file": "LICENSE", "url": "https://raw.githubusercontent.com/alula/SpaceCadetPinball/master/LICENSE", "bytes": 1079, "sha256": "db6fc129469da7e295ddcd27bb4b7cc05b35d1bb89c460a33250e23bf004dc96" }
+  ]
+}

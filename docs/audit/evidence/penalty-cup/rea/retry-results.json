@@ -1,0 +1,19 @@
+{
+  "before": {
+    "layout": "ballFlight3",
+    "shot": 2,
+    "guest": 0,
+    "reward": false,
+    "timer": 0,
+    "touched": 1
+  },
+  "after": {
+    "layout": "ballFlight3",
+    "shot": 2,
+    "guest": 0,
+    "reward": true,
+    "timer": -1,
+    "touched": 0
+  },
+  "external": []
+}

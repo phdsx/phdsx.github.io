@@ -40,14 +40,21 @@
     return {family:'tours',section:'tours.html',category:null,country,region,crumbs,parent:crumbs.at(-2)};
   }
   const titles = {
+    'tu-95':['TU-95 飞行训练','TU-95 Flight Training'],
+    'hill-climb':['登山赛车 Lite','Hill Climb Racing Lite'],
+    'penalty-cup':['点球大战 2','Penalty Shooters 2'],
+    'space-cadet-pinball':['三维弹球','3D Pinball'],
+    'shutter-count':['相机快门次数','Camera shutter count'],
+    'share-account':['分享链接账号识别','Share link account inspector'],
     'bilibili-downloader':['视频在线解析 · 多平台下载','Online video downloader'],
     'pokemon-map':['宝可梦视野地图','Pokémon Viewport Map'],
+    'hole-city':['黑洞吞噬城市','Hole City'],
     'text-diff':['文本差异比对','Text diff'],
     'image-compressor':['图片压缩','Image compressor'], 'image-cropper':['图片裁剪','Image cropper'], 'batch-image-cropper':['批量图片裁剪','Batch image cropper'], 'image-watermark-editor':['图片水印与 EXIF 编辑器','Watermark & EXIF editor'],
     'case-converter':['大小写转换','Case converter'], 'text-deduplicator':['文本去重','Text deduplicator'], 'text-formatter':['文本格式化','Text formatter'], 'json-formatter':['JSON 格式化','JSON formatter'], 'word-counter':['字数统计','Word counter'], 'qr-generator':['二维码生成','QR generator'],
     'eq-pinyin-code':['EQ 单字拼音域代码生成器','Pinyin EQ field generator'], 'ppt-countdown':['PPT 放映悬浮倒计时','Floating presentation timer'], 'work-countdown':['下班倒计时','Work countdown'], 'countdown':['自定义倒计时','Countdown'],
     'meal-randomizer':['吃啥饭','Meal picker'], 'child-gender-simulator':['子女性别娱乐模拟器','Random gender simulator'], 'lightning-calculator':['雷击概率娱乐计算器','Lightning probability game'], 'vip-video-parser':['VIP 视频解析','Video parser'],
-    'gomoku':['五子棋','Gomoku'], 'chinese-chess':['中国象棋','Chinese chess'], 'junqi':['军棋','Junqi'], 'frontline-command':['前线指挥','Frontline Command'], 'tower-defense':['星环塔防','Star Ring Defense'], 'storm-siege':['风暴攻城','Storm Siege'], 'free-kick':['弧线任意球','Curve Free Kick'], 'three-kingdoms-baye':['三国霸业','Three Kingdoms: Baye'], 'xiuxian':['我的文字修仙全靠刷','Text Cultivation'], 'tetris':['俄罗斯方块','Tetris'], 'fruit-ninja':['水果忍者','Fruit Ninja'], 'submarine-battle':['潜艇大战','Deep Sea Hunter'], 'parking-challenge':['停车场倒车挑战','Parking Challenge'], 'parking-pulse':['停车脉冲','Parking Pulse'], 'sand-sort':['沙子分类','Sand Sort'], 'snake':['贪吃蛇','Snake'], 'plane':['飞机大战','Plane Battle'], 'tank':['坦克大战','Tank Battle'], 'birds':['愤怒的小鸟','Angry Birds'], 'match':['消消乐','Match Three'], 'stars':['星图','Star Map'], 'difference':['大家来找茬','Spot the Difference']
+    'gomoku':['五子棋','Gomoku'], 'chinese-chess':['中国象棋','Chinese chess'], 'junqi':['军棋','Junqi'], 'frontline-command':['前线指挥','Frontline Command'], 'tower-defense':['星环塔防','Star Ring Defense'], 'storm-siege':['风暴攻城','Storm Siege'], 'free-kick':['弧线任意球','Curve Free Kick'], 'three-kingdoms-baye':['三国霸业','Three Kingdoms: Baye'], 'xiuxian':['我的文字修仙全靠刷','Text Cultivation'], 'super-mario':['超级玛丽','Super Mario Bros.'], 'tetris':['俄罗斯方块','Tetris'], 'fruit-ninja':['水果忍者','Fruit Ninja'], 'submarine-battle':['潜艇大战','Deep Sea Hunter'], 'parking-challenge':['停车场倒车挑战','Parking Challenge'], 'parking-pulse':['停车脉冲','Parking Pulse'], 'sand-sort':['沙子分类','Sand Sort'], 'snake':['贪吃蛇','Snake'], 'plane':['飞机大战','Plane Battle'], 'tank':['坦克大战','Tank Battle'], 'birds':['愤怒的小鸟','Angry Birds'], 'match':['消消乐','Match Three'], 'stars':['星图','Star Map'], 'difference':['大家来找茬','Spot the Difference']
   };
   function resolve(path, search = '', title = '') {
     path = path || 'index.html';

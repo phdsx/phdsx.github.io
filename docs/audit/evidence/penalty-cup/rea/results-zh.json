@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "Original graphics, audio and team files match source checksums",
+    "Host loads the original game with Chinese league names",
+    "Original team selection and group standings show Chinese names",
+    "Real pointer hold and release progress the original match",
+    "Sound control switches and persists after reload",
+    "World Cup contains the original 48 teams with Chinese names",
+    "Desktop and phone viewport widths retain the 16:9 play area",
+    "Real touch selects teams and holds/releases a kick",
+    "Startup and tested play request no external resources"
+  ],
+  "errors": [],
+  "failed": [],
+  "external": []
+}

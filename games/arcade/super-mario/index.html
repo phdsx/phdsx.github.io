@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f4ec">
+  <meta name="description" content="超级玛丽网页版，挑战经典 1-1 关卡与地下金币房，支持键盘、触屏、暂停与重新开始。">
+  <title>超级玛丽 - PHDSX</title>
+  <link rel="stylesheet" href="game.css">
+  <link rel="icon" href="upstream/sprites/items.png">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="back" href="../../../games.html?category=arcade">← 返回游戏厅</a>
+      <span class="brand">PHDSX <span>/</span> PLAYROOM</span>
+      <span class="edition">经典街机 · 01</span>
+    </header>
+    <div class="heading"><div><p class="eyebrow">A LITTLE ADVENTURE, A LOT OF NOSTALGIA.</p><h1>超级玛丽<span>Super Mario Bros.</span></h1></div><span class="tag">单人 · 横版闯关</span></div>
+    <div class="layout">
+      <section class="game" aria-label="超级玛丽游戏区">
+        <div class="hud" aria-label="游戏状态"><div><small>WORLD</small><strong id="world">1 — 1</strong></div><div><small>COINS</small><strong>● <span id="coins">00</span></strong></div><div><small>LIVES</small><strong>× <span id="lives">3</span></strong></div><span class="state" id="state">准备开始</span></div>
+        <div class="screen" id="screen">
+          <div id="canvas-mount"></div>
+          <div id="overlay" class="overlay">
+            <div class="overlay-card">
+              <span class="level-chip" id="overlay-kicker">WORLD 1 — 1</span>
+              <h2 id="overlay-title">跳回快乐的<br><em>像素时代。</em></h2>
+              <p id="overlay-message">越过水管，收集金币，向终点旗杆出发。</p>
+              <button id="start" class="primary" type="button" disabled>正在载入…</button>
+              <span class="overlay-foot" id="overlay-foot">方向键移动 · 空格跳跃 · Z 加速</span>
+            </div>
+          </div>
+        </div>
+        <div class="toolbar"><button id="pause" type="button" disabled>Ⅱ 暂停</button><button id="restart" type="button" disabled>↻ 重新开始</button><button id="sound" type="button" aria-pressed="true" aria-label="关闭声音">♪ 声音开</button><button id="fullscreen" type="button">⛶ 全屏</button></div>
+        <div class="touch-controls" aria-label="触屏控制">
+          <div class="direction-pad"><button type="button" data-control="LEFT" aria-label="向左移动">←</button><button type="button" data-control="DOWN" aria-label="下蹲或进入水管">↓</button><button type="button" data-control="RIGHT" aria-label="向右移动">→</button></div>
+          <div class="action-pad"><button type="button" data-control="RUN" class="run" aria-label="按住加速，火焰形态下按下发射火球">加速</button><button type="button" data-control="JUMP" class="jump" aria-label="跳跃">跳跃</button></div>
+        </div>
+      </section>
+      <aside class="guide" aria-label="游戏说明">
+        <span class="guide-index">01 / HOW TO PLAY</span><h2>冒险，从这一跳开始。</h2><p class="intro">熟悉的水管和问号砖，还有藏在路上的小惊喜。用三次机会，抵达城堡。</p>
+        <dl class="keys"><div><dt><kbd>←</kbd> <kbd>→</kbd> / <kbd>A</kbd> <kbd>D</kbd></dt><dd>左右移动</dd></div><div><dt><kbd>Space</kbd> / <kbd>X</kbd> / <kbd>W</kbd></dt><dd>跳跃，按住跳得更高</dd></div><div><dt><kbd>Z</kbd> / <kbd>Shift</kbd></dt><dd>按住加速 / 按下发射火球</dd></div><div><dt><kbd>↓</kbd> / <kbd>S</kbd></dt><dd>下蹲 / 站在入口进入水管</dd></div><div><dt><kbd>P</kbd> / <kbd>Esc</kbd></dt><dd>暂停或继续</dd></div><div><dt><kbd>R</kbd></dt><dd>重新开始</dd></div></dl>
+        <div class="tip"><span>小提示</span><p>从下方顶问号砖找道具；从上方踩怪物。长按跳跃，再配合加速，就能跨过更远的沟壑。</p></div>
+        <div class="record"><span>最佳金币</span><strong id="best">00</strong></div>
+        <p class="scope">本版包含地上 1-1 关卡及地下金币房。抵达城堡即通关，可再次挑战。</p>
+      </aside>
+    </div>
+    <footer>基于 <a href="https://github.com/reruns/mario" target="_blank" rel="noopener noreferrer">Mario.js · Garrett Johnson</a>（<a href="upstream/LICENSE">MIT</a>）适配。<br>原版游戏设计、画面与声音归 Nintendo 所有；本页为非官方网页演示。<a href="README.md">版本与来源说明 ↗</a></footer>
+    <noscript><p>请启用 JavaScript 后开始游戏。</p></noscript>
+  </main>
+  <script src="upstream/js/util.js"></script>
+  <script src="upstream/js/input.js"></script>
+  <script src="upstream/js/resources.js"></script>
+  <script src="upstream/js/sprite.js"></script>
+  <script src="upstream/js/entity.js"></script>
+  <script src="upstream/js/pipe.js"></script>
+  <script src="upstream/js/mushroom.js"></script>
+  <script src="upstream/js/fireflower.js"></script>
+  <script src="upstream/js/star.js"></script>
+  <script src="upstream/js/fireball.js"></script>
+  <script src="upstream/js/coin.js"></script>
+  <script src="upstream/js/bcoin.js"></script>
+  <script src="upstream/js/goomba.js"></script>
+  <script src="upstream/js/koopa.js"></script>
+  <script src="upstream/js/floor.js"></script>
+  <script src="upstream/js/block.js"></script>
+  <script src="upstream/js/rubble.js"></script>
+  <script src="upstream/js/prop.js"></script>
+  <script src="upstream/js/player.js"></script>
+  <script src="upstream/js/flag.js"></script>
+  <script src="upstream/js/levels/level.js"></script>
+  <script src="upstream/js/levels/11.js"></script>
+  <script src="upstream/js/levels/11tunnel.js"></script>
+  <script src="host.js"></script>
+  <script src="upstream/js/game.js"></script>
+</body>
+</html>

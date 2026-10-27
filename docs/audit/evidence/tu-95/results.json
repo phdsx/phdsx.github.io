@@ -1,0 +1,17 @@
+{
+  "results": [
+    "Ready screen freezes simulation; both generated assets load; later routes locked",
+    "Real keyboard changes throttle/flaps; ground gear locked; pause and blur freeze and release input",
+    "Full first mission won using keyboard events; safe touchdown, stop, score and second route unlock",
+    "Next mission, saved unlock after reload, sound toggle, runway overrun explanation and retry",
+    "Native two-finger touch changes pitch and throttle together; touchCancel releases both",
+    "320 / 390 / 720 / 1080 widths have no horizontal overflow; flight touch buttons >=44 px",
+    "Arcade game directory exposes the new game"
+  ],
+  "errors": [],
+  "failed": [],
+  "gameExternal": [],
+  "catalogExternal": [
+    "https://www.clarity.ms/tag/xf5uw8ow0b"
+  ]
+}

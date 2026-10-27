@@ -21,7 +21,7 @@ test('Real tool UI restores per-platform credentials, never sends another provid
   const fill=(id,value)=>{node(id).value=value;node(id).events.input();};
   for(const [platform,credential] of [['douyin','douyin-test-cookie'],['youtube','youtube-test-cookie'],['xiaohongshu','xhs-test-cookie']]){select(platform);fill('platform-cookie',credential);}
   select('bilibili');fill('sessdata','bilibili-test-session');
-  select('douyin');assert.equal(node('platform-cookie').value,'douyin-test-cookie');assert.equal(node('bilibili-login-controls').hidden,true);assert.match(node('platform-qr-support').textContent,/抖音暂未接入扫码/);
+  select('douyin');assert.equal(node('platform-cookie').value,'douyin-test-cookie');assert.equal(node('bilibili-login-controls').hidden,true);assert.equal(node('douyin-login-controls').hidden,false);assert.equal(node('xiaohongshu-login-controls').hidden,true);assert.match(node('platform-qr-support').textContent,/抖音可使用扫码/);
   select('youtube');assert.equal(node('platform-cookie').value,'youtube-test-cookie');
   // Link detection selects Douyin's retained credential even when YouTube was
   // the last account panel the user visited.

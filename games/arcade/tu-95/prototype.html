@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111e2a">
+  <meta name="description" content="TU-95 飞行训练：中文无广告侧视飞行游戏，控制油门、襟翼和起落架，完成起飞与安全着陆。支持键盘和触屏。">
+  <title>TU-95 飞行训练 - PHDSX</title>
+  <link rel="icon" href="assets/aircraft.webp">
+  <link rel="stylesheet" href="game.css">
+  <script defer src="physics.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="back" href="../../../games.html">← <span>游戏厅</span></a>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✈</span><div><small>PHDSX 飞行俱乐部</small><h1>TU-95 <span>飞行训练</span></h1></div></div>
+      <div class="top-actions"><button id="sound" type="button" aria-pressed="false">声音：关</button><button id="fullscreen" type="button">全屏</button></div>
+    </header>
+    <div class="layout">
+      <section class="simulator" aria-label="飞行模拟器">
+        <div class="flight-strip"><span><i></i> <b id="phase">等待起飞</b></span><span id="route-label">松林机场 → 山谷机场</span><div><button id="restart" type="button">↻ 重飞</button><button id="pause" type="button">Ⅱ 暂停</button></div></div>
+        <div class="viewport">
+          <canvas id="sky" width="1200" height="580" tabindex="0" role="img" aria-label="侧视飞行场景。上下键调整油门，左右键控制机头，G 切换起落架，F 切换襟翼，空格刹车。"></canvas>
+          <div class="scene-label"><span id="weather">晴朗 · 无风</span><span id="distance">距目标 3.5 km</span></div>
+          <div id="alert" class="flight-alert" hidden></div>
+          <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+            <div class="modal">
+              <span class="modal-kicker" id="overlay-kicker">飞行任务 / 01</span>
+              <h2 id="overlay-title">从这里，飞向下一条跑道。</h2>
+              <p id="overlay-text">驾驶四发涡桨飞机，完成起飞、巡航与平稳着陆。第一课，从晴空下的山谷开始。</p>
+              <div id="first-tips" class="first-tips"><span><kbd>↑ ↓</kbd> 加减油门</span><span><kbd>← →</kbd> 抬头 / 低头</span><span><kbd>G</kbd> 起落架</span><span><kbd>F</kbd> 襟翼</span></div>
+              <div id="result" class="result" hidden></div>
+              <button id="start" class="primary" type="button">开始飞行 <span>→</span></button>
+              <button id="retry" class="secondary" type="button" hidden>再飞一次</button>
+              <small id="modal-foot">中文界面 · 无广告 · 进度保存在此浏览器</small>
+            </div>
+          </div>
+        </div>
+        <div class="instruments" aria-label="飞行仪表">
+          <div><small>空速 <span>km/h</span></small><strong id="speed">000</strong><div class="gauge"><i id="speed-bar"></i></div></div>
+          <div><small>高度 <span>m</span></small><strong id="altitude">000</strong><span id="vertical" class="instrument-note">垂直速度 0.0 m/s</span></div>
+          <div class="throttle-meter"><small>油门 <span>%</span></small><strong id="throttle">0</strong><div class="gauge"><i id="throttle-bar"></i></div></div>
+          <div class="attitude-meter"><small>俯仰 <span>°</span></small><strong id="pitch">0</strong><span id="fuel" class="instrument-note">燃油 100%</span></div>
+          <div class="configuration"><button id="gear" type="button" aria-pressed="true"><span class="config-dot"></span><span>起落架<strong id="gear-label">已放下</strong></span><kbd>G</kbd></button><button id="flaps" type="button"><span class="flap-mark">≋</span><span>襟翼<strong id="flap-label">起飞</strong></span><kbd>F</kbd></button></div>
+        </div>
+        <div class="guidance"><span aria-hidden="true">◎</span><p id="guidance" role="status">按住 ↑ 将油门推至 100%，沿跑道加速至 220 km/h。</p></div>
+        <div class="touch-controls" aria-label="触屏飞行控制">
+          <div><button type="button" data-hold="up">←<span>抬头</span></button><button type="button" data-hold="down">→<span>低头</span></button></div>
+          <button class="brake" type="button" data-hold="brake">刹车<small>接地后按住</small></button>
+          <div><button type="button" data-hold="less">−<span>油门</span></button><button type="button" data-hold="more">＋<span>油门</span></button></div>
+        </div>
+      </section>
+      <aside class="briefing">
+        <div class="brief-heading"><span>飞行计划</span><small id="record">训练记录 0 / 3</small></div>
+        <label class="mission-label" for="mission">选择航线</label><select id="mission" aria-label="选择飞行任务"></select>
+        <div class="route-card"><div><i></i><span>出发机场<strong id="from">松林机场</strong></span></div><div class="route-line"></div><div><i class="destination-dot"></i><span>目的机场<strong id="to">山谷机场</strong></span></div><span class="route-length" id="route-length">3.6 km</span></div>
+        <p id="brief">晴空、长跑道。熟悉起飞与着陆，完成第一次转场。</p>
+        <div class="mission-progress" aria-label="飞行任务步骤"><div data-stage="0"><b>01</b><span>滑跑加速<small>油门 100% · 空速 ≥ 220</small></span></div><div data-stage="1"><b>02</b><span>平稳起飞<small>轻抬机头 · 收起起落架</small></span></div><div data-stage="2"><b>03</b><span>沿线巡航<small>建议高度 120～250 米</small></span></div><div data-stage="3"><b>04</b><span>进近着陆<small>放起落架 · 减速 · 刹车</small></span></div></div>
+        <details class="manual"><summary>飞行员操作手册 <span>＋</span></summary><dl><div><dt>↑ / W · ↓ / S</dt><dd>增加 / 减少油门，松开后保持</dd></div><div><dt>← / A · → / D</dt><dd>抬头 / 低头，松开后保持姿态</dd></div><div><dt>G · F</dt><dd>起落架；襟翼循环：收起 → 起飞 → 着陆</dd></div><div><dt>空格 · P / Esc · R</dt><dd>地面刹车；暂停；重新飞行</dd></div></dl><p>接地时空速低于 330 km/h、下降率小于 5 m/s，机头保持 0～10°。飞抵目标跑道并停稳即可过关。</p></details>
+        <p class="local-note"><span>●</span> 单机运行 · 无广告</p>
+      </aside>
+    </div>
+    <footer><span>玩法参考 <a href="https://www.silvergames.com/zh/tu-95" target="_blank" rel="noopener noreferrer">TU-95</a>，本站独立制作 HTML5 版本。</span><span>愿每一次起飞，都有平安的降落。</span></footer>
+  </main>
+</body>
+</html>

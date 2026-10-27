@@ -11,6 +11,8 @@ Windows，在仓库根目录运行：
 ```powershell
 python -m venv .local-tools/video-downloader
 .local-tools/video-downloader/Scripts/python.exe -m pip install -r tools/media/service/requirements.txt
+npm --prefix tools/media/service ci
+tools/media/service/node_modules/.bin/playwright install chromium
 node scripts/serve-site.mjs 8194
 ```
 
@@ -41,6 +43,18 @@ docker run --rm -p 8795:8795 -e VIDEO_SERVICE_KEY=<自行生成的高强度随�
 
 YouTube 根据来源提供实际清晰度和编码；高分辨率通常需要下载画面、声音两个流，再由 FFmpeg 原画质合并为 MP4。MP4 中的 AV1 / VP9 等编码能否播放取决于设备。没有捏造或放大视频分辨率。
 
+### 抖音与小红书扫码会话
+
+页面分别提供「抖音扫码登录」「小红书扫码登录」。服务用 Playwright 加载平台官方登录页面，只返回官方二维码元素的 PNG，不调用第三方二维码服务。用户使用对应 App 扫码并确认。浏览器依赖缺失、网络失败、二维码过期及额外访问验证均明确报错；不自动处理验证码、不读取个人浏览器配置、不写入 storageState。
+
+每个本站浏览器所有者和平台各有独立的临时浏览器上下文；登录 Cookie 留在服务内存中，不返回前端，不写配置文件。小红书要求账号入口「我」及 web_session 同时存在，抖音要求真实 sessionid 和明确登录标记，游客 Cookie 不算登录。已确认会话有效期 8 小时；页面每 15 分钟、恢复可见时验证，成功后续期，临时连接失败稍后重试。刷新页面从本站 HttpOnly / SameSite=Strict 所有者 Cookie 恢复各平台扫码状态；手动 Cookie 输入仍在刷新时清空。离开页面停止续期，服务重启、平台撤销登录或离线超过时限需重新扫码。
+
+扫码最多同时保留 8 个上下文，二维码约 3 分钟过期，后台每分钟清理。退出某个平台只清除该平台上下文及该平台已缓存解析凭据，其他平台不受影响；不注销手机 App。下载时若填写了手动 Cookie，优先使用手动值，否则只选本站同一浏览器、同一平台的扫码会话。API 位于 `/tools/media/video/api/auth/status` 和 `auth/{douyin|xiaohongshu}/{qrcode|poll|renew|logout|cancel}`，修改状态要求同源 POST JSON。线上仍通过既有 Worker 网关连接本服务；多实例需将同一浏览器请求固定到同一实例。
+
+默认使用官方 Chromium，安装依赖见上方命令。可用 `VIDEO_LOGIN_BROWSER` 指定兼容的现有 Chromium 可执行文件。Linux 容器需要可用的 Chromium 沙箱；Docker 环境需按 Playwright 官方部署方式配置非 root 用户及所需内核支持，不关闭 TLS 验证或 Chromium 沙箱。
+
+实现时参考了 [MediaCrawler 登录流程](https://github.com/NanmiCoder/MediaCrawler/tree/main/media_platform) 中官方扫码页面及登录标记的说明，未复制该项目源码或签名算法。浏览器上下文隔离使用 [Playwright 官方 API](https://playwright.dev/docs/browser-contexts)。Playwright 为 Apache-2.0，安装包自带 LICENSE / NOTICE；Chromium 保留其自身许可。
+
 抖音可能要求新的访问 Cookie，小红书的很多笔记需要完整分享链接中的 `xsec_token`，还可能受登录、删除、地区或验证限制。页面按平台分别保留手动 Cookie，不自动读取浏览器账号；切换、解析失败均不清除，刷新本页或主动清除才重置对应输入。用户手动提供的 Cookie 转为仅限所选域名的临时 Netscape 文件，通过 stdin 配置传给 Python，不写进子进程命令行；临时文件以 0600 创建并在子进程结束时删除。服务端视频元数据缓存最多保留 30 分钟，已启动下载所用的临时凭据在任务结束时删除（下载最长 45 分钟），这些缓存时限不等同于前端手动会话过期；下载前发现缓存过期会使用页面仍保留的正确平台 Cookie 自动重新解析。刷新清空页面手动凭据，不等同于立即删除服务端尚有效的元数据缓存。B站扫码仅适用于 B站。进程异常退出时可能留下私有临时目录，应由部署方的磁盘清理策略处理。
 
 ## 下载和资源生命周期
@@ -52,6 +66,8 @@ YouTube 根据来源提供实际清晰度和编码；高分辨率通常需要下
 URL 输入只允许四个平台的已知视频路径，每一跳短链跳转重新校验平台；拒绝本地地址、用户名密码、特殊端口和伪造域名。仅从受支持的平台提取器运行 yt-dlp，校验媒体来源域名，禁止通用 URL 下载。始终保留 TLS 校验，不自动使用用户浏览器凭据。平台错误不会回显 Cookie、签名链接和原始 stderr。
 
 ## 验证记录（2026-10-25）
+
+2026-10-26 新增：抖音、小红书官方登录二维码均已真实生成并在页面显示，切换后保留各自扫码任务。未代用户完成个人手机确认；确认后的会话、独立退出、续期、过期、游客拒绝、额外验证提示及解析时自动选取正确 Cookie 使用模拟接口测试。页面两平台分别显示状态，不将单个平台验证失败扩散到其他平台。
 
 - YouTube `jNQXAC9IVRw`：真实解析、服务器下载、H.264 + AAC 分流合并、MP4 保存通过；ffprobe 检出 320×240、约 19.06 秒、画面与声音两条轨道。
 - YouTube `YE7VzlLtp-4`：真实返回 144P 至 1080P 多清晰度；未下载整部视频。

@@ -1,0 +1,215 @@
+{
+  "source_version": "1.3.0",
+  "archive_entries": 951,
+  "translated_messages": 178,
+  "original_payloads_unchanged": 921,
+  "original_data_bytes": 13947705,
+  "original_data_sha256": "8f7d300f405f0df0d1752cc8d7ef37be9a74585b616b53d1a487010c256bbbfa",
+  "patched_resources": [
+    {
+      "original_resource": "013d54f37139e7cdf147521c5ace3a1d597457f9",
+      "patched_sha256": "221edc3b220d85e8f99d28508e9ec6312fd850d55ce3af7163733c40e8e46c2d",
+      "bytes": 45046
+    },
+    {
+      "original_resource": "08ddc099bd27027c1b2657908ae498b2570a4fd3",
+      "patched_sha256": "63a4b325774af291de41f56defc2bc0def47b9c5174d0ab9237c99e1b14a91ae",
+      "bytes": 850
+    },
+    {
+      "original_resource": "0fcfc85e96b630dd4de87caee12c0010e2bf654e",
+      "patched_sha256": "46d2ed903f3787bd5b825709c55e3eb0b681cd0f5c2f658d3a219002c17f36e5",
+      "bytes": 11271
+    },
+    {
+      "original_resource": "17ef0e89bcc5b536aba109c49efae3cf48e666e2",
+      "patched_sha256": "28a21375b39cf9ff823cf2aea7a5354aedb182a1bf351b7116361a41e9ef3a1c",
+      "bytes": 12343
+    },
+    {
+      "original_resource": "27ca0ebdfd3c5b1609d4b0c34e7895933df7ef99",
+      "patched_sha256": "b5c11577502a2f1020a7e8fb64868981f603a81f2eb8329663d8736a42b00390",
+      "bytes": 100043
+    },
+    {
+      "original_resource": "2943bdc5bb596112cbdb71abb85966ca541a5c9c",
+      "patched_sha256": "b486e413d6af1b432f470225ec53a54d74578b978aefe024bd210d2a0bd9e13c",
+      "bytes": 2352
+    },
+    {
+      "original_resource": "333dc5286513675ac55ff2f2e3e3caf35d8a42e9",
+      "patched_sha256": "ea81a6fe732918778d8f59731dfd7762f1fae0d7985a4fc50cbff1163f3f0c42",
+      "bytes": 19184
+    },
+    {
+      "original_resource": "344c9496dfa18423279030870aedb46f8030606a",
+      "patched_sha256": "3eed859dd8eeaf410250eac0ef5544030d8712ff4893bd2ca188a0fa0b301d62",
+      "bytes": 8866
+    },
+    {
+      "original_resource": "380e74713e144818988859296144c26dcb968bc6",
+      "patched_sha256": "a014887085d94fd8d30dbbea281e171362fe43142284cc4530b7babddeda60c9",
+      "bytes": 5685
+    },
+    {
+      "original_resource": "3eee04ba2e131d7250bc33da7b4d471cac1d48fc",
+      "patched_sha256": "e2e9cea33199d25bc22d31db79c43312e4126f5bbcd233aba750a995e667c5df",
+      "bytes": 779646
+    },
+    {
+      "original_resource": "425813f36d373f7ab70b86ff6fca37e3a1146b92",
+      "patched_sha256": "194ab3735bdc8dc91b3ed045e17f24877b2d8a7f8e532504f6b11535d5da7673",
+      "bytes": 947577
+    },
+    {
+      "original_resource": "60a8e9793488e242d348ce05dd581c7339287ff3",
+      "patched_sha256": "af52fd8cea385feaa00adeea127df0555d18fe2886bfcfb5284777499ecaa773",
+      "bytes": 15421
+    },
+    {
+      "original_resource": "64f378a49ee96aeaf092d1293b9d639b3d55e73d",
+      "patched_sha256": "606d7b45b0fedc9e9926666d3401569c4b957b1bed2c92cdbb74d8c20ff115bf",
+      "bytes": 11752
+    },
+    {
+      "original_resource": "71cd7392aa6e8cc76277096431acf2db206aaa1d",
+      "patched_sha256": "c0fe647c488340dbb0c0a564186d5d3a8c0bebe284c44fd45e247dd847e69b1e",
+      "bytes": 1542077
+    },
+    {
+      "original_resource": "7d33bf8729622dea5da40c1f0c1467e969eb986b",
+      "patched_sha256": "e6a50031964de77eb8e0bc9cb05c9ca8f0fdc98cb723fc81aee0b29a77235db1",
+      "bytes": 12239
+    },
+    {
+      "original_resource": "7d5cde0d0d507e88d29d5384ad2c32739154e29f",
+      "patched_sha256": "bea5d8fa34c38e9ca7ca7841f161683f83df77eac8ddcca12eee12f0dd838a34",
+      "bytes": 1585
+    },
+    {
+      "original_resource": "897f537612fa27ee39a0ae90e66bf84db6896856",
+      "patched_sha256": "8f326fc0e47c05097d7468ba9997cdf44f7432ffbb2398efdc2bb65e66e4ec5a",
+      "bytes": 2439831
+    },
+    {
+      "original_resource": "8b95eaa424bdf8056b5e71d48d177499da54067d",
+      "patched_sha256": "b2d20a4d58fb3186d8e069b209d097ba3da1a3696b7829f96fd87cf34b9a6537",
+      "bytes": 21013
+    },
+    {
+      "original_resource": "9e4c8b5e936ec2f8aa43935d55a254a02e042ec5",
+      "patched_sha256": "cc994dd3a4bb2f04593f88f6c8ec478537502d554026441c6b2e9497c7bcb7dc",
+      "bytes": 5419
+    },
+    {
+      "original_resource": "ada5bcf510f116a091df840265ad12e25c7ff96d",
+      "patched_sha256": "559b5d516fdb9b1e1d7046b6b5d5767cafbaa774743331fdf49a2f724566137a",
+      "bytes": 32243
+    },
+    {
+      "original_resource": "ae5a5e8b32d8f41ce09ba17067a975bf0b7d0caa",
+      "patched_sha256": "91fcaadcd3111f4793fa85d90375d164aabd2dd82af02ffc9672f64b88d34bb9",
+      "bytes": 464043
+    },
+    {
+      "original_resource": "b36c7abf3c307e8f11afa5ed2cbba0fcaf49d020",
+      "patched_sha256": "9a0f19db217e43f67327e488d10d3b9de218cf6ef7588b68af7369eb4723fe9e",
+      "bytes": 28593
+    },
+    {
+      "original_resource": "c4d3f29fbd7efd91894f682d099d641fc67eeee6",
+      "patched_sha256": "64345d566bfbd60b84c25c98f1c4dd010c854fc3948c7ac0393414b352a1befc",
+      "bytes": 12799
+    },
+    {
+      "original_resource": "ce62475ec78e3152e2c80c2694f556e62eb4e8d5",
+      "patched_sha256": "4cb7238dfdd3ea2e3efd7b870377375e01f40aea8ef19f437fd6538f6acbf520",
+      "bytes": 2285815
+    },
+    {
+      "original_resource": "e3ce6b2c74b736652db3c0ae9c1d43e157a8c29f",
+      "patched_sha256": "6b05818ac41c310ef72aa25a36d5accb792f01a305e2c8e4084de13940e5e693",
+      "bytes": 3349106
+    },
+    {
+      "original_resource": "e6bf52c8730c0519f1197095820020b109d57a08",
+      "patched_sha256": "46adcaaea8c15be644ad0cac48f4d35d4ca19fd879b4837b9e0ec371488ea7a5",
+      "bytes": 31488
+    },
+    {
+      "original_resource": "f263d5e5fe4212341caefb364d80484e897ff6f6",
+      "patched_sha256": "b26f896b1dbbaa0caf7a902bf72fc6481b6e377fe12aafed9508acb0590a54fd",
+      "bytes": 10343
+    },
+    {
+      "original_resource": "f2ad2b8aa2b4c2abc49e8a15c3b441e1db19f83b",
+      "patched_sha256": "e294ca3e35fe2bc05f8a54245dc26dac997d4456e32e7d50ab65a6f830098d49",
+      "bytes": 6716
+    },
+    {
+      "original_resource": "f39c12bc4a94a38bacac56a8ae743b1fcbb58e99",
+      "patched_sha256": "d580d4e0b74fb84a3f7e3fac62f17756d464595ab917054a6f434fc5f2dac919",
+      "bytes": 1127
+    },
+    {
+      "original_resource": "fd319d09ef9417570bff1542e3b483b84b711b38",
+      "patched_sha256": "3ade30ae7f9abd764beb08b958f108feeec54be3fc80ac9ae686f717e3455aa2",
+      "bytes": 6170
+    }
+  ],
+  "font_results": [
+    {
+      "font": "/resources/assets/fonts/main_ui_font.fontc",
+      "size": 30,
+      "added_glyphs": 384
+    },
+    {
+      "font": "/resources/fonts/M1plus_Big.fontc",
+      "size": 40,
+      "added_glyphs": 308
+    },
+    {
+      "font": "/resources/fonts/Mplus1.fontc",
+      "size": 20,
+      "added_glyphs": 306
+    },
+    {
+      "font": "/resources/fonts/main_game_font.fontc",
+      "size": 50,
+      "added_glyphs": 384
+    },
+    {
+      "font": "/resources/fonts/main_gui.fontc",
+      "size": 42,
+      "added_glyphs": 384
+    },
+    {
+      "font": "/resources/fonts/main_menu_buttons.fontc",
+      "size": 24,
+      "added_glyphs": 384
+    },
+    {
+      "font": "/resources/fonts/wtour_font.fontc",
+      "size": 32,
+      "added_glyphs": 384
+    }
+  ],
+  "localized_gui_scenes": [
+    "/resources/ui/game_ui/game_continue_dialogue/game_continue_dialogue.guic",
+    "/resources/ui/game_ui/game_end_screen/game_ui_end_screen.guic",
+    "/resources/ui/game_ui/game_ui/game_ui_druid.guic",
+    "/resources/ui/game_ui/game_wtour_end_screen_xp/game_wtour_end_screen_xp.guic",
+    "/resources/ui/game_ui/pause_menu/game_ui_pause_menu.guic",
+    "/resources/ui/generic_ui/generic_ad_popup/generic_ad_popup.guic",
+    "/resources/ui/main_menu/main_menu_auto_upgrade/main_menu_auto_upgrade.guic",
+    "/resources/ui/main_menu/main_menu_debug/main_menu_debug.guic",
+    "/resources/ui/main_menu/main_menu_dialogue/main_menu_dialogue.guic",
+    "/resources/ui/main_menu/main_menu_hub/main_menu_hub.guic",
+    "/resources/ui/main_menu/main_menu_language/main_menu_language.guic",
+    "/resources/ui/main_menu/main_menu_reward_dialog/main_menu_reward_dialog.guic",
+    "/resources/ui/main_menu/main_menu_settings/main_menu_settings.guic",
+    "/resources/ui/main_menu/main_menu_thriathlon_start/start_thriatlon.guic",
+    "/resources/ui/main_menu/main_menu_vehicle/main_menu_vehicle.guic"
+  ],
+  "engine_sha256": "26febbf97f05b316a46f5a34b78a761d24fee3f37751f1e03fe027b78c6cfda3"
+}

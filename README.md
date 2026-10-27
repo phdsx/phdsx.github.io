@@ -26,6 +26,12 @@
 
 ## 精选作品
 
+### 分享链接账号识别
+
+粘贴抖音分享文案，从 `activity_info.social_share_user_id` 解析分享人 UID，再通过官方公开接口查询昵称、抖音号与主页，分享人与作品作者分开展示。解析原理参考 FindYou。短链展开和主页查询需要本站 Worker 或本地预览服务；GitHub Pages 和直接打开 HTML 支持本地解析长链接中的 UID。缺少分享字段时明确说明，不从 `u_code`、签名或设备标识猜测账号。
+
+[工具入口](https://phdsx.github.io/tools/media/share-account.html) · [能力、服务与验证说明](tools/media/docs/share-account.md)
+
 ### 文本差异比对
 
 比较两段文字的新增、删除和修改，支持四种空白处理规则、中文与 Emoji 字符高亮、差异导航和 TXT 报告。完全在浏览器本地处理，不自动保存输入。

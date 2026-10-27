@@ -2,8 +2,8 @@ import { PLATFORM_NAMES } from './video-platforms.mjs';
 
 export const PLATFORM_AUTH = Object.freeze({
   bilibili: Object.freeze({ qr: true, field: 'sessdata' }),
-  douyin: Object.freeze({ qr: false, field: 'platform-cookie' }),
-  xiaohongshu: Object.freeze({ qr: false, field: 'platform-cookie' }),
+  douyin: Object.freeze({ qr: true, field: 'platform-cookie' }),
+  xiaohongshu: Object.freeze({ qr: true, field: 'platform-cookie' }),
   youtube: Object.freeze({ qr: false, field: 'platform-cookie' })
 });
 

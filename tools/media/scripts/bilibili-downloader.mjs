@@ -1,4 +1,5 @@
 import { initBilibiliLogin } from './bilibili-login.mjs';
+import { initPlatformLogin } from './platform-login.mjs';
 import { parseVideoInput, PLATFORM_NAMES } from './video-platforms.mjs';
 import { createPlatformSessions, PLATFORM_AUTH } from './platform-sessions.mjs';
 
@@ -7,13 +8,14 @@ const API = new URL('./bilibili/api/',location.href);
 const MEDIA_API = new URL('./video/api/',location.href);
 let result = null, controller = null, objectUrl = null, resolveController = null;
 let login;
+const platformLogins={};
 let activePlatform='bilibili';
 const sessions=createPlatformSessions();
 const hasAudio=format=>Boolean(format.hasAudio||format.audio||format.type==='mp4');
 const t = (zh,en) => window.PHDSXI18n?.getLanguage() === 'en' ? en : zh;
 function status(message,error = false) { $('parse-status').textContent = message; $('parse-status').dataset.error = String(error); }
 function release() { if (objectUrl) URL.revokeObjectURL(objectUrl); objectUrl = null; $('save-result').hidden = true; }
-function lock(downloading) { $('parse-button').disabled = downloading; $('paste-button').disabled = downloading; $('video-url').disabled = downloading; $('page-select').disabled = downloading; $('quality-select').disabled = downloading; $('download-button').disabled = downloading; $('cancel-button').hidden = !downloading;for(const id of ['auth-platform','sessdata','platform-cookie','clear-login','clear-platform-session'])$(id).disabled=downloading;login?.setBusy(downloading); }
+function lock(downloading) { $('parse-button').disabled = downloading; $('paste-button').disabled = downloading; $('video-url').disabled = downloading; $('page-select').disabled = downloading; $('quality-select').disabled = downloading; $('download-button').disabled = downloading; $('cancel-button').hidden = !downloading;for(const id of ['auth-platform','sessdata','platform-cookie','clear-login','clear-platform-session'])$(id).disabled=downloading;login?.setBusy(downloading);for(const auth of Object.values(platformLogins))auth.setBusy(downloading); }
 function codecName(codec) { return /^(avc|h264)/.test(codec) ? 'H.264' : /^(hev|hvc|h265)/.test(codec) ? 'H.265' : /^av01/.test(codec) ? 'AV1' : /^(vp09|vp9)/.test(codec)?'VP9':codec||'MP4'; }
 function formatInfo() {
   const format = result?.formats.find(f => f.id === $('quality-select').value);
@@ -38,7 +40,7 @@ function render(data) {
   $('page-select').replaceChildren(...data.pages.map(p => new Option(`P${p.page} · ${p.part || data.title}`,p.page)));
   $('page-select').value = String(data.page);
   $('quality-select').replaceChildren(...data.formats.map(f => new Option(`${f.label} · ${codecName(f.codec)}`,f.id)));
-  $('quality-notice').textContent = data.platform!=='bilibili'?t('仅列出当前可下载的画质。平台如要求登录，可使用下方备用 Cookie；B站扫码会话不用于其他平台。','Only available qualities are listed. Use this platform’s optional Cookie if login is required; Bilibili QR login applies only to Bilibili.'):(data.loggedIn ? t('当前已使用登录凭据。','Using your login session.') : t('当前为游客模式；登录后可能获得更多清晰度。','Guest mode; signing in may unlock more qualities.')) + (data.unavailable.length ? t(` 未返回的视频档位：${data.unavailable.join('、')}。以视频源及账号权限为准。`,` Unavailable: ${data.unavailable.join(', ')}. Availability depends on source and account access.`) : '');
+  $('quality-notice').textContent = data.platform!=='bilibili'?t(`仅列出当前可下载的画质。${data.loggedIn?'已使用本平台会话。':'需要登录时，请在上方设置本平台会话。'}会话不会跨平台复用。`,`Only available qualities are listed. ${data.loggedIn?'Using this platform’s session.':'Set up this platform’s session above if login is required.'} Sessions are never shared across platforms.`):(data.loggedIn ? t('当前已使用登录凭据。','Using your login session.') : t('当前为游客模式；登录后可能获得更多清晰度。','Guest mode; signing in may unlock more qualities.')) + (data.unavailable.length ? t(` 未返回的视频档位：${data.unavailable.join('、')}。以视频源及账号权限为准。`,` Unavailable: ${data.unavailable.join(', ')}. Availability depends on source and account access.`) : '');
   $('video-result').hidden = false;
   $('download-progress').hidden = true;
   formatInfo();
@@ -89,13 +91,14 @@ function renderSessionStatus(){
   $('auth-platform').value=activePlatform;
   $('platform-cookie-label').textContent=t(`${name} Cookie`,`${name} Cookie`);
   $('platform-cookie-summary').textContent=t(`${name} 会话 Cookie（可选）`,`${name} session Cookie (optional)`);
-  $('platform-qr-support').textContent=t(`${name}暂未接入扫码登录，请使用本平台 Cookie。`,`${name} QR login is not integrated. Use this platform’s Cookie.`);
+  $('platform-qr-support').textContent=PLATFORM_AUTH[activePlatform].qr?t(`${name}可使用扫码会话；手动 Cookie 仅作为本平台备用，填写后优先使用。`,`${name} supports QR sessions; an optional manual Cookie takes precedence.`):t(`${name}暂未接入扫码登录，请使用本平台 Cookie。`,`${name} QR login is not integrated. Use this platform’s Cookie.`);
   $('session-platform-status').textContent=state.credential?t(`${name} · ${activePlatform==='bilibili'?'手动 Session':'Cookie'}已保留${state.used?'，已用于解析':''}；刷新或手动清除前保留。`,`${name} · Credential retained${state.used?', used for parsing':''}; kept until refresh or manual clearing.`):state.qrUser?t(`${name} · 已扫码登录：${state.qrUser.name}`,`${name} · QR signed in: ${state.qrUser.name}`):t(`${name} · 尚未设置会话`,`${name} · No session configured`);
 }
 function updatePlatform(platform,{fromVideo=true}={}){
   saveActiveCredential();activePlatform=platform;
   $(PLATFORM_AUTH[platform].field).value=sessions.get(platform).credential;
   $('bilibili-login-controls').hidden=platform!=='bilibili';$('platform-cookie-settings').hidden=platform==='bilibili';
+  for(const provider of ['douyin','xiaohongshu'])$(provider+'-login-controls').hidden=platform!==provider;
   if(fromVideo)$('detected-platform').textContent=PLATFORM_NAMES[platform];
   renderSessionStatus();
 }
@@ -149,6 +152,15 @@ $('download-button').addEventListener('click',async () => {
 });
 window.addEventListener('pagehide',event => {controller?.abort();resolveController?.abort();if(!event.persisted){sessions.clearAll();$('sessdata').value = '';$('platform-cookie').value='';}release();});
 renderSessionStatus();
+if(location.protocol!=='file:'){
+  const ready=fetch(new URL('auth/status',MEDIA_API),{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(18000)}).then(async response=>{if(!response.ok)throw new Error();return response.json();});
+  for(const platform of ['douyin','xiaohongshu'])platformLogins[platform]=initPlatformLogin({api:MEDIA_API,platform,t,ready:ready.catch(()=>{}),onStateChange(data){sessions.setQrUser(platform,data.loggedIn?data.user:null);renderSessionStatus();},onSessionChange(loggedIn){
+    sessions.clearCredential(platform);if(activePlatform===platform)$('platform-cookie').value='';renderSessionStatus();
+    if(result?.platform===platform&&!controller){release();result=null;$('video-result').hidden=true;}
+    if(activePlatform===platform)status(loggedIn?t(`${PLATFORM_NAMES[platform]}扫码登录成功，可重新解析视频。`,`${PLATFORM_NAMES[platform]} signed in. Resolve the video again.`):t(`${PLATFORM_NAMES[platform]}已退出，其他平台会话保留。`,`${PLATFORM_NAMES[platform]} signed out. Other sessions retained.`));
+  }});
+  ready.then(data=>{for(const platform of ['douyin','xiaohongshu'])platformLogins[platform].show(data.platforms?.[platform]||{loggedIn:false});}).catch(()=>{for(const platform of ['douyin','xiaohongshu'])$(platform+'-login-status').textContent=t(`${PLATFORM_NAMES[platform]}扫码服务暂时无法连接，可点击扫码重试。`,`${PLATFORM_NAMES[platform]} QR service unavailable. Click sign in to retry.`);});
+}
 if (location.protocol !== 'file:') login=initBilibiliLogin({api:API,t,onStateChange(data){sessions.setQrUser('bilibili',data.loggedIn?data.user:null);renderSessionStatus();},onSessionChange(loggedIn){
   sessions.clearCredential('bilibili');if(activePlatform==='bilibili')$('sessdata').value='';renderSessionStatus();
   let parsed;try{parsed=parseVideoInput($('video-url').value);}catch{}

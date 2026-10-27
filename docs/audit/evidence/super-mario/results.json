@@ -1,0 +1,20 @@
+{
+  "results": [
+    "Ready screen freezes simulation; all local sprites load",
+    "Real keyboard moves and jumps; release clears held keys",
+    "Pause/resume and visibility loss freeze game and release controls",
+    "Coin block collision awards a coin; mushroom and flower transformations work",
+    "Damage immunity expires; enemy stomp bounces the player",
+    "Enter underground pipe, collect coin, and return through exit pipe",
+    "Three deaths lead to game over; restart restores a fresh session",
+    "Flag and castle finish once; restart cancels pending flag music",
+    "Best coin record survives reload; blocked storage is tolerated",
+    "Fixed simulation has equal movement at 60 and 144 Hz",
+    "Sound toggle preserves keyboard focus; restart clears delayed actions",
+    "Native three-finger touch moves, runs, jumps and cancels correctly",
+    "320, 390, 720, 1080 and desktop layouts fit; touch targets >=44px",
+    "Game directory arcade category exposes the new game"
+  ],
+  "errors": [],
+  "failed": []
+}

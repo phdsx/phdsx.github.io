@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#4b27bd">
+  <meta name="description" content="黑洞吞噬城市中文本地版，操纵黑洞吞噬城市，保留原版画面与玩法。">
+  <title>黑洞吞噬城市 - PHDSX</title>
+  <style>
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#4b27bd;font-family:system-ui,"Microsoft YaHei",sans-serif}
+    canvas{width:100%;height:100%;display:block;touch-action:none}
+    #loading{position:fixed;inset:0;display:grid;place-content:center;text-align:center;background:#4b27bd;color:#fff;z-index:2}
+    #loading[hidden]{display:none}#loading progress{width:min(260px,75vw);height:18px;margin:18px auto}
+    #status{max-width:85vw}#back{position:fixed;left:max(10px,env(safe-area-inset-left));top:max(10px,env(safe-area-inset-top));z-index:3;border-radius:12px;background:#fffffff2;padding:10px;color:#24184f;text-decoration:none;font-size:13px;font-weight:700}
+    #back:focus-visible,canvas:focus-visible{outline:3px solid #ffda52;outline-offset:3px}button{font:inherit}
+  </style>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="0" aria-label="黑洞吞噬城市。按住鼠标或拖动触屏移动黑洞，也可以使用方向键或 WASD。"></canvas>
+  <a id="back" href="../../../games.html">← 返回游戏</a>
+  <div id="loading" role="status" aria-live="polite">
+    <h1>黑洞吞噬城市</h1>
+    <p id="status">正在准备城市…</p>
+    <progress id="progress" max="1" value="0" aria-label="游戏加载进度"></progress>
+    <small>中文 · 无广告 · 无内购</small>
+    <noscript>请启用 JavaScript 后开始游戏。</noscript>
+  </div>
+  <script src="runtime/unity.loader.js"></script>
+  <script src="local-runtime.js"></script>
+</body>
+</html>

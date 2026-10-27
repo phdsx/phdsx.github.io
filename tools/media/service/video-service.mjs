@@ -7,6 +7,7 @@ import { Readable } from 'node:stream';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseVideoInput, PLATFORM_NAMES } from '../scripts/video-platforms.mjs';
+import { createPlatformAuth } from './platform-auth.mjs';
 
 export const MEDIA_API_PREFIX='/tools/media/video/api/';
 const root=fileURLToPath(new URL('../../../',import.meta.url));
@@ -73,10 +74,10 @@ async function readBody(request){
   const data=new Uint8Array(length);let at=0;for(const p of parts){data.set(p,at);at+=p.length;}
   try{const parsed=JSON.parse(new TextDecoder().decode(data));if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error();return parsed;}catch{throw error('请求内容无效。',400);}
 }
-export function createVideoService({runner=runBridge,fetcher=fetch,now=Date.now}={}){
+export function createVideoService({runner=runBridge,fetcher=fetch,now=Date.now,auth=createPlatformAuth({now})}={}){
   const sessions=new Map(),jobs=new Map();let extracting=0;
   async function cleanup(){for(const [id,session]of sessions)if(session.expiresAt<now()){sessions.delete(id);session.cookieText='';}for(const [id,job]of jobs)if(job.expiresAt<now()){const done=job.process?.done;job.state='canceled';job.process?.cancel();jobs.delete(id);if(done)done.catch(()=>{}).finally(()=>removeDirectory(job.directory)).catch(()=>{});else await removeDirectory(job.directory);}}
-  const sweeper=setInterval(()=>cleanup().catch(()=>{}),60000);sweeper.unref?.();
+  const sweeper=setInterval(()=>{cleanup().catch(()=>{});auth.cleanup().catch(()=>{});},60000);sweeper.unref?.();
   async function expand(input){let parsed=parseVideoInput(input);for(let i=0;parsed.short&&i<5;i++){
     const r=await fetcher(parsed.url,{redirect:'manual',headers:{'User-Agent':'Mozilla/5.0'},signal:AbortSignal.timeout(15000)});await r.body?.cancel();
     if(![301,302,303,307,308].includes(r.status)||!r.headers.get('location'))throw error('短链接未能跳转，请使用完整视频地址。');
@@ -93,10 +94,23 @@ export function createVideoService({runner=runBridge,fetcher=fetch,now=Date.now}
       if(action==='health'&&request.method==='GET')return json({service:'multi-video',platforms:Object.keys(extractors),engine:'yt-dlp'});
       let owner=(request.headers.get('cookie')||'').match(/(?:^|;\s*)phdsx_video_client=([a-f0-9]{64})(?:;|$)/)?.[1];
       if(!owner){owner=randomBytes(32).toString('hex');cookieHeader=`phdsx_video_client=${owner}; Path=${MEDIA_API_PREFIX}; HttpOnly; SameSite=Strict${u.protocol==='https:'||request.headers.get('x-video-site-proto')==='https'?'; Secure':''}`;}
+      if(action==='auth/status'&&request.method==='GET'){
+        const platforms={};for(const platform of ['douyin','xiaohongshu']){try{platforms[platform]=await auth.action(owner,platform,'status');}catch{platforms[platform]={platform,unavailable:true,message:PLATFORM_NAMES[platform]+'会话暂时无法验证，请稍后重试。'};}}
+        return json({platforms},200,cookieHeader);
+      }
+      const loginAction=action.match(/^auth\/(douyin|xiaohongshu)\/(qrcode|poll|renew|logout|cancel)$/);
+      if(loginAction){
+        if(request.method!=='POST')throw error('登录操作需要 POST 请求。',405);
+        await readBody(request);
+        const [,platform,operation]=loginAction;
+        const data=await auth.action(owner,platform,operation);
+        if(operation==='logout')for(const [id,session]of sessions)if(session.owner===owner&&session.platform===platform){session.cookieText='';sessions.delete(id);}
+        return json(data,200,cookieHeader);
+      }
       if(action==='resolve'&&request.method==='POST'){
         if(extracting>=2||sessions.size>=32)throw error('当前解析任务较多，请稍后重试。',429);
         const body=await readBody(request);const parsed=await expand(body.url);if(!extractors[parsed.platform])throw error('B站视频请使用 B站解析接口。',400);
-        const cookieText=cookiesToNetscape(body.cookie||'',parsed.platform);const id=randomBytes(24).toString('hex'),directory=path.join(baseDirectory,id);await mkdir(directory,{recursive:true});extracting++;
+        const cookieText=cookiesToNetscape(body.cookie||await auth.cookieFor(owner,parsed.platform),parsed.platform);const id=randomBytes(24).toString('hex'),directory=path.join(baseDirectory,id);await mkdir(directory,{recursive:true});extracting++;
         let task,info;const timeout=setTimeout(()=>task?.cancel(),90000);
         try{task=runner({mode:'inspect',url:parsed.url,extractor:extractors[parsed.platform],directory,cookieText},event=>{if(event.event==='info')info=event.info;});await task.done;if(!info)throw error(messages.EXTRACT_FAILED);}
         finally{clearTimeout(timeout);extracting--;await removeDirectory(directory);}

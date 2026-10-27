@@ -19,7 +19,7 @@
   <script defer src="../../assets/design-system.js?v=20261001toursdock"></script>
   <script defer src="../utility/vendor/qrcode.min.js"></script>
   <script defer src="scripts/bilibili-connection.js?v=20261025connection"></script>
-  <script type="module" src="scripts/bilibili-downloader.mjs?v=20261025sessions"></script>
+  <script type="module" src="scripts/bilibili-downloader.mjs?v=20261026platformqr"></script>
 </head>
 <body>
 <main class="video-tool">
@@ -67,13 +67,29 @@
         <button id="clear-login" class="text-button" type="button">清除手动凭据</button>
       </details>
       </div>
+      <div id="douyin-login-controls" hidden>
+        <div class="login-bar"><p id="douyin-login-status" class="help" role="status" aria-live="polite">抖音扫码状态：未登录</p><div><button id="douyin-login-button" class="secondary" type="button">抖音扫码登录</button><button id="douyin-logout-button" class="text-button" type="button" hidden>退出抖音登录</button></div></div>
+        <section id="douyin-qr-panel" class="qr-login-panel" aria-labelledby="douyin-qr-title" hidden>
+          <div class="qr-code-wrap"><img id="douyin-qr-image" alt="抖音官方登录二维码"></div>
+          <div class="qr-login-copy"><h2 id="douyin-qr-title">用抖音 App 扫码登录</h2><p id="douyin-qr-status" role="status" aria-live="polite">正在加载官方登录二维码…</p><p class="help">扫码后请在手机上确认。二维码过期后可刷新，平台访问验证仍然适用。</p><div class="qr-actions"><button id="douyin-refresh-button" class="secondary" type="button">刷新抖音二维码</button><button id="douyin-cancel-button" class="text-button" type="button">取消抖音扫码</button></div></div>
+        </section>
+        <p class="help login-privacy">抖音会话独立保留，仅用于抖音下载。页面打开期间自动验证续期，切换平台不会退出；可单独退出。登录凭据保留在本站下载服务内存中，不返回页面。</p>
+      </div>
+      <div id="xiaohongshu-login-controls" hidden>
+        <div class="login-bar"><p id="xiaohongshu-login-status" class="help" role="status" aria-live="polite">小红书扫码状态：未登录</p><div><button id="xiaohongshu-login-button" class="secondary" type="button">小红书扫码登录</button><button id="xiaohongshu-logout-button" class="text-button" type="button" hidden>退出小红书登录</button></div></div>
+        <section id="xiaohongshu-qr-panel" class="qr-login-panel" aria-labelledby="xiaohongshu-qr-title" hidden>
+          <div class="qr-code-wrap"><img id="xiaohongshu-qr-image" alt="小红书官方登录二维码"></div>
+          <div class="qr-login-copy"><h2 id="xiaohongshu-qr-title">用小红书 App 扫码登录</h2><p id="xiaohongshu-qr-status" role="status" aria-live="polite">正在加载官方登录二维码…</p><p class="help">扫码后请在手机上确认。二维码过期后可刷新，平台访问验证仍然适用。</p><div class="qr-actions"><button id="xiaohongshu-refresh-button" class="secondary" type="button">刷新小红书二维码</button><button id="xiaohongshu-cancel-button" class="text-button" type="button">取消小红书扫码</button></div></div>
+        </section>
+        <p class="help login-privacy">小红书会话独立保留，仅用于小红书下载。页面打开期间自动验证续期，切换平台不会退出；可单独退出。登录凭据保留在本站下载服务内存中，不返回页面。</p>
+      </div>
       <details id="platform-cookie-settings" class="login-settings" hidden>
         <summary id="platform-cookie-summary">平台会话 Cookie（可选）</summary>
         <p id="platform-qr-support" class="help"></p>
         <label id="platform-cookie-label" for="platform-cookie">当前平台 Cookie</label>
         <input id="platform-cookie" type="password" maxlength="16384" autocomplete="off" placeholder="平台提示需要登录时，粘贴你自己的 Cookie 请求头值">
         <p class="help">此凭据仅用于上方所选平台，不读取浏览器现有登录，也不跨平台复用。切换后再回来仍会保留，直到刷新本页或手动清除。仅使用自己的 Cookie。</p>
-        <button id="clear-platform-session" class="text-button" type="button">清除当前平台会话</button>
+        <button id="clear-platform-session" class="text-button" type="button">清除本平台手动 Cookie</button>
       </details>
     </form>
     <p id="parse-status" class="video-status" role="status" aria-live="polite">准备就绪，先粘贴一个链接。</p>

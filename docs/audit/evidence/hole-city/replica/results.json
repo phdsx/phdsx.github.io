@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "Original Unity runtime loads",
+    "Ad callbacks return locally without requests or ad elements",
+    "External fetch, XHR, and beacon are handled locally",
+    "Keyboard drag control keeps Unity running",
+    "No browser JavaScript exceptions",
+    "No external advertising, payment, or analytics requests",
+    "All requested local assets exist",
+    "Phone viewport has no horizontal overflow"
+  ],
+  "errors": [],
+  "external": [],
+  "httpErrors": [],
+  "unityErrors": [
+    "NullReferenceException: Object reference not set to an instance of an object.\n  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x00000] in <00000000000000000000000000000000>:0 \n\n"
+  ]
+}

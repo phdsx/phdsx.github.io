@@ -1,0 +1,162 @@
+{
+  "source": "https://poki.com/zh/g/hole-io",
+  "publisher": "Voodoo",
+  "product_version": "2.20.4",
+  "unity_version": "6000.2.10f1",
+  "captured": [
+    {
+      "path": "index.html",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/index.html",
+      "response_body_sha256": "da9b06614bec82fc18c066e6c896832e14e97b3b2afd5bc7145feafc18ec6cfa",
+      "response_body_bytes": 1479,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "Build/WebGL Build.loader.js",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/Build/WebGL%20Build.loader.js",
+      "response_body_sha256": "0ad359a37266880e9443143ddb2420ddbe84d672087f71b4b50c837454d8054f",
+      "response_body_bytes": 26693,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "Build/WebGL Build.framework.js.br",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/Build/WebGL%20Build.framework.js.br",
+      "response_body_sha256": "2b90fe73a630f122571dcc375c9552479b841724dbc595c87b81ef977d71e62b",
+      "response_body_bytes": 378286,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "Build/WebGL Build.data.br",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/Build/WebGL%20Build.data.br",
+      "response_body_sha256": "f63cbc775b20d5228ae554bc282450a281344f86e82513ba66bb306471e7acbe",
+      "response_body_bytes": 19486748,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "screenshots/1.jpg",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/screenshots/1.jpg",
+      "response_body_sha256": "bd96f4039ca3f03cc78cb2fd25c6207ad804cec43118f04d8416c489374c4d95",
+      "response_body_bytes": 104977,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "Build/WebGL Build.wasm.br",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/Build/WebGL%20Build.wasm.br",
+      "response_body_sha256": "16a1dae10cd4d74918f027a6ae004278d77effbecac46832c15ec0b1c152d92f",
+      "response_body_bytes": 51828861,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "screenshots/2.jpg",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/screenshots/2.jpg",
+      "response_body_sha256": "342969e299edbabf382451310661d44004db1771885f7249ec44b1230a76ea85",
+      "response_body_bytes": 62267,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/settings.json",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/settings.json",
+      "response_body_sha256": "97d069cabd8a10f7aa003c5d5dc9338c8cdbf255f707edb3a933c75bd87b2e44",
+      "response_body_bytes": 850,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/catalog.bin",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/catalog.bin",
+      "response_body_sha256": "f84e839f0c15f1babf8f6750e1725f20b446694a0d150340a81c324f1a613489",
+      "response_body_bytes": 127192,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/main_assets_all_f95eb5ce8844bbe10b61136fad06f8ea.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/main_assets_all_f95eb5ce8844bbe10b61136fad06f8ea.bundle",
+      "response_body_sha256": "0905d22af42a60d3e93f60988fc78280c8830818bc96c47f607a41ab1082a50d",
+      "response_body_bytes": 476848,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/main_assets_assets_all_f81c1e908beab3ee248cf81dfede1ef1.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/main_assets_assets_all_f81c1e908beab3ee248cf81dfede1ef1.bundle",
+      "response_body_sha256": "60b590061c218c2b5b4933500978230b473651173b1e947ba059509375565629",
+      "response_body_bytes": 45518,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/cfaeb415d0b7ae3f6504a834f4c93359_monoscripts_97e5e0a09ac6f7511e8205dfd434934e.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/cfaeb415d0b7ae3f6504a834f4c93359_monoscripts_97e5e0a09ac6f7511e8205dfd434934e.bundle",
+      "response_body_sha256": "90364b74f450e1f1f32402982c0d551f2b796e1426dded62fd50e8fcbeabf895",
+      "response_body_bytes": 31426,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/cfaeb415d0b7ae3f6504a834f4c93359_unitybuiltinassets_e525408c8a543046db642d4091498dee.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/cfaeb415d0b7ae3f6504a834f4c93359_unitybuiltinassets_e525408c8a543046db642d4091498dee.bundle",
+      "response_body_sha256": "69a568e36ed033a3fbbcaac4a736176852850b32abdd9d7d4c3bbf6491a8a19d",
+      "response_body_bytes": 110384,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/shared_assets_all_95481203b9c688cb5070911482344c62.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/shared_assets_all_95481203b9c688cb5070911482344c62.bundle",
+      "response_body_sha256": "242cac2e09e15d89826487aae088fc9e4b04ceeb699410cc8f0a2a6411d58acb",
+      "response_body_bytes": 16583577,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/fonts_assets_all_67aea1a4ddefacd18b33ce3aa316127a.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/fonts_assets_all_67aea1a4ddefacd18b33ce3aa316127a.bundle",
+      "response_body_sha256": "7a2c50ae4b8b5ab8f8c6b761a5f7ea0c7ff0b0c6e4ba14a5a76f8df5855646de",
+      "response_body_bytes": 1165989,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/preload_scenes_all_1c2229d13022883d9e5eb48e4edc7226.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/preload_scenes_all_1c2229d13022883d9e5eb48e4edc7226.bundle",
+      "response_body_sha256": "9e42b7baef493a4e5a36c5b2641de5864a0380a7ac609dcdb39b100c6996cf2b",
+      "response_body_bytes": 13494212,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/game_scenes_all_5e48ab503400a10cfa63c1c04019e4b8.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/game_scenes_all_5e48ab503400a10cfa63c1c04019e4b8.bundle",
+      "response_body_sha256": "270f6f3c64bf871046874e35d180a5ed5a99445a2977174221eef857604bf72c",
+      "response_body_bytes": 1497812,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/city_scenes_all_c33f1cbef4fd90f49c65dde56828a635.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/city_scenes_all_c33f1cbef4fd90f49c65dde56828a635.bundle",
+      "response_body_sha256": "afec20ef57f8ae06eeea98ea5bb31fcf20a2e879be5ea4df6b7637699dc77b5b",
+      "response_body_bytes": 4280595,
+      "capture": "正常 Poki 页面的 Playwright 响应；浏览器可能已解压 Content-Encoding"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/jurassic_scenes_all_d1949d8858b6fc625f56dd2eda80851b.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/jurassic_scenes_all_d1949d8858b6fc625f56dd2eda80851b.bundle",
+      "response_body_sha256": "01ea8c4b4d796a1f16c3affced8ad1380cc3c9b0f0c35ba6b087d867ab388f7e",
+      "response_body_bytes": 2916709,
+      "capture": "从原版游戏场景资源目录读取的同源响应"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/mars_scenes_all_d39f2fdacb43d7cd92b109a60dbb4361.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/mars_scenes_all_d39f2fdacb43d7cd92b109a60dbb4361.bundle",
+      "response_body_sha256": "8ea0b4827927c570c26418839e23aaf8f6f061fcc73bd804cc1ec374608252cd",
+      "response_body_bytes": 1681980,
+      "capture": "从原版游戏场景资源目录读取的同源响应"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/pirates_scenes_all_b1cfd5114b4710be604c74949a0b002a.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/pirates_scenes_all_b1cfd5114b4710be604c74949a0b002a.bundle",
+      "response_body_sha256": "a0da319dd037ee5d1c7883583dcba605e862ba130864303076bffafc08c7624f",
+      "response_body_bytes": 5422933,
+      "capture": "从原版游戏场景资源目录读取的同源响应"
+    },
+    {
+      "path": "StreamingAssets/aa/WebGL/winter_scenes_all_da78a3bde9cfbcbdbf860881e9c06312.bundle",
+      "url": "https://1ca8312a-f3b1-4c7a-a634-0bce311eec14.gdn.poki.com/f8d3696f-fce9-409e-8994-466bfa01b65c/StreamingAssets/aa/WebGL/winter_scenes_all_da78a3bde9cfbcbdbf860881e9c06312.bundle",
+      "response_body_sha256": "88a321266a81be4a0dd5a24d2de63b9ff1bbb814babbc4dc7a98473d59d924c4",
+      "response_body_bytes": 6558523,
+      "capture": "从原版游戏场景资源目录读取的同源响应"
+    }
+  ]
+}

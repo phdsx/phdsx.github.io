@@ -1,4 +1,5 @@
 .local-tools/
+tools/media/service/node_modules/
 **/__pycache__/
 *.py[cod]
 *.log
