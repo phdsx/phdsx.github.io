@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="ubuntu-boot">
+<html lang="zh-CN">
 <head>
-  <style>html.ubuntu-boot{background:#2c001e url('assets/ubuntu/wallpaper.webp') center/cover fixed no-repeat}html.ubuntu-boot body{visibility:hidden}</style>
-  <script>document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.remove('ubuntu-boot'),{once:true})</script>
-  <noscript><style>html.ubuntu-boot body{visibility:visible}</style></noscript>
 
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -21,7 +18,9 @@
   <link rel="stylesheet" href="assets/design-system.css?v=20260920a">
   <link rel="stylesheet" href="assets/games/catalog.css?v=20260928a">
   <link rel="stylesheet" href="assets/ubuntu.css?v=20261001toursdock">
-<script src="assets/navigation.js?v=20261027hill"></script>
+<script defer src="assets/navigation.js?v=20261027penalty"></script>
+<script defer src="assets/i18n.js?v=20261027penalty"></script>
+<script defer src="assets/site.js?v=20261001tours"></script>
 <script defer src="assets/design-system.js?v=20261001toursdock"></script>
 </head>
 <body>
@@ -35,7 +34,7 @@
 
       <div class="games-directory-grid">
         <a class="games-directory-card" href="games/arcade/tu-95/index.html">
-            <img class="games-directory-card-media" src="games/arcade/tu-95/cover-original.png" width="320" height="320" alt="TU-95 原版飞行游戏主菜单" decoding="async">
+            <img class="games-directory-card-media" src="assets/games/thumbnails/tu-95.webp" width="320" height="320" alt="TU-95 原版飞行游戏主菜单" decoding="async" fetchpriority="high">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.tu95">TU-95 飞行训练</span>
               <span class="games-directory-card-description" data-i18n="games.tu95Note">原版飞行训练中文适配：起飞、空中加油、躲避导弹与空投，六项任务，无广告。</span>
@@ -43,7 +42,7 @@
             </span>
         </a>
         <a class="games-directory-card" href="games/arcade/hill-climb/index.html">
-            <img class="games-directory-card-media" src="games/arcade/hill-climb/cover.png" width="320" height="320" alt="红色越野车驶过山坡，沿途收集金币" decoding="async">
+            <img class="games-directory-card-media" src="assets/games/thumbnails/hill-climb.webp" width="320" height="320" alt="红色越野车驶过山坡，沿途收集金币" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.hillClimb">登山赛车 Lite</span>
               <span class="games-directory-card-description" data-i18n="games.hillClimbNote">原版车辆、关卡和物理驾驶，收集金币并升级座驾。中文本地版，无广告与内购。</span>
@@ -51,7 +50,7 @@
             </span>
         </a>
         <a class="games-directory-card" href="games/arcade/hole-city/index.html">
-            <img class="games-directory-card-media" src="games/arcade/hole-city/cover.jpg" width="320" height="320" alt="黑洞在原版游戏场景中吞噬物品" decoding="async">
+            <img class="games-directory-card-media" src="assets/games/thumbnails/hole-city.webp" width="320" height="320" alt="黑洞在原版游戏场景中吞噬物品" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.holeCity">黑洞吞噬城市</span>
               <span class="games-directory-card-description" data-i18n="games.holeCityNote">原版城市、地图与吞噬玩法，越吃越大。中文本地版，无广告与内购。</span>
@@ -59,7 +58,7 @@
             </span>
         </a>
         <a class="games-directory-card" href="games/sports/penalty-cup/index.html">
-            <img class="games-directory-card-media" src="games/sports/penalty-cup/cover.png" width="320" height="320" alt="点球大战 2 原版游戏封面" decoding="async">
+            <img class="games-directory-card-media" src="assets/games/thumbnails/penalty-cup.webp" width="320" height="320" alt="点球大战 2 原版游戏封面" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.penaltyCup">点球大战 2</span>
               <span class="games-directory-card-description" data-i18n="games.penaltyCupNote">保留原版人物动画、球场美术与完整赛制，选择联赛和球队，交替射门与扑救。中文本地版，无广告。</span>
@@ -75,7 +74,7 @@
             </span>
         </a>
         <a class="games-directory-card" href="games/arcade/space-cadet-pinball/index.html">
-            <img class="games-directory-card-media" src="games/arcade/space-cadet-pinball/cover.webp" width="320" height="320" alt="太空军校生经典弹球台" decoding="async">
+            <img class="games-directory-card-media" src="games/arcade/space-cadet-pinball/cover.webp" width="320" height="320" alt="太空军校生经典弹球台" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.spaceCadetPinball">三维弹球</span>
               <span class="games-directory-card-description" data-i18n="games.spaceCadetPinballNote">重温太空军校生：原版球台、物理碰撞、任务与音效，支持键盘和触屏。</span>
@@ -91,7 +90,7 @@
             </span>
         </a>
         <a class="games-directory-card" href="games/strategy/three-kingdoms-baye/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-three-kingdoms-baye.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-three-kingdoms-baye.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.threeKingdomsBaye">三国霸业</span>
               <span class="games-directory-card-description" data-i18n="games.threeKingdomsBayeNote">步步高电子词典经典策略游戏，词典原版完整移植，支持键盘和触屏操作。</span>
@@ -100,7 +99,7 @@
         </a>
 
         <a class="games-directory-card" href="games/board/gomoku.html">
-            <img class="games-directory-card-media" src="assets/icons/game-gomoku.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-gomoku.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.gomoku">五子棋</span>
               <span class="games-directory-card-description" data-i18n="games.gomokuNote">黑白轮流落子，五子连线获胜，支持双人对弈与悔棋。</span>
@@ -109,7 +108,7 @@
         </a>
 
         <a class="games-directory-card" href="games/board/junqi/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-junqi.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-junqi.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.junqi">军棋</span>
               <span class="games-directory-card-description" data-i18n="games.junqiNote">明棋人机或双人对战，排兵布阵，夺取军旗。</span>
@@ -118,7 +117,7 @@
         </a>
 
         <a class="games-directory-card" href="games/board/chinese-chess.html">
-            <img class="games-directory-card-media" src="assets/icons/game-chess.webp" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-chess.webp" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.chineseChess">中国象棋</span>
               <span class="games-directory-card-description" data-i18n="games.chessNote">双人本地对弈，支持基础走法与吃子。</span>
@@ -127,7 +126,7 @@
         </a>
 
         <a class="games-directory-card" href="games/board/doudizhu/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-doudizhu.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-doudizhu.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.doudizhu">斗地主</span>
               <span class="games-directory-card-description" data-i18n="games.doudizhuNote">纯浏览器单机对战，两名电脑玩家陪你叫地主、出牌。</span>
@@ -136,7 +135,7 @@
         </a>
 
         <a class="games-directory-card" href="games/strategy/frontline-command/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-frontline.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-frontline.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.frontline">前线指挥</span>
               <span class="games-directory-card-description" data-i18n="games.frontlineNote">采集蓝晶、生产装甲部队，在原创 HTML5 战场上摧毁敌方指挥部。</span>
@@ -145,7 +144,7 @@
         </a>
 
         <a class="games-directory-card" href="games/strategy/tower-defense/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-star-defense.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-star-defense.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.starDefense">星环塔防</span>
               <span class="games-directory-card-description" data-i18n="games.starDefenseNote">在发光基座布置三类炮塔，升级火力并守住八波机械虫群。</span>
@@ -154,7 +153,7 @@
         </a>
 
         <a class="games-directory-card" href="games/strategy/storm-siege/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-storm-siege.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-storm-siege.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.stormSiege">风暴攻城</span>
               <span class="games-directory-card-description" data-i18n="games.stormSiegeNote">调整炮口角度、力度和引信，借风势击毁敌方城堡的 3D 攻城战。</span>
@@ -163,7 +162,7 @@
         </a>
 
         <a class="games-directory-card" href="games/sports/free-kick/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-free-kick.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-free-kick.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.freeKick">弧线任意球</span>
               <span class="games-directory-card-description" data-i18n="games.freeKickNote">选择击球点、角度与力度，借风势绕过人墙，挑战门将的 3D 任意球射门。</span>
@@ -172,7 +171,7 @@
         </a>
 
         <a class="games-directory-card" href="games/arcade/submarine-battle/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-submarine.webp" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-submarine.webp" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.submarine">潜艇大战</span>
               <span class="games-directory-card-description" data-i18n="games.shootingNote">深海题材 Canvas 射击小游戏。</span>
@@ -181,7 +180,7 @@
         </a>
 
         <a class="games-directory-card" href="games/arcade/fruit-ninja/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-fruit.webp" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-fruit.webp" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.fruit">水果忍者</span>
               <span class="games-directory-card-description" data-i18n="games.reflexNote">切水果休闲小游戏。</span>
@@ -190,7 +189,7 @@
         </a>
 
         <a class="games-directory-card" href="games/arcade/tetris.html">
-            <img class="games-directory-card-media" src="assets/icons/game-tetris.webp" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-tetris.webp" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.tetris">俄罗斯方块</span>
               <span class="games-directory-card-description" data-i18n="games.blocksNote">经典方块消除，响应式 Canvas 小游戏。</span>
@@ -199,7 +198,7 @@
         </a>
 
         <a class="games-directory-card" href="games/arcade/parking-challenge/index.html">
-            <img class="games-directory-card-media" src="assets/icons/game-parking-challenge.svg" alt="">
+            <img class="games-directory-card-media" src="assets/icons/game-parking-challenge.svg" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.parkingChallenge">停车场倒车挑战</span>
               <span class="games-directory-card-description" data-i18n="games.parkingChallengeNote">驾驶小车完成倒车入库和侧方停车，挑战 15 个逐渐变窄的车位。</span>
@@ -208,7 +207,7 @@
         </a>
 
         <a class="games-directory-card" href="games/puzzle/parking-pulse/index.html">
-            <img class="games-directory-card-media games-directory-card-media--contain" src="games/puzzle/parking-pulse/assets/parking-pulse-bus.png" alt="">
+            <img class="games-directory-card-media games-directory-card-media--contain" src="assets/games/thumbnails/parking-pulse.webp" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title">Parking Pulse</span>
               <span class="games-directory-card-description" data-i18n="games.trafficNote">按箭头挪车，让同色乘客上车，挑战有限接客位。</span>
@@ -217,14 +216,14 @@
         </a>
 
         <a class="games-directory-card" href="games/puzzle/sand-sort/index.html">
-            <img class="games-directory-card-media games-directory-card-media--sand" src="games/puzzle/sand-sort/preview-webgl-static.png" alt="">
+            <img class="games-directory-card-media games-directory-card-media--sand" src="assets/games/thumbnails/sand-sort.webp" alt="" width="320" height="320" decoding="async" loading="lazy">
             <span class="games-directory-card-body">
               <span class="games-directory-card-title" data-i18n="games.sortingGame">沙子分类</span>
               <span class="games-directory-card-description" data-i18n="games.sortingNote">把同色沙粒整理进同一个瓶子，所有辅助功能免费使用。</span>
               <span class="games-directory-card-action" data-i18n="games.startGame">开始游戏</span>
             </span>
         </a>
-        <a class="games-directory-card" href="games/arcade/bombman/play/index.html"><img class="games-directory-card-media" src="games/arcade/bombman/cover.webp" alt=""><span class="games-directory-card-body"><span class="games-directory-card-title" data-i18n="games.bombman">炸弹超人</span><span class="games-directory-card-description" data-i18n="games.bombmanNote">按经典截图重绘的本地对战：1 名玩家迎战 3 名电脑对手。</span><span class="games-directory-card-action" data-i18n="games.startGame">开始游戏</span></span></a>
+        <a class="games-directory-card" href="games/arcade/bombman/play/index.html"><img class="games-directory-card-media" src="games/arcade/bombman/cover.webp" alt="" width="320" height="320" decoding="async" loading="lazy"><span class="games-directory-card-body"><span class="games-directory-card-title" data-i18n="games.bombman">炸弹超人</span><span class="games-directory-card-description" data-i18n="games.bombmanNote">按经典截图重绘的本地对战：1 名玩家迎战 3 名电脑对手。</span><span class="games-directory-card-action" data-i18n="games.startGame">开始游戏</span></span></a>
         <a class="games-directory-card" href="games/arcade/snake/index.html"><img class="games-directory-card-media" src="assets/icons/game-snake.svg" width="320" height="320" alt="" loading="lazy" decoding="async"><span class="games-directory-card-body"><span class="games-directory-card-title" data-i18n="games.snake">贪吃蛇</span><span class="games-directory-card-description" data-i18n="games.snakeNote">吃果实、躲尾巴，挑战越来越快的节奏。</span><span class="games-directory-card-action" data-i18n="games.startGame">开始游戏</span></span></a>
         <a class="games-directory-card" href="games/arcade/plane/index.html"><img class="games-directory-card-media" src="assets/icons/game-plane.svg" width="320" height="320" alt="" loading="lazy" decoding="async"><span class="games-directory-card-body"><span class="games-directory-card-title" data-i18n="games.plane">飞机大战</span><span class="games-directory-card-description" data-i18n="games.planeNote">驾驶战机闪避敌人，持续开火得分。</span><span class="games-directory-card-action" data-i18n="games.startGame">开始游戏</span></span></a>
         <a class="games-directory-card" href="games/arcade/tank/index.html"><img class="games-directory-card-media" src="assets/icons/game-tank.svg" width="320" height="320" alt="" loading="lazy" decoding="async"><span class="games-directory-card-body"><span class="games-directory-card-title" data-i18n="games.tank">坦克大战</span><span class="games-directory-card-description" data-i18n="games.tankNote">移动、瞄准、射击，守住基地。</span><span class="games-directory-card-action" data-i18n="games.startGame">开始游戏</span></span></a>
@@ -239,7 +238,5 @@
     <span>PHDSX 个人主页</span>
     <span>工具 · 游戏 · 博客 · 小说 · 黄页</span>
   </footer>
-  <script src="assets/i18n.js?v=20261027hill"></script>
-  <script src="assets/site.js?v=20261001tours"></script>
 </body>
 </html>

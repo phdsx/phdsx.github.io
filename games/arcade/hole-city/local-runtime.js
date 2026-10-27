@@ -44,18 +44,24 @@
     return openXHR.call(this,method,address,...rest);
   };
   if(navigator.sendBeacon){const sendBeacon=navigator.sendBeacon.bind(navigator);navigator.sendBeacon=(address,data)=>new URL(address,location.href).origin===location.origin?sendBeacon(address,data):true;}
-  async function inflate(path,label){
-    status.textContent=label;const response=await nativeFetch(path);if(!response.ok)throw Error(`${path}: ${response.status}`);
+  const startupUrls=[];
+  async function inflate(path){
+    const response=await nativeFetch(path);if(!response.ok)throw Error(`${path}: ${response.status}`);
     if(!window.DecompressionStream)throw Error('请使用新版 Chrome、Edge 或 Safari 浏览器');
     const raw=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
-    return URL.createObjectURL(new Blob([raw],{type:path.includes('wasm')?'application/wasm':'application/octet-stream'}));
+    const url=URL.createObjectURL(new Blob([raw],{type:path.includes('wasm')?'application/wasm':'application/octet-stream'}));
+    startupUrls.push(url);progress.value+=.1;
+    return url;
   }
   (async()=>{
-    const dataUrl=await inflate('runtime/game.data.gz','正在载入游戏数据…');progress.value=.1;
-    const codeUrl=await inflate('runtime/game.wasm.gz','正在准备游戏引擎…');progress.value=.2;
+    status.textContent='正在加载游戏数据与引擎…';
+    // Start both downloads together; settle both before releasing any blob URLs.
+    const resources=await Promise.allSettled([inflate('runtime/game.data.gz'),inflate('runtime/game.wasm.gz')]);
+    const failed=resources.find(result=>result.status==='rejected');if(failed)throw failed.reason;
+    const [dataUrl,codeUrl]=resources.map(result=>result.value);
     status.textContent='正在加载城市和原版美术…';
     game=await createUnityInstance(canvas,{dataUrl,codeUrl,frameworkUrl:'runtime/unity.framework.js',streamingAssetsUrl:new URL('runtime/StreamingAssets',location.href).href,companyName:'Voodoo',productName:'Hole.io',productVersion:'2.20.4',showBanner:(message,type)=>{if(type==='error'){status.textContent=message;console.error(message);}}},value=>{progress.value=.2+value*.8;});
     window.unityGame=window.unityGameInstance=window.gameInstance=game;ready();document.getElementById('loading').hidden=true;document.getElementById('loading').style.display='none';canvas.focus();
-    URL.revokeObjectURL(dataUrl);URL.revokeObjectURL(codeUrl);
-  })().catch(error=>{console.error(error);status.textContent=`加载失败：${error.message}`;});
+  })().catch(error=>{console.error(error);status.textContent=`加载失败：${error.message}`;})
+    .finally(()=>startupUrls.forEach(url=>URL.revokeObjectURL(url)));
 })();
