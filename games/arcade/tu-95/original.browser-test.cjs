@@ -30,12 +30,15 @@ function pixelsChanged(a,b,rect){const A=PNG.sync.read(a),B=PNG.sync.read(b);let
     await phone.goto(origin+'/games/arcade/tu-95/index.html');await phone.waitForFunction(()=>TU95Host.ready,{},{timeout:90000});await phone.waitForTimeout(4000);
     const mbox=await phone.locator('#game-frame').boundingBox();const tap=(x,y)=>phone.touchscreen.tap(mbox.x+mbox.width*x,mbox.y+mbox.height*y);
     await tap(.81,.13);await phone.waitForTimeout(3000);await tap(.81,.13);await phone.waitForTimeout(3000);await tap(.81,.13);await phone.waitForTimeout(3500);
+    const touchBefore=await phone.locator('#game-frame').screenshot();
     await phone.locator('.touch-controls').scrollIntoViewIfNeeded();const cdp=await mobile.newCDPSession(phone);const points=[];
     for(const [name,id] of [['up',1],['left',2]]){const r=await phone.locator(`[data-hold="${name}"]`).boundingBox();points.push({x:r.x+r.width/2,y:r.y+r.height/2,id});}
-    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:points});await phone.waitForTimeout(800);
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:points});await phone.waitForTimeout(2500);
     assert.deepEqual((await phone.locator('#game-frame').evaluate(f=>f.contentWindow.TU95Runtime.pressed)).sort(),['left','up']);
     await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});assert.deepEqual(await phone.locator('#game-frame').evaluate(f=>f.contentWindow.TU95Runtime.pressed),[]);
-    tests.push('Native two-finger touch sends simultaneous throttle and pitch; cancellation releases both');
+    const touchAfter=await phone.locator('#game-frame').screenshot();const touchChange=pixelsChanged(touchBefore,touchAfter,[.04,.25,.18,.49]);
+    assert.ok(touchChange>10,`touch did not change speed indicator: ${touchChange}`);
+    tests.push(`Native two-finger touch changes the speed indicator (${touchChange} pixels); cancellation releases both`);
     for(const [width,height] of [[320,740],[390,844],[720,1280],[1080,2400]]){
       await phone.setViewportSize({width,height});assert.equal(await phone.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
       for(const button of await phone.locator('[data-hold],[data-tap]').all()){const r=await button.boundingBox();assert.ok(r.width>=44 && r.height>=44 && r.x>=0 && r.x+r.width<=width,JSON.stringify(r));}
