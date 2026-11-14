@@ -1,237 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xf5uw8ow0b");
-</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#2c2929">
-  <meta name="description" content="学习笔记、个人作品与一些有趣的小东西。">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111511">
+  <meta name="description" content="PHDSX 的个人主页。用代码探索新的想法。">
   <title>PHDSX · 个人主页</title>
-  <link rel="stylesheet" href="assets/site.css?v=20260919a">
-  <link rel="stylesheet" href="assets/workspace.css?v=20260921a">
-<link rel="stylesheet" href="assets/porcelain.css?v=20260921a">
-<link rel="stylesheet" href="assets/design-system.css?v=20260920a">
-<link rel="stylesheet" href="assets/ubuntu.css?v=20261001toursdock">
-<script defer src="assets/navigation.js?v=20261027penalty"></script>
-<script defer src="assets/catalog.js?v=20261027penalty"></script>
-<script defer src="assets/workspace-data.js?v=20261026shutter"></script>
-<script defer src="assets/i18n.js?v=20261027penalty"></script>
-<script defer src="assets/site.js?v=20261001tours"></script>
-<script defer src="assets/workspace.js?v=20260923u5"></script>
-<script defer src="assets/design-system.js?v=20261001toursdock"></script>
+  <link rel="stylesheet" href="home/home.css">
 </head>
-<body class="workspace-page porcelain-page">
-<header class="site-header porcelain-header" data-porcelain-header>
-<a class="porcelain-brand" href="index.html" aria-label="返回首页">PHDSX</a>
-<nav class="porcelain-nav" aria-label="主导航">
-<a href="#home-tools">工具</a><a href="games.html">游戏</a><a href="tours.html">3D云游</a>
-<details><summary>阅读</summary><div class="porcelain-menu"><a href="blog.html">博客笔记</a><a href="novels/index.html">小说连载</a></div></details>
-<details><summary>探索</summary><div class="porcelain-menu"><a href="software.html">软件作品</a><a href="ai-radar.html">AI 雷达</a><a href="directory.html">电话黄页</a><a href="brand-blacklist/index.html">品牌黑名单</a></div></details>
-</nav><div class="porcelain-header-end"><a class="header-search" href="#home-search" aria-label="搜索站内内容"><img src="assets/porcelain/icons/search.svg" alt="" width="19" height="19"></a><span>让小事更简单</span><button type="button" class="porcelain-language" data-i18n-toggle>EN</button></div></header>
-<main class="workspace-main" data-workspace-home>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="shell masthead">
+    <a class="wordmark" href="index.html" aria-label="PHDSX 首页">
+      <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" width="32" height="32">
+        <rect width="32" height="32" rx="8" fill="currentColor"/>
+        <path d="m9 11 5 5-5 5m8 0h6" stroke="#111511" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>PHDSX</span>
+    </a>
+    <nav aria-label="主导航"><a href="#about">关于</a></nav>
+  </header>
 
-<section class="workspace-heading portal-search" aria-labelledby="home-title">
+  <main id="main" class="shell" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true">
+        <img src="home/titanium-loop.webp" alt="" width="1500" height="1000" fetchpriority="high">
+      </div>
+      <div class="hero-copy">
+        <h1 id="hero-title"><span>保持好奇，</span><span>动手创造<span class="period">。</span></span></h1>
+        <p>你好，我是 PHDSX。我喜欢写代码，把好奇的事做成可以亲手试一试的东西。</p>
+        <a class="profile-link" href="https://github.com/phdsx">
+          在 GitHub 找到我
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" width="17" height="17"><path d="M5 15 15 5M5 5h10v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
 
-<h1 id="home-title">PHDSX 的个人主页</h1>
-<p>学习笔记、个人作品与一些有趣的小东西。</p>
-<nav class="home-personal-links" aria-label="个人内容"><a href="blog.html">博客笔记</a><a href="software.html">软件作品</a><a href="novels/index.html">小说连载</a><a href="games.html">游戏厅</a><a href="tours.html">3D云游</a></nav>
-<div class="command-search">
-<label class="sr-only" for="home-search">搜索站内内容</label>
-<input id="home-search" type="search" data-home-search placeholder="搜索工具、游戏、景点、文章…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="home-search-results">
-<img class="ubuntu-search-icon" src="assets/porcelain/icons/search.svg" alt="" width="20" height="20"><button class="porcelain-search-submit" type="button" data-search-submit aria-label="搜索">搜索</button>
-<span class="command-key" aria-hidden="true">Ctrl K</span>
-<div class="home-search-panel" data-home-search-panel hidden><p class="home-search-status" data-home-search-status aria-live="polite"></p><div class="home-search-list" id="home-search-results" data-home-search-list role="listbox"></div></div>
+    <section class="about" id="about" aria-labelledby="about-title">
+      <h2 id="about-title">关于这里</h2>
+      <p>这是我的个人主页。我想留一小块地方，记录做东西的过程，也给还没成形的想法留些空间。</p>
+    </section>
+  </main>
 
-</div>
-<nav class="ubuntu-hot-links" aria-label="热门入口"><span>热门：</span><a href="tools.html">图片处理</a><a href="tools/utility/qr-generator.html">二维码</a><a href="tools/text/text-deduplicator.html">文本工具</a><a href="games.html">游戏</a><a href="ai-radar.html">AI 雷达</a></nav>
-</section>
-
-<section class="workspace-section home-tools" data-home-tools aria-labelledby="tools-title" id="home-tools">
-<div class="workspace-section-head"><div><h2 id="tools-title">常用工具</h2><p>按用途筛选，直接打开。</p></div><a class="ubuntu-tools-link" href="tools.html">全部工具 →</a><span data-tool-total hidden>18 项工具</span></div>
-<div class="home-tool-search"><label class="sr-only" for="home-tool-search">搜索工具</label><input id="home-tool-search" type="search" data-tool-search placeholder="搜索工具名称或用途，例如：压缩、二维码、Word" aria-controls="home-tool-grid" autocomplete="off"></div>
-<div class="workspace-filters" role="group" aria-label="工具分类">
-<button type="button" data-workspace-filter="common" aria-pressed="true">常用</button>
-<button type="button" data-workspace-filter="all" aria-pressed="false">全部</button>
-<button type="button" data-workspace-filter="image" aria-pressed="false">图片处理</button>
-<button type="button" data-workspace-filter="text" aria-pressed="false">文本与编码</button>
-<button type="button" data-workspace-filter="document" aria-pressed="false">文档办公</button>
-<button type="button" data-workspace-filter="time" aria-pressed="false">时间</button>
-<button type="button" data-workspace-filter="lifestyle" aria-pressed="false">生活与趣味</button>
-<button type="button" data-workspace-filter="media" aria-pressed="false">媒体</button>
-</div>
-<p class="workspace-results" data-directory-status role="status" aria-live="polite"></p>
-<div class="workspace-grid" data-home-tool-grid id="home-tool-grid"><article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-compressor.html">
-<a class="workspace-card-link" href="tools/image/image-compressor.html">
-<img src="assets/icons/image-compress.webp" alt="" width="40" height="40">
-<div>
-<h3>图片压缩</h3>
-<p>快速减小图片体积。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-cropper.html">
-<a class="workspace-card-link" href="tools/image/image-cropper.html">
-<img src="assets/icons/image-crop.webp" alt="" width="40" height="40">
-<div>
-<h3>图片裁剪</h3>
-<p>上传多张图片并逐张调整裁剪区域。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/batch-image-cropper.html">
-<a class="workspace-card-link" href="tools/image/batch-image-cropper.html">
-<img src="assets/icons/image-crop.webp" alt="" width="40" height="40">
-<div>
-<h3>批量图片裁剪</h3>
-<p>将同一裁剪设置批量应用到多张图片。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="image" data-tool-href="tools/image/image-watermark-editor.html">
-<a class="workspace-card-link" href="tools/image/image-watermark-editor.html">
-<img src="assets/icons/image-watermark.webp" alt="" width="40" height="40">
-<div>
-<h3>图片水印与 EXIF 编辑器</h3>
-<p>添加文字、图片或 EXIF 水印，并支持裁剪。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/case-converter.html">
-<a class="workspace-card-link" href="tools/text/case-converter.html">
-<img src="assets/icons/case-convert.webp" alt="" width="40" height="40">
-<div>
-<h3>大小写转换</h3>
-<p>快速切换英文大小写。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/text-deduplicator.html">
-<a class="workspace-card-link" href="tools/text/text-deduplicator.html">
-<img src="assets/icons/text-dedupe.webp" alt="" width="40" height="40">
-<div>
-<h3>文本去重</h3>
-<p>清理重复行和重复内容。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/text-formatter.html">
-<a class="workspace-card-link" href="tools/text/text-formatter.html">
-<img src="assets/icons/text-format.webp" alt="" width="40" height="40">
-<div>
-<h3>文本格式化</h3>
-<p>整理空白与格式，让文本更易读。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="text" data-tool-href="tools/text/word-counter.html">
-<a class="workspace-card-link" href="tools/text/word-counter.html">
-<img src="assets/icons/word-count.webp" alt="" width="40" height="40">
-<div>
-<h3>字数统计</h3>
-<p>统计字数、字符和段落。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="text" data-tool-href="tools/utility/qr-generator.html">
-<a class="workspace-card-link" href="tools/utility/qr-generator.html">
-<img src="assets/icons/qr-generator.webp" alt="" width="40" height="40">
-<div>
-<h3>二维码生成</h3>
-<p>将文字、网址和小型文件转换为二维码。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/eq-pinyin-code.html">
-<a class="workspace-card-link" href="tools/document/eq-pinyin-code.html">
-<img src="assets/icons/text-format.webp" alt="" width="40" height="40">
-<div>
-<h3>EQ 单字拼音域代码生成器</h3>
-<p>逐字生成并校验 Word 拼音 EQ 域代码。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="document" data-tool-href="tools/document/ppt-countdown.html">
-<a class="workspace-card-link" href="tools/document/ppt-countdown.html">
-<img src="assets/icons/ppt-countdown.webp" alt="" width="40" height="40">
-<div>
-<h3>PPT 放映悬浮倒计时</h3>
-<p>适合 PPT 放映时悬浮显示倒计时。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="time" data-tool-href="tools/time/work-countdown.html">
-<a class="workspace-card-link" href="tools/time/work-countdown.html">
-<img src="assets/icons/work-countdown.webp" alt="" width="40" height="40">
-<div>
-<h3>下班倒计时</h3>
-<p>根据上下班时间显示剩余工作时长。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="time" data-tool-href="tools/time/countdown.html">
-<a class="workspace-card-link" href="tools/time/countdown.html">
-<img src="assets/icons/date-countdown.webp" alt="" width="40" height="40">
-<div>
-<h3>自定义倒计时</h3>
-<p>按小时、分钟和秒设置一段倒计时。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/lifestyle/meal-randomizer.html">
-<a class="workspace-card-link" href="tools/lifestyle/meal-randomizer.html">
-<img src="assets/icons/meal-randomizer.webp" alt="" width="40" height="40">
-<div>
-<h3>吃啥饭</h3>
-<p>随机组合主食、菜品与饮料。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/fun/child-gender-simulator.html">
-<a class="workspace-card-link" href="tools/fun/child-gender-simulator.html">
-<img src="assets/icons/family-calculator.webp" alt="" width="40" height="40">
-<div>
-<h3>子女性别娱乐模拟器</h3>
-<p>生成不具有预测意义的随机模拟结果。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="lifestyle" data-tool-href="tools/fun/lightning-calculator.html">
-<a class="workspace-card-link" href="tools/fun/lightning-calculator.html">
-<img src="assets/icons/lightning-calculator.webp" alt="" width="40" height="40">
-<div>
-<h3>雷击概率娱乐计算器</h3>
-<p>根据简单选项生成娱乐结果。</p>
-</div>
-</a>
-</article>
-<article class="workspace-card" data-tool-category="media" data-tool-href="tools/media/vip-video-parser.html">
-<a class="workspace-card-link" href="tools/media/vip-video-parser.html">
-<img src="assets/icons/video-player.webp" alt="" width="40" height="40">
-<div>
-<h3>VIP 视频解析</h3>
-<p>输入视频地址并选择解析线路。</p>
-</div>
-</a>
-</article></div>
-<div class="workspace-empty" data-directory-empty hidden>
-<h2>没有找到合适的工具</h2>
-<p>换个关键词，或查看全部工具。</p>
-<button type="button" data-clear-filters>重置筛选</button>
-</div>
-<noscript><p>可直接打开下方工具；启用 JavaScript 后可搜索和筛选。</p></noscript>
-</section>
-
-
-<section class="porcelain-stories" aria-label="阅读与游戏">
-<a class="porcelain-story porcelain-reading" href="novels/index.html"><span class="story-kicker">阅读 / 连载小说</span><h2>零号回声</h2><p>走进故事，继续探索未知。</p><span class="story-action">开始阅读 →</span></a>
-<a class="porcelain-story porcelain-gaming" href="games.html"><span class="story-kicker">休息 / 游戏厅</span><h2>来一局，放松一下</h2><p>象棋、方块、益智小游戏。</p><span class="story-action">进入游戏厅 →</span></a></section>
-</main>
-<footer class="site-footer"><span>PHDSX © 2026 · 让小事更简单</span><nav aria-label="页脚导航"><a href="software.html">作品</a><a href="blog.html">更新记录</a></nav></footer>
+  <footer class="shell footer">
+    <span>© 2026 PHDSX</span>
+    <a href="#main">返回顶部<span aria-hidden="true"> ↑</span></a>
+  </footer>
+  <!-- Cloudflare Web Analytics -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "96aa0ce8aaf14dc297fe60b71d385e98"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
