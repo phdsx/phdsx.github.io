@@ -3,113 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111511">
-  <meta name="description" content="PHDSX 的个人网页实验室。按分类探索在线工具、网页游戏、3D 云游、阅读记录和 AI 雷达。">
+  <meta name="theme-color" content="#f6f4ef">
+  <meta name="description" content="PHDSX 的个人主页。把好奇的事，做成可以亲手试一试的东西。">
   <title>PHDSX · 个人主页</title>
-  <link rel="stylesheet" href="home/home.css?v=20261118radarpage">
-  <link rel="stylesheet" href="home/portal.css?v=20261118directory">
-  <script defer src="home/portal.js?v=20261118directory"></script>
+  <link rel="stylesheet" href="home/minimal.css?v=20261118simple">
 </head>
-<body class="home-page">
+<body>
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <header class="shell masthead">
-    <a class="wordmark" href="index.html" aria-label="PHDSX 首页">
-      <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" width="32" height="32">
-        <rect width="32" height="32" rx="8" fill="currentColor"/>
-        <path d="m9 11 5 5-5 5m8 0h6" stroke="#111511" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>PHDSX</span>
-    </a>
-    <nav aria-label="主导航"><a href="#sections">栏目</a><a href="#about">关于</a><a href="https://github.com/phdsx">GitHub</a></nav>
+  <header class="page-header frame">
+    <a class="wordmark" href="index.html" aria-label="PHDSX 首页">PHDSX<span aria-hidden="true">.</span></a>
+    <a class="github-link" href="https://github.com/phdsx">GitHub<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="12" height="12"></a>
   </header>
 
-  <main id="main" class="shell" tabindex="-1">
-    <section class="portal-intro" aria-labelledby="hero-title">
-      <div class="portal-art" aria-hidden="true">
-        <img src="home/titanium-loop.webp" alt="" width="1500" height="1000" fetchpriority="high">
-      </div>
-      <div class="portal-intro-copy">
-        <p class="portal-eyebrow">PHDSX / 个人网页实验室</p>
-        <h1 id="hero-title"><span>保持好奇，</span><span>动手创造<span class="period">。</span></span></h1>
-        <p>你好，我是 PHDSX。我喜欢写代码，把好奇的事做成可以亲手试一试的东西。</p>
-      </div>
-    </section>
+  <main id="main" tabindex="-1">
+    <div class="personal-space">
+      <section class="introduction" aria-labelledby="intro-title">
+        <p class="eyebrow">你好，我是</p>
+        <h1 id="intro-title">PHDSX<span aria-hidden="true">.</span></h1>
+        <p class="intro-line">写代码，也收集灵感。</p>
+        <p class="intro-description">把好奇的事，做成可以亲手试一试的东西。</p>
+      </section>
 
-    <section class="portal-directory" id="sections" aria-labelledby="sections-title">
-      <header class="portal-directory-heading">
-        <div><p class="portal-eyebrow">EXPLORE THE COLLECTION</p><h2 id="sections-title">从这里，开始探索。</h2></div>
-        <p>工具、作品与记录，都在各自的栏目里。</p>
-      </header>
-
-      <div class="portal-controls" data-home-controls hidden>
-        <form class="portal-search" role="search" aria-label="栏目搜索">
-          <img src="assets/porcelain/icons/search.svg" alt="" width="18" height="18">
-          <label class="sr-only" for="section-search">搜索栏目</label>
-          <input id="section-search" type="search" placeholder="搜索栏目，例如 AI、游戏、小说…" autocomplete="off" aria-controls="section-grid">
-          <kbd aria-hidden="true">Ctrl K</kbd>
-        </form>
-        <div class="portal-filters" role="group" aria-label="栏目分类">
-          <button type="button" data-home-filter="all" aria-pressed="true">全部<span data-home-count="all">9</span></button>
-          <button type="button" data-home-filter="tools" aria-pressed="false">实用工具<span data-home-count="tools">2</span></button>
-          <button type="button" data-home-filter="play" aria-pressed="false">玩与漫游<span data-home-count="play">2</span></button>
-          <button type="button" data-home-filter="reading" aria-pressed="false">阅读记录<span data-home-count="reading">2</span></button>
-          <button type="button" data-home-filter="topics" aria-pressed="false">专题资料<span data-home-count="topics">3</span></button>
-        </div>
-      </div>
-
-      <div class="portal-results-meta" data-home-controls hidden><p data-home-results role="status" aria-live="polite">全部 9 个栏目</p><button type="button" data-home-reset hidden>清除筛选</button></div>
-
-      <div class="portal-grid" id="section-grid">
-        <a class="portal-card" href="tools.html" data-home-section="tools" data-keywords="在线 工具 图片 文本 JSON 文档 办公 二维码 视频 处理 toolbox">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/tools.svg" alt="" width="23" height="23"></span><span>实用工具</span></div>
-          <h3>在线工具</h3><p>处理图片、整理文字、生成二维码，让日常小事更简单。</p><span class="portal-card-entry">打开工具箱<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
+      <section class="explore" aria-labelledby="explore-title">
+        <h2 id="explore-title">探索</h2>
+        <a class="radar-entry" href="ai-radar.html" aria-label="打开 AI 雷达">
+          <div><h3>AI 雷达</h3><p>模型评分 · 视觉 IQ · Codex 重置预测</p></div>
+          <img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="20" height="20">
         </a>
-        <a class="portal-card" href="games.html" data-home-section="play" data-keywords="游戏 小游戏 益智 策略 街机 棋类 game">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/controller.svg" alt="" width="23" height="23"></span><span>玩与漫游</span></div>
-          <h3>游戏厅</h3><p>经典棋类、街机挑战和原创玩法，打开浏览器就能玩。</p><span class="portal-card-entry">挑一个游戏<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-        <a class="portal-card" href="ai-radar.html" data-home-section="topics" data-keywords="AI 人工智能 雷达 模型 CodexRadar 评分 IQ 视觉 Codex reset 预测">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="23" height="23"></span><span>专题资料</span></div>
-          <h3>AI 雷达</h3><p>追踪模型能力评分，查阅视觉 IQ 归档和 Codex 重置信号。</p><span class="portal-card-entry">查看独立雷达<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-        <a class="portal-card" href="tours.html" data-home-section="play" data-keywords="3D 三维 云游 旅行 景点 地图 北京 故宫 平潭 tours">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/globe2.svg" alt="" width="23" height="23"></span><span>玩与漫游</span></div>
-          <h3>3D 云游</h3><p>在三维场景中走走看看，从城市街巷到山海之间。</p><span class="portal-card-entry">选一个目的地<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-        <a class="portal-card" href="blog.html" data-home-section="reading" data-keywords="博客 笔记 文章 学习 代码 Python HTML JavaScript Markdown blog">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/journal-text.svg" alt="" width="23" height="23"></span><span>阅读记录</span></div>
-          <h3>博客笔记</h3><p>学习时记下的知识、写代码的过程，还有一些小发现。</p><span class="portal-card-entry">翻翻笔记<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-        <a class="portal-card" href="software.html" data-home-section="tools" data-keywords="软件 作品 自制 原创 推荐 下载 开源 software">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/box-seam.svg" alt="" width="23" height="23"></span><span>实用工具</span></div>
-          <h3>软件作品</h3><p>自己做的软件，以及用过之后想分享的好用作品。</p><span class="portal-card-entry">看看作品<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-        <a class="portal-card" href="novels/index.html" data-home-section="reading" data-keywords="小说 连载 故事 科幻 悬疑 零号回声 阅读 novel">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/book-fill.svg" alt="" width="23" height="23"></span><span>阅读记录</span></div>
-          <h3>小说连载</h3><p>给想象留一些篇幅，读一段正在慢慢展开的故事。</p><span class="portal-card-entry">开始阅读<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-        <a class="portal-card" href="directory.html" data-home-section="topics" data-keywords="电话 黄页 客服 联系方式 查询 通讯 directory">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/person-fill.svg" alt="" width="23" height="23"></span><span>专题资料</span></div>
-          <h3>电话黄页</h3><p>整理常用服务电话，需要的时候少找一会儿。</p><span class="portal-card-entry">查询常用电话<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-        <a class="portal-card" href="brand-blacklist/index.html" data-home-section="topics" data-keywords="品牌 黑名单 事件 档案 消费 记录 分类 查询 blacklist">
-          <div class="portal-card-top"><span class="portal-icon"><img src="assets/ubuntu/icons/folder-fill.svg" alt="" width="23" height="23"></span><span>专题资料</span></div>
-          <h3>品牌黑名单</h3><p>按品牌、分类和事件查阅记录，保留信息与来源。</p><span class="portal-card-entry">浏览专题档案<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="15" height="15"></span>
-        </a>
-      </div>
-      <div class="portal-empty" data-home-empty hidden><h3>暂时没有匹配的栏目</h3><p>换个关键词，或清除筛选看看全部内容。</p><button type="button" data-home-reset>查看全部栏目</button></div>
-    </section>
-
-    <section class="about" id="about" aria-labelledby="about-title">
-      <h2 id="about-title">关于这里</h2>
-      <p>这里是一座持续生长的个人网页实验室。已经做出来的工具和作品、正在积累的笔记，还有没成形的想法，都会慢慢收进来。</p>
-    </section>
+      </section>
+    </div>
   </main>
 
-  <footer class="shell footer">
-    <span>© 2026 PHDSX</span>
-    <a href="#main">返回顶部<span aria-hidden="true"> ↑</span></a>
-  </footer>
+  <footer class="page-footer frame"><span>© 2026 PHDSX</span><span>一点一滴，慢慢创造。</span></footer>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "96aa0ce8aaf14dc297fe60b71d385e98"}'></script>
   <!-- End Cloudflare Web Analytics -->

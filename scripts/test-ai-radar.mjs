@@ -154,4 +154,7 @@ test('the homepage links to the standalone radar and does not load its data scri
   const home = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   assert.match(home, /href="ai-radar.html"/);
   assert.doesNotMatch(home, /data-ai-|ai-radar\/ai-radar.js|class="home-radar"/);
+  const internalLinks = [...home.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map((match) => match[1]).filter((href) => !/^(?:https?:|#)/.test(href));
+  assert.deepEqual([...new Set(internalLinks)].sort(), ['ai-radar.html', 'index.html']);
+  assert.doesNotMatch(home, /<form\b|data-home-|class="portal-/);
 });
