@@ -8,7 +8,8 @@
   const state = { scoreRows: [], forecast: null, willPayload: null, codexFeed: null };
 
   function radarText(key, fallback, variables) {
-    return window.PHDSXI18n ? window.PHDSXI18n.t(key, fallback, variables) : fallback;
+    if (window.PHDSXI18n) return window.PHDSXI18n.t(key, fallback, variables);
+    return variables ? fallback.replace(/\{(\w+)\}/g, (token, name) => variables[name] ?? token) : fallback;
   }
 
   function get(selector, root) {
@@ -17,6 +18,11 @@
 
   function getAll(selector, root) {
     return [...(root || document).querySelectorAll(selector)];
+  }
+
+  function setText(selector, text) {
+    const element = get(selector);
+    if (element) element.textContent = text;
   }
 
   function escapeHtml(value) {
@@ -112,6 +118,7 @@
   function renderScoreRows() {
     const list = get('[data-ai-score-list]');
     const count = get('[data-ai-score-count]');
+    if (!list || !count) return;
     const query = String(get('[data-ai-score-search]')?.value || '').trim().toLowerCase();
     const rows = state.scoreRows.filter((row) => `${formatModel(row.model)} ${row.model} ${row.effort}`.toLowerCase().includes(query));
     if (!rows.length) {
@@ -141,8 +148,9 @@
     const visualMap = new Map(visual.map((point) => [`${point.model}|${point.effort}`, point]));
     state.scoreRows = software.map((point) => {
       const match = visualMap.get(`${point.model}|${point.effort}`);
+      if (point.iq == null || match?.iq == null) return null;
       const softwareScore = Number(point.iq);
-      const visualScore = Number(match && match.iq);
+      const visualScore = Number(match.iq);
       if (!Number.isFinite(softwareScore) || !Number.isFinite(visualScore)) return null;
       return {
         model: point.model,
@@ -165,16 +173,21 @@
     sourceState('codexradar', 'live', radarText('radar.live', '实时'));
   }
 
+  function probability(value) {
+    const numeric = value == null || value === '' ? NaN : Number(value);
+    return Number.isFinite(numeric) && numeric >= 0 && numeric <= 100 ? numeric : null;
+  }
+
   function setProbability(key, value) {
-    const numeric = Math.max(0, Math.min(100, Number(value) || 0));
+    const numeric = probability(value);
     const card = get(`[data-ai-probability-card="${key}"]`);
-    const label = get(`[data-ai-probability="${key}"]`);
-    if (card) card.style.setProperty('--probability', numeric);
-    if (label) label.textContent = `${numeric}%`;
+    if (card) card.style.setProperty('--probability', numeric ?? 0);
+    setText(`[data-ai-probability="${key}"]`, numeric === null ? '--' : `${numeric}%`);
   }
 
   function renderCodexEvidence(items) {
     const list = get('[data-ai-codex-evidence]');
+    if (!list) return;
     const evidence = Array.isArray(items) ? items.slice(0, 4) : [];
     if (!evidence.length) {
       list.innerHTML = `<li class="ai-feed-empty">${radarText('radar.noEvidence', '当前没有公开预测依据。')}</li>`;
@@ -189,6 +202,7 @@
 
   function renderCodexFeed(payload) {
     const root = get('[data-ai-codex-feed]');
+    if (!root) return;
     const tweets = (Array.isArray(payload.tweets) ? payload.tweets : []).filter((item) => item.tibo_lane === 'reset_related' || item.explicit_reset_claim || item.kind === 'candidate').slice(0, 4);
     if (!tweets.length) {
       root.innerHTML = `<p class="ai-feed-empty">${radarText('radar.noRadarFeed', '当前没有可展示的雷达动态。')}</p>`;
@@ -206,19 +220,19 @@
     const stamp = Date.now();
     const [forecast, feed] = await Promise.all([
       fetchJson(`${CODEX_FORECAST_URL}?_=${stamp}`),
-      fetchJson(`${CODEX_FEED_URL}?_=${stamp}`)
+      get('[data-ai-codex-feed]') ? fetchJson(`${CODEX_FEED_URL}?_=${stamp}`) : null
     ]);
     state.forecast = forecast;
     state.codexFeed = feed;
     setProbability('codex-24', forecast.probabilities && forecast.probabilities.rounded_24h);
     setProbability('codex-48', forecast.probabilities && forecast.probabilities.rounded_48h);
     const confidenceLabels = { low: radarText('radar.lowConfidence', '低'), medium: radarText('radar.mediumConfidence', '中'), high: radarText('radar.highConfidence', '高') };
-    get('[data-ai-codex-confidence]').textContent = confidenceLabels[forecast.confidence] || forecast.confidence || '--';
-    get('[data-ai-codex-age]').textContent = Number.isFinite(Number(forecast.age_days)) ? `${Number(forecast.age_days).toFixed(1)} ${radarText('radar.days', '天')}` : '--';
-    get('[data-ai-codex-window]').textContent = forecast.time_window ? `${forecast.time_window.label} ${forecast.time_window.timezone}` : '--';
+    setText('[data-ai-codex-confidence]', confidenceLabels[forecast.confidence] || forecast.confidence || '--');
+    setText('[data-ai-codex-age]', Number.isFinite(Number(forecast.age_days)) ? `${Number(forecast.age_days).toFixed(1)} ${radarText('radar.days', '天')}` : '--');
+    setText('[data-ai-codex-window]', forecast.time_window ? `${forecast.time_window.label} ${forecast.time_window.timezone}` : '--');
     renderCodexEvidence(forecast.evidence);
-    renderCodexFeed(feed);
-    get('[data-ai-source-time="codex-reset"]').textContent = formatDateTime(forecast.updated_at || feed.fetched_at);
+    if (feed) renderCodexFeed(feed);
+    get('[data-ai-source-time="codex-reset"]').textContent = formatDateTime(forecast.updated_at || feed?.fetched_at);
     sourceState('codex-reset', 'live', radarText('radar.live', '实时'));
   }
 
@@ -233,6 +247,7 @@
 
   function renderWillPulse(payload) {
     const root = get('[data-ai-will-pulse]');
+    if (!root) return;
     const events = (Array.isArray(payload.events) ? payload.events : []).filter((item) => Number(item.impact) > 0 || item.kind === 'reset' || item.kind === 'incident').slice(0, 5);
     if (!events.length) {
       root.innerHTML = `<p class="ai-feed-empty">${radarText('radar.noPulse', 'Forecast pulse 当前没有重要信号事件。')}</p>`;
@@ -252,8 +267,10 @@
     const payload = response && response.code === 0 ? response.data : response;
     if (!payload || typeof payload !== 'object') throw new Error('预测数据格式不正确');
     state.willPayload = payload;
-    get('[data-ai-will-24]').textContent = `${Number(payload.probability24h) || 0}%`;
-    get('[data-ai-will-48]').textContent = `${Number(payload.probability48h) || 0}%`;
+    const chance24 = probability(payload.probability24h);
+    const chance48 = probability(payload.probability48h);
+    get('[data-ai-will-24]').textContent = chance24 === null ? '--' : `${chance24}%`;
+    get('[data-ai-will-48]').textContent = chance48 === null ? '--' : `${chance48}%`;
     get('[data-ai-will-verdict]').textContent = willVerdict(payload.verdict);
     renderWillPulse(payload);
     get('[data-ai-source-time="will-reset"]').textContent = formatDateTime(payload.updatedAt);
@@ -322,6 +339,7 @@
 
   get('[data-ai-score-search]')?.addEventListener('input', renderScoreRows);
   get('[data-ai-refresh-all]')?.addEventListener('click', refreshAll);
+  getAll('[data-ai-refresh-all], [data-ai-refresh-source]').forEach((button) => { button.hidden = false; });
   getAll('[data-ai-refresh-source]').forEach((button) => button.addEventListener('click', async () => {
     const source = button.dataset.aiRefreshSource;
     const status = get('[data-ai-refresh-status]');

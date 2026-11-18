@@ -29,7 +29,8 @@ a { color: inherit; text-decoration: none; }
 .wordmark { display: inline-flex; align-items: center; gap: 11px; font-size: 19px; font-weight: 800; letter-spacing: .06em; }
 .wordmark svg { color: var(--accent); }
 .masthead nav a, .footer a { color: var(--muted); }
-.masthead nav a { display: inline-block; padding: 8px 0 8px 12px; font-size: 14px; }
+.masthead nav { display: flex; align-items: center; gap: clamp(14px, 3vw, 30px); }
+.masthead nav a { display: inline-block; padding-block: 11px; font-size: 14px; }
 .masthead nav a:hover, .footer a:hover { color: var(--accent); }
 
 .hero {
@@ -76,6 +77,46 @@ a { color: inherit; text-decoration: none; }
 }
 .profile-link:hover { background: #e6ffb3; }
 
+.home-radar { border-top: 1px solid var(--rule); padding-block: clamp(28px, 5vw, 54px); scroll-margin-top: 24px; }
+.home-radar-head, .home-radar-foot { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; }
+.home-radar-head h2 { margin-block: 2px 4px; font-size: clamp(1.8rem, 4vw, 2.5rem); letter-spacing: -.04em; line-height: 1.2; }
+.home-radar-head p { color: var(--muted); font-size: 14px; }
+.home-radar-head .home-radar-kicker { color: var(--accent); font-size: 11px; font-weight: 750; letter-spacing: .14em; }
+.home-radar-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.home-radar button, .home-radar-actions a {
+  padding: 9px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.home-radar-actions a { border-color: #5b713d; color: var(--accent); }
+.home-radar button:not(:disabled):hover, .home-radar-actions a:hover { border-color: var(--accent); color: var(--accent); }
+.home-radar button:disabled { opacity: .55; cursor: wait; }
+.home-radar-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-block: 22px 14px; }
+.home-radar-card { display: flex; flex-direction: column; gap: 16px; padding: clamp(14px, 2vw, 20px); border: 1px solid var(--rule); border-radius: 10px; background: #191e18; }
+.home-radar-card header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.home-radar-card header p, .home-radar-card dt, .home-radar-card small, .home-radar-context, .home-radar-card footer, .home-radar-foot { color: var(--muted); font-size: 12px; }
+.home-radar-card h3 { margin: 2px 0 0; font-size: 17px; }
+.home-radar-card button { width: 38px; height: 38px; padding: 0; font-size: 20px; }
+.home-radar-card dl, .home-radar-card dd { margin: 0; }
+.home-radar-card dl { display: grid; gap: 10px; }
+.home-radar-card dd { overflow-wrap: anywhere; }
+.home-radar-card strong { color: var(--accent); font-variant-numeric: tabular-nums; }
+.home-radar-card small { display: inline-block; }
+.home-radar-card small:not(:empty) { margin-left: 6px; }
+.home-radar-scores > div { display: grid; grid-template-columns: minmax(0, 7em) 1fr; align-items: baseline; gap: 4px; }
+.home-radar-card .home-radar-forecast { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.home-radar-forecast strong { font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.2; }
+.home-radar-card footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 10px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--rule); }
+.home-radar-card .is-live { color: var(--accent); }
+.home-radar-card .is-error { color: #ffb49e; }
+
 .about {
   display: grid;
   grid-template-columns: minmax(144px, .42fr) 1fr;
@@ -99,6 +140,10 @@ a { color: inherit; text-decoration: none; }
       linear-gradient(0deg, var(--background), transparent 22%, transparent 78%, var(--background));
   }
 }
+@media (max-width: 800px) {
+  .home-radar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-radar-card:first-child { grid-column: 1 / -1; }
+}
 @media (max-width: 600px) {
   .shell { width: calc(100% - 40px); }
   .masthead { min-height: 64px; }
@@ -117,4 +162,7 @@ a { color: inherit; text-decoration: none; }
   .about { grid-template-columns: 1fr; gap: 9px; padding-block: 23px; }
   .about h2 { font-size: 17px; }
   .about p { font-size: 14px; }
+}
+@media (max-width: 500px) {
+  .home-radar-grid { grid-template-columns: 1fr; }
 }
