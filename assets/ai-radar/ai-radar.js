@@ -5,7 +5,7 @@
   const CODEX_FEED_URL = 'https://codex-reset.com/api/feed';
   const WILL_RESET_URL = 'https://willcodexreset.com/api/reset-radar';
   const JINA_BASE = 'https://r.jina.ai/';
-  const state = { scoreRows: [], forecast: null, willPayload: null, codexFeed: null };
+  const state = { scoreRows: [], scoreAvailability: null, forecast: null, willPayload: null, codexFeed: null };
 
   function radarText(key, fallback, variables) {
     if (window.PHDSXI18n) return window.PHDSXI18n.t(key, fallback, variables);
@@ -49,6 +49,7 @@
   }
 
   function formatScore(value) {
+    if (value == null) return '--';
     const score = Number(value);
     return Number.isFinite(score) ? score.toFixed(1) : '--';
   }
@@ -126,51 +127,73 @@
     } else {
       list.innerHTML = rows.map((row) => `
         <tr>
-          <td class="ai-score-rank">#${row.rank}</td>
+          <td class="ai-score-rank">${row.rank ? `#${row.rank}` : '--'}</td>
           <td><span class="ai-model-name">${escapeHtml(formatModel(row.model))}</span><span class="ai-model-effort">${escapeHtml(row.effort)}</span></td>
-          <td><span class="ai-score-value" style="--score:${row.combined.toFixed(2)}">${formatScore(row.combined)}</span></td>
-          <td><span class="ai-score-value" style="--score:${row.software.toFixed(2)}">${formatScore(row.software)}</span></td>
-          <td><span class="ai-score-value" style="--score:${row.visual.toFixed(2)}">${formatScore(row.visual)}</span></td>
+          <td><span class="ai-score-value" style="--score:${row.combined ?? 0}">${formatScore(row.combined)}</span></td>
+          <td><span class="ai-score-value" style="--score:${row.software ?? 0}">${formatScore(row.software)}</span></td>
+          <td><span class="ai-score-value" style="--score:${row.visual ?? 0}">${formatScore(row.visual)}</span></td>
         </tr>`).join('');
     }
-    count.textContent = radarText('radar.sharedTiers', '显示 {shown} / {total} 个共同有效档位', { shown: rows.length, total: state.scoreRows.length });
+    count.textContent = radarText('radar.availableTiers', '显示 {shown} / {total} 个档位，缺失维度显示 --', { shown: rows.length, total: state.scoreRows.length });
+  }
+
+  function renderScoreSummary() {
+    for (const kind of ['combined', 'software', 'visual']) {
+      const best = state.scoreRows.filter((row) => row[kind] !== null).sort((a, b) => b[kind] - a[kind])[0];
+      renderBest(kind, best, best?.[kind]);
+    }
+    renderScoreRows();
+    if (!state.scoreAvailability) return;
+    const { software, visual } = state.scoreAvailability;
+    const complete = software && visual;
+    sourceState('codexradar', complete ? 'live' : software || visual ? 'partial' : 'error', complete
+      ? radarText('radar.live', '实时')
+      : software ? radarText('radar.visualUnavailable', '部分可用 · 视觉暂缺')
+      : visual ? radarText('radar.softwareUnavailable', '部分可用 · 软件工程暂缺')
+      : radarText('radar.failed', '读取失败'));
+  }
+
+  async function fetchScorePoints(loader) {
+    const payload = await loader();
+    const points = Array.isArray(payload?.points) ? payload.points.filter((point) => (
+      point && typeof point.model === 'string' && typeof point.effort === 'string' &&
+      (typeof point.iq === 'number' || typeof point.iq === 'string' && point.iq.trim() !== '') && Number.isFinite(Number(point.iq))
+    )) : [];
+    if (!points.length) throw new Error('评分数据为空或格式不正确');
+    return { ...payload, points };
   }
 
   async function loadScores() {
     sourceState('codexradar', 'loading', radarText('radar.reading', '正在读取'));
     const stamp = Date.now();
-    const [softwarePayload, visualPayload] = await Promise.all([
-      fetchJson(`${SOFTWARE_URL}?v=${stamp}`),
-      fetchJinaJson(VISUAL_URL)
+    const results = await Promise.allSettled([
+      fetchScorePoints(() => fetchJson(`${SOFTWARE_URL}?v=${stamp}`)),
+      fetchScorePoints(() => fetchJinaJson(VISUAL_URL))
     ]);
-    const software = Array.isArray(softwarePayload.points) ? softwarePayload.points : [];
-    const visual = Array.isArray(visualPayload.points) ? visualPayload.points : [];
-    const visualMap = new Map(visual.map((point) => [`${point.model}|${point.effort}`, point]));
-    state.scoreRows = software.map((point) => {
-      const match = visualMap.get(`${point.model}|${point.effort}`);
-      if (point.iq == null || match?.iq == null) return null;
-      const softwareScore = Number(point.iq);
-      const visualScore = Number(match.iq);
-      if (!Number.isFinite(softwareScore) || !Number.isFinite(visualScore)) return null;
-      return {
-        model: point.model,
-        effort: point.effort,
-        software: softwareScore,
-        visual: visualScore,
-        combined: (softwareScore + visualScore) / 2
-      };
-    }).filter(Boolean).sort((left, right) => right.combined - left.combined).map((row, index) => ({ ...row, rank: index + 1 }));
-
-    const bestCombined = state.scoreRows[0];
-    const bestSoftware = [...state.scoreRows].sort((left, right) => right.software - left.software)[0];
-    const bestVisual = [...state.scoreRows].sort((left, right) => right.visual - left.visual)[0];
-    renderBest('combined', bestCombined, bestCombined && bestCombined.combined);
-    renderBest('software', bestSoftware, bestSoftware && bestSoftware.software);
-    renderBest('visual', bestVisual, bestVisual && bestVisual.visual);
-    renderScoreRows();
-    const sourceTime = [softwarePayload.source_updated_at, visualPayload.source_updated_at].filter(Boolean).sort().pop();
+    const [softwarePayload, visualPayload] = results.map((result) => result.status === 'fulfilled' ? result.value : null);
+    state.scoreAvailability = { software: Boolean(softwarePayload), visual: Boolean(visualPayload) };
+    const rows = new Map();
+    for (const [kind, payload] of [['software', softwarePayload], ['visual', visualPayload]]) {
+      for (const point of payload?.points || []) {
+        const key = `${point.model}|${point.effort}`;
+        const row = rows.get(key) || { model: point.model, effort: point.effort, software: null, visual: null, combined: null };
+        row[kind] = Number(point.iq);
+        rows.set(key, row);
+      }
+    }
+    state.scoreRows = [...rows.values()].map((row) => ({
+      ...row,
+      combined: row.software !== null && row.visual !== null ? (row.software + row.visual) / 2 : null
+    })).sort((a, b) => (b.combined ?? -Infinity) - (a.combined ?? -Infinity) || (b.software ?? b.visual) - (a.software ?? a.visual))
+      .map((row, index) => ({ ...row, rank: row.combined === null ? null : index + 1 }));
+    renderScoreSummary();
+    const sourceTime = [softwarePayload?.source_updated_at, visualPayload?.source_updated_at].filter(Boolean).sort().pop();
     get('[data-ai-source-time="codexradar"]').textContent = formatDateTime(sourceTime);
-    sourceState('codexradar', 'live', radarText('radar.live', '实时'));
+    for (const result of results) {
+      if (result.status === 'rejected') console.warn('CodexRadar dimension unavailable:', result.reason);
+    }
+    if (!softwarePayload && !visualPayload) throw new Error('两个评分维度均不可用');
+    return softwarePayload && visualPayload ? true : 'partial';
   }
 
   function probability(value) {
@@ -288,8 +311,8 @@
     if (!loader) return false;
     setSourceBusy(source, true);
     try {
-      await loader();
-      return true;
+      const result = await loader();
+      return result === 'partial' ? 'partial' : true;
     } catch (error) {
       console.warn(`AI Radar source failed: ${source}`, error);
       sourceState(source, 'error', radarText('radar.failed', '读取失败'));
@@ -306,22 +329,18 @@
     button.setAttribute('aria-busy', 'true');
     status.textContent = radarText('radar.syncing', '正在同步三个来源…');
     const results = await Promise.all(Object.keys(loaders).map(runSource));
-    const successCount = results.filter(Boolean).length;
+    const successCount = results.filter((result) => result === true).length;
+    const partialCount = results.filter((result) => result === 'partial').length;
     status.textContent = successCount === results.length
       ? radarText('radar.updated', '全部已更新 · {time}', { time: new Date().toLocaleTimeString(window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }) })
       : radarText('radar.partialUpdated', '已更新 {success} / {total} 个来源，失败项可单独重试', { success: successCount, total: results.length });
+    if (partialCount) status.textContent += radarText('radar.partialSources', '；{count} 个来源部分可用，缺失维度可重试', { count: partialCount });
     button.disabled = false;
     button.setAttribute('aria-busy', 'false');
   }
 
   function refreshLocalizedData() {
-    const bestCombined = state.scoreRows[0];
-    const bestSoftware = [...state.scoreRows].sort((left, right) => right.software - left.software)[0];
-    const bestVisual = [...state.scoreRows].sort((left, right) => right.visual - left.visual)[0];
-    renderBest('combined', bestCombined, bestCombined && bestCombined.combined);
-    renderBest('software', bestSoftware, bestSoftware && bestSoftware.software);
-    renderBest('visual', bestVisual, bestVisual && bestVisual.visual);
-    renderScoreRows();
+    renderScoreSummary();
     if (state.forecast) {
       const confidenceLabels = { low: radarText('radar.lowConfidence', '低'), medium: radarText('radar.mediumConfidence', '中'), high: radarText('radar.highConfidence', '高') };
       get('[data-ai-codex-confidence]').textContent = confidenceLabels[state.forecast.confidence] || state.forecast.confidence || '--';
@@ -345,7 +364,7 @@
     const status = get('[data-ai-refresh-status]');
     status.textContent = radarText('radar.refreshing', '正在刷新 {source}…', { source });
     const success = await runSource(source);
-    status.textContent = success ? radarText('radar.sourceUpdated', '该来源已更新 · {time}', { time: new Date().toLocaleTimeString(window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }) }) : radarText('radar.retry', '刷新失败，请稍后重试或打开来源站查看');
+    status.textContent = success === 'partial' ? radarText('radar.partialSourceUpdated', '可用评分已更新，缺失维度可稍后重试') : success ? radarText('radar.sourceUpdated', '该来源已更新 · {time}', { time: new Date().toLocaleTimeString(window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }) }) : radarText('radar.retry', '刷新失败，请稍后重试或打开来源站查看');
   }));
   refreshAll();
 }());

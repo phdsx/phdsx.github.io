@@ -116,6 +116,7 @@ a { color: inherit; text-decoration: none; }
 .home-radar-card footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 10px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--rule); }
 .home-radar-card .is-live { color: var(--accent); }
 .home-radar-card .is-error { color: #ffb49e; }
+.home-radar-card .is-partial { color: #f1cf87; }
 
 .about {
   display: grid;
