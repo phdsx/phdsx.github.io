@@ -4,10 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111511">
-  <meta name="description" content="PHDSX 的个人主页。用代码探索新的想法，查看 AI 模型能力评分和 Codex 重置预测。">
+  <meta name="description" content="PHDSX 的个人主页。用代码探索新的想法。">
   <title>PHDSX · 个人主页</title>
-  <link rel="stylesheet" href="home/home.css?v=20261118partial">
-  <script defer src="assets/ai-radar/ai-radar.js?v=20261118partial"></script>
+  <link rel="stylesheet" href="home/home.css?v=20261118radarpage">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -19,7 +18,7 @@
       </svg>
       <span>PHDSX</span>
     </a>
-    <nav aria-label="主导航"><a href="#ai-radar">AI 雷达</a><a href="#about">关于</a></nav>
+    <nav aria-label="主导航"><a href="ai-radar.html">AI 雷达</a><a href="#about">关于</a></nav>
   </header>
 
   <main id="main" class="shell" tabindex="-1">
@@ -34,64 +33,6 @@
           在 GitHub 找到我
           <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" width="17" height="17"><path d="M5 15 15 5M5 5h10v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-      </div>
-    </section>
-
-    <section class="home-radar" id="ai-radar" aria-labelledby="home-radar-title">
-      <div class="home-radar-head">
-        <div>
-          <p class="home-radar-kicker" aria-hidden="true">LIVE SIGNAL DESK</p>
-          <h2 id="home-radar-title">AI 雷达</h2>
-          <p>查看 AI 模型能力评分，以及两个来源的 Codex 重置预测。</p>
-        </div>
-        <div class="home-radar-actions">
-          <button type="button" data-ai-refresh-all hidden>刷新全部</button>
-          <a href="ai-radar.html">查看完整雷达 <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-      <div class="home-radar-grid">
-        <article class="home-radar-card">
-          <header>
-            <div><p>CodexRadar</p><h3>模型能力评分</h3></div>
-            <button type="button" data-ai-refresh-source="codexradar" aria-label="刷新模型能力评分" hidden>↻</button>
-          </header>
-          <dl class="home-radar-scores">
-            <div><dt>综合智能最高</dt><dd><strong data-ai-best="combined">--</strong><small data-ai-best-label="combined"></small></dd></div>
-            <div><dt>软件工程最高</dt><dd><strong data-ai-best="software">--</strong><small data-ai-best-label="software"></small></dd></div>
-            <div><dt>视觉推理最高</dt><dd><strong data-ai-best="visual">--</strong><small data-ai-best-label="visual"></small></dd></div>
-          </dl>
-          <footer><span class="ai-source-state" data-ai-source-state="codexradar">等待读取</span><span>来源更新：<time data-ai-source-time="codexradar">--</time></span></footer>
-        </article>
-
-        <article class="home-radar-card">
-          <header>
-            <div><p>Codex Reset</p><h3>重置概率</h3></div>
-            <button type="button" data-ai-refresh-source="codex-reset" aria-label="刷新 Codex Reset 预测" hidden>↻</button>
-          </header>
-          <dl class="home-radar-forecast">
-            <div><dt>24 小时内</dt><dd><strong data-ai-probability="codex-24">--</strong></dd></div>
-            <div><dt>48 小时内</dt><dd><strong data-ai-probability="codex-48">--</strong></dd></div>
-          </dl>
-          <p class="home-radar-context">模型置信度：<span data-ai-codex-confidence>--</span></p>
-          <footer><span class="ai-source-state" data-ai-source-state="codex-reset">等待读取</span><span>来源更新：<time data-ai-source-time="codex-reset">--</time></span></footer>
-        </article>
-
-        <article class="home-radar-card">
-          <header>
-            <div><p>Will Codex Reset</p><h3>重置信号</h3></div>
-            <button type="button" data-ai-refresh-source="will-reset" aria-label="刷新 Will Codex Reset 预测" hidden>↻</button>
-          </header>
-          <dl class="home-radar-forecast">
-            <div><dt>24 小时内</dt><dd><strong data-ai-will-24>--</strong></dd></div>
-            <div><dt>48 小时内</dt><dd><strong data-ai-will-48>--</strong></dd></div>
-          </dl>
-          <p class="home-radar-context" data-ai-will-verdict>等待预测信号</p>
-          <footer><span class="ai-source-state" data-ai-source-state="will-reset">等待读取</span><span>来源更新：<time data-ai-source-time="will-reset">--</time></span></footer>
-        </article>
-      </div>
-      <div class="home-radar-foot">
-        <p>评分和预测来自公开数据源，仅供参考，不代表 OpenAI 官方结论。</p>
-        <p data-ai-refresh-status role="status">启用 JavaScript 后可获取最新数据。</p>
       </div>
     </section>
 

@@ -1,11 +1,12 @@
 (function () {
   const SOFTWARE_URL = 'https://codexradar.com/data/intelligence-efficiency.json';
-  const VISUAL_URL = 'https://codexradar.com/api/visual-spatial-reasoning';
+  const VISUAL_URL = 'https://codexradar.com/data/radar-legacy-visual.json';
+  const CURRENT_URL = 'https://codexradar.com/data/codex-four-task-results.json';
   const CODEX_FORECAST_URL = 'https://codex-reset.com/api/forecast';
   const CODEX_FEED_URL = 'https://codex-reset.com/api/feed';
   const WILL_RESET_URL = 'https://willcodexreset.com/api/reset-radar';
   const JINA_BASE = 'https://r.jina.ai/';
-  const state = { scoreRows: [], scoreAvailability: null, forecast: null, willPayload: null, codexFeed: null };
+  const state = { scoreRows: [], currentRows: [], scoreAvailability: null, forecast: null, willPayload: null, codexFeed: null };
 
   function radarText(key, fallback, variables) {
     if (window.PHDSXI18n) return window.PHDSXI18n.t(key, fallback, variables);
@@ -45,7 +46,7 @@
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return String(value);
     const locale = window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN';
-    return date.toLocaleString(locale, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false });
+    return date.toLocaleString(locale, { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false });
   }
 
   function formatScore(value) {
@@ -63,7 +64,8 @@
       'gpt-5.4': 'GPT-5.4',
       'gpt-5.4-mini': 'GPT-5.4 mini'
     };
-    return labels[model] || String(model || '未知模型').replace(/^gpt-/i, 'GPT-');
+    return labels[model] || String(model || '未知模型').replace(/^gpt-/i, 'GPT-')
+      .replace(/^(GPT-\d+(?:\.\d+)*)-(sol|terra|astra|luna)\b/i, (_, version, family) => `${version} ${family[0].toUpperCase()}${family.slice(1).toLowerCase()}`);
   }
 
   function sourceState(source, status, message) {
@@ -146,8 +148,8 @@
     if (!state.scoreAvailability) return;
     const { software, visual } = state.scoreAvailability;
     const complete = software && visual;
-    sourceState('codexradar', complete ? 'live' : software || visual ? 'partial' : 'error', complete
-      ? radarText('radar.live', '实时')
+    sourceState('codexradar', complete ? 'archive' : software || visual ? 'partial' : 'error', complete
+      ? radarText('radar.archiveLoaded', '归档已读取')
       : software ? radarText('radar.visualUnavailable', '部分可用 · 视觉暂缺')
       : visual ? radarText('radar.softwareUnavailable', '部分可用 · 软件工程暂缺')
       : radarText('radar.failed', '读取失败'));
@@ -168,7 +170,7 @@
     const stamp = Date.now();
     const results = await Promise.allSettled([
       fetchScorePoints(() => fetchJson(`${SOFTWARE_URL}?v=${stamp}`)),
-      fetchScorePoints(() => fetchJinaJson(VISUAL_URL))
+      fetchScorePoints(() => fetchJson(VISUAL_URL))
     ]);
     const [softwarePayload, visualPayload] = results.map((result) => result.status === 'fulfilled' ? result.value : null);
     state.scoreAvailability = { software: Boolean(softwarePayload), visual: Boolean(visualPayload) };
@@ -187,13 +189,67 @@
     })).sort((a, b) => (b.combined ?? -Infinity) - (a.combined ?? -Infinity) || (b.software ?? b.visual) - (a.software ?? a.visual))
       .map((row, index) => ({ ...row, rank: row.combined === null ? null : index + 1 }));
     renderScoreSummary();
-    const sourceTime = [softwarePayload?.source_updated_at, visualPayload?.source_updated_at].filter(Boolean).sort().pop();
+    setText('[data-ai-software-time]', formatDateTime(softwarePayload?.source_updated_at));
+    setText('[data-ai-visual-time]', formatDateTime(visualPayload?.source_updated_at));
+    const sourceTime = [softwarePayload?.source_updated_at, visualPayload?.source_updated_at].filter(Boolean).sort((a, b) => new Date(a) - new Date(b))[0];
     get('[data-ai-source-time="codexradar"]').textContent = formatDateTime(sourceTime);
     for (const result of results) {
       if (result.status === 'rejected') console.warn('CodexRadar dimension unavailable:', result.reason);
     }
     if (!softwarePayload && !visualPayload) throw new Error('两个评分维度均不可用');
     return softwarePayload && visualPayload ? true : 'partial';
+  }
+
+  function renderCurrentRows() {
+    const list = get('[data-ai-current-list]');
+    if (!list) return;
+    const query = String(get('[data-ai-current-search]')?.value || '').trim().toLowerCase();
+    const rows = state.currentRows.filter((row) => `${formatModel(row.model)} ${row.effort}`.toLowerCase().includes(query));
+    list.innerHTML = rows.length ? rows.map((row) => `<tr>
+      <td class="ai-score-rank">#${row.rank}</td>
+      <td><span class="ai-model-name">${escapeHtml(formatModel(row.model))}</span><span class="ai-model-effort">${escapeHtml(row.effort)}</span></td>
+      ${[row.total, ...row.parts].map((value) => `<td><span class="ai-score-value">${value.toFixed(2)}</span></td>`).join('')}
+    </tr>`).join('') : `<tr><td colspan="7" class="ai-loading-cell">${state.currentRows.length ? '没有匹配的模型档位。' : '当前四题评分暂不可用，请稍后重试。'}</td></tr>`;
+    setText('[data-ai-current-filter-count]', `显示 ${rows.length} / ${state.currentRows.length} 个档位`);
+  }
+
+  function clearCurrentScores() {
+    state.currentRows = [];
+    for (const selector of ['best', 'pompeii', 'count']) setText(`[data-ai-current-${selector}]`, '--');
+    for (const selector of ['best-label', 'pompeii-label', 'round', 'interval']) setText(`[data-ai-current-${selector}]`, '暂无可用数据');
+    setText('[data-ai-source-time="codex-current"]', '--');
+    renderCurrentRows();
+  }
+
+  async function loadCurrentScores() {
+    sourceState('codex-current', 'loading', '正在读取');
+    const payload = await fetchJson(CURRENT_URL);
+    const tasks = ['combined', 'pompeii', 'pelican', 'candy'];
+    const weights = [60, 45, 22.5, 22.5];
+    if (payload?.schema !== 'codex-four-task-results/1' || payload.protocol !== 'codex-four-weighted-150-v2' ||
+      payload.score_max !== 150 || !tasks.every((key, i) => payload.task_weights?.[key] === weights[i]) || !Array.isArray(payload.rows)) {
+      throw new Error('当前评分协议已变化，请核对来源');
+    }
+    const valid = (value) => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 100;
+    state.currentRows = payload.rows.flatMap((row) => {
+      if (!row || typeof row.model !== 'string' || typeof row.effort !== 'string' ||
+        !valid(row.combined?.score) || !valid(row.pompeii?.score100) || !valid(row.pelican?.score) || typeof row.candy?.correct !== 'boolean') return [];
+      const parts = [row.combined.score, row.pompeii.score100, row.pelican.score, row.candy.correct ? 100 : 0].map((score, i) => score / 100 * weights[i]);
+      return [{ model: row.model, effort: row.effort, parts, total: parts.reduce((a, b) => a + b, 0), pompeii: row.pompeii.score100 }];
+    }).sort((a, b) => b.total - a.total).map((row, i) => ({ ...row, rank: i + 1 }));
+    if (!state.currentRows.length) throw new Error('当前轮次没有有效评分');
+    const best = state.currentRows[0];
+    const spatial = [...state.currentRows].sort((a, b) => b.pompeii - a.pompeii)[0];
+    setText('[data-ai-current-best]', best.total.toFixed(2));
+    setText('[data-ai-current-best-label]', `${formatModel(best.model)} · ${best.effort}`);
+    setText('[data-ai-current-pompeii]', spatial.pompeii.toFixed(2));
+    setText('[data-ai-current-pompeii-label]', `${formatModel(spatial.model)} · ${spatial.effort}`);
+    setText('[data-ai-current-count]', String(state.currentRows.length));
+    setText('[data-ai-current-round]', payload.round_id || '--');
+    setText('[data-ai-current-interval]', payload.author_test_interval?.display_zh || '测试时间未提供');
+    setText('[data-ai-source-time="codex-current"]', formatDateTime(payload.score_snapshot_at || payload.verified_at));
+    renderCurrentRows();
+    sourceState('codex-current', 'live', '本轮已读取');
   }
 
   function probability(value) {
@@ -301,6 +357,7 @@
   }
 
   const loaders = {
+    'codex-current': loadCurrentScores,
     codexradar: loadScores,
     'codex-reset': loadCodexReset,
     'will-reset': loadWillReset
@@ -315,6 +372,7 @@
       return result === 'partial' ? 'partial' : true;
     } catch (error) {
       console.warn(`AI Radar source failed: ${source}`, error);
+      if (source === 'codex-current') clearCurrentScores();
       sourceState(source, 'error', radarText('radar.failed', '读取失败'));
       return false;
     } finally {
@@ -327,13 +385,13 @@
     const status = get('[data-ai-refresh-status]');
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
-    status.textContent = radarText('radar.syncing', '正在同步三个来源…');
+    status.textContent = radarText('radar.syncingData', '正在同步评分与预测数据…');
     const results = await Promise.all(Object.keys(loaders).map(runSource));
     const successCount = results.filter((result) => result === true).length;
     const partialCount = results.filter((result) => result === 'partial').length;
     status.textContent = successCount === results.length
       ? radarText('radar.updated', '全部已更新 · {time}', { time: new Date().toLocaleTimeString(window.PHDSXI18n ? window.PHDSXI18n.getLocale() : 'zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false }) })
-      : radarText('radar.partialUpdated', '已更新 {success} / {total} 个来源，失败项可单独重试', { success: successCount, total: results.length });
+      : radarText('radar.partialDataUpdated', '已更新 {success} / {total} 组数据，失败项可单独重试', { success: successCount, total: results.length });
     if (partialCount) status.textContent += radarText('radar.partialSources', '；{count} 个来源部分可用，缺失维度可重试', { count: partialCount });
     button.disabled = false;
     button.setAttribute('aria-busy', 'false');
@@ -357,6 +415,7 @@
   window.PHDSXI18n?.onChange(refreshLocalizedData);
 
   get('[data-ai-score-search]')?.addEventListener('input', renderScoreRows);
+  get('[data-ai-current-search]')?.addEventListener('input', renderCurrentRows);
   get('[data-ai-refresh-all]')?.addEventListener('click', refreshAll);
   getAll('[data-ai-refresh-all], [data-ai-refresh-source]').forEach((button) => { button.hidden = false; });
   getAll('[data-ai-refresh-source]').forEach((button) => button.addEventListener('click', async () => {

@@ -52,7 +52,7 @@
 
 ### AI 雷达
 
-在一个页面中查看模型综合智能、软件工程能力、视觉推理能力，以及多个站点提供的 Codex 重置预测。页面打开时自动更新，也可以手动刷新单个来源。
+在独立页面中查看 CodexRadar 当前四题评分、软件工程与视觉 IQ 归档，以及多个站点提供的 Codex 重置预测。旧版视觉 IQ 已接入源站公开归档并标明原始日期；当前评分与归档分别展示。页面打开时自动读取，也可以手动刷新单组数据，首页只保留入口。
 
 [打开 AI 雷达](https://phdsx.github.io/ai-radar.html)
 
@@ -115,6 +115,8 @@
 AI 雷达展示来自 [CodexRadar](https://codexradar.com/)、[Codex Reset](https://codex-reset.com/zh/) 和 [Will Codex Reset](https://willcodexreset.com/) 的公开数据。
 
 所有评分与预测仅供信息参考，数据版权和解释权归原始来源所有，也不代表 OpenAI 官方结论。来源暂时不可用时，页面会明确显示读取失败，不会使用虚构数据替代。
+
+当前评分协议、恢复的视觉归档接口、数据日期与验证方式见 [AI 雷达数据说明](docs/ai-radar-data.md)。
 
 ## 反馈与交流
 
