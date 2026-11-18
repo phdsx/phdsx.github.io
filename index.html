@@ -3,40 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f4ef">
-  <meta name="description" content="PHDSX 的个人主页。把好奇的事，做成可以亲手试一试的东西。">
-  <title>PHDSX · 个人主页</title>
-  <link rel="stylesheet" href="home/minimal.css?v=20261118simple">
+  <meta name="theme-color" content="#f5f7fa">
+  <meta name="description" content="简洁、好用的在线工具。AI 雷达聚合模型评分、视觉 IQ 与 Codex 重置预测。">
+  <title>工具箱</title>
+  <link rel="stylesheet" href="assets/toolbox.css?v=20261118unified">
+  <link rel="stylesheet" href="home/minimal.css?v=20261118toolbox">
 </head>
-<body>
+<body class="toolbox-page home-page">
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <header class="page-header frame">
-    <a class="wordmark" href="index.html" aria-label="PHDSX 首页">PHDSX<span aria-hidden="true">.</span></a>
-    <a class="github-link" href="https://github.com/phdsx">GitHub<img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="12" height="12"></a>
+  <header class="toolbox-header">
+    <div class="toolbox-container toolbox-header-inner">
+      <a class="toolbox-brand" href="index.html" aria-label="工具箱首页"><img src="assets/ubuntu/icons/tools.svg" alt="" width="23" height="23"><span>工具箱</span></a>
+      <nav class="toolbox-nav" aria-label="主导航"><a href="index.html" aria-current="page">首页</a><a href="ai-radar.html">AI 雷达</a><a href="https://github.com/phdsx">GitHub</a></nav>
+    </div>
   </header>
 
-  <main id="main" tabindex="-1">
-    <div class="personal-space">
-      <section class="introduction" aria-labelledby="intro-title">
-        <p class="eyebrow">你好，我是</p>
-        <h1 id="intro-title">PHDSX<span aria-hidden="true">.</span></h1>
-        <p class="intro-line">写代码，也收集灵感。</p>
-        <p class="intro-description">把好奇的事，做成可以亲手试一试的东西。</p>
-      </section>
-
-      <section class="explore" aria-labelledby="explore-title">
-        <h2 id="explore-title">探索</h2>
-        <a class="radar-entry" href="ai-radar.html" aria-label="打开 AI 雷达">
-          <div><h3>AI 雷达</h3><p>模型评分 · 视觉 IQ · Codex 重置预测</p></div>
-          <img src="assets/ubuntu/icons/chevron-right.svg" alt="" width="20" height="20">
-        </a>
-      </section>
-    </div>
+  <main class="toolbox-container home-main" id="main" tabindex="-1">
+    <header class="home-heading"><h1>工具直达</h1><p>简洁、好用，打开即可使用。</p></header>
+    <a class="tool-entry" href="ai-radar.html" aria-label="打开 AI 雷达">
+      <span class="tool-icon"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="25" height="25"></span>
+      <div><h2>AI 雷达</h2><p>模型评分、视觉 IQ 与 Codex 重置预测</p></div>
+      <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
+    </a>
   </main>
-
-  <footer class="page-footer frame"><span>© 2026 PHDSX</span><span>一点一滴，慢慢创造。</span></footer>
-  <!-- Cloudflare Web Analytics -->
+  <footer class="toolbox-container toolbox-footer"><span>© 2026 PHDSX</span><span>在线工具 · 简单好用</span></footer>
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "96aa0ce8aaf14dc297fe60b71d385e98"}'></script>
-  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>

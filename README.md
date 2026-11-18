@@ -74,7 +74,7 @@
 
 ## 文件结构
 
-首页采用简洁的浅色个人主页布局，仅展示个人介绍、GitHub 链接和 AI 雷达入口，不恢复旧站其他栏目。样式位于 `home/minimal.css`，维护约定见 [首页说明](docs/homepage.md)。AI 雷达在独立页面展示，首页不请求雷达数据。
+首页与 AI 雷达采用统一的简洁工具站布局：浅灰背景、白色面板和蓝色操作按钮，共享样式位于 `assets/toolbox.css`。首页只展示 AI 雷达入口，不恢复旧站其他栏目，也不请求雷达数据。首页专用样式位于 `home/minimal.css`，维护约定见 [首页说明](docs/homepage.md)。
 
 原有工具和游戏栏目保留 Ubuntu 桌面风格，公共窗口与导航由 `assets/design-system.js` 管理，主题样式位于 `assets/ubuntu.css`，配图、字体和图标位于 `assets/ubuntu/`。独立工具和游戏使用紧凑窗口栏，保留原有工作区。设计对照与回归记录见 [`docs/audit/ubuntu-theme.md`](docs/audit/ubuntu-theme.md)。
 

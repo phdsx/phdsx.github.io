@@ -3,27 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111511">
+  <meta name="theme-color" content="#f5f7fa">
   <meta name="description" content="AI 雷达：CodexRadar 当前四题评分、软件工程与视觉 IQ 归档，以及 Codex 重置预测。">
-  <title>AI 雷达 · PHDSX</title>
-  <link rel="stylesheet" href="home/home.css?v=20261118radarpage">
+  <title>AI 雷达 · 工具箱</title>
+  <link rel="stylesheet" href="assets/toolbox.css?v=20261118unified">
   <link rel="stylesheet" href="assets/ai-radar/ai-radar.css?v=20261118partial">
-  <link rel="stylesheet" href="assets/ai-radar/radar-page.css?v=20261118sources">
+  <link rel="stylesheet" href="assets/ai-radar/radar-page.css?v=20261118unified">
   <script defer src="assets/ai-radar/ai-radar.js?v=20261118sources"></script>
 </head>
-<body class="radar-page">
+<body class="toolbox-page radar-page">
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <header class="shell masthead">
-    <a class="wordmark" href="index.html" aria-label="PHDSX 首页">PHDSX<span class="radar-brand-dot" aria-hidden="true">·</span></a>
-    <nav aria-label="主导航"><a href="index.html">返回首页</a><a href="#current-scores">当前评分</a><a href="#legacy-scores">IQ 归档</a></nav>
+  <header class="toolbox-header">
+    <div class="toolbox-container toolbox-header-inner">
+      <a class="toolbox-brand" href="index.html" aria-label="工具箱首页"><img src="assets/ubuntu/icons/tools.svg" alt="" width="23" height="23"><span>工具箱</span></a>
+      <nav class="toolbox-nav" aria-label="主导航"><a href="index.html">首页</a><a href="ai-radar.html" aria-current="page">AI 雷达</a><a href="https://github.com/phdsx">GitHub</a></nav>
+    </div>
   </header>
-  <main class="shell" id="main" tabindex="-1">
+  <main class="toolbox-container radar-main" id="main" tabindex="-1">
     <section class="section ai-radar-section">
       <header class="ai-radar-hero">
         <div>
-          <p class="ai-radar-kicker">LIVE SIGNAL DESK</p>
           <h1>AI 雷达</h1>
-          <p>追踪当前模型评分，查阅视觉 IQ 归档，观察 Codex 重置信号。打开页面自动读取，也可手动刷新。</p>
+          <p>集中查看模型评分、视觉 IQ 归档和 Codex 重置预测。</p>
         </div>
         <div class="ai-radar-hero-actions">
           <button class="button primary ai-refresh-all" type="button" data-ai-refresh-all><span aria-hidden="true">↻</span>刷新全部</button>
@@ -31,9 +32,11 @@
         </div>
       </header>
 
+      <nav class="radar-sections" aria-label="雷达内容导航"><a href="#current-scores">当前评分</a><a href="#legacy-scores">IQ 归档</a><a href="#reset-forecasts">重置预测</a></nav>
+
       <div class="ai-radar-note" role="note">
         <strong>独立数据聚合</strong>
-        <span>本站仅展示来源站公开数据，不代表 OpenAI 官方结论。预测值具有不确定性，请点击来源链接查看完整说明。</span>
+        <span>公开数据仅供参考，不代表 OpenAI 官方结论。预测存在不确定性，完整说明请查看来源。</span>
       </div>
       <noscript><p class="ai-radar-note">启用 JavaScript 后可读取评分和预测，也可直接通过各卡片的来源链接查看原始数据。</p></noscript>
 
@@ -42,7 +45,7 @@
           <div class="ai-source-identity"><span class="ai-source-mark">01</span><div><p>CURRENT BENCHMARK</p><h2>CodexRadar 当前四题评分</h2></div></div>
           <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codex-current">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codex-current" aria-label="刷新当前四题评分">↻</button><a href="https://codexradar.com/data/codex-four-task-results.json" target="_blank" rel="noopener noreferrer">来源 JSON ↗</a></div>
         </header>
-        <p class="ai-source-description">官网当前采用四题加权评分，总分 150：秦始皇 60、庞贝 45、鹈鹕 22.5、糖果 22.5。庞贝考察图像空间关系；该轮结果与旧版视觉 IQ 的题目和口径不同。</p>
+        <p class="ai-source-description">四题加权总分 150：秦始皇 60、庞贝 45，鹈鹕与糖果各 22.5。庞贝考察空间推理，与旧版视觉 IQ 的口径不同。</p>
         <div class="ai-score-highlights">
           <div><span>本轮总分最高 / 150</span><strong data-ai-current-best>--</strong><small data-ai-current-best-label>等待数据</small></div>
           <div><span>庞贝空间推理最高 / 100</span><strong data-ai-current-pompeii>--</strong><small data-ai-current-pompeii-label>等待数据</small></div>
@@ -63,7 +66,7 @@
           <div class="ai-source-identity"><span class="ai-source-mark">CR</span><div><p>HISTORICAL IQ · 归档数据</p><h2>软件工程与视觉 IQ</h2></div></div>
           <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codexradar">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codexradar" aria-label="刷新 CodexRadar 归档">↻</button><a href="https://codexradar.com/data/radar-legacy-visual.json" target="_blank" rel="noopener noreferrer">视觉归档 JSON ↗</a></div>
         </header>
-        <p class="ai-source-description">这是 CodexRadar 的旧版众测归档，视觉数据截至 2026-09-30，软件工程数据截至 2026-10-01。综合 IQ 为本站对同一模型档位两项 IQ 的等权平均值，仅在两项均有效时计算；与当前四题评分不可直接比较。</p>
+        <p class="ai-source-description">旧版众测归档，非实时 IQ。综合分为本站对同档位两项 IQ 的等权平均值，仅在两项均有效时计算；不与当前四题评分直接比较。原始日期见下方。</p>
         <div class="ai-score-highlights" aria-label="能力评分领先项">
           <div><span>综合智能最高</span><strong data-ai-best="combined">--</strong><small data-ai-best-label="combined">等待数据</small></div>
           <div><span>软件工程最高</span><strong data-ai-best="software">--</strong><small data-ai-best-label="software">等待数据</small></div>
@@ -88,7 +91,7 @@
         <footer class="ai-source-foot"><span>软件工程：<time data-ai-software-time>--</time> · 视觉：<time data-ai-visual-time>--</time></span><span>归档更新时间：<time data-ai-source-time="codexradar">--</time></span></footer>
       </article>
 
-      <div class="ai-reset-grid">
+      <div class="ai-reset-grid" id="reset-forecasts">
         <article class="ai-source ai-source--reset" data-ai-source="codex-reset">
           <header class="ai-source-head">
             <div class="ai-source-identity"><span class="ai-source-mark">CRS</span><div><p>RESET FORECAST</p><h2>Codex Reset 预测</h2></div></div>
@@ -129,7 +132,7 @@
       </div>
     </section>
   </main>
-  <footer class="shell footer"><span>© 2026 PHDSX · AI 雷达</span><a href="#main">返回顶部 ↑</a></footer>
+  <footer class="toolbox-container toolbox-footer"><span>© 2026 PHDSX · AI 雷达</span><a href="#main">返回顶部 ↑</a></footer>
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "96aa0ce8aaf14dc297fe60b71d385e98"}'></script>
 </body>
 </html>
