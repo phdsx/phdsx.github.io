@@ -6,25 +6,55 @@
   <meta name="theme-color" content="#f5f7fa">
   <meta name="description" content="简洁、好用的在线工具。AI 雷达聚合模型评分、视觉 IQ 与 Codex 重置预测。">
   <title>工具箱</title>
-  <link rel="stylesheet" href="assets/toolbox.css?v=20261118unified">
-  <link rel="stylesheet" href="home/minimal.css?v=20261118toolbox">
+  <link rel="stylesheet" href="assets/toolbox.css?v=20261119searchnav">
+  <link rel="stylesheet" href="home/minimal.css?v=20261119searchnav">
+  <script defer src="home/search.js?v=20261119searchnav"></script>
 </head>
 <body class="toolbox-page home-page">
   <a class="skip-link" href="#main">跳到主要内容</a>
+  <aside class="toolbox-sidebar" aria-label="边栏目录">
+    <a class="sidebar-brand" href="index.html" aria-label="工具箱首页"><img src="assets/ubuntu/icons/tools.svg" alt="" width="30" height="30"><span>工具箱</span></a>
+    <nav class="sidebar-nav" aria-label="栏目目录">
+      <a href="index.html" aria-current="page"><img src="assets/ubuntu/icons/house-door-fill.svg" alt="" width="21" height="21"><span>首页</span></a>
+      <a href="ai-radar.html"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="22" height="22"><span>AI 雷达</span></a>
+    </nav>
+  </aside>
   <header class="toolbox-header">
     <div class="toolbox-container toolbox-header-inner">
-      <a class="toolbox-brand" href="index.html" aria-label="工具箱首页"><img src="assets/ubuntu/icons/tools.svg" alt="" width="23" height="23"><span>工具箱</span></a>
-      <nav class="toolbox-nav" aria-label="主导航"><a href="index.html" aria-current="page">首页</a><a href="ai-radar.html">AI 雷达</a><a href="https://github.com/phdsx">GitHub</a></nav>
+      <span class="toolbox-breadcrumb">首页 / 工具箱</span>
+      <a class="toolbox-header-link" href="https://github.com/phdsx">GitHub</a>
     </div>
   </header>
 
   <main class="toolbox-container home-main" id="main" tabindex="-1">
-    <header class="home-heading"><h1>工具直达</h1><p>简洁、好用，打开即可使用。</p></header>
-    <a class="tool-entry" href="ai-radar.html" aria-label="打开 AI 雷达">
+    <h1 class="sr-only">工具箱</h1>
+    <section class="home-search-area" aria-label="搜索">
+      <div class="search-modes" role="group" aria-label="搜索范围" data-search-enhanced hidden>
+        <button type="button" data-search-mode="web" aria-pressed="true"><img src="assets/ubuntu/icons/globe2.svg" alt="" width="15" height="15">网页搜索</button>
+        <button type="button" data-search-mode="site" aria-pressed="false"><img src="assets/ubuntu/icons/tools.svg" alt="" width="15" height="15">站内工具</button>
+      </div>
+      <form class="home-search-form" action="https://www.bing.com/search" method="get" target="_blank" rel="noopener noreferrer" role="search" aria-label="网页与工具搜索">
+        <label class="sr-only" for="home-search">搜索关键词</label>
+        <input id="home-search" type="search" name="q" placeholder="输入关键词搜索，按回车键…" autocomplete="off" required>
+        <button type="submit" aria-label="搜索"><img src="assets/porcelain/icons/search.svg" alt="" width="21" height="21"></button>
+      </form>
+      <div class="search-engines" role="group" aria-label="搜索引擎" data-search-enhanced hidden>
+        <button type="button" data-search-engine="bing" aria-pressed="true">Bing</button>
+        <button type="button" data-search-engine="baidu" aria-pressed="false">百度</button>
+        <button type="button" data-search-engine="google" aria-pressed="false">Google</button>
+      </div>
+      <p class="search-status" data-search-status role="status" aria-live="polite">使用 Bing 搜索网页</p>
+    </section>
+
+    <section class="home-tools" id="tool-list" aria-labelledby="tools-title">
+    <header class="home-heading"><h2 id="tools-title">工具直达</h2><p>打开即可使用</p></header>
+    <a class="tool-entry" data-search-tool data-search-keywords="AI 人工智能 雷达 模型 评分 IQ 视觉 推理 Codex Reset 预测 radar" href="ai-radar.html" aria-label="打开 AI 雷达">
       <span class="tool-icon"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="25" height="25"></span>
-      <div><h2>AI 雷达</h2><p>模型评分、视觉 IQ 与 Codex 重置预测</p></div>
+      <div><h3>AI 雷达</h3><p>模型评分、视觉 IQ 与 Codex 重置预测</p></div>
       <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
     </a>
+    <div class="search-empty" data-search-empty hidden><p>没有找到匹配的工具。</p><button type="button" data-search-clear>清空搜索</button></div>
+    </section>
   </main>
   <footer class="toolbox-container toolbox-footer"><span>© 2026 PHDSX</span><span>在线工具 · 简单好用</span></footer>
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "96aa0ce8aaf14dc297fe60b71d385e98"}'></script>

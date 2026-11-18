@@ -1,9 +1,19 @@
 # 工具箱首页
 
-`index.html` 为简洁的工具站首页，使用 `assets/toolbox.css` 共享布局与 `home/minimal.css` 页面样式。参考刘明野工具箱的浅灰背景、白色面板和蓝色控件，主导航只包含首页、AI 雷达和 GitHub，个人 ID 仅在页脚保留署名。
+首页与 AI 雷达共用 `assets/toolbox.css`：固定左侧目录、轻量顶部栏、浅灰背景和白色内容面板。参考刘明野工具箱的结构，个人 ID 仅保留页脚署名。
 
-首页只展示 AI 雷达一个真实工具入口，不恢复旧站其他栏目，不添加占位工具、搜索、分类或个人介绍。后续新增栏目以用户明确要求为准。
+## 搜索
 
-AI 雷达位于 `ai-radar.html`，同样加载 `assets/toolbox.css`，页面细节位于 `assets/ai-radar/radar-page.css`。当前四题评分、历史 IQ、两个预测来源、模型搜索、详情折叠、单组刷新与全部刷新保持原有数据脚本。
+首页顶部有网页搜索与站内工具两种模式。网页搜索支持 Bing、百度、Google，选择引擎后通过原生 GET 表单提交，在新标签页打开结果。关键词使用浏览器表单编码，不拼接未经编码的 URL。未启用 JavaScript 时仍可使用默认 Bing 搜索。
 
-首页不加载雷达数据或交互脚本，保留 Cloudflare 访问统计。检查使用 `node --test scripts/test-ai-radar.mjs`、`node scripts/check-navigation.mjs` 和 `node scripts/check-site-links.mjs`，并在浏览器验证电脑、手机布局及雷达刷新、搜索和详情展开。
+站内模式只筛选当前已提供的 AI 雷达入口，支持全角英文、大小写与空格分词；没有结果时提供清空操作。`Ctrl K` / `⌘ K` 聚焦搜索，`Escape` 清空关键词。首页搜索逻辑位于 `home/search.js`，不加载雷达数据。
+
+## 目录与内容
+
+电脑端左侧目录固定显示首页和 AI 雷达。雷达页另有当前评分、IQ 归档、重置预测的页内锚点。手机端目录转为横向导航，不挤压内容；较长的雷达目录可横向滚动。
+
+主页工具直达区域只展示 AI 雷达，不恢复旧站其他栏目或加入占位工具。雷达保留原有四题评分、历史 IQ、两个预测来源、模型搜索、详情折叠与刷新功能。
+
+## 验证
+
+运行 `node --test scripts/test-home-search.mjs scripts/test-ai-radar.mjs`、`node scripts/check-navigation.mjs`、`node scripts/check-site-links.mjs`。浏览器检查搜索模式切换、搜索引擎路由、目录跳转、窄屏布局及评分预测刷新。
