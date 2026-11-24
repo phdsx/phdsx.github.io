@@ -74,9 +74,9 @@
 
 ## 文件结构
 
-首页与 AI 雷达采用统一的工具站布局：左侧目录、顶部搜索区、浅灰背景、白色面板和蓝色控件，共享样式位于 `assets/toolbox.css`。首页支持 Bing、百度、Google 网页搜索及站内工具筛选，工具区只展示 AI 雷达，不恢复旧站其他栏目，也不请求雷达数据。首页样式与搜索逻辑位于 `home/minimal.css` 和 `home/search.js`，维护约定见 [首页说明](docs/homepage.md)。
+首页、AI 雷达和 EQ 单字拼音域代码生成器采用统一的工具箱布局，共享样式位于 `assets/toolbox.css`。首页支持 Bing、百度、Google 网页搜索，也可以筛选首页列出的站内工具。首页样式与搜索逻辑位于 `home/minimal.css` 和 `home/search.js`，维护约定见 [首页说明](docs/homepage.md)。
 
-原有工具和游戏栏目保留 Ubuntu 桌面风格，公共窗口与导航由 `assets/design-system.js` 管理，主题样式位于 `assets/ubuntu.css`，配图、字体和图标位于 `assets/ubuntu/`。独立工具和游戏使用紧凑窗口栏，保留原有工作区。设计对照与回归记录见 [`docs/audit/ubuntu-theme.md`](docs/audit/ubuntu-theme.md)。
+旧版工具目录和游戏栏目使用 Ubuntu 桌面风格，公共窗口与导航由 `assets/design-system.js` 管理，主题样式位于 `assets/ubuntu.css`，配图、字体和图标位于 `assets/ubuntu/`。设计对照与回归记录见 [`docs/audit/ubuntu-theme.md`](docs/audit/ubuntu-theme.md)。
 
 仓库按页面栏目归档，公开入口地址保持稳定。页面专用资源、源码和维护脚本靠近对应页面；根目录的 `assets/` 与 `scripts/` 保留全站共享文件。完整约定及本次清理清单见 [项目目录说明](docs/project-structure.md)。
 

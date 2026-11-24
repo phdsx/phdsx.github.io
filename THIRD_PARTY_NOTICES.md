@@ -30,6 +30,7 @@
 | `assets/vendor/mediabunny-1.62.1/` | MPL-2.0 | [Mediabunny](https://github.com/Vanilagy/mediabunny) 原版浏览器模块，用于 B 站视频音轨封装；完整许可、固定版本来源及校验值随目录保留。 |
 | `assets/vendor/js-md5-0.8.3/` | MIT License | [js-md5](https://github.com/emn178/js-md5)，用于 B 站 WBI 签名；增加 ESM 包装并选择便携实现，完整许可和上游版权声明保留。 |
 | `tools/utility/vendor/qrcode.min.js` | MIT License | [QRCode.js](https://github.com/davidshimjs/qrcodejs)，站内二维码生成器与 B 站扫码登录共用本地模块；完整许可见 `LICENSE.qrcodejs`。 |
+| `tools/document/vendor/pinyin-pro-3.27.0/` | MIT License | [pinyin-pro 3.27.0](https://www.npmjs.com/package/pinyin-pro/v/3.27.0) 的原版浏览器构建，用于 EQ 拼音生成器。完整许可见 [`LICENSE`](tools/document/vendor/pinyin-pro-3.27.0/LICENSE)。 |
 | `games/strategy/xiuxian/` | CC BY-NC 4.0 | 原作谦君（Jun Qian），[源项目](https://github.com/setube/vue-xiuxiangame)。2026-09-27 适配本站子目录静态托管，移除上游统计脚本、PWA 和构建混淆。游戏代码与素材仍按 CC BY-NC 4.0 授权，仅供非商业使用；完整许可见 [`LICENSE`](games/strategy/xiuxian/LICENSE)。 |
 | `games/arcade/fruit-ninja/` | Apache License 2.0 | 完整许可证见 [`games/arcade/fruit-ninja/LICENSE`](games/arcade/fruit-ninja/LICENSE)。 |
 | `games/arcade/fruit-ninja/scripts/all.js` 中保留许可头的组件 | MIT License | 许可和版权声明已保留在源文件中。 |

@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f7fa">
-  <meta name="description" content="简洁、好用的在线工具。AI 雷达聚合模型评分、视觉 IQ 与 Codex 重置预测。">
+  <meta name="description" content="在线工具箱，提供 AI 雷达和 Word EQ 单字拼音域代码生成器。">
   <title>工具箱</title>
   <link rel="stylesheet" href="assets/toolbox.css?v=20261119searchnav">
-  <link rel="stylesheet" href="home/minimal.css?v=20261119searchnav">
-  <script defer src="home/search.js?v=20261119searchnav"></script>
+  <link rel="stylesheet" href="home/minimal.css?v=20261124eq">
+  <script defer src="home/search.js?v=20261124eq"></script>
 </head>
 <body class="toolbox-page home-page">
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -17,6 +17,7 @@
     <nav class="sidebar-nav" aria-label="栏目目录">
       <a href="index.html" aria-current="page"><img src="assets/ubuntu/icons/house-door-fill.svg" alt="" width="21" height="21"><span>首页</span></a>
       <a href="ai-radar.html"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="22" height="22"><span>AI 雷达</span></a>
+      <a href="tools/document/eq-pinyin-code.html"><img src="assets/ubuntu/icons/journal-text.svg" alt="" width="22" height="22"><span>EQ 拼音</span></a>
     </nav>
   </aside>
   <header class="toolbox-header">
@@ -47,23 +48,30 @@
     </section>
 
     <section class="home-tools" id="tool-list" aria-labelledby="tools-title">
-    <header class="home-heading"><h2 id="tools-title">工具直达</h2><p>打开即可使用</p></header>
-    <a class="tool-entry" data-search-tool data-search-keywords="AI 人工智能 雷达 模型 评分 IQ 视觉 推理 Codex Reset 预测 radar" href="ai-radar.html" aria-label="打开 AI 雷达">
-      <span class="tool-icon"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="25" height="25"></span>
-      <div><h3>AI 雷达</h3><p>模型评分、视觉 IQ 与 Codex 重置预测</p></div>
-      <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
-    </a>
-    <a class="tool-entry" data-search-tool data-search-keywords="A股 股票 股市 炒股 证券 投资 模拟交易" href="a-share-simulator/" aria-label="打开 A 股模拟器">
-      <span class="tool-icon"><img src="assets/ubuntu/icons/controller.svg" alt="" width="25" height="25"></span>
-      <div><h3>A 股模拟器</h3><p>用虚拟资金体验行情、下单和复盘</p></div>
-      <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
-    </a>
-    <a class="tool-entry" data-search-tool data-search-keywords="取帧 网页视频 视频下载 视频解析 媒体直链 HLS M3U8 MP4" href="https://phdsx.github.io/videodownloader/" aria-label="打开取帧视频下载">
-      <span class="tool-icon"><img src="assets/ubuntu/icons/display.svg" alt="" width="25" height="25"></span>
-      <div><h3>取帧 · 视频下载</h3><p>下载视频直链，将 M3U8 点播保存为 MP4</p></div>
-      <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
-    </a>
-    <div class="search-empty" data-search-empty hidden><p>没有找到匹配的工具。</p><button type="button" data-search-clear>清空搜索</button></div>
+      <header class="home-heading"><h2 id="tools-title">工具直达</h2></header>
+      <div class="tool-entries">
+        <a class="tool-entry" data-search-tool data-search-keywords="AI 人工智能 雷达 模型 评分 IQ 视觉 推理 Codex Reset 预测 radar" href="ai-radar.html" aria-label="打开 AI 雷达">
+          <span class="tool-icon"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="25" height="25"></span>
+          <div><h3>AI 雷达</h3><p>模型评分、视觉 IQ 与 Codex 重置预测</p></div>
+          <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
+        </a>
+        <a class="tool-entry" data-search-tool data-search-keywords="EQ Word 拼音 注音 声调 调号 域代码 文档 pinyin" href="tools/document/eq-pinyin-code.html" aria-label="打开 EQ 单字拼音域代码生成器">
+          <span class="tool-icon"><img src="assets/ubuntu/icons/journal-text.svg" alt="" width="25" height="25"></span>
+          <div><h3>EQ 单字拼音域代码生成器</h3><p>为 Word 逐字生成拼音域代码，支持校验和 TXT 导出</p></div>
+          <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
+        </a>
+        <a class="tool-entry" data-search-tool data-search-keywords="A股 股票 股市 炒股 证券 投资 模拟交易" href="https://phdsx.github.io/a-share-simulator/" aria-label="打开 A 股模拟器">
+          <span class="tool-icon"><img src="assets/ubuntu/icons/controller.svg" alt="" width="25" height="25"></span>
+          <div><h3>A 股模拟器</h3><p>用虚拟资金体验行情、下单和复盘</p></div>
+          <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
+        </a>
+        <a class="tool-entry" data-search-tool data-search-keywords="取帧 网页视频 视频下载 视频解析 媒体直链 HLS M3U8 MP4" href="https://phdsx.github.io/videodownloader/" aria-label="打开取帧视频下载">
+          <span class="tool-icon"><img src="assets/ubuntu/icons/display.svg" alt="" width="25" height="25"></span>
+          <div><h3>取帧 · 视频下载</h3><p>下载视频直链，将 M3U8 点播保存为 MP4</p></div>
+          <img class="entry-chevron" src="assets/ubuntu/icons/chevron-right.svg" alt="" width="14" height="14">
+        </a>
+      </div>
+      <div class="search-empty" data-search-empty hidden><p>没有找到匹配的工具。</p><button type="button" data-search-clear>清空搜索</button></div>
     </section>
   </main>
   <footer class="toolbox-container toolbox-footer"><span>© 2026 PHDSX</span><span>在线工具 · 简单好用</span></footer>

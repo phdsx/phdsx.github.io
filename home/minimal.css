@@ -1,9 +1,9 @@
 .home-main { padding-block: 8px 72px; }
-.home-heading { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
+.home-heading { margin-bottom: 12px; }
 .home-heading h2 { font-size: 18px; font-weight: 500; letter-spacing: -.025em; }
-.home-heading p { margin-top: 7px; color: var(--muted); font-size: 13px; }
 .home-tools { padding: 24px; background: #fff; border-radius: 8px; border: 1px solid var(--line); scroll-margin-top: 20px; }
-.tool-entry { display: flex; align-items: center; gap: 15px; width: min(100%, 390px); min-height: 96px; padding: 14px 10px; border-radius: 7px; background: #fff; transition: background .15s; }
+.tool-entries { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; }
+.tool-entry { display: flex; align-items: center; gap: 15px; min-height: 96px; padding: 14px 10px; border-radius: 7px; background: #fff; transition: background .15s; }
 .tool-entry:hover { background: #f5f7fa; }
 .tool-icon { display: grid; place-items: center; width: 48px; height: 48px; flex-shrink: 0; border-radius: 12px; background: #edf3ff; }
 .tool-icon img { filter: invert(35%) sepia(84%) saturate(2105%) hue-rotate(211deg); }
@@ -30,6 +30,7 @@
 .search-status { min-height: 18px; margin-top: 7px; color: var(--muted); font-size: 11px; text-align: center; }
 .search-empty { padding: 22px 8px; color: var(--muted); font-size: 13px; }
 .search-empty button { margin-top: 10px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: var(--accent); font: inherit; cursor: pointer; }
+@media (max-width: 880px) { .tool-entries { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 600px) {
  .home-main { padding-top: 6px; }
  .home-search-area { padding-block: 10px 24px; }
@@ -38,9 +39,7 @@
  .search-engines { gap: 12px; }
  .search-engines button { min-height: 42px; font-size: 12px; }
  .home-tools { padding: 17px 14px; }
- .home-heading { gap: 12px; }
  .home-heading h2 { font-size: 17px; }
- .home-heading p { font-size: 11px; }
  .tool-entry { gap: 11px; padding: 12px 5px; }
  .tool-icon { width: 40px; height: 40px; }
  .tool-entry p { font-size: 11px; }

@@ -155,7 +155,7 @@ test('the homepage links to the standalone radar and does not load its data scri
   assert.match(home, /href="ai-radar.html"/);
   assert.doesNotMatch(home, /data-ai-|ai-radar\/ai-radar.js|class="home-radar"/);
   const internalLinks = [...home.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map((match) => match[1]).filter((href) => !/^(?:https?:|#)/.test(href));
-  assert.deepEqual([...new Set(internalLinks)].sort(), ['ai-radar.html', 'index.html']);
+  assert.deepEqual([...new Set(internalLinks)].sort(), ['ai-radar.html', 'index.html', 'tools/document/eq-pinyin-code.html']);
   assert.doesNotMatch(home, /data-home-|class="portal-/);
   assert.match(home, /action="https:\/\/www\.bing\.com\/search"/);
 });

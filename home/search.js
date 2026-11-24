@@ -29,7 +29,7 @@
     engineRow.hidden = site;
     empty.hidden = !site || count > 0;
     status.textContent = site ? `找到 ${count} 个站内工具` : `使用 ${providers[provider].label} 搜索网页`;
-    input.placeholder = site ? '搜索站内工具，例如 AI、模型评分…' : '输入关键词搜索，按回车键…';
+    input.placeholder = site ? '搜索站内工具，例如 AI、拼音…' : '输入关键词搜索，按回车键…';
     modes.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.searchMode === mode)));
     engines.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.searchEngine === provider)));
     form.action = providers[provider].action;
