@@ -155,7 +155,23 @@ test('the homepage links to the standalone radar and does not load its data scri
   assert.match(home, /href="ai-radar.html"/);
   assert.doesNotMatch(home, /data-ai-|ai-radar\/ai-radar.js|class="home-radar"/);
   const internalLinks = [...home.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map((match) => match[1]).filter((href) => !/^(?:https?:|#)/.test(href));
-  assert.deepEqual([...new Set(internalLinks)].sort(), ['ai-radar.html', 'index.html', 'tools/document/eq-pinyin-code.html']);
+  assert.deepEqual([...new Set(internalLinks)].sort(), ['ai-radar.html', 'index.html', 'tools/document/eq-pinyin-code.html', 'tools/document/word-compare.html']);
   assert.doesNotMatch(home, /data-home-|class="portal-/);
   assert.match(home, /action="https:\/\/www\.bing\.com\/search"/);
+});
+
+test('radar sources link to their original web pages and AA ratings are readable without scripts', async () => {
+  const radar = await readFile(new URL('../ai-radar.html', import.meta.url), 'utf8');
+  const pinyin = await readFile(new URL('../tools/document/eq-pinyin-code.html', import.meta.url), 'utf8');
+  assert.doesNotMatch(radar, /eq-pinyin|EQ 拼音/);
+  assert.doesNotMatch(pinyin, /ai-radar|AI 雷达/);
+  const originals = [...radar.matchAll(/href="(https:[^"]+)"[^>]*>打开原网页 ↗/g)].map((match) => match[1]);
+  assert.deepEqual(originals, ['https://codexradar.com/', 'https://codexradar.com/', 'https://codex-reset.com/zh/', 'https://willcodexreset.com/zh']);
+  const aa = radar.match(/<article[^>]+id="aa-scores">([\s\S]*?)<\/article>/)?.[1];
+  assert.ok(aa);
+  assert.match(radar, /href="#aa-scores"/);
+  assert.match(aa, /href="https:\/\/artificialanalysis\.ai\/leaderboards\/models"/);
+  assert.match(aa, /Intelligence Index v\d+\.\d+\.\d+/);
+  assert.match(aa, /<time datetime="\d{4}-\d{2}-\d{2}">/);
+  assert.ok([...aa.matchAll(/<td class="ai-aa-score">\d+<\/td>/g)].length > 0);
 });

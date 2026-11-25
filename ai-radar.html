@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f7fa">
-  <meta name="description" content="AI 雷达：CodexRadar 当前四题评分、软件工程与视觉 IQ 归档，以及 Codex 重置预测。">
+  <meta name="description" content="AI 雷达：CodexRadar 四题评分、Artificial Analysis 智能指数、软件工程与视觉 IQ 归档，以及 Codex 重置预测。">
   <title>AI 雷达 · 工具箱</title>
   <link rel="stylesheet" href="assets/toolbox.css?v=20261119searchnav">
   <link rel="stylesheet" href="assets/ai-radar/ai-radar.css?v=20261118partial">
-  <link rel="stylesheet" href="assets/ai-radar/radar-page.css?v=20261118unified">
+  <link rel="stylesheet" href="assets/ai-radar/radar-page.css?v=20261125aa">
   <script defer src="assets/ai-radar/ai-radar.js?v=20261118sources"></script>
 </head>
 <body class="toolbox-page radar-page">
@@ -18,8 +18,8 @@
     <nav class="sidebar-nav" aria-label="栏目目录">
       <a href="index.html"><img src="assets/ubuntu/icons/house-door-fill.svg" alt="" width="21" height="21"><span>首页</span></a>
       <a href="ai-radar.html" aria-current="page"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="22" height="22"><span>AI 雷达</span></a>
-      <a href="tools/document/eq-pinyin-code.html"><img src="assets/ubuntu/icons/journal-text.svg" alt="" width="22" height="22"><span>EQ 拼音</span></a>
       <a class="sidebar-section" href="#current-scores"><img src="assets/porcelain/icons/bar-chart-fill.svg" alt="" width="20" height="20"><span>当前评分</span></a>
+      <a class="sidebar-section" href="#aa-scores"><img src="assets/porcelain/icons/bar-chart-fill.svg" alt="" width="20" height="20"><span>AA 评分</span></a>
       <a class="sidebar-section" href="#legacy-scores"><img src="assets/ubuntu/icons/folder-fill.svg" alt="" width="20" height="20"><span>IQ 归档</span></a>
       <a class="sidebar-section" href="#reset-forecasts"><img src="assets/porcelain/icons/clock-fill.svg" alt="" width="20" height="20"><span>重置预测</span></a>
     </nav>
@@ -35,26 +35,26 @@
       <header class="ai-radar-hero">
         <div>
           <h1>AI 雷达</h1>
-          <p>集中查看模型评分、视觉 IQ 归档和 Codex 重置预测。</p>
+          <p>查看 CodexRadar 四题评分、Artificial Analysis 智能指数、视觉 IQ 归档和 Codex 重置预测。</p>
         </div>
         <div class="ai-radar-hero-actions">
-          <button class="button primary ai-refresh-all" type="button" data-ai-refresh-all><span aria-hidden="true">↻</span>刷新全部</button>
+          <button class="button primary ai-refresh-all" type="button" data-ai-refresh-all><span aria-hidden="true">↻</span>刷新联网数据</button>
           <p data-ai-refresh-status role="status" aria-live="polite">准备读取评分与预测…</p>
         </div>
       </header>
 
-      <nav class="radar-sections" aria-label="雷达内容导航"><a href="#current-scores">当前评分</a><a href="#legacy-scores">IQ 归档</a><a href="#reset-forecasts">重置预测</a></nav>
+      <nav class="radar-sections" aria-label="雷达内容导航"><a href="#current-scores">当前评分</a><a href="#aa-scores">AA 评分</a><a href="#legacy-scores">IQ 归档</a><a href="#reset-forecasts">重置预测</a></nav>
 
       <div class="ai-radar-note" role="note">
         <strong>独立数据聚合</strong>
         <span>公开数据仅供参考，不代表 OpenAI 官方结论。预测存在不确定性，完整说明请查看来源。</span>
       </div>
-      <noscript><p class="ai-radar-note">启用 JavaScript 后可读取评分和预测，也可直接通过各卡片的来源链接查看原始数据。</p></noscript>
+      <noscript><p class="ai-radar-note">启用 JavaScript 后可加载联网数据。也可以通过各卡片的链接打开原网页。</p></noscript>
 
       <article class="ai-source ai-source--current" data-ai-source="codex-current" id="current-scores">
         <header class="ai-source-head">
           <div class="ai-source-identity"><span class="ai-source-mark">01</span><div><p>CURRENT BENCHMARK</p><h2>CodexRadar 当前四题评分</h2></div></div>
-          <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codex-current">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codex-current" aria-label="刷新当前四题评分">↻</button><a href="https://codexradar.com/data/codex-four-task-results.json" target="_blank" rel="noopener noreferrer">来源 JSON ↗</a></div>
+          <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codex-current">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codex-current" aria-label="刷新当前四题评分">↻</button><a href="https://codexradar.com/" target="_blank" rel="noopener noreferrer">打开原网页 ↗</a></div>
         </header>
         <p class="ai-source-description">四题加权总分 150：秦始皇 60、庞贝 45，鹈鹕与糖果各 22.5。庞贝考察空间推理，与旧版视觉 IQ 的口径不同。</p>
         <div class="ai-score-highlights">
@@ -69,13 +69,36 @@
           <table class="ai-score-table"><caption class="sr-only">按本轮四题加权总分排序，分项以各自满分显示。</caption><thead><tr><th scope="col">排名</th><th scope="col">模型 / 档位</th><th scope="col">总分 / 150</th><th scope="col">秦始皇 / 60</th><th scope="col">庞贝 / 45</th><th scope="col">鹈鹕 / 22.5</th><th scope="col">糖果 / 22.5</th></tr></thead><tbody data-ai-current-list><tr><td colspan="7" class="ai-loading-cell">正在读取当前轮次…</td></tr></tbody></table>
         </div>
         </details>
-        <footer class="ai-source-foot"><span>评分快照：<time data-ai-source-time="codex-current">--</time></span><span data-ai-current-interval>测试时间待读取</span></footer>
+        <footer class="ai-source-foot"><span>评分快照：<time data-ai-source-time="codex-current">--</time></span><span data-ai-current-interval>测试时间待读取</span><a href="https://codexradar.com/data/codex-four-task-results.json" target="_blank" rel="noopener noreferrer">评分 JSON ↗</a></footer>
+      </article>
+
+      <article class="ai-source ai-source--aa" id="aa-scores">
+        <header class="ai-source-head">
+          <div class="ai-source-identity"><h2>AA 评分 · Artificial Analysis</h2></div>
+          <div class="ai-source-actions"><a href="https://artificialanalysis.ai/leaderboards/models" target="_blank" rel="noopener noreferrer">打开官方榜单 ↗</a></div>
+        </header>
+        <p class="ai-source-description">Intelligence Index v5.0.2 汇总知识工作、编程、科学和通用能力共九项评测。下表摘录部分模型的官方分数，实时排名和更多档位请查看官方榜单。</p>
+        <div class="ai-score-table-wrap" tabindex="0" role="region" aria-label="AA 智能指数评分摘录">
+          <table class="ai-score-table">
+            <caption class="sr-only">Artificial Analysis Intelligence Index v5.0.2，部分模型评分</caption>
+            <thead><tr><th scope="col">模型</th><th scope="col">测试档位</th><th scope="col">智能指数</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><a href="https://artificialanalysis.ai/models/claude-fable-5-2" target="_blank" rel="noopener noreferrer">Claude Fable 5.2</a></th><td>Max, Default Fallback</td><td class="ai-aa-score">65</td></tr>
+              <tr><th scope="row"><a href="https://artificialanalysis.ai/models/gpt-6-2-astra" target="_blank" rel="noopener noreferrer">GPT-6.2 Astra</a></th><td>Max</td><td class="ai-aa-score">62</td></tr>
+              <tr><th scope="row"><a href="https://artificialanalysis.ai/models/gemini-4-neon" target="_blank" rel="noopener noreferrer">Gemini 4 Neon</a></th><td>Xhigh</td><td class="ai-aa-score">62</td></tr>
+              <tr><th scope="row"><a href="https://artificialanalysis.ai/models/gemini-4-carbon" target="_blank" rel="noopener noreferrer">Gemini 4 Carbon</a></th><td>High</td><td class="ai-aa-score">60</td></tr>
+              <tr><th scope="row"><a href="https://artificialanalysis.ai/models/claude-opus-5-5" target="_blank" rel="noopener noreferrer">Claude Opus 5.5</a></th><td>Max, Default Fallback</td><td class="ai-aa-score">59</td></tr>
+              <tr><th scope="row"><a href="https://artificialanalysis.ai/models/gpt-6-2-sol" target="_blank" rel="noopener noreferrer">GPT-6.2 Sol</a></th><td>Max</td><td class="ai-aa-score">57</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <footer class="ai-source-foot"><span>摘录日期 <time datetime="2026-11-25">2026-11-25</time></span><a href="https://artificialanalysis.ai/" target="_blank" rel="noopener noreferrer">来源 Artificial Analysis ↗</a><a href="https://artificialanalysis.ai/methodology/intelligence-benchmarking" target="_blank" rel="noopener noreferrer">评测方法 ↗</a></footer>
       </article>
 
       <article class="ai-source ai-source--scores" data-ai-source="codexradar" id="legacy-scores">
         <header class="ai-source-head">
           <div class="ai-source-identity"><span class="ai-source-mark">CR</span><div><p>HISTORICAL IQ · 归档数据</p><h2>软件工程与视觉 IQ</h2></div></div>
-          <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codexradar">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codexradar" aria-label="刷新 CodexRadar 归档">↻</button><a href="https://codexradar.com/data/radar-legacy-visual.json" target="_blank" rel="noopener noreferrer">视觉归档 JSON ↗</a></div>
+          <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codexradar">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codexradar" aria-label="刷新 CodexRadar 归档">↻</button><a href="https://codexradar.com/" target="_blank" rel="noopener noreferrer">打开原网页 ↗</a></div>
         </header>
         <p class="ai-source-description">旧版众测归档，非实时 IQ。综合分为本站对同档位两项 IQ 的等权平均值，仅在两项均有效时计算；不与当前四题评分直接比较。原始日期见下方。</p>
         <div class="ai-score-highlights" aria-label="能力评分领先项">
@@ -99,14 +122,14 @@
             </div>
           </div>
         </details>
-        <footer class="ai-source-foot"><span>软件工程：<time data-ai-software-time>--</time> · 视觉：<time data-ai-visual-time>--</time></span><span>归档更新时间：<time data-ai-source-time="codexradar">--</time></span></footer>
+        <footer class="ai-source-foot"><span>软件工程：<time data-ai-software-time>--</time> · 视觉：<time data-ai-visual-time>--</time></span><span>归档更新时间：<time data-ai-source-time="codexradar">--</time></span><a href="https://codexradar.com/data/intelligence-efficiency.json" target="_blank" rel="noopener noreferrer">软件工程 JSON ↗</a><a href="https://codexradar.com/data/radar-legacy-visual.json" target="_blank" rel="noopener noreferrer">视觉归档 JSON ↗</a></footer>
       </article>
 
       <div class="ai-reset-grid" id="reset-forecasts">
         <article class="ai-source ai-source--reset" data-ai-source="codex-reset">
           <header class="ai-source-head">
             <div class="ai-source-identity"><span class="ai-source-mark">CRS</span><div><p>RESET FORECAST</p><h2>Codex Reset 预测</h2></div></div>
-            <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codex-reset">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codex-reset" aria-label="刷新 Codex Reset 数据">↻</button><a href="https://codex-reset.com/zh/" target="_blank" rel="noopener noreferrer">打开来源 ↗</a></div>
+            <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="codex-reset">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="codex-reset" aria-label="刷新 Codex Reset 数据">↻</button><a href="https://codex-reset.com/zh/" target="_blank" rel="noopener noreferrer">打开原网页 ↗</a></div>
           </header>
           <div class="ai-probability-row">
             <div class="ai-probability" data-ai-probability-card="codex-24" style="--probability:0"><span>24 小时内</span><strong data-ai-probability="codex-24">--%</strong></div>
@@ -126,7 +149,7 @@
         <article class="ai-source ai-source--will" data-ai-source="will-reset">
           <header class="ai-source-head">
             <div class="ai-source-identity"><span class="ai-source-mark">WCR</span><div><p>FORECAST PULSE</p><h2>Will Codex Reset</h2></div></div>
-            <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="will-reset">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="will-reset" aria-label="刷新 Will Codex Reset 数据">↻</button><a href="https://willcodexreset.com/zh" target="_blank" rel="noopener noreferrer">打开来源 ↗</a></div>
+            <div class="ai-source-actions"><span class="ai-source-state is-loading" data-ai-source-state="will-reset">正在读取</span><button class="ai-source-refresh" type="button" data-ai-refresh-source="will-reset" aria-label="刷新 Will Codex Reset 数据">↻</button><a href="https://willcodexreset.com/zh" target="_blank" rel="noopener noreferrer">打开原网页 ↗</a></div>
           </header>
           <section class="ai-next-48">
             <div><p>Next 48 hours</p><strong data-ai-will-48>--%</strong><span data-ai-will-verdict>正在读取预测信号</span></div>

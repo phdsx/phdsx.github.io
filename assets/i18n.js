@@ -641,6 +641,8 @@
     ['相机快门次数 - PHDSX', 'Camera shutter count - PHDSX'],
     ['本地读取相机原片中的快门次数、机械快门次数与图像计数。', 'Read shutter, mechanical shutter and image counters locally from original camera photos.'],
     ['文本差异比对', 'Text diff'],
+    ['Word 文档对比', 'Word document comparison'],
+    ['本地对比两份 .docx 的文字、表格和图形，预览原页并另存修订稿。', 'Compare text, tables and graphics in two .docx files, preview the pages and save an edited copy locally.'],
     ['文本差异比对 - PHDSX', 'Text diff - PHDSX'],
     ['对比两段文字的新增、删除和修改，支持忽略空格与空白字符。', 'Compare additions, deletions and edits in two texts, with optional whitespace handling.'],
     ['PHDSX 个人主页', 'PHDSX Personal Hub'],

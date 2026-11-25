@@ -27,6 +27,7 @@
 | `tours/china/beijing/beijing-zoo/source/public/textures/` 与对应公开目录 | CC0 1.0 | 复用 ambientCG 的四组 PBR 纹理，见 `tours/china/beijing/beijing-zoo/source/docs/ASSETS.md` 和材质清单。 |
 | `tours/china/beijing/beijing-zoo/source/public/models/lion.glb` 与对应公开目录 | CC BY-NC 4.0 / 内嵌 CC BY-NC-SA 4.0 | kenchoo 的 Lion。保留署名、非商业及相同方式共享条件；文件未修改。许可版本差异、原作者页面及下载镜像见 `tours/china/beijing/beijing-zoo/source/docs/ASSETS.md`。此动物资产不适用本站代码的 AGPL 许可。 |
 | `assets/vendor/jsdiff-8.0.3/` | BSD-3-Clause | [jsdiff 8.0.3](https://github.com/kpdecker/jsdiff/tree/v8.0.3)，仅复用 Myers 差异算法的 `base.js` 和 `array.js`；文件未修改，版本和校验值见该目录 README，完整许可证见 [`LICENSE`](assets/vendor/jsdiff-8.0.3/LICENSE)。 |
+| `tools/document/word-compare*` 与 `tools/document/vendor/word-compare/` | Doc Diff 对齐算法 MIT，fflate MIT，docx-preview Apache-2.0，JSZip MIT 或 GPL-3.0 | 从 Word 文档对比附件移入，沿用 fflate 0.8.2 和包含 JSZip 3.10.1 的 docx-preview 0.3.6，复用站内 jsdiff 模块。比较页面与依赖目录均提供 [随附许可](tools/document/vendor/word-compare/LICENSES.txt)。 |
 | `assets/vendor/mediabunny-1.62.1/` | MPL-2.0 | [Mediabunny](https://github.com/Vanilagy/mediabunny) 原版浏览器模块，用于 B 站视频音轨封装；完整许可、固定版本来源及校验值随目录保留。 |
 | `assets/vendor/js-md5-0.8.3/` | MIT License | [js-md5](https://github.com/emn178/js-md5)，用于 B 站 WBI 签名；增加 ESM 包装并选择便携实现，完整许可和上游版权声明保留。 |
 | `tools/utility/vendor/qrcode.min.js` | MIT License | [QRCode.js](https://github.com/davidshimjs/qrcodejs)，站内二维码生成器与 B 站扫码登录共用本地模块；完整许可见 `LICENSE.qrcodejs`。 |

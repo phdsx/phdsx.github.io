@@ -34,6 +34,12 @@
 .ai-score-table-wrap { border-color: var(--line); border-radius: 6px; }
 .ai-score-table th { background: #f7f9fc; font-weight: 500; }
 .ai-score-table th, .ai-score-table td { padding: 11px 12px; border-color: var(--line); }
+.ai-source--aa .ai-score-table-wrap { margin-top: 14px; }
+.ai-source--aa .ai-score-table { min-width: 0; }
+.ai-source--aa th[scope="row"] { background: transparent; font-size: 12px; letter-spacing: normal; }
+.ai-source--aa th[scope="row"] a { color: var(--accent); }
+.ai-source--aa th[scope="col"]:last-child { white-space: nowrap; }
+.ai-aa-score { font-weight: 600; font-variant-numeric: tabular-nums; }
 .ai-model-name { font-size: 12px; font-weight: 500; }
 .ai-model-effort { padding: 2px 5px; font-size: 9px; font-weight: 500; }
 .ai-score-value { background: transparent; color: #37465b; font-weight: 600; }
@@ -79,6 +85,7 @@
  .ai-score-highlights strong { grid-column: 2; grid-row: 1 / 3; margin: 0; font-size: 28px; }
  .ai-score-highlights small { grid-column: 1; grid-row: 2; margin-top: 2px; }
  .ai-score-tools { flex-direction: column; align-items: stretch; gap: 8px; }
+ .ai-source--aa .ai-score-table :is(th, td) { padding-inline: 7px; }
  .ai-source-foot { align-items: flex-start; flex-direction: column; }
  .ai-next-48 { grid-template-columns: 1fr 90px; padding: 16px; }
  .ai-next-24 { min-height: 0; border-top: 0; border-left: 1px solid #dfe5ee; }

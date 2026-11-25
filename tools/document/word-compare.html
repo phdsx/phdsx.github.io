@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fa">
+  <meta name="description" content="在浏览器中对照两份 Word 文档，查看文字和图形差异，预览原页并另存修订稿。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src blob: data:; worker-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <title>Word 文档对比 · 工具箱</title>
+  <link rel="stylesheet" href="../../assets/toolbox.css?v=20261119searchnav">
+  <link rel="stylesheet" href="word-compare.css">
+  <script defer src="vendor/word-compare/fflate-0.8.2.js"></script>
+  <script defer src="vendor/word-compare/docx-preview-0.3.6-with-jszip-3.10.1.js"></script>
+  <script type="module" src="word-compare.mjs"></script>
+</head>
+<body class="toolbox-page word-compare">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <aside class="toolbox-sidebar" aria-label="边栏目录">
+    <a class="sidebar-brand" href="../../index.html" aria-label="工具箱首页"><img src="../../assets/ubuntu/icons/tools.svg" alt="" width="30" height="30"><span>工具箱</span></a>
+    <nav class="sidebar-nav" aria-label="栏目目录">
+      <a href="../../index.html"><img src="../../assets/ubuntu/icons/house-door-fill.svg" alt="" width="21" height="21"><span>首页</span></a>
+      <a href="../../tools.html?category=document"><img src="../../assets/ubuntu/icons/folder-fill.svg" alt="" width="22" height="22"><span>文档办公</span></a>
+      <a href="eq-pinyin-code.html"><img src="../../assets/ubuntu/icons/journal-text.svg" alt="" width="22" height="22"><span>EQ 拼音</span></a>
+      <a href="word-compare.html" aria-current="page"><img src="../../assets/porcelain/icons/file-text-fill.svg" alt="" width="22" height="22"><span>Word 对比</span></a>
+    </nav>
+  </aside>
+  <header class="toolbox-header">
+    <div class="toolbox-container word-container toolbox-header-inner">
+      <nav class="toolbox-breadcrumb" aria-label="当前位置"><a href="../../index.html">首页</a> / <a href="../../tools.html?category=document">文档办公</a> / <span aria-current="page">Word 文档对比</span></nav>
+      <span class="privacy"><i aria-hidden="true"></i> 浏览器本地处理</span>
+    </div>
+  </header>
+
+  <main id="main" class="toolbox-container word-container workspace" tabindex="-1">
+    <section id="intro" class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">对照两份 Word 文档</h1>
+      <p>逐处查看文字和图形变化，修改修订稿后可另存为 Word。</p>
+    </section>
+
+    <noscript><p class="status">启用 JavaScript 后即可比较 Word 文档。</p></noscript>
+
+    <section class="import" aria-label="选择 Word 文件">
+      <div class="file-grid">
+        <label class="file-card" id="left-card" for="left-file">
+          <input type="file" id="left-file" accept=".docx,.doc" aria-label="选择原稿" aria-describedby="left-error">
+          <span class="file-icon" aria-hidden="true"></span>
+          <span class="file-copy"><span class="file-label">原稿 <small>左侧</small></span><strong id="left-name">选择原稿</strong><span class="file-detail" id="left-detail">点击选择或将 .docx 拖到这里</span></span>
+          <span class="file-action" aria-hidden="true">选择文件</span>
+          <span class="file-error" id="left-error" role="alert" hidden></span>
+        </label>
+        <label class="file-card" id="right-card" for="right-file">
+          <input type="file" id="right-file" accept=".docx,.doc" aria-label="选择修订稿" aria-describedby="right-error">
+          <span class="file-icon" aria-hidden="true"></span>
+          <span class="file-copy"><span class="file-label">修订稿 <small>右侧</small></span><strong id="right-name">选择修订稿</strong><span class="file-detail" id="right-detail">点击选择或将 .docx 拖到这里</span></span>
+          <span class="file-action" aria-hidden="true">选择文件</span>
+          <span class="file-error" id="right-error" role="alert" hidden></span>
+        </label>
+      </div>
+      <div class="import-actions">
+        <span class="import-note">每份文件最大 20 MB</span>
+        <div class="buttons">
+          <button type="button" id="demo" class="button quiet">体验示例</button>
+          <button type="button" id="start" class="button primary" disabled>开始比较 <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <section id="result" class="result" aria-labelledby="result-title" hidden>
+      <header class="result-header">
+        <div class="result-title"><h2 id="result-title" tabindex="-1">比较结果</h2><span id="summary"></span></div>
+        <div class="buttons">
+          <button type="button" id="swap" class="button small" title="交换原稿和修订稿"><span aria-hidden="true">⇄</span> 交换左右</button>
+          <button type="button" id="show-list" class="button small" aria-expanded="true" aria-controls="changes">差异列表</button>
+          <button type="button" id="show-layout" class="button small" disabled>原页预览</button>
+          <button type="button" id="save-word" class="button small primary" disabled>另存为 Word</button>
+        </div>
+      </header>
+
+      <div class="toolbar" aria-label="比较视图设置">
+        <div class="toolbar-settings">
+          <label class="field" for="marking">标记方式
+            <select id="marking">
+              <option value="highlight">背景高亮</option><option value="lines">修订线</option>
+              <option value="margin">边栏标记</option><option value="none">无标记</option>
+            </select>
+          </label>
+          <div class="zoom-control" role="group" aria-label="双栏显示比例">
+            <label for="compare-zoom">显示比例</label>
+            <button type="button" id="compare-zoom-out" class="button small zoom-step" aria-label="缩小双栏">−</button>
+            <select id="compare-zoom"><option value="fit">适合宽度</option></select>
+            <button type="button" id="compare-zoom-in" class="button small zoom-step" aria-label="放大双栏">+</button>
+          </div>
+          <label class="check"><input type="checkbox" id="sync" checked>同步滚动</label>
+          <label class="check"><input type="checkbox" id="only">仅看差异</label>
+          <button type="button" id="edit-mode" class="button small" aria-pressed="false">编辑修订稿</button>
+        </div>
+        <div class="navigation" aria-label="逐处查看差异">
+          <span id="counter" aria-live="polite">0 / 0</span>
+          <button type="button" id="prev" class="button small" aria-label="上一处差异" title="上一处差异"><span aria-hidden="true">↑</span> 上一处</button>
+          <button type="button" id="next" class="button small" aria-label="下一处差异" title="下一处差异"><span aria-hidden="true">↓</span> 下一处</button>
+        </div>
+      </div>
+
+      <p id="result-note" class="result-note" role="status" hidden></p>
+      <p id="edit-note" class="edit-note" role="status" hidden></p>
+
+      <div class="review" id="review" data-marking="highlight">
+        <div class="documents">
+          <section class="pane" aria-labelledby="left-heading">
+            <div class="pane-heading"><span class="pane-tag old" id="left-heading">原稿</span><strong id="left-title"></strong></div>
+            <div class="scroll-pane" id="left-scroll" tabindex="0" aria-label="原稿正文"><div id="left-content" class="document-content"></div></div>
+          </section>
+          <section class="pane" aria-labelledby="right-heading">
+            <div class="pane-heading"><span class="pane-tag new" id="right-heading">修订稿</span><strong id="right-title"></strong></div>
+            <div class="scroll-pane" id="right-scroll" tabindex="0" aria-label="修订稿正文"><div id="right-content" class="document-content"></div></div>
+          </section>
+        </div>
+        <aside id="changes" class="changes" aria-labelledby="changes-title">
+          <div class="changes-heading"><h3 id="changes-title">差异列表</h3><span id="list-count"></span></div>
+          <div class="filters" id="filters" aria-label="筛选差异">
+            <button type="button" data-filter="all" aria-pressed="true">全部</button>
+            <button type="button" data-filter="insert" aria-pressed="false">新增</button>
+            <button type="button" data-filter="delete" aria-pressed="false">删除</button>
+            <button type="button" data-filter="modify" aria-pressed="false">修改</button>
+            <button type="button" data-filter="graphic" aria-pressed="false" hidden>图形</button>
+          </div>
+          <ol id="change-list" class="change-list"></ol>
+          <p id="empty-list" class="empty-list" hidden></p>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="scope">
+      <details>
+        <summary>比较范围与文件说明</summary>
+        <div>双栏按段落和表格行对齐，并尽量保留 Word 字体、段落及表格样式。「原页预览」可查看各自的页边距、页眉页脚和分页，复杂版式在浏览器中的呈现可能与 Word 有差异。差异统计覆盖正文、标题、列表、表格文字及其中的图形对象。编辑适用于普通段落与表格文字。旧版 .doc 可在 Word 中另存为 .docx。</div>
+      </details>
+      <a href="vendor/word-compare/LICENSES.txt">开源许可</a>
+    </footer>
+  </main>
+  <dialog id="editor" aria-labelledby="editor-title">
+    <div class="editor-body">
+      <header class="editor-heading"><div><h2 id="editor-title">编辑修订稿</h2><p id="editor-location"></p></div><button id="editor-close" type="button" class="button small" aria-label="关闭编辑窗口">关闭</button></header>
+      <div id="editor-fields" class="editor-fields"></div>
+      <p id="editor-error" class="editor-error" role="alert" hidden></p>
+      <div class="editor-actions">
+        <button type="button" class="button small" id="take-original" hidden>采用原稿文字</button>
+        <button type="button" class="button small quiet" id="reset-editor" hidden>恢复底稿文字</button>
+        <button type="button" class="button small primary" id="apply-editor">应用修改</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="layout-window" aria-labelledby="layout-title">
+    <div class="layout-body">
+      <header class="editor-heading"><div><h2 id="layout-title">原页预览</h2><p>按各自的页面布局显示。复杂分页和浮动对象可能与 Word 有差异。</p></div>
+        <div class="layout-actions buttons">
+          <div class="zoom-control" role="group" aria-label="原页显示比例">
+            <label for="page-zoom">显示比例</label>
+            <button type="button" id="page-zoom-out" class="button small zoom-step" aria-label="缩小原页">−</button>
+            <select id="page-zoom"><option value="fit">适合宽度</option></select>
+            <button type="button" id="page-zoom-in" class="button small zoom-step" aria-label="放大原页">+</button>
+          </div>
+          <button id="layout-close" type="button" class="button small">关闭</button>
+        </div>
+      </header>
+      <div class="layout-columns">
+        <section><h3 id="layout-left-name">原稿</h3><div id="layout-left" class="layout-pane" tabindex="0" aria-label="原稿页面"></div></section>
+        <section><h3 id="layout-right-name">修订稿</h3><div id="layout-right" class="layout-pane" tabindex="0" aria-label="修订稿页面"></div></section>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>

@@ -43,6 +43,13 @@ window.PHDSX_TOOLS = [
   },
   {
     "category": "document",
+    "icon": "assets/porcelain/icons/file-text-fill.svg",
+    "label": "Word 文档对比",
+    "description": "本地对比两份 .docx 的文字、表格和图形，预览原页并另存修订稿。",
+    "href": "tools/document/word-compare.html"
+  },
+  {
+    "category": "document",
     "icon": "assets/icons/text-format.webp",
     "label": "EQ 单字拼音域代码生成器",
     "description": "逐字生成并校验 Word 拼音 EQ 域代码。",

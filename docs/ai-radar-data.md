@@ -22,6 +22,10 @@ CodexRadar 当前公开数据：<https://codexradar.com/data/codex-four-task-res
 
 两个维度独立加载，任何一项失效时保留另一项当次成功读取的数据；两项均失败时清空评分，不把缺失数据或旧值当作有效的 0 分。
 
+## Artificial Analysis 智能指数
+
+AI 雷达引用 [Artificial Analysis 官方榜单](https://artificialanalysis.ai/leaderboards/models) 中的部分模型档位和原始分数，页面标明摘录日期、[指数版本](https://artificialanalysis.ai/evaluations/artificial-analysis-intelligence-index)及[评测方法](https://artificialanalysis.ai/methodology/intelligence-benchmarking)。更新摘录时应一起核对榜单分数、测试档位、指数版本和日期。静态摘录在禁用 JavaScript 时仍可浏览，“刷新联网数据”更新使用接口的评分与预测。完整榜单与即时变化以 AA 原站为准。
+
 ## 预测
 
 Codex Reset 继续读取公开 forecast/feed 接口；Will Codex Reset 继续通过只读镜像读取公开预测 JSON。各数据组可分别重试。所有预测仅供参考，不代表 OpenAI 官方结论。

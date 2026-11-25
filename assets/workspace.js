@@ -11,6 +11,7 @@
     'image-cropper': ['crop', 'crop'],
     'text-deduplicator': ['file-text-fill', 'text'],
     'word-counter': ['bar-chart-fill', 'count'],
+    'word-compare': ['file-text-fill', 'text'],
     'qr-generator': ['qr-code', 'qr'],
     'ppt-countdown': ['display', 'ppt']
   };

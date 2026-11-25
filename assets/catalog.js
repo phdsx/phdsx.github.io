@@ -21,6 +21,7 @@ window.PHDSX_SEARCH_INDEX = [
   { label: '颐和园', href: 'tours/china/beijing/summer-palace/index.html', type: '3D云游', keywords: '中国 北京 昆明湖 万寿山 佛香阁 长廊 十七孔桥 三维 鸟瞰 步行 Summer Palace China Beijing 3D' },
   { label: '文本差异比对', href: 'tools/text/text-diff.html', type: '工具', keywords: '文本 文字 差异 比对 比较 diff 新增 删除 修改 空格 空白 中文 emoji 报告 text compare' },
   { label: 'JSON 格式化', href: 'tools/text/json-formatter.html', type: '工具', keywords: '文本 编码 JSON json 格式化 校验 结构树 压缩 大整数 文件 上传 formatter' },
+  { label: 'Word 文档对比', href: 'tools/document/word-compare.html', type: '工具', keywords: 'Word文档对比 Word对比 DOCX 文档比对 比较 差异 修订 原稿 预览 表格 compare diff' },
   { label: 'EQ 单字拼音域代码生成器', href: 'tools/document/eq-pinyin-code.html', type: '工具', keywords: '文档 Word EQ 拼音 域代码 调号 声调 单字 逐字生成' },
   { label: 'PPT 放映悬浮倒计时', href: 'tools/document/ppt-countdown.html', type: '工具', keywords: '文档 PPT 演示 放映 悬浮 倒计时 时间' },
   { label: '二维码生成', href: 'tools/utility/qr-generator.html', type: '工具', keywords: '文本 编码 二维码 QR Code 文字 网址 文件 本地生成' },

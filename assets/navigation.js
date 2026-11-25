@@ -50,6 +50,7 @@
     'pokemon-map':['宝可梦视野地图','Pokémon Viewport Map'],
     'hole-city':['黑洞吞噬城市','Hole City'],
     'text-diff':['文本差异比对','Text diff'],
+    'word-compare':['Word 文档对比','Word document comparison'],
     'image-compressor':['图片压缩','Image compressor'], 'image-cropper':['图片裁剪','Image cropper'], 'batch-image-cropper':['批量图片裁剪','Batch image cropper'], 'image-watermark-editor':['图片水印与 EXIF 编辑器','Watermark & EXIF editor'],
     'case-converter':['大小写转换','Case converter'], 'text-deduplicator':['文本去重','Text deduplicator'], 'text-formatter':['文本格式化','Text formatter'], 'json-formatter':['JSON 格式化','JSON formatter'], 'word-counter':['字数统计','Word counter'], 'qr-generator':['二维码生成','QR generator'],
     'eq-pinyin-code':['EQ 单字拼音域代码生成器','Pinyin EQ field generator'], 'ppt-countdown':['PPT 放映悬浮倒计时','Floating presentation timer'], 'work-countdown':['下班倒计时','Work countdown'], 'countdown':['自定义倒计时','Countdown'],
