@@ -39,6 +39,11 @@ assert.equal(resolve('games/arcade/super-mario/index.html').parent.href,'games.h
 assert.equal(resolve('games/arcade/super-mario/index.html').crumbs.at(-1).zh,'超级玛丽');
 await access(new URL('../games/arcade/super-mario/index.html',import.meta.url));
 assert.equal(resolve('tools.html','?category=image').parent.href,'tools.html');
+assert.equal(resolve('tools.html','?category=document').category,'document');
+const toolsPage = await readFile(new URL('../tools.html',import.meta.url),'utf8');
+assert.match(toolsPage, /href="assets\/toolbox\.css\?/);
+assert.match(toolsPage, /data-workspace-filter="document"/);
+assert.doesNotMatch(toolsPage, /ubuntu-boot|assets\/ubuntu\.css|assets\/design-system\.js/);
 assert.equal(resolve('tools.html','?category=__proto__').category,null);
 assert.equal(resolve('games.html','?category=unknown').crumbs.length,2);
 assert.equal(resolve('novels/reader.html','?id=zero-echo&chapter=2','第二章').parent.href,'novels/index.html#zero-echo');

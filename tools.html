@@ -1,47 +1,41 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="ubuntu-boot">
+<html lang="zh-CN">
 <head>
-  <style>html.ubuntu-boot{background:#2c001e url('assets/ubuntu/wallpaper.webp') center/cover fixed no-repeat}html.ubuntu-boot body{visibility:hidden}</style>
-  <script>document.addEventListener('DOMContentLoaded',()=>document.documentElement.classList.remove('ubuntu-boot'),{once:true})</script>
-  <noscript><style>html.ubuntu-boot body{visibility:visible}</style></noscript>
-
-<script type="text/javascript">
+  <script>
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "xf5uw8ow0b");
-</script>
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#2c2929">
+  <meta name="theme-color" content="#f5f7fa">
   <meta name="description" content="按用途浏览、搜索和筛选实用在线工具。">
   <title>工具 - PHDSX</title>
-  <link rel="stylesheet" href="assets/site.css?v=20260919a">
-  <link rel="stylesheet" href="assets/workspace.css?v=20260921a">
-<link rel="stylesheet" href="assets/porcelain.css?v=20260921a">
-<link rel="stylesheet" href="assets/design-system.css?v=20260920a">
-<link rel="stylesheet" href="assets/ubuntu.css?v=20261001toursdock">
-<script src="assets/navigation.js?v=20261125word"></script>
-<script defer src="assets/design-system.js?v=20261001toursdock"></script>
+  <link rel="stylesheet" href="assets/toolbox.css?v=20261119searchnav">
+  <link rel="stylesheet" href="assets/workspace.css?v=20261125toolbox">
 </head>
-<body class="workspace-page porcelain-page">
-<header class="site-header porcelain-header" data-porcelain-header>
-<a class="porcelain-brand" href="index.html" aria-label="返回首页">PHDSX</a>
-<nav class="porcelain-nav" aria-label="主导航">
-<a href="tools.html" class="porcelain-current">工具</a><a href="games.html">游戏</a>
-<details><summary>阅读</summary><div class="porcelain-menu"><a href="blog.html">博客笔记</a><a href="novels/index.html">小说连载</a></div></details>
-<details><summary>探索</summary><div class="porcelain-menu"><a href="software.html">软件作品</a><a href="ai-radar.html">AI 雷达</a><a href="directory.html">电话黄页</a><a href="brand-blacklist/index.html">品牌黑名单</a></div></details>
-</nav><div class="porcelain-header-end"><a class="header-search" href="#directory-search" aria-label="搜索站内内容"><img src="assets/porcelain/icons/search.svg" alt="" width="19" height="19"></a><span>让小事更简单</span><button type="button" class="porcelain-language" data-i18n-toggle>EN</button></div></header>
-<main class="workspace-main" data-tool-directory>
-<div class="workspace-topline">
-<span>PHDSX / 工具箱</span>
-<a href="index.html">返回首页</a>
-</div>
+<body class="toolbox-page">
+<a class="skip-link" href="#main" data-i18n="common.skip">跳到主要内容</a>
+<aside class="toolbox-sidebar" aria-label="边栏目录">
+  <a class="sidebar-brand" href="index.html" aria-label="返回首页" data-i18n-attr="aria-label:common.backHome"><img src="assets/ubuntu/icons/tools.svg" alt="" width="30" height="30"><span>工具箱</span></a>
+  <nav class="sidebar-nav" aria-label="栏目目录">
+    <a href="index.html"><img src="assets/ubuntu/icons/house-door-fill.svg" alt="" width="21" height="21"><span data-i18n="common.home">首页</span></a>
+    <a href="tools.html" aria-current="page"><img src="assets/ubuntu/icons/tools.svg" alt="" width="22" height="22"><span data-i18n="home.allTools">全部工具</span></a>
+    <a href="games.html"><img src="assets/ubuntu/icons/controller.svg" alt="" width="22" height="22"><span data-i18n="common.games">游戏</span></a>
+    <a href="ai-radar.html"><img src="assets/ubuntu/icons/bullseye.svg" alt="" width="22" height="22"><span data-i18n="common.radar">AI 雷达</span></a>
+  </nav>
+</aside>
+<header class="toolbox-header">
+  <div class="toolbox-container toolbox-header-inner">
+    <nav class="toolbox-breadcrumb" aria-label="当前位置"><a href="index.html" data-i18n="common.home">首页</a> / <span aria-current="page" data-i18n="home.allTools">全部工具</span></nav>
+    <button type="button" class="toolbox-header-link workspace-language" data-i18n-toggle>English</button>
+  </div>
+</header>
+<main class="toolbox-container workspace-main" id="main" tabindex="-1" data-tool-directory>
 <header class="workspace-heading">
-<p class="workspace-eyebrow">少一点重复，多一点效率</p>
-<h1>顺手的工具，都在这里。</h1>
-<p>处理图片、整理文字、专注工作。找到需要的，直接开始。</p>
+<h1 data-i18n="home.allTools">全部工具</h1>
 </header>
 <div class="directory-search">
 <label class="sr-only" for="directory-search">搜索工具</label>
@@ -261,7 +255,18 @@
 <p>启用 JavaScript 后可使用搜索和筛选；也可以直接打开上方工具。</p>
 </noscript>
 </main>
-<footer class="site-footer"><span>PHDSX © 2026 · 让小事更简单</span><nav aria-label="页脚导航"><a href="software.html">作品</a><a href="blog.html">更新记录</a></nav></footer>
+<footer class="toolbox-container toolbox-footer workspace-footer">
+  <span>© 2026 PHDSX</span>
+  <nav aria-label="页脚导航">
+    <a href="blog.html" data-i18n="common.blog">博客</a>
+    <a href="novels/index.html" data-i18n="common.novels">小说</a>
+    <a href="software.html" data-i18n="common.software">软件作品</a>
+    <a href="directory.html" data-i18n="common.directory">黄页</a>
+    <a href="brand-blacklist/index.html" data-i18n="common.blacklist">品牌黑名单</a>
+    <a href="LICENSE">AGPL-3.0-or-later</a>
+    <a href="https://github.com/phdsx/phdsx.github.io">GitHub</a>
+  </nav>
+</footer>
 <script src="assets/catalog.js?v=20261125word">
 </script>
 <script src="assets/workspace-data.js?v=20261125word">
@@ -270,7 +275,7 @@
 </script>
 <script src="assets/site.js?v=20261001tours">
 </script>
-<script src="assets/workspace.js?v=20261125word">
+<script src="assets/workspace.js?v=20261125toolbox">
 </script>
 </body>
 </html>
