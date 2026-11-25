@@ -48,9 +48,24 @@ jobs:
       - name: Collect public map data
         run: node tools/lifestyle/pokemon-map/deployment/export-data.mjs .pages-build/tools/lifestyle/pokemon-map/data
       - uses: actions/upload-pages-artifact@v3
+        id: pages-artifact
         with:
           path: .pages-build
           retention-days: 1
+      - name: Wait for uploaded Pages artifact
+        uses: actions/github-script@v7
+        env:
+          PAGES_ARTIFACT_ID: ${{ steps.pages-artifact.outputs.artifact_id }}
+        with:
+          script: |
+            const request = { ...context.repo, run_id: context.runId, name: 'github-pages' };
+            // A successful upload can precede the artifact appearing in the run's listing.
+            for (let attempt = 0; attempt < 12; attempt++) {
+              const { data } = await github.rest.actions.listWorkflowRunArtifacts(request);
+              if (data.artifacts.some(item => String(item.id) === process.env.PAGES_ARTIFACT_ID && !item.expired)) return;
+              if (attempt < 11) await new Promise(resolve => setTimeout(resolve, 5000));
+            }
+            throw new Error('The uploaded Pages artifact is not listed for this workflow run.');
       - name: Publish site and map snapshots
         id: deployment
         uses: actions/deploy-pages@v4
